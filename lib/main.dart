@@ -1,3 +1,4 @@
+import 'package:carwash/src/pages/splash_pages.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

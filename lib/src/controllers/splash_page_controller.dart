@@ -23,7 +23,9 @@ class SplashPageController extends ControllerMVC with ChangeNotifier {
   void initState() {
     super.initState();
     progress.value["Setting"] = 41;
+    progress?.notifyListeners();
     progress.value["User"] = 59;
+    progress?.notifyListeners();
     // firebaseMessaging.requestNotificationPermissions(
     //     const IosNotificationSettings(sound: true, badge: true, alert: true));
     // configureFirebase(firebaseMessaging);
@@ -41,7 +43,11 @@ class SplashPageController extends ControllerMVC with ChangeNotifier {
     //     progress?.notifyListeners();
     //   }
     // });
-    Timer(Duration(seconds: 20), () {
+    Timer(Duration(seconds: 5), () {
+      progress.value["Setting"] = 41;
+      progress?.notifyListeners();
+      progress.value["User"] = 59;
+      progress?.notifyListeners();
       scaffoldKey?.currentState?.showSnackBar(SnackBar(
         content: Text(S.current.verify_your_internet_connection),
       ));

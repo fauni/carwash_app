@@ -1,4 +1,6 @@
 {
   "base_url": "http://ecommerce.smartersvision.com/",
-  "api_base_url": "http://ecommerce.smartersvision.com/api/"
+  "api_base_url": "http://ecommerce.smartersvision.com/api/",
+  "base_url_lfr":"http://190.104.26.91/appclientes/",
+  "api_base_url_lfr":"http://190.104.26.91/appclientes/api/"
 }
