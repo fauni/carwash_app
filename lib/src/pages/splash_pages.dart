@@ -45,25 +45,68 @@ class SplashPageState extends StateMVC<SplashPage> {
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
         ),
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image.asset(
-                'assets/img/logo.png',
-                width: 150,
-                fit: BoxFit.cover,
+        child: Stack(
+          children: [
+            Image.asset(
+              'assets/img/fondo_car.png',
+              height: double.infinity,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 50),
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                'Tu auto, nuestro cuidado',
+                style: TextStyle(
+                    fontWeight: FontWeight.normal,
+                    fontSize: 18,
+                    // color: Theme.of(context).hintColor)),
+                    color: Colors.white),
               ),
-              SizedBox(height: 50),
-              CircularProgressIndicator(
-                valueColor:
-                    AlwaysStoppedAnimation<Color>(Theme.of(context).hintColor),
-              ),
-            ],
-          ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: Image.asset(
+                    'assets/img/isotipo.png',
+                    height: 100,
+                    width: 100,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                      // Theme.of(context).hintColor),
+                      Colors.white),
+                ),
+              ],
+            ),
+          ],
         ),
+        // child: Center(
+        //   child: Column(
+        //     mainAxisSize: MainAxisSize.max,
+        //     crossAxisAlignment: CrossAxisAlignment.center,
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: <Widget>[
+        //       Image.asset(
+        //         'assets/img/fondo_car.png',
+        //         width: 150,
+        //         fit: BoxFit.cover,
+        //       ),
+        //       SizedBox(height: 50),
+        //       CircularProgressIndicator(
+        //         valueColor:
+        //             AlwaysStoppedAnimation<Color>(Theme.of(context).hintColor),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }

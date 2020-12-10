@@ -91,6 +91,13 @@ flutter:
           weight: 800
         - asset: assets/fonts/Poppins-Black.ttf
           weight: 900
+    - family: Scanno
+      fonts:
+        - asset: assets/fonts/Scanno-Bold.ttf
+        - asset: assets/fonts/Scanno-Heavy.ttf
+        - asset: assets/fonts/Scanno-Medium.ttf
+        - asset: assets/fonts/Scanno-SemiBold.ttf
+        - asset: assets/fonts/Scanno-Thin.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

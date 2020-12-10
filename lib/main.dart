@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
               data: (brightness) {
                 if (brightness == Brightness.light) {
                   return ThemeData(
-                    fontFamily: 'Poppins',
+                    fontFamily: 'Scanno',
                     primaryColor: Colors.white,
                     floatingActionButtonTheme: FloatingActionButtonThemeData(
                         elevation: 0, foregroundColor: Colors.white),
