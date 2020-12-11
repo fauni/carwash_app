@@ -57,4 +57,22 @@ class Helper {
         path: _path + path);
     return uri;
   }
+
+  // Uri para API de CARWASH
+  static Uri getUriWash(String path) {
+    String _path =
+        Uri.parse(GlobalConfiguration().getString('api_base_url_wash')).path;
+    if (!_path.endsWith('/')) {
+      _path += '/';
+    }
+    Uri uri = Uri(
+        scheme: Uri.parse(GlobalConfiguration().getString('api_base_url_wash'))
+            .scheme,
+        host: Uri.parse(GlobalConfiguration().getString('api_base_url_wash'))
+            .host,
+        port: Uri.parse(GlobalConfiguration().getString('api_base_url_wash'))
+            .port,
+        path: _path + path);
+    return uri;
+  }
 }

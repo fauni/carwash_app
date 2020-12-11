@@ -61,8 +61,8 @@ class SplashPageState extends StateMVC<SplashPage> {
                 style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 18,
-                    // color: Theme.of(context).hintColor)),
-                    color: Colors.white),
+                    color: Theme.of(context).secondaryHeaderColor),
+                // color: Colors.white),
               ),
             ),
             Column(
@@ -80,10 +80,10 @@ class SplashPageState extends StateMVC<SplashPage> {
                   height: 50,
                 ),
                 CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                      // Theme.of(context).hintColor),
-                      Colors.white),
-                ),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                        Theme.of(context).secondaryHeaderColor)
+                    // Colors.white),
+                    ),
               ],
             ),
           ],

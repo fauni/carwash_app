@@ -22,17 +22,16 @@ final navigatorKey = GlobalKey<NavigatorState>();
 Future<Setting> initSettings() async {
   Setting _setting;
   final String url =
-      '${GlobalConfiguration().getString('api_base_url')}settings';
+      '${GlobalConfiguration().getString('api_base_url_wash')}settings/get';
   try {
     final response = await http
         .get(url, headers: {HttpHeaders.contentTypeHeader: 'application/json'});
-    if (response.statusCode == 200 &&
-        response.headers.containsValue('application/json')) {
-      if (json.decode(response.body)['data'] != null) {
+    if (response.statusCode == 200) {
+      if (json.decode(response.body)['body'] != null) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString(
-            'settings', json.encode(json.decode(response.body)['data']));
-        _setting = Setting.fromJSON(json.decode(response.body)['data']);
+            'settings', json.encode(json.decode(response.body)['body'][0]));
+        _setting = Setting.fromJSON(json.decode(response.body)['body'][0]);
         if (prefs.containsKey('language')) {
           _setting.mobileLanguage =
               new ValueNotifier(Locale(prefs.get('language'), ''));
@@ -42,9 +41,12 @@ Future<Setting> initSettings() async {
         setting.notifyListeners();
       }
     } else {
-      print(CustomTrace(StackTrace.current, message: response.body).toString());
+      print('else');
+      print(CustomTrace(StackTrace.current, message: response.body[0])
+          .toString());
     }
   } catch (e) {
+    print('catch');
     print(CustomTrace(StackTrace.current, message: e).toString());
     return Setting.fromJSON({});
   }
