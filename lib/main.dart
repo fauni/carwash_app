@@ -43,14 +43,16 @@ class _MyAppState extends State<MyApp> {
                 if (brightness == Brightness.light) {
                   return ThemeData(
                     fontFamily: 'Scanno',
-                    primaryColor: Colors.white,
+                    primaryColor: config.Colors().mainColor(1),
                     floatingActionButtonTheme: FloatingActionButtonThemeData(
                         elevation: 0, foregroundColor: Colors.white),
+                    bottomSheetTheme: BottomSheetThemeData(
+                        backgroundColor: Colors.black.withOpacity(0)),
                     brightness: brightness,
-                    accentColor: config.Colors().mainColor(1),
-                    dividerColor: config.Colors().accentColor(0.05),
-                    focusColor: config.Colors().accentColor(1),
-                    hintColor: config.Colors().secondColor(1),
+                    accentColor: config.Colors().accentColor(1),
+                    dividerColor: config.Colors().secondColor(0.05),
+                    focusColor: config.Colors().scaffoldColor(1),
+                    hintColor: Colors.white, //config.Colors().secondColor(1),
                     textTheme: TextTheme(
                       headline: TextStyle(
                           fontSize: 22.0,

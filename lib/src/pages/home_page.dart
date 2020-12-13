@@ -1,4 +1,6 @@
 import 'package:carwash/src/widgets/BotonMenuWidget.dart';
+import 'package:carwash/src/widgets/CarItemWidget.dart';
+import 'package:carwash/src/widgets/SelectCarWidget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,6 +11,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<bool> _isSelected = [false, true, false];
+  bool _switchValue = false;
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -88,25 +93,119 @@ class _HomePageState extends State<HomePage> {
               alignment: Alignment.bottomCenter,
               child: Container(
                 margin: EdgeInsets.only(bottom: 50),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                child: ToggleButtons(
                   children: [
-                    BotonMenuWidget(
-                      color: Theme.of(context).accentColor,
-                      text: Text('Boton'),
-                      onPressed: () {},
+                    Container(
+                      alignment: Alignment.center,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                      width: _buttonWidth(context),
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.car_repair,
+                            color: Theme.of(context).accentColor,
+                            size: 40.0,
+                          ),
+                          Text(
+                            'Seleccionar',
+                            style:
+                                TextStyle(color: Theme.of(context).accentColor),
+                          ),
+                          Text(
+                            'Auto',
+                            style:
+                                TextStyle(color: Theme.of(context).accentColor),
+                          ),
+                        ],
+                      ),
                     ),
-                    BotonMenuWidget(
-                      color: Theme.of(context).accentColor,
-                      text: Text('Boton'),
-                      onPressed: () {},
+                    Container(
+                      alignment: Alignment.center,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                      width: _buttonWidth(context),
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.design_services,
+                            color: Theme.of(context).accentColor,
+                            size: 40.0,
+                          ),
+                          Text(
+                            'Seleccionar',
+                            style:
+                                TextStyle(color: Theme.of(context).accentColor),
+                          ),
+                          Text(
+                            'Servicio',
+                            style:
+                                TextStyle(color: Theme.of(context).accentColor),
+                          ),
+                        ],
+                      ),
                     ),
-                    BotonMenuWidget(
-                      color: Theme.of(context).accentColor,
-                      text: Text('Boton'),
-                      onPressed: () {},
-                    )
+                    Container(
+                      alignment: Alignment.center,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                      width: _buttonWidth(context),
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.date_range,
+                            color: Theme.of(context).accentColor,
+                            size: 40.0,
+                          ),
+                          Text(
+                            'Seleccionar',
+                            style:
+                                TextStyle(color: Theme.of(context).accentColor),
+                          ),
+                          Text(
+                            'Fecha y Hora',
+                            style:
+                                TextStyle(color: Theme.of(context).accentColor),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Icon(
+                    //   Icons.bluetooth,
+                    //   color: Theme.of(context).primaryColor,
+                    // ),
+                    // Icon(Icons.wifi, color: Theme.of(context).primaryColor),
+                    // Icon(Icons.flash_on_outlined,
+                    //     color: Theme.of(context).primaryColor)
                   ],
+                  onPressed: (int index) {
+                    setState(() {
+                      for (int i = 0; i < _isSelected.length; i++) {
+                        _isSelected[i] = i == index;
+                      }
+
+                      if (index == 0) {
+                        showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return BottomSheetSwitch(
+                              switchValue: _switchValue,
+                              valueChanged: (value) {
+                                _switchValue = value;
+                              },
+                            );
+                          },
+                        );
+                      } else if (index == 1) {
+                      } else {}
+                      // _isSelected[index] = !_isSelected[index];
+                    });
+                    print('==============================');
+                    print(index);
+                  },
+                  isSelected: _isSelected,
+                  selectedColor: Theme.of(context).primaryColor,
+                  fillColor: Theme.of(context).primaryColor,
                 ),
               ),
             )
@@ -114,5 +213,17 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+}
+
+double _buttonWidth(BuildContext context) {
+  final maxWidth = 120.0;
+  final buttonCount = 3;
+
+  final width = (MediaQuery.of(context).size.width - 100) / buttonCount;
+  if (width < maxWidth) {
+    return width;
+  } else {
+    return maxWidth;
   }
 }
