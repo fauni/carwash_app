@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+//import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carwash/src/controllers/servicio_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +58,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
                     return ListTile(
+              
                       title: Text(
                         _con.servicios.elementAt(index).nombre +
                             '\nM:' +
