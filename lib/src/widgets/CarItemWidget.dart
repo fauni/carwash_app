@@ -2,17 +2,17 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class BottomSheetSwitch extends StatefulWidget {
-  BottomSheetSwitch({@required this.switchValue, @required this.valueChanged});
+class CarItemWidget extends StatefulWidget {
+  CarItemWidget({@required this.switchValue, @required this.valueChanged});
 
   final bool switchValue;
   final ValueChanged valueChanged;
 
   @override
-  _BottomSheetSwitch createState() => _BottomSheetSwitch();
+  _CarItemWidget createState() => _CarItemWidget();
 }
 
-class _BottomSheetSwitch extends State<BottomSheetSwitch> {
+class _CarItemWidget extends State<CarItemWidget> {
   bool _switchValue;
 
   @override

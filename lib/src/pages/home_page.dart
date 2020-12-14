@@ -1,6 +1,5 @@
-import 'package:carwash/src/widgets/BotonMenuWidget.dart';
+import 'package:carwash/src/pages/servicio_page.dart';
 import 'package:carwash/src/widgets/CarItemWidget.dart';
-import 'package:carwash/src/widgets/SelectCarWidget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -188,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                         showModalBottomSheet<void>(
                           context: context,
                           builder: (BuildContext context) {
-                            return BottomSheetSwitch(
+                            return CarItemWidget(
                               switchValue: _switchValue,
                               valueChanged: (value) {
                                 _switchValue = value;
@@ -197,6 +196,17 @@ class _HomePageState extends State<HomePage> {
                           },
                         );
                       } else if (index == 1) {
+                        showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return ServicioPage(
+                              switchValue: _switchValue,
+                              valueChanged: (value) {
+                                _switchValue = value;
+                              },
+                            );
+                          },
+                        );
                       } else {}
                       // _isSelected[index] = !_isSelected[index];
                     });

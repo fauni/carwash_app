@@ -36,6 +36,8 @@ dependencies:
   global_configuration: ^1.6.0
   cached_network_image:
   http:
+  sticky_headers: ^0.1.8
+  
 
 dev_dependencies:
   flutter_test:
