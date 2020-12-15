@@ -1,4 +1,5 @@
 import 'package:carwash/src/pages/carro_page.dart';
+import 'package:carwash/src/pages/fecha_page.dart';
 import 'package:carwash/src/pages/servicio_page.dart';
 import 'package:carwash/src/widgets/CarItemWidget.dart';
 import 'package:flutter/material.dart';
@@ -208,7 +209,19 @@ class _HomePageState extends State<HomePage> {
                             );
                           },
                         );
-                      } else {}
+                      } else {
+                        showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return FechaPage(
+                              switchValue: _switchValue,
+                              valueChanged: (value) {
+                                _switchValue = value;
+                              },
+                            );
+                          },
+                        );
+                      }
                       // _isSelected[index] = !_isSelected[index];
                     });
                     print('==============================');

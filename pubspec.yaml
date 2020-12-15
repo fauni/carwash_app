@@ -37,7 +37,9 @@ dependencies:
   cached_network_image:
   http:
   sticky_headers: ^0.1.8
-  
+  datetime_picker_formfield:
+  intl: ^0.16.1
+  flutter_dropdown: ^0.0.8
 
 dev_dependencies:
   flutter_test:

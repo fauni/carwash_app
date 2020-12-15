@@ -47,7 +47,7 @@ class _MyAppState extends State<MyApp> {
                     floatingActionButtonTheme: FloatingActionButtonThemeData(
                         elevation: 0, foregroundColor: Colors.white),
                     bottomSheetTheme: BottomSheetThemeData(
-                        backgroundColor: Colors.black.withOpacity(0)),
+                        backgroundColor: Colors.black.withOpacity(0.8)),
                     brightness: brightness,
                     accentColor: config.Colors().accentColor(1),
                     dividerColor: config.Colors().secondColor(0.05),
