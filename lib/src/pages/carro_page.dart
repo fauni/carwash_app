@@ -73,8 +73,16 @@ class CarroPageState extends StateMVC<CarroPage> {
                             CircularProgressIndicator(),
                         errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
-                      title: Text(_con.carros.elementAt(index).anio),
-                      subtitle: Text('Wolkswagen'),
+                      title: Text(_con.vehiculos.elementAt(index).placa +
+                          ' - ' +
+                          _con.vehiculos.elementAt(index).marca),
+                      subtitle: Text(
+                        _con.vehiculos.elementAt(index).modelo +
+                            ' ' +
+                            _con.vehiculos.elementAt(index).anio +
+                            ' - ' +
+                            _con.vehiculos.elementAt(index).tamanio,
+                      ),
                     );
                   },
                   separatorBuilder: (context, index) {
@@ -82,7 +90,7 @@ class CarroPageState extends StateMVC<CarroPage> {
                       height: 15,
                     );
                   },
-                  itemCount: _con.carros.length,
+                  itemCount: _con.vehiculos.length,
                 ),
           Container(
             decoration: BoxDecoration(
