@@ -86,3 +86,17 @@ Future<String> getMessageId() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   return await prefs.get('google.message_id');
 }
+
+// Guardar Automovil
+Future<void> setAutomovil(String automovil) async {
+  if (automovil != null) {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('automovil', automovil);
+  }
+}
+
+// Obtener Automovil
+Future<String> getAutomovil() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return await prefs.get('automovil');
+}

@@ -1,5 +1,6 @@
 //import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carwash/src/controllers/servicio_controller.dart';
+import 'package:carwash/src/models/route_argument.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -66,47 +67,56 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                 childAspectRatio: 2.8,
               ),
               itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  padding: EdgeInsets.only(left: 10, right: 15, top: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  child: Column(
-                    children: [
-                      Text(_con.serviciosGeneral.elementAt(index).nombre),
-                      if (this.tipoAuto == 'M')
-                        Text(
-                          double.parse(_con.serviciosGeneral
-                                      .elementAt(index)
-                                      .precioM)
-                                  .toString() +
-                              '.Bs',
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                      if (this.tipoAuto == 'L')
-                        Text(
-                          double.parse(_con.serviciosGeneral
-                                      .elementAt(index)
-                                      .precioL)
-                                  .toString() +
-                              '.Bs',
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                      if (this.tipoAuto == 'XL')
-                        Text(
-                          double.parse(_con.serviciosGeneral
-                                      .elementAt(index)
-                                      .precioXl)
-                                  .toString() +
-                              '.Bs',
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                      // Text(
-                      //   _con.serviciosGeneral.elementAt(index).detalle,
-                      //   style: TextStyle(fontSize: 10.0),
-                      // )
-                    ],
+                return InkWell(
+                  onTap: () {
+                    // print(_con.serviciosGeneral.elementAt(index).nombre);
+                    Navigator.of(context).pushNamed('/Servicio',
+                        arguments: new RouteArgument(
+                            id: _con.serviciosGeneral.elementAt(index).id,
+                            param: [_con.servicios.elementAt(index), '']));
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(left: 10, right: 15, top: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40),
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    child: Column(
+                      children: [
+                        Text(_con.serviciosGeneral.elementAt(index).nombre),
+                        if (this.tipoAuto == 'M')
+                          Text(
+                            double.parse(_con.serviciosGeneral
+                                        .elementAt(index)
+                                        .precioM)
+                                    .toString() +
+                                '.Bs',
+                            style: TextStyle(fontSize: 20.0),
+                          ),
+                        if (this.tipoAuto == 'L')
+                          Text(
+                            double.parse(_con.serviciosGeneral
+                                        .elementAt(index)
+                                        .precioL)
+                                    .toString() +
+                                '.Bs',
+                            style: TextStyle(fontSize: 20.0),
+                          ),
+                        if (this.tipoAuto == 'XL')
+                          Text(
+                            double.parse(_con.serviciosGeneral
+                                        .elementAt(index)
+                                        .precioXl)
+                                    .toString() +
+                                '.Bs',
+                            style: TextStyle(fontSize: 20.0),
+                          ),
+                        // Text(
+                        //   _con.serviciosGeneral.elementAt(index).detalle,
+                        //   style: TextStyle(fontSize: 10.0),
+                        // )
+                      ],
+                    ),
                   ),
                 );
               },

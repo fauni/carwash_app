@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:carwash/src/helpers/custom_trace.dart';
 import 'package:carwash/src/models/servicio.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -45,5 +46,17 @@ Future<Stream<List<Servicio>>> obtenerServiciosPorTipo(String tipo) async {
   } catch (e) {
     print(CustomTrace(StackTrace.current, message: url).toString());
     return new Stream.value(new List<Servicio>());
+  }
+}
+
+Future<String> getServicio() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return await prefs.get('servicio');
+}
+
+Future<void> setServicio(String servicio) async {
+  if (servicio != null) {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('servicio', servicio);
   }
 }

@@ -39,4 +39,9 @@ class FechaController extends ControllerMVC {
       }
     });
   }
+
+  void seleccionarHora(DateTime hora) {
+    String time = hora.toString();
+    setServicio(time);
+  }
 }

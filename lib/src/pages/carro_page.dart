@@ -41,10 +41,13 @@ class CarroPageState extends StateMVC<CarroPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
+          Text('Hora: ' + _con.servicio,
+              style: TextStyle(color: Theme.of(context).accentColor)),
           Padding(
             padding: EdgeInsets.only(top: 10, left: 20, right: 20),
             child: ListTile(
-              leading: Icon(Icons.directions_bus, color: Theme.of(context).hintColor),
+              leading: Icon(Icons.directions_bus,
+                  color: Theme.of(context).hintColor),
               title: Text('Elige tu vehiculo'),
               subtitle: Text('Long press to edit item swipe'),
             ),
@@ -58,11 +61,13 @@ class CarroPageState extends StateMVC<CarroPage> {
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      leading: Icon(Icons.map, color: Theme.of(context).hintColor),
-                      title: Text(
-                        _con.carros.elementAt(index).id.toString()+', Placa :'+_con.carros.elementAt(index).placa 
-                      ),
-                      subtitle: Text(_con.carros.elementAt(index).observaciones),
+                      leading:
+                          Icon(Icons.map, color: Theme.of(context).hintColor),
+                      title: Text(_con.carros.elementAt(index).id.toString() +
+                          ', Placa :' +
+                          _con.carros.elementAt(index).placa),
+                      subtitle:
+                          Text(_con.carros.elementAt(index).observaciones),
                       trailing: Checkbox(
                         value: selected,
                         onChanged: (bool val) {

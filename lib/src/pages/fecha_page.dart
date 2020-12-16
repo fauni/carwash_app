@@ -106,6 +106,7 @@ class FechaPageState extends StateMVC<FechaPage> {
             onTimeChange: (time) {
               setState(() {
                 print(time);
+                _con.seleccionarHora(time);
               });
             },
           ),
