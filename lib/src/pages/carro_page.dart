@@ -73,7 +73,7 @@ class CarroPageState extends StateMVC<CarroPage> {
                             CircularProgressIndicator(),
                         errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
-                      title: Text(_con.carros.elementAt(index).),
+                      title: Text(_con.carros.elementAt(index).anio),
                       subtitle: Text('Wolkswagen'),
                     );
                   },
