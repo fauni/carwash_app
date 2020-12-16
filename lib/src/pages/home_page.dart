@@ -198,29 +198,56 @@ class _HomePageState extends State<HomePage> {
                           },
                         );
                       } else if (index == 1) {
-                        showModalBottomSheet<void>(
+                        showDialog<void>(
                           context: context,
                           builder: (BuildContext context) {
-                            return ServicioPage(
-                              switchValue: _switchValue,
-                              valueChanged: (value) {
-                                _switchValue = value;
-                              },
+                            return Dialog(
+                              child: ServicioPage(
+                                switchValue: _switchValue,
+                                valueChanged: (value) {
+                                  _switchValue = value;
+                                },
+                              ),
                             );
                           },
                         );
+                        // showModalBottomSheet<void>(
+                        //   context: context,
+                        //   builder: (BuildContext context) {
+                        //     return ServicioPage(
+                        //       switchValue: _switchValue,
+                        //       valueChanged: (value) {
+                        //         _switchValue = value;
+                        //       },
+                        //     );
+                        //   },
+                        // );
                       } else {
-                        showModalBottomSheet<void>(
+                        showDialog<void>(
+                          barrierDismissible: true,
                           context: context,
                           builder: (BuildContext context) {
-                            return FechaPage(
-                              switchValue: _switchValue,
-                              valueChanged: (value) {
-                                _switchValue = value;
-                              },
+                            return Dialog(
+                              child: FechaPage(
+                                switchValue: _switchValue,
+                                valueChanged: (value) {
+                                  _switchValue = value;
+                                },
+                              ),
                             );
                           },
                         );
+                        // showDialog<void>(
+                        //   context: context,
+                        //   builder: (BuildContext context) {
+                        //     return FechaPage(
+                        //       switchValue: _switchValue,
+                        //       valueChanged: (value) {
+                        //         _switchValue = value;
+                        //       },
+                        //     );
+                        //   },
+                        // );
                       }
                       // _isSelected[index] = !_isSelected[index];
                     });

@@ -10,21 +10,63 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 class ServicioController extends ControllerMVC {
   List<Servicio> servicios = [];
 
+  List<Servicio> serviciosGeneral = [];
+  List<Servicio> serviciosAdicionales = [];
+  List<Servicio> serviciosMotos = [];
+
   GlobalKey<ScaffoldState> scaffoldKey;
 
   ServicioController() {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
     listarServicios();
+    listarServiciosAdicionales();
+    listarServiciosMotos();
   }
 
   void listarServicios({String message}) async {
-    final Stream<List<Servicio>> stream = await obtenerServicios();
+    final Stream<List<Servicio>> stream = await obtenerServiciosPorTipo('1');
     stream.listen((List<Servicio> _servicios) {
       setState(() {
-        servicios = _servicios;
-        print("===============================");
-        print(jsonEncode(servicios));
-        // print(json.encode(favoritos));
+        // servicios = _servicios;
+        serviciosGeneral = _servicios;
+      });
+    }, onError: (a) {
+      scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Ocurrio un error al obtener los servicios'),
+      ));
+    }, onDone: () {
+      if (message != null) {
+        scaffoldKey.currentState.showSnackBar(SnackBar(
+          content: Text(message),
+        ));
+      }
+    });
+  }
+
+  void listarServiciosMotos({String message}) async {
+    final Stream<List<Servicio>> stream = await obtenerServiciosPorTipo('2');
+    stream.listen((List<Servicio> _servicios) {
+      setState(() {
+        serviciosMotos = _servicios;
+      });
+    }, onError: (a) {
+      scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Ocurrio un error al obtener los servicios'),
+      ));
+    }, onDone: () {
+      if (message != null) {
+        scaffoldKey.currentState.showSnackBar(SnackBar(
+          content: Text(message),
+        ));
+      }
+    });
+  }
+
+  void listarServiciosAdicionales({String message}) async {
+    final Stream<List<Servicio>> stream = await obtenerServiciosPorTipo('3');
+    stream.listen((List<Servicio> _servicios) {
+      setState(() {
+        serviciosAdicionales = _servicios;
       });
     }, onError: (a) {
       scaffoldKey.currentState.showSnackBar(SnackBar(

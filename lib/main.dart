@@ -48,51 +48,34 @@ class _MyAppState extends State<MyApp> {
                         elevation: 0, foregroundColor: Colors.white),
                     bottomSheetTheme: BottomSheetThemeData(
                         backgroundColor: Colors.black.withOpacity(0.8)),
+                    dialogTheme: DialogTheme(
+                      backgroundColor: Colors.black.withOpacity(0.3),
+                    ),
+                    primarySwatch: Colors.blue,
                     brightness: brightness,
                     accentColor: config.Colors().accentColor(1),
                     dividerColor: config.Colors().secondColor(0.05),
                     focusColor: config.Colors().scaffoldColor(1),
                     hintColor: Colors.white, //config.Colors().secondColor(1),
                     textTheme: TextTheme(
-                      headline: TextStyle(
-                          fontSize: 22.0,
-                          color: config.Colors().secondColor(1)),
-                      display1: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w700,
-                          color: config.Colors().secondColor(1)),
-                      display2: TextStyle(
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.w700,
-                          color: config.Colors().secondColor(1)),
-                      display3: TextStyle(
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.w700,
-                          color: config.Colors().mainColor(1)),
-                      display4: TextStyle(
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.w300,
-                          color: config.Colors().secondColor(1)),
-                      subhead: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w500,
-                          color: config.Colors().secondColor(1)),
-                      title: TextStyle(
-                          fontSize: 17.0,
-                          fontWeight: FontWeight.w700,
-                          color: config.Colors().mainColor(1)),
-                      body1: TextStyle(
+                      bodyText1: TextStyle(
+                          fontSize: 14.0, color: config.Colors().mainColor(1)),
+                      bodyText2: TextStyle(
                           fontSize: 14.0,
-                          fontWeight: FontWeight.w400,
                           color: config.Colors().secondColor(1)),
-                      body2: TextStyle(
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.w400,
+                      button: TextStyle(
+                          fontSize: 14.0,
+                          color: config.Colors().secondColor(1)),
+                      subtitle1: TextStyle(
+                          fontSize: 16.0,
+                          color: config.Colors().secondColor(1)),
+                      subtitle2: TextStyle(
+                          fontSize: 16.0,
                           color: config.Colors().secondColor(1)),
                       caption: TextStyle(
-                          fontSize: 14.0,
+                          fontSize: 12.0,
                           fontWeight: FontWeight.w300,
-                          color: config.Colors().accentColor(1)),
+                          color: config.Colors().secondColor(0.6)),
                     ),
                   );
                 } else {
@@ -105,40 +88,11 @@ class _MyAppState extends State<MyApp> {
                     hintColor: config.Colors().secondDarkColor(1),
                     focusColor: config.Colors().accentDarkColor(1),
                     textTheme: TextTheme(
-                      headline: TextStyle(
+                      bodyText1: TextStyle(
                           fontSize: 22.0,
-                          color: config.Colors().secondDarkColor(1)),
-                      display1: TextStyle(
+                          color: config.Colors().mainDarkColor(1)),
+                      bodyText2: TextStyle(
                           fontSize: 20.0,
-                          fontWeight: FontWeight.w700,
-                          color: config.Colors().secondDarkColor(1)),
-                      display2: TextStyle(
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.w700,
-                          color: config.Colors().secondDarkColor(1)),
-                      display3: TextStyle(
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.w700,
-                          color: config.Colors().mainDarkColor(1)),
-                      display4: TextStyle(
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.w300,
-                          color: config.Colors().secondDarkColor(1)),
-                      subhead: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w500,
-                          color: config.Colors().secondDarkColor(1)),
-                      title: TextStyle(
-                          fontSize: 17.0,
-                          fontWeight: FontWeight.w700,
-                          color: config.Colors().mainDarkColor(1)),
-                      body1: TextStyle(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w400,
-                          color: config.Colors().secondDarkColor(1)),
-                      body2: TextStyle(
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.w400,
                           color: config.Colors().secondDarkColor(1)),
                       caption: TextStyle(
                           fontSize: 14.0,
