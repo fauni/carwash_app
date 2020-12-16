@@ -11,7 +11,6 @@ import 'package:http/http.dart' as http;
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../generated/i18n.dart';
 import '../models/setting.dart';
 
 ValueNotifier<Setting> setting = new ValueNotifier(new Setting());

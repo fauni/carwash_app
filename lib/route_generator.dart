@@ -1,5 +1,4 @@
 import 'package:carwash/src/models/route_argument.dart';
-import 'package:carwash/src/pages/carro_page.dart';
 import 'package:carwash/src/pages/detalle_servicio_page.dart';
 import 'package:carwash/src/pages/home_page.dart';
 import 'package:carwash/src/pages/splash_pages.dart';
@@ -26,8 +25,8 @@ class RouteGenerator {
       //   return MaterialPageRoute(builder: (_) => ForgetPasswordWidget());
       case '/Pages':
         return MaterialPageRoute(builder: (_) => HomePage());
-      case '/Carros':
-        return MaterialPageRoute(builder: (_) => CarroPage());
+      // case '/Carros':
+      //   return MaterialPageRoute(builder: (_) => CarroPage());
 
       /*case '/Details':
         return MaterialPageRoute(builder: (_) => DetailsWidget(routeArgument: args as RouteArgument));

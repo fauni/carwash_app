@@ -5,8 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../widgets/CircularLoadingWidget.dart';
-
 class ServicioPage extends StatefulWidget {
   ServicioPage({@required this.switchValue, @required this.valueChanged});
 
@@ -25,14 +23,14 @@ class ServicioPageState extends StateMVC<ServicioPage> {
   String tipoAuto = 'L';
   ServicioController _con;
 
-  bool _switchValue;
+  // bool _switchValue;
 
   ServicioPageState() : super(ServicioController()) {
     _con = controller;
   }
   @override
   void initState() {
-    _switchValue = widget.switchValue;
+    // _switchValue = widget.switchValue;
     super.initState();
   }
 

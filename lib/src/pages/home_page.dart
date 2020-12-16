@@ -1,7 +1,6 @@
 import 'package:carwash/src/pages/carro_page.dart';
 import 'package:carwash/src/pages/fecha_page.dart';
 import 'package:carwash/src/pages/servicio_page.dart';
-import 'package:carwash/src/widgets/CarItemWidget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -186,17 +185,30 @@ class _HomePageState extends State<HomePage> {
                       }
 
                       if (index == 0) {
-                        showModalBottomSheet<void>(
+                        showDialog<void>(
                           context: context,
                           builder: (BuildContext context) {
-                            return CarroPage(
-                              switchValue: _switchValue,
-                              valueChanged: (value) {
-                                _switchValue = value;
-                              },
+                            return Dialog(
+                              child: CarroPage(
+                                switchValue: _switchValue,
+                                valueChanged: (value) {
+                                  _switchValue = value;
+                                },
+                              ),
                             );
                           },
                         );
+                        // showModalBottomSheet<void>(
+                        //   context: context,
+                        //   builder: (BuildContext context) {
+                        //     return CarroPage(
+                        //       switchValue: _switchValue,
+                        //       valueChanged: (value) {
+                        //         _switchValue = value;
+                        //       },
+                        //     );
+                        //   },
+                        // );
                       } else if (index == 1) {
                         showDialog<void>(
                           context: context,
