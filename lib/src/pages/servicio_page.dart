@@ -36,9 +36,10 @@ class ServicioPageState extends StateMVC<ServicioPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SingleChildScrollView(
       padding: EdgeInsets.only(top: 20, left: 10, right: 10),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
@@ -55,30 +56,26 @@ class ServicioPageState extends StateMVC<ServicioPage> {
             ),
           ),
           SizedBox(
-            height: 130,
-            child: GridView.builder(
+            height: 150,
+            child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
               itemCount: _con.serviciosGeneral.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 4.0,
-                mainAxisSpacing: 4.0,
-                childAspectRatio: 2.8,
-              ),
-              itemBuilder: (BuildContext context, int index) {
+              itemBuilder: (BuildContext context, index) {
                 return InkWell(
+                  highlightColor: Theme.of(context).primaryColor,
+                  hoverColor: Theme.of(context).primaryColor,
                   onTap: () {
-                    // print(_con.serviciosGeneral.elementAt(index).nombre);
-                    Navigator.of(context).pushNamed('/Servicio',
-                        arguments: new RouteArgument(
-                            id: _con.serviciosGeneral.elementAt(index).id,
-                            param: [_con.servicios.elementAt(index), '']));
+                    print(_con.serviciosGeneral.elementAt(index).nombre);
                   },
                   child: Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    margin: EdgeInsets.symmetric(vertical: 5),
                     padding: EdgeInsets.only(left: 10, right: 15, top: 10),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      color: Theme.of(context).primaryColor,
-                    ),
+                        borderRadius: BorderRadius.circular(10),
+                        border:
+                            Border.all(color: Theme.of(context).accentColor)),
                     child: Column(
                       children: [
                         Text(_con.serviciosGeneral.elementAt(index).nombre),
@@ -109,10 +106,10 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                 '.Bs',
                             style: TextStyle(fontSize: 20.0),
                           ),
-                        // Text(
-                        //   _con.serviciosGeneral.elementAt(index).detalle,
-                        //   style: TextStyle(fontSize: 10.0),
-                        // )
+                        Text(
+                          _con.serviciosGeneral.elementAt(index).detalle,
+                          style: TextStyle(fontSize: 12),
+                        ),
                       ],
                     ),
                   ),
@@ -135,57 +132,62 @@ class ServicioPageState extends StateMVC<ServicioPage> {
             ),
           ),
           SizedBox(
-            height: 170,
-            child: GridView.builder(
+            height: 100,
+            child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
               itemCount: _con.serviciosAdicionales.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 4.0,
-                mainAxisSpacing: 4.0,
-                childAspectRatio: 2,
-              ),
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  padding: EdgeInsets.only(left: 10, right: 15, top: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  child: Column(
-                    children: [
-                      Text(_con.serviciosAdicionales.elementAt(index).nombre),
-                      if (this.tipoAuto == 'M')
+              itemBuilder: (BuildContext context, index) {
+                return InkWell(
+                  highlightColor: Theme.of(context).primaryColor,
+                  hoverColor: Theme.of(context).primaryColor,
+                  onTap: () {
+                    print(_con.serviciosAdicionales.elementAt(index).nombre);
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 2.5,
+                    margin: EdgeInsets.symmetric(vertical: 5),
+                    padding: EdgeInsets.only(left: 10, right: 15, top: 10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border:
+                            Border.all(color: Theme.of(context).accentColor)),
+                    child: Column(
+                      children: [
+                        Text(_con.serviciosAdicionales.elementAt(index).nombre),
+                        if (this.tipoAuto == 'M')
+                          Text(
+                            double.parse(_con.serviciosAdicionales
+                                        .elementAt(index)
+                                        .precioM)
+                                    .toString() +
+                                '.Bs',
+                            style: TextStyle(fontSize: 20.0),
+                          ),
+                        if (this.tipoAuto == 'L')
+                          Text(
+                            double.parse(_con.serviciosAdicionales
+                                        .elementAt(index)
+                                        .precioL)
+                                    .toString() +
+                                '.Bs',
+                            style: TextStyle(fontSize: 20.0),
+                          ),
+                        if (this.tipoAuto == 'XL')
+                          Text(
+                            double.parse(_con.serviciosAdicionales
+                                        .elementAt(index)
+                                        .precioXl)
+                                    .toString() +
+                                '.Bs',
+                            style: TextStyle(fontSize: 20.0),
+                          ),
                         Text(
-                          double.parse(_con.serviciosAdicionales
-                                      .elementAt(index)
-                                      .precioM)
-                                  .toString() +
-                              '.Bs',
-                          style: TextStyle(fontSize: 20.0),
+                          _con.serviciosAdicionales.elementAt(index).detalle,
+                          style: TextStyle(fontSize: 12),
                         ),
-                      if (this.tipoAuto == 'L')
-                        Text(
-                          double.parse(_con.serviciosAdicionales
-                                      .elementAt(index)
-                                      .precioL)
-                                  .toString() +
-                              '.Bs',
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                      if (this.tipoAuto == 'XL')
-                        Text(
-                          double.parse(_con.serviciosAdicionales
-                                      .elementAt(index)
-                                      .precioXl)
-                                  .toString() +
-                              '.Bs',
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                      // Text(
-                      //   _con.serviciosGeneral.elementAt(index).detalle,
-                      //   style: TextStyle(fontSize: 10.0),
-                      // )
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },
@@ -206,126 +208,81 @@ class ServicioPageState extends StateMVC<ServicioPage> {
             ),
           ),
           SizedBox(
-            height: 80,
-            child: GridView.builder(
+            height: 100,
+            child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
               itemCount: _con.serviciosMotos.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 4.0,
-                mainAxisSpacing: 4.0,
-                childAspectRatio: 2.8,
-              ),
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  padding: EdgeInsets.only(left: 10, right: 15, top: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  child: Column(
-                    children: [
-                      Text(_con.serviciosMotos.elementAt(index).nombre),
-                      if (this.tipoAuto == 'M')
+              itemBuilder: (BuildContext context, index) {
+                return InkWell(
+                  highlightColor: Theme.of(context).primaryColor,
+                  hoverColor: Theme.of(context).primaryColor,
+                  onTap: () {
+                    print(_con.serviciosMotos.elementAt(index).nombre);
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 2.3,
+                    margin: EdgeInsets.symmetric(vertical: 5),
+                    padding: EdgeInsets.only(left: 10, right: 15, top: 10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border:
+                            Border.all(color: Theme.of(context).accentColor)),
+                    child: Column(
+                      children: [
+                        Text(_con.serviciosMotos.elementAt(index).nombre),
+                        if (this.tipoAuto == 'M')
+                          Text(
+                            double.parse(_con.serviciosMotos
+                                        .elementAt(index)
+                                        .precioM)
+                                    .toString() +
+                                '.Bs',
+                            style: TextStyle(fontSize: 20.0),
+                          ),
+                        if (this.tipoAuto == 'L')
+                          Text(
+                            double.parse(_con.serviciosMotos
+                                        .elementAt(index)
+                                        .precioL)
+                                    .toString() +
+                                '.Bs',
+                            style: TextStyle(fontSize: 20.0),
+                          ),
+                        if (this.tipoAuto == 'XL')
+                          Text(
+                            double.parse(_con.serviciosMotos
+                                        .elementAt(index)
+                                        .precioXl)
+                                    .toString() +
+                                '.Bs',
+                            style: TextStyle(fontSize: 20.0),
+                          ),
                         Text(
-                          double.parse(_con.serviciosMotos
-                                      .elementAt(index)
-                                      .precioM)
-                                  .toString() +
-                              '.Bs',
-                          style: TextStyle(fontSize: 20.0),
+                          _con.serviciosMotos.elementAt(index).detalle,
+                          style: TextStyle(fontSize: 12),
                         ),
-                      if (this.tipoAuto == 'L')
-                        Text(
-                          double.parse(_con.serviciosMotos
-                                      .elementAt(index)
-                                      .precioL)
-                                  .toString() +
-                              '.Bs',
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                      if (this.tipoAuto == 'XL')
-                        Text(
-                          double.parse(_con.serviciosMotos
-                                      .elementAt(index)
-                                      .precioXl)
-                                  .toString() +
-                              '.Bs',
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                      // Text(
-                      //   _con.serviciosGeneral.elementAt(index).detalle,
-                      //   style: TextStyle(fontSize: 10.0),
-                      // )
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },
             ),
           ),
+          Container(
+            width: double.infinity,
+            height: 40.0,
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Theme.of(context).primaryColor),
+            child: Text(
+              'Total del Servicio: 500.00 Bs.',
+              style: TextStyle(fontSize: 15.0),
+            ),
+          )
         ],
       ),
     );
-    // return SingleChildScrollView(
-    //   child: Column(
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     mainAxisAlignment: MainAxisAlignment.start,
-    //     mainAxisSize: MainAxisSize.max,
-    //     children: [
-    //       Padding(
-    //         padding: EdgeInsets.only(top: 10, left: 20, right: 20),
-    //         child: ListTile(
-    //           leading: Icon(Icons.map, color: Theme.of(context).hintColor),
-    //           title: Text('Servicio Plus'),
-    //           subtitle: Text('Long press to edit item swipe'),
-    //         ),
-    //       ),
-    //       _con.servicios.isEmpty
-    //           ? CircularLoadingWidget(height: 50)
-    //           : ListView.separated(
-    //               padding: EdgeInsets.symmetric(vertical: 15),
-    //               shrinkWrap: true,
-    //               primary: false,
-    //               scrollDirection: Axis.vertical,
-    //               itemBuilder: (context, index) {
-    //                 return ListTile(
-
-    //                   title: Text(
-    //                     _con.servicios.elementAt(index).nombre +
-    //                         '\nM:' +
-    //                         double.parse(
-    //                                 _con.servicios.elementAt(index).precioM)
-    //                             .toString() +
-    //                         ' Bs.' +
-    //                         '   L:' +
-    //                         double.parse(
-    //                                 _con.servicios.elementAt(index).precioL)
-    //                             .toString() +
-    //                         ' Bs.' +
-    //                         '   XL:' +
-    //                         double.parse(
-    //                                 _con.servicios.elementAt(index).precioXl)
-    //                             .toString(),
-    //                   ),
-    //                   subtitle: Text(_con.servicios.elementAt(index).detalle),
-    //                   trailing: Checkbox(
-    //                     value: selected,
-    //                     onChanged: (bool val) {
-    //                       setState(() {
-    //                         selected = val;
-    //                       });
-    //                     },
-    //                   ),
-    //                 );
-    //               },
-    //               separatorBuilder: (context, index) {
-    //                 return SizedBox(
-    //                   height: 15,
-    //                 );
-    //               },
-    //               itemCount: _con.servicios.length,
-    //             )
-    //     ],
-    //   ),
-    // );
   }
 }

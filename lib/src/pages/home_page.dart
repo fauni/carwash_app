@@ -1,6 +1,7 @@
 import 'package:carwash/src/pages/carro_page.dart';
 import 'package:carwash/src/pages/fecha_page.dart';
 import 'package:carwash/src/pages/servicio_page.dart';
+import 'package:carwash/src/widgets/ServiciosWidget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,53 +40,63 @@ class _HomePageState extends State<HomePage> {
               height: double.infinity,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 55, bottom: 175),
+              padding: const EdgeInsets.only(
+                  top: 30, left: 10, right: 10, bottom: 175),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    'Hola',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w100,
-                        fontSize: 65,
-                        color: Theme.of(context).secondaryHeaderColor),
+                  Container(
+                    height: MediaQuery.of(context).size.height / 2.8,
+                    width: MediaQuery.of(context).size.width,
+                    child: ClipRRect(
+                      child: Image.asset('assets/img/main_carwash.jpg'),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
-                  Text(
-                    'bienvenido',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w100,
-                        fontSize: 40,
-                        color: Theme.of(context).secondaryHeaderColor),
-                  ),
-                  Text(
-                    'Favio!',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w100,
-                        fontSize: 40,
-                        color: Theme.of(context).secondaryHeaderColor),
-                  ),
-                  Text(
-                    'Estas a unos pasos de',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w100,
-                        fontSize: 17,
-                        color: Theme.of(context).secondaryHeaderColor),
-                  ),
-                  Text(
-                    'dejar tu auto al cuidado',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w100,
-                        fontSize: 17,
-                        color: Theme.of(context).secondaryHeaderColor),
-                  ),
-                  Text(
-                    'de profesionales.',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w100,
-                        fontSize: 17,
-                        color: Theme.of(context).secondaryHeaderColor),
-                  ),
+                  ServiciosWidget()
+                  // Text(
+                  //   'Hola',
+                  //   style: TextStyle(
+                  //       fontWeight: FontWeight.w100,
+                  //       fontSize: 65,
+                  //       color: Theme.of(context).secondaryHeaderColor),
+                  // ),
+                  // Text(
+                  //   'bienvenido',
+                  //   style: TextStyle(
+                  //       fontWeight: FontWeight.w100,
+                  //       fontSize: 40,
+                  //       color: Theme.of(context).secondaryHeaderColor),
+                  // ),
+                  // Text(
+                  //   'Favio!',
+                  //   style: TextStyle(
+                  //       fontWeight: FontWeight.w100,
+                  //       fontSize: 40,
+                  //       color: Theme.of(context).secondaryHeaderColor),
+                  // ),
+                  // Text(
+                  //   'Estas a unos pasos de',
+                  //   style: TextStyle(
+                  //       fontWeight: FontWeight.w100,
+                  //       fontSize: 17,
+                  //       color: Theme.of(context).secondaryHeaderColor),
+                  // ),
+                  // Text(
+                  //   'dejar tu auto al cuidado',
+                  //   style: TextStyle(
+                  //       fontWeight: FontWeight.w100,
+                  //       fontSize: 17,
+                  //       color: Theme.of(context).secondaryHeaderColor),
+                  // ),
+                  // Text(
+                  //   'de profesionales.',
+                  //   style: TextStyle(
+                  //       fontWeight: FontWeight.w100,
+                  //       fontSize: 17,
+                  //       color: Theme.of(context).secondaryHeaderColor),
+                  // ),
                 ],
               ),
             ),
