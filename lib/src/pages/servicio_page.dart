@@ -67,6 +67,8 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                   hoverColor: Theme.of(context).primaryColor,
                   onTap: () {
                     print(_con.serviciosGeneral.elementAt(index).nombre);
+                    _con.insertaServElegidos(_con.serviciosGeneral.elementAt(index));
+                    
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width / 2,
@@ -143,6 +145,8 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                   hoverColor: Theme.of(context).primaryColor,
                   onTap: () {
                     print(_con.serviciosAdicionales.elementAt(index).nombre);
+                    _con.insertaServElegidos(_con.serviciosAdicionales.elementAt(index));
+                    
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width / 2.5,
@@ -219,6 +223,8 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                   hoverColor: Theme.of(context).primaryColor,
                   onTap: () {
                     print(_con.serviciosMotos.elementAt(index).nombre);
+                    _con.insertaServElegidos(_con.serviciosMotos.elementAt(index));
+                    
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width / 2.3,

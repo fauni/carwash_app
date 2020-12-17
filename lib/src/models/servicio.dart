@@ -9,6 +9,7 @@ import 'dart:ffi';
 class LServicio {
   List<Servicio> items = new List();
   LServicio();
+  
   LServicio.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) return;
 
