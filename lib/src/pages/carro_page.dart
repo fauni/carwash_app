@@ -45,7 +45,7 @@ class CarroPageState extends StateMVC<CarroPage> {
               leading: Icon(Icons.directions_bus,
                   color: Theme.of(context).hintColor),
               title: Text('Elige tu vehiculo'),
-              subtitle: Text('Long press to edit item swipe'),
+              subtitle: Text('Presiona el el Item para Elegir el Vehiculo'),
             ),
           ),
           _con.carros.isEmpty

@@ -96,7 +96,7 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
             ),
             ListTile(
               onTap: () {
-                Navigator.of(context).pushNamed('/Pages', arguments: 3);
+                Navigator.of(context).pushNamed('/Vehiculo', arguments: 3);
               },
               leading: Icon(
                 UiIcons.inbox,

@@ -52,6 +52,7 @@ class _MyAppState extends State<MyApp> {
                     ),
                     primarySwatch: Colors.blue,
                     brightness: brightness,
+                    scaffoldBackgroundColor: Colors.transparent.withOpacity(1),
                     accentColor: config.Colors().accentColor(1),
                     dividerColor: config.Colors().secondColor(0.05),
                     focusColor: config.Colors().scaffoldColor(1),
