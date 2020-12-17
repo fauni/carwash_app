@@ -59,6 +59,11 @@ class CarroPageState extends StateMVC<CarroPage> {
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
                     return ListTile(
+                      onTap: (){
+                        //print(index.toString() );
+                        _con.eligeVehiculo(_con.vehiculos.elementAt(index));
+                        //print(_con.vehiculoElegido.placa );
+                      },
                       leading: CachedNetworkImage(
                         imageUrl: 'http://intranet.lafar.net/images/rav4.jpg',
                         imageBuilder: (context, imageProvider) => Container(

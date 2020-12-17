@@ -12,7 +12,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 class CarroController extends ControllerMVC {
   List<Vehiculo> carros = [];
   List<VehiculoA> vehiculos = [];
-
+  VehiculoA vehiculoElegido;
   String servicio = '';
 
   GlobalKey<ScaffoldState> scaffoldKey;
@@ -73,5 +73,12 @@ class CarroController extends ControllerMVC {
         ));
       }
     });
+  }
+  void eligeVehiculo(VehiculoA vehiculo) async{
+      this.vehiculoElegido = vehiculo;
+      String strVehiculo = vehiculoAToJson(vehiculo);
+      setVehiculo(strVehiculo);
+      print('_________en string____________');
+      print (await getVehiculo());
   }
 }

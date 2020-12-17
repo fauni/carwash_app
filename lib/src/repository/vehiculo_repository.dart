@@ -6,7 +6,7 @@ import 'package:carwash/src/helpers/custom_trace.dart';
 import 'package:carwash/src/models/vehiculo.dart';
 import 'package:carwash/src/models/vehiculoa.dart';
 import 'package:global_configuration/global_configuration.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 Future<Stream<List<Vehiculo>>> obtenerVehiculos() async {
@@ -55,5 +55,16 @@ Future<Stream<List<VehiculoA>>> obtenerVehiculosPorCliente(
     print(CustomTrace(StackTrace.current, message: url).toString());
     //print('error en repository al llenar '+e.toString());
     return new Stream.value(new List<VehiculoA>());
+  }
+}
+Future<String> getVehiculo() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return await prefs.get('vehiculo');
+}
+
+Future<void> setVehiculo(String vehiculo) async {
+  if (vehiculo != null) {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('vehiculo', vehiculo);
   }
 }
