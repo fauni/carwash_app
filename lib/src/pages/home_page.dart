@@ -1,6 +1,7 @@
 import 'package:carwash/src/pages/carro_page.dart';
 import 'package:carwash/src/pages/fecha_page.dart';
 import 'package:carwash/src/pages/servicio_page.dart';
+import 'package:carwash/src/widgets/DrawerWidget.dart';
 import 'package:carwash/src/widgets/ServiciosWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   List<bool> _isSelected = [false, true, false];
   bool _switchValue = false;
 
@@ -25,11 +28,21 @@ class _HomePageState extends State<HomePage> {
           title: Text(''),
           elevation: 0,
           backgroundColor: Colors.transparent,
-          leading: new IconButton(
-            icon: new Icon(Icons.menu, color: Theme.of(context).hintColor),
-            onPressed: () {},
-            // onPressed: () => widget.parentScaffoldKey.currentState.openDrawer(),
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: Icon(Icons.sort),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            ),
           ),
+          // leading: new IconButton(
+          //   icon: new Icon(Icons.sort, color: Theme.of(context).hintColor),
+          //   onPressed: () => _scaffoldKey.currentState.openDrawer(),
+          //   // onPressed: () => widget.parentScaffoldKey.currentState.openDrawer(),
+          // ),
+        ),
+        drawer: Theme(
+          data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
+          child: DrawerWidget(),
         ),
         body: Stack(
           children: [
@@ -41,7 +54,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  top: 30, left: 10, right: 10, bottom: 175),
+                  top: 30, left: 10, right: 10, bottom: 150),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -55,78 +68,45 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   ServiciosWidget()
-                  // Text(
-                  //   'Hola',
-                  //   style: TextStyle(
-                  //       fontWeight: FontWeight.w100,
-                  //       fontSize: 65,
-                  //       color: Theme.of(context).secondaryHeaderColor),
-                  // ),
-                  // Text(
-                  //   'bienvenido',
-                  //   style: TextStyle(
-                  //       fontWeight: FontWeight.w100,
-                  //       fontSize: 40,
-                  //       color: Theme.of(context).secondaryHeaderColor),
-                  // ),
-                  // Text(
-                  //   'Favio!',
-                  //   style: TextStyle(
-                  //       fontWeight: FontWeight.w100,
-                  //       fontSize: 40,
-                  //       color: Theme.of(context).secondaryHeaderColor),
-                  // ),
-                  // Text(
-                  //   'Estas a unos pasos de',
-                  //   style: TextStyle(
-                  //       fontWeight: FontWeight.w100,
-                  //       fontSize: 17,
-                  //       color: Theme.of(context).secondaryHeaderColor),
-                  // ),
-                  // Text(
-                  //   'dejar tu auto al cuidado',
-                  //   style: TextStyle(
-                  //       fontWeight: FontWeight.w100,
-                  //       fontSize: 17,
-                  //       color: Theme.of(context).secondaryHeaderColor),
-                  // ),
-                  // Text(
-                  //   'de profesionales.',
-                  //   style: TextStyle(
-                  //       fontWeight: FontWeight.w100,
-                  //       fontSize: 17,
-                  //       color: Theme.of(context).secondaryHeaderColor),
-                  // ),
                 ],
               ),
             ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                margin: EdgeInsets.only(bottom: 50),
+                margin: EdgeInsets.only(bottom: 10),
                 child: ToggleButtons(
+                  borderColor: Colors.transparent,
+                  borderWidth: null,
+                  selectedBorderColor: Colors.transparent,
+                  splashColor: Colors.transparent,
                   children: [
                     Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
                       alignment: Alignment.center,
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 5),
                       width: _buttonWidth(context),
                       child: Column(
                         children: [
-                          Icon(
-                            Icons.car_repair,
-                            color: Theme.of(context).accentColor,
-                            size: 40.0,
+                          Container(
+                            width: 50,
+                            height: 50,
+                            child: Image.asset(
+                              'assets/img/auto_off.png',
+                            ),
                           ),
                           Text(
                             'Seleccionar',
                             style:
-                                TextStyle(color: Theme.of(context).accentColor),
+                                TextStyle(color: Theme.of(context).hintColor),
                           ),
                           Text(
                             'Auto',
                             style:
-                                TextStyle(color: Theme.of(context).accentColor),
+                                TextStyle(color: Theme.of(context).hintColor),
                           ),
                         ],
                       ),
@@ -138,20 +118,22 @@ class _HomePageState extends State<HomePage> {
                       width: _buttonWidth(context),
                       child: Column(
                         children: [
-                          Icon(
-                            Icons.design_services,
-                            color: Theme.of(context).accentColor,
-                            size: 40.0,
+                          Container(
+                            width: 50,
+                            height: 50,
+                            child: Image.asset(
+                              'assets/img/servicio_off.png',
+                            ),
                           ),
                           Text(
                             'Seleccionar',
                             style:
-                                TextStyle(color: Theme.of(context).accentColor),
+                                TextStyle(color: Theme.of(context).hintColor),
                           ),
                           Text(
                             'Servicio',
                             style:
-                                TextStyle(color: Theme.of(context).accentColor),
+                                TextStyle(color: Theme.of(context).hintColor),
                           ),
                         ],
                       ),
@@ -163,31 +145,26 @@ class _HomePageState extends State<HomePage> {
                       width: _buttonWidth(context),
                       child: Column(
                         children: [
-                          Icon(
-                            Icons.date_range,
-                            color: Theme.of(context).accentColor,
-                            size: 40.0,
+                          Container(
+                            width: 50,
+                            height: 50,
+                            child: Image.asset(
+                              'assets/img/cuando_off.png',
+                            ),
                           ),
                           Text(
                             'Seleccionar',
                             style:
-                                TextStyle(color: Theme.of(context).accentColor),
+                                TextStyle(color: Theme.of(context).hintColor),
                           ),
                           Text(
                             'Fecha y Hora',
                             style:
-                                TextStyle(color: Theme.of(context).accentColor),
+                                TextStyle(color: Theme.of(context).hintColor),
                           ),
                         ],
                       ),
                     ),
-                    // Icon(
-                    //   Icons.bluetooth,
-                    //   color: Theme.of(context).primaryColor,
-                    // ),
-                    // Icon(Icons.wifi, color: Theme.of(context).primaryColor),
-                    // Icon(Icons.flash_on_outlined,
-                    //     color: Theme.of(context).primaryColor)
                   ],
                   onPressed: (int index) {
                     setState(() {
@@ -209,17 +186,6 @@ class _HomePageState extends State<HomePage> {
                             );
                           },
                         );
-                        // showModalBottomSheet<void>(
-                        //   context: context,
-                        //   builder: (BuildContext context) {
-                        //     return CarroPage(
-                        //       switchValue: _switchValue,
-                        //       valueChanged: (value) {
-                        //         _switchValue = value;
-                        //       },
-                        //     );
-                        //   },
-                        // );
                       } else if (index == 1) {
                         showDialog<void>(
                           context: context,
@@ -234,17 +200,6 @@ class _HomePageState extends State<HomePage> {
                             );
                           },
                         );
-                        // showModalBottomSheet<void>(
-                        //   context: context,
-                        //   builder: (BuildContext context) {
-                        //     return ServicioPage(
-                        //       switchValue: _switchValue,
-                        //       valueChanged: (value) {
-                        //         _switchValue = value;
-                        //       },
-                        //     );
-                        //   },
-                        // );
                       } else {
                         showDialog<void>(
                           barrierDismissible: true,
@@ -260,22 +215,8 @@ class _HomePageState extends State<HomePage> {
                             );
                           },
                         );
-                        // showDialog<void>(
-                        //   context: context,
-                        //   builder: (BuildContext context) {
-                        //     return FechaPage(
-                        //       switchValue: _switchValue,
-                        //       valueChanged: (value) {
-                        //         _switchValue = value;
-                        //       },
-                        //     );
-                        //   },
-                        // );
                       }
-                      // _isSelected[index] = !_isSelected[index];
                     });
-                    print('==============================');
-                    print(index);
                   },
                   isSelected: _isSelected,
                   selectedColor: Theme.of(context).primaryColor,
@@ -291,7 +232,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 double _buttonWidth(BuildContext context) {
-  final maxWidth = 120.0;
+  final maxWidth = double.infinity;
   final buttonCount = 3;
 
   final width = (MediaQuery.of(context).size.width - 100) / buttonCount;
