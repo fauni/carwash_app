@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:carwash/src/models/servicio.dart';
 import 'package:carwash/src/repository/servicio_repository.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,8 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 
 class ServicioController extends ControllerMVC {
   List<Servicio> servicios = [];
+
+  List <Servicio> serviciosElegidos = [];
 
   List<Servicio> serviciosGeneral = [];
   List<Servicio> serviciosAdicionales = [];
@@ -75,5 +79,38 @@ class ServicioController extends ControllerMVC {
         ));
       }
     });
+  }
+  void insertaServElegidos(Servicio serv)async{
+    bool seElimino = eliminaServElegido(serv);
+    
+    if(seElimino == false){
+       this.serviciosElegidos.add(serv); 
+    }
+    
+    List <dynamic> lservJson = new List <dynamic>() ;  
+    for(var itms in this.serviciosElegidos){
+      lservJson.add(itms.toJson());
+    }
+
+    String servString = json.encode(lservJson);
+    setServicio(servString);
+    print('_____en share preferences:______');
+    print( await getServicio());
+    
+  }
+  bool eliminaServElegido(Servicio serv){
+  List<Servicio> srvTemp = [];    
+    bool resp=false;
+    for(var srv in serviciosElegidos){
+      if(serv.id.compareTo(srv.id) != 0  ){
+        srvTemp.add(srv);
+      }else{
+          resp=true;
+      }
+    }
+    if(resp){
+      serviciosElegidos = srvTemp;
+    }
+    return resp;
   }
 }
