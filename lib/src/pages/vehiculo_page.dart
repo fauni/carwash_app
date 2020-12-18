@@ -119,7 +119,33 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                     builder: (BuildContext context) {
                       return Dialog(
                         child: Container(
-                          child: Text('Agregar una Movilidad'),
+                          child: Column(children: [
+                            Text(
+                              'Agregar un auto nuevo',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 15),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                      color: Theme.of(context).accentColor)),
+
+                              height:
+                                  150, //MediaQuery.of(context).size.height / 3,
+                              child: Center(
+                                child: FloatingActionButton(
+                                  onPressed: () {},
+                                  child: Icon(Icons.camera_alt),
+                                  backgroundColor:
+                                      Theme.of(context).primaryColor,
+                                ),
+                              ),
+                            ),
+                          ]),
                         ),
                       );
                     },
