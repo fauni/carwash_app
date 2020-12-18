@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
                     bottomSheetTheme: BottomSheetThemeData(
                         backgroundColor: Colors.black.withOpacity(0.8)),
                     dialogTheme: DialogTheme(
-                      backgroundColor: Colors.black.withOpacity(0.3),
+                      backgroundColor: Colors.black.withOpacity(0.8),
                     ),
                     primarySwatch: Colors.blue,
                     brightness: brightness,

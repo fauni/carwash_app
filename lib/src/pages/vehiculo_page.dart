@@ -1,6 +1,7 @@
 //import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carwash/src/controllers/carro_controller.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -114,42 +115,87 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                 title: Text('Agregar un auto nuevo'),
                 subtitle: Text('Nueva Movilidad'),
                 onTap: () {
-                  showDialog<void>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Dialog(
-                        child: Container(
-                          child: Column(children: [
-                            Text(
-                              'Agregar un auto nuevo',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                      color: Theme.of(context).accentColor)),
+                  Navigator.of(context).pushNamed('/AddVehiculo');
+                  // showDialog<void>(
+                  //   context: context,
+                  //   builder: (BuildContext context) {
+                  //     return Dialog(
+                  //       child: Container(
+                  //         child: Column(children: [
+                  //           Text(
+                  //             'Agregar un auto nuevo',
+                  //             style: TextStyle(
+                  //                 fontWeight: FontWeight.bold, fontSize: 15),
+                  //           ),
+                  //           SizedBox(
+                  //             height: 10,
+                  //           ),
+                  //           Container(
+                  //             decoration: BoxDecoration(
+                  //                 borderRadius: BorderRadius.circular(10),
+                  //                 border: Border.all(
+                  //                     color: Theme.of(context).accentColor)),
 
-                              height:
-                                  150, //MediaQuery.of(context).size.height / 3,
-                              child: Center(
-                                child: FloatingActionButton(
-                                  onPressed: () {},
-                                  child: Icon(Icons.camera_alt),
-                                  backgroundColor:
-                                      Theme.of(context).primaryColor,
-                                ),
-                              ),
-                            ),
-                          ]),
-                        ),
-                      );
-                    },
-                  );
+                  //             height:
+                  //                 150, //MediaQuery.of(context).size.height / 3,
+                  //             child: Center(
+                  //               child: FloatingActionButton(
+                  //                 onPressed: () {},
+                  //                 child: Icon(Icons.camera_alt),
+                  //                 backgroundColor:
+                  //                     Theme.of(context).primaryColor,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //           SizedBox(
+                  //             height: 15,
+                  //           ),
+                  //           DropdownSearch<String>(
+                  //             mode: Mode.BOTTOM_SHEET,
+                  //             maxHeight: 300,
+                  //             items: ["Brazil", "Italia", "Tunisia", 'Canada'],
+                  //             label: "Custom BottomShet mode",
+                  //             onChanged: print,
+                  //             selectedItem: "Brazil",
+                  //             showSearchBox: true,
+                  //             searchBoxDecoration: InputDecoration(
+                  //               border: OutlineInputBorder(),
+                  //               contentPadding:
+                  //                   EdgeInsets.fromLTRB(12, 12, 8, 0),
+                  //               labelText: "Search a country",
+                  //             ),
+                  //             popupTitle: Container(
+                  //               height: 50,
+                  //               decoration: BoxDecoration(
+                  //                 color: Theme.of(context).primaryColorDark,
+                  //                 borderRadius: BorderRadius.only(
+                  //                   topLeft: Radius.circular(20),
+                  //                   topRight: Radius.circular(20),
+                  //                 ),
+                  //               ),
+                  //               child: Center(
+                  //                 child: Text(
+                  //                   'Country',
+                  //                   style: TextStyle(
+                  //                     fontSize: 24,
+                  //                     fontWeight: FontWeight.bold,
+                  //                     color: Colors.white,
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //             popupShape: RoundedRectangleBorder(
+                  //               borderRadius: BorderRadius.only(
+                  //                 topLeft: Radius.circular(24),
+                  //                 topRight: Radius.circular(24),
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ]),
+                  //       ),
+                  //     );
+                  //   },
+                  // );
                 },
               ),
             ),

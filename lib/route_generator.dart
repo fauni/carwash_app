@@ -4,6 +4,7 @@ import 'package:carwash/src/pages/detalle_servicio_page.dart';
 import 'package:carwash/src/pages/home_page.dart';
 import 'package:carwash/src/pages/splash_pages.dart';
 import 'package:carwash/src/pages/vehiculo_page.dart';
+import 'package:carwash/src/widgets/AddVehiculoWidget.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
@@ -77,6 +78,8 @@ class RouteGenerator {
       //   return MaterialPageRoute(builder: (_) => OrderSuccessWidget(routeArgument: args as RouteArgument));
       case '/Vehiculo':
         return MaterialPageRoute(builder: (_) => VehiculoPage());
+      case '/AddVehiculo':
+        return MaterialPageRoute(builder: (_) => AddVehiculoWidget());
       // case '/Help':
       //   return MaterialPageRoute(builder: (_) => HelpWidget());
       // case '/Settings':
