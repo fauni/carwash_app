@@ -1,5 +1,7 @@
 //import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carwash/src/controllers/fecha_controller.dart';
+import 'package:carwash/src/controllers/reserva_controller.dart';
+import 'package:carwash/src/models/reserva.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -22,18 +24,20 @@ class FechaPage extends StatefulWidget {
 
 class FechaPageState extends StateMVC<FechaPage> {
   bool selected = false;
-  FechaController _con;
+  ReservaController _con;
+  Reserva reserva = new Reserva();
 
   bool _switchValue;
   final format = DateFormat("yyyy-MM-dd");
 
-  FechaPageState() : super(FechaController()) {
+  FechaPageState() : super(ReservaController()) {
     _con = controller;
   }
   @override
   void initState() {
     _switchValue = widget.switchValue;
     super.initState();
+    
   }
 
   @override
@@ -71,6 +75,8 @@ class FechaPageState extends StateMVC<FechaPage> {
             onDateChange: (date) {
               setState(() {
                 print(date);
+                reserva.fechaReserva=date.toString();
+                _con.eligeReserva(reserva);
               });
             },
           ),
@@ -106,7 +112,9 @@ class FechaPageState extends StateMVC<FechaPage> {
             onTimeChange: (time) {
               setState(() {
                 print(time);
-                _con.seleccionarHora(time);
+                reserva.horaReserva = time.toString();
+                _con.eligeReserva(reserva);
+                //_con.seleccionarHora(time);
               });
             },
           ),
