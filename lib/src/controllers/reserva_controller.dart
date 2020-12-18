@@ -37,6 +37,9 @@ class ReservaController extends ControllerMVC {
     this.reservaCompleta["servicios"] = json.decode(strServicios);
     String strFecha  = await getReserva();
     this.reservaCompleta["fecha"] = json.decode(strFecha);
-    print(reservaCompleta);
+    print(json.encode(this.reservaCompleta));
+    print('--------respuesta del post:----------');
+    var respuesta = registrarReserva(json.encode(this.reservaCompleta)) ;
+
   }
 }
