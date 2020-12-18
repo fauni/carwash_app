@@ -14,6 +14,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 class ReservaController extends ControllerMVC {
   Reserva reserva;
   String strReserva = '';
+  Map <String,dynamic> reservaCompleta = {"vehiculo" : "", "servicios":"", "fecha" :""};
 
   GlobalKey<ScaffoldState> scaffoldKey;
 
@@ -28,5 +29,17 @@ class ReservaController extends ControllerMVC {
       setReserva(strRes);
       print('_________en string____________');
       print (await getReserva());
+  }
+  void setReservaCompleta()async {
+    String strVehiculo = await getVehiculo();  
+    this.reservaCompleta["vehiculo"] = json.decode(strVehiculo) ;
+    String strServicios = await getServicio();  
+    this.reservaCompleta["servicios"] = json.decode(strServicios);
+    String strFecha  = await getReserva();
+    this.reservaCompleta["fecha"] = json.decode(strFecha);
+    print(json.encode(this.reservaCompleta));
+    print('--------respuesta del post:----------');
+    var respuesta = registrarReserva(json.encode(this.reservaCompleta)) ;
+
   }
 }

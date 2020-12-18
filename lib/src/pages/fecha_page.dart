@@ -124,7 +124,9 @@ class FechaPageState extends StateMVC<FechaPage> {
             child: RaisedButton(
               color: Theme.of(context).primaryColor,
               textColor: Theme.of(context).hintColor,
-              onPressed: () {},
+              onPressed: () {
+                _con.setReservaCompleta();
+              },
               child: Text('Enviar Reserva'),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
