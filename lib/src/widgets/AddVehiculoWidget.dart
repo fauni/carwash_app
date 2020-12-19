@@ -1,11 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:carwash/src/controllers/carro_controller.dart';
 import 'package:carwash/src/models/tipo_vehiculo.dart';
 import 'package:carwash/src/models/vehiculo_modelo.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:carwash/src/models/vehiculo.dart';
 
 class AddVehiculoWidget extends StatefulWidget {
   @override
@@ -13,6 +12,7 @@ class AddVehiculoWidget extends StatefulWidget {
 }
 
 class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
+  Vehiculo vehiculoNuevo = new Vehiculo();
   CarroController _con;
 
   AddVehiculoWidgetState() : super(CarroController()) {
@@ -67,7 +67,10 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                 label: "Seleccionar Modelo de Automovil",
                 itemAsString: (VehiculoModelo mod) =>
                     mod.marca + ' ' + mod.modelo + ' ' + mod.anio,
-                onChanged: print,
+                onChanged: (modelo){
+                  //print (modelo.modelo);
+                  vehiculoNuevo.idModelo= modelo.id;
+                },
                 selectedItem: null,
                 showSearchBox: true,
                 dropdownSearchDecoration: InputDecoration(
@@ -123,7 +126,10 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                 label: "Seleccionar Tipo de Automovil",
                 itemAsString: (TipoVehiculo data) =>
                     data.tipo + ' ' + data.tamanio,
-                onChanged: print,
+                onChanged: (tipo){
+                    print(tipo.tipo);
+                    vehiculoNuevo.idTipo = tipo.id; 
+                },
                 selectedItem: null,
                 showSearchBox: true,
                 dropdownSearchDecoration: InputDecoration(
@@ -173,6 +179,10 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
               ),
               Divider(),
               TextField(
+                onChanged: (cadena){
+                  print(cadena);
+                  vehiculoNuevo.placa = cadena;
+                },
                 decoration: InputDecoration(
                     hintText: 'Ingrese su Nro. de Placa',
                     hintStyle: TextStyle(color: Theme.of(context).accentColor),
@@ -183,6 +193,7 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                     border: OutlineInputBorder(),
                     labelStyle:
                         TextStyle(color: Theme.of(context).accentColor)),
+                    
               ),
               Divider(),
               Row(
@@ -191,7 +202,9 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                   new Radio(
                     value: 0,
                     groupValue: 'Auto',
-                    onChanged: null,
+                    onChanged: (value){
+                      print(value);
+                    },
                   ),
                   new Text(
                     'Auto',
@@ -200,7 +213,9 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                   new Radio(
                     value: 1,
                     groupValue: 'Moto',
-                    onChanged: null,
+                    onChanged: (value){
+                      print(value);
+                    },
                   ),
                   new Text(
                     'Moto',
@@ -211,7 +226,9 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                   new Radio(
                     value: 2,
                     groupValue: 'UTV',
-                    onChanged: null,
+                    onChanged: (value){
+                      print(value);
+                    },
                   ),
                   new Text(
                     'UTV',
@@ -226,7 +243,15 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                 child: RaisedButton(
                   color: Theme.of(context).primaryColor,
                   textColor: Theme.of(context).hintColor,
-                  onPressed: () {},
+                  onPressed: () {
+                    vehiculoNuevo.idCliente = "2"; //provisional cambiar por cliente actual
+                    vehiculoNuevo.observaciones="";
+                    vehiculoNuevo.estado="A";
+                    vehiculoNuevo.anio="1900";
+                    vehiculoNuevo.foto="ff";
+                    print('guardando el auto');
+                    _con.registrarVehiculo(vehiculoNuevo);
+                  },
                   child: Text('Guardar Movilidad'),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),

@@ -135,4 +135,10 @@ class CarroController extends ControllerMVC {
     print('_________en string____________');
     print(await getVehiculo());
   }
+
+  //registrar en servidor 
+  void registrarVehiculo(Vehiculo newVehiculo){
+
+    var vehiculoResp = guardarVehiculo(newVehiculo);
+  }
 }
