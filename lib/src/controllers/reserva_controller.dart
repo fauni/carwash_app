@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:carwash/generated/i18n.dart';
 import 'package:carwash/src/models/reserva.dart';
+import 'package:carwash/src/models/reserva_inner.dart';
 import 'package:carwash/src/models/vehiculo.dart';
 import 'package:carwash/src/models/vehiculoa.dart';
 import 'package:carwash/src/repository/reserva_repository.dart';
@@ -13,6 +14,8 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 
 class ReservaController extends ControllerMVC {
   Reserva reserva;
+  ReservaInner resInner;
+  List<ReservaInner> reservasInner = [];
   String strReserva = '';
   Map <String,dynamic> reservaCompleta = {"vehiculo" : "", "servicios":"", "fecha" :""};
 
@@ -20,9 +23,11 @@ class ReservaController extends ControllerMVC {
 
   ReservaController() {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
-    
+    listarReservasInnerByIdCli();
   }
   
+
+
   void eligeReserva(Reserva reserv) async{
       this.reserva = reserv;
       String strRes = reservaToJson(reserva);
@@ -42,4 +47,27 @@ class ReservaController extends ControllerMVC {
     var respuesta = registrarReserva(json.encode(this.reservaCompleta)) ;
 
   }
+  //listar reservas para mostrar
+  void listarReservasInnerByIdCli({String message}) async {
+    final Stream<List<ReservaInner>> stream = await obtenerReservasInnerXIdCli ();
+    stream.listen((List<ReservaInner> _productos) {
+      setState(() {
+        reservasInner = _productos;
+        // print("===============================");
+        // //print(carros);
+        // print(jsonEncode(carros));
+      });
+    }, onError: (a) {
+      scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text(S.current.verify_your_internet_connection),
+      ));
+    }, onDone: () {
+      if (message != null) {
+        scaffoldKey.currentState.showSnackBar(SnackBar(
+          content: Text(message),
+        ));
+      }
+    });
+  }
+
 }

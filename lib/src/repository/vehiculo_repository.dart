@@ -14,7 +14,7 @@ Future<Stream<List<Vehiculo>>> obtenerVehiculos() async {
   // Uri uri = Helper.getUriLfr('api/producto');
 
   final String url =
-      '${GlobalConfiguration().getString('api_base_url_wash')}vehiculos/getByIdCliente/2'; /*cambiar por id del cliente*/
+      '${GlobalConfiguration().getString('api_base_url_wash')}vehiculos/getByIdCliente/1'; /*cambiar por id del cliente*/
 
   final client = new http.Client();
   final response = await client.get(url);

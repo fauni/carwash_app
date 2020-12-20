@@ -2,10 +2,37 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:carwash/src/helpers/custom_trace.dart';
 import 'package:carwash/src/models/reserva.dart';
+import 'package:carwash/src/models/reserva_inner.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:http/http.dart' as http;
+
+/*Obtiene  reservas de acuerdo al cliente con datos de los vehiculos  */ 
+Future<Stream<List<ReservaInner>>> obtenerReservasInnerXIdCli() async {
+  // Uri uri = Helper.getUriLfr('api/producto');
+  String idcli = "1"; /*cambiar por id del cliente*/
+  final String url =
+      '${GlobalConfiguration().getString('api_base_url_wash')}reserva/getByIdVehiculo/'+idcli; 
+
+  final client = new http.Client();
+  final response = await client.get(url);
+  try {
+    if (response.statusCode == 200) {
+      final lreservaInner =
+          LReservaInner.fromJsonList(json.decode(response.body)['body']);
+      return new Stream.value(lreservaInner.items);
+    } else {
+      return new Stream.value(new List<ReservaInner>());
+    }
+  } catch (e) {
+    print(CustomTrace(StackTrace.current, message: url).toString());
+    //print('error en repository al llenar '+e.toString());
+    return new Stream.value(new List<ReservaInner>());
+  }
+}
+
+
 
 Future<dynamic> registrarReserva(String reserva) async {
   

@@ -244,7 +244,7 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                   color: Theme.of(context).primaryColor,
                   textColor: Theme.of(context).hintColor,
                   onPressed: () {
-                    vehiculoNuevo.idCliente = "2"; //provisional cambiar por cliente actual
+                    vehiculoNuevo.idCliente = "1"; //provisional cambiar por cliente actual
                     vehiculoNuevo.observaciones="";
                     vehiculoNuevo.estado="A";
                     vehiculoNuevo.anio="1900";

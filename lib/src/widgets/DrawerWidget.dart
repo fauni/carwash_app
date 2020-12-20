@@ -83,7 +83,7 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
             ),
             ListTile(
               onTap: () {
-                Navigator.of(context).pushNamed('/Pages', arguments: 0);
+                Navigator.of(context).pushNamed('/Reservas', arguments: 0);
               },
               leading: Icon(
                 UiIcons.bell,
