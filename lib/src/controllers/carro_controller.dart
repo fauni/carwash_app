@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:carwash/generated/i18n.dart';
 import 'package:carwash/src/models/tipo_vehiculo.dart';
@@ -12,6 +13,7 @@ import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:carwash/src/repository/servicio_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CarroController extends ControllerMVC {
   List<Vehiculo> carros = [];
@@ -22,6 +24,11 @@ class CarroController extends ControllerMVC {
   VehiculoA vehiculoElegido;
   String servicio = '';
 
+  File image;
+  final picker = ImagePicker();
+  bool isCapture = false;
+  bool loading = false;
+
   GlobalKey<ScaffoldState> scaffoldKey;
 
   CarroController() {
@@ -31,6 +38,22 @@ class CarroController extends ControllerMVC {
     obtenerServicio();
   }
 
+  Future getImage(int tipo) async {
+    if (tipo == 1) {
+      final pickedFile = await picker.getImage(
+          source: ImageSource.gallery, maxWidth: 450.0, maxHeight: 450.0);
+      setState(() {
+        image = File(pickedFile.path);
+      });
+    } else {
+      final pickedFile = await picker.getImage(
+          source: ImageSource.camera, maxWidth: 450.0, maxHeight: 450.0);
+      setState(() {
+        image = File(pickedFile.path);
+      });
+    }
+  }
+  
   void obtenerServicio() async {
     this.servicio = await getServicio();
   }
@@ -137,8 +160,42 @@ class CarroController extends ControllerMVC {
   }
 
   //registrar en servidor 
-  void registrarVehiculo(Vehiculo newVehiculo){
+void registrarVehiculo(Vehiculo newVehiculo) async {
+    
+    if(this.image == null){
+      this.scaffoldKey?.currentState?.showSnackBar(
+        SnackBar(
+          content: Text('Agregue una imagen por favor'),
+          //backgroundColor: Theme.of(context).hintColor ,
+        ));
+    }else{
 
-    var vehiculoResp = guardarVehiculo(newVehiculo);
+        String base64Image = base64Encode(this.image.readAsBytesSync());
+        String fileName = this.image.path.split("/").last;
+        newVehiculo.foto = fileName;
+        newVehiculo.imgFile = base64Image; 
+
+        this.loading = true;
+        setState(() { 
+          image = null;
+        });
+         var vehiculoResp = await guardarVehiculo(newVehiculo);
+        
+        this.loading = false;
+        setState(() { });
+
+        print('____ANTES DE ENVIAR___');
+        print(newVehiculo.imgFile);
+
+    }
+
   }
+
+
+String RutaImg(String nombre){
+
+  return getRutaImg(nombre) ;
+  
+}
+
 }

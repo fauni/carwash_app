@@ -3,5 +3,6 @@
   "api_base_url": "http://ecommerce.smartersvision.com/api/",
   "base_url_lfr":"http://190.104.26.91/appclientes/",
   "api_base_url_lfr":"http://190.104.26.91/appclientes/api/",
-  "api_base_url_wash":"http://190.104.26.90/apicwash/public/"
+  "api_base_url_wash":"http://190.104.26.90/apicwash/public/",
+  "img_carros_url_wash": "http://190.104.26.90/apicwash/assets/imagenes_vehiculos/"
 }

@@ -32,6 +32,7 @@ class Vehiculo {
         this.observaciones,
         this.estado       ,
         this.foto         ,
+        this.imgFile
     });
 
     String id;
@@ -43,6 +44,7 @@ class Vehiculo {
     String observaciones;
     String estado;
     String foto;
+    String imgFile;
 
     factory Vehiculo.fromJson(Map<String, dynamic> json) => Vehiculo(
         id: json["id"],
@@ -54,6 +56,7 @@ class Vehiculo {
         observaciones: json["observaciones"],
         estado: json["estado"],
         foto: json["foto"],
+        imgFile: json["imgFile"]
     );
 
     Map<String, dynamic> toJson() => {
@@ -66,5 +69,6 @@ class Vehiculo {
         "observaciones": observaciones,
         "estado": estado,
         "foto": foto,
+        "imgFile":imgFile
     };
 }

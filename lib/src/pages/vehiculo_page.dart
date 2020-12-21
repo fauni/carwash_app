@@ -66,7 +66,7 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                     itemBuilder: (context, index) {
                       return ListTile(
                         leading: CachedNetworkImage(
-                          imageUrl: 'http://intranet.lafar.net/images/rav4.jpg',
+                          imageUrl: _con.RutaImg(_con.vehiculos.elementAt(index).foto),/************* */
                           imageBuilder: (context, imageProvider) => Container(
                               width: 80.0,
                               height: 80.0,
