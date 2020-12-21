@@ -44,9 +44,13 @@ dependencies:
   flutter_time_picker_spinner: ^1.0.6+1
   dropdown_search: ^0.4.8
   searchable_dropdown: ^1.1.3
+<<<<<<< HEAD
   firebase_core: ^0.5.3
   firebase_auth: ^0.18.4+1
   google_sign_in: ^4.5.6
+=======
+  image_picker: ^0.6.7+17
+>>>>>>> c4dc54e3a952c16028cc67ad167023009eb1529f
 
 dev_dependencies:
   flutter_test:

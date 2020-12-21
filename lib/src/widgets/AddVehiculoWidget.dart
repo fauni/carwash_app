@@ -6,6 +6,8 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:carwash/src/models/vehiculo.dart';
 
+import '../widgets/CircularLoadingWidget.dart';
+
 class AddVehiculoWidget extends StatefulWidget {
   @override
   AddVehiculoWidgetState createState() => AddVehiculoWidgetState();
@@ -40,7 +42,8 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: SingleChildScrollView(
+      body: !_con.loading
+       ?SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 15),
           child: Column(
@@ -51,12 +54,18 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                     border: Border.all(color: Theme.of(context).accentColor)),
 
                 height: 150, //MediaQuery.of(context).size.height / 3,
-                child: Center(
-                  child: FloatingActionButton(
-                    onPressed: () {},
+                child:  Center(
+                  child: _con.image == null
+                  ?FloatingActionButton(
+                    onPressed: () {
+                      _con.getImage(2);
+                    },
                     child: Icon(Icons.camera_alt),
                     backgroundColor: Theme.of(context).primaryColor,
-                  ),
+                  )
+                  :Image(
+                    image: FileImage(_con.image),
+                  ) 
                 ),
               ),
               Divider(),
@@ -261,7 +270,10 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
             ],
           ),
         ),
-      ),
+      )
+      : CircularLoadingWidget(
+        height: MediaQuery.of(context).size.height ,
+      )
     );
   }
 }

@@ -13,7 +13,7 @@ import 'package:http/http.dart' as http;
 Future<Stream<List<Vehiculo>>> obtenerVehiculos() async {
   // Uri uri = Helper.getUriLfr('api/producto');
 
-  final String url =
+  final String url = 
       '${GlobalConfiguration().getString('api_base_url_wash')}vehiculos/getByIdCliente/1'; /*cambiar por id del cliente*/
 
   final client = new http.Client();
@@ -57,6 +57,20 @@ Future<Stream<List<VehiculoA>>> obtenerVehiculosPorCliente(
     //print('error en repository al llenar '+e.toString());
     return new Stream.value(new List<VehiculoA>());
   }
+}
+
+String getRutaImg(String nombre){
+  if(nombre == null){
+    return('http://intranet.lafar.net/images/rav4.jpg'); // cambiar por otra ruta
+  }else{
+    if(nombre == ''){
+      return('http://intranet.lafar.net/images/rav4.jpg');
+    }else{
+      return '${GlobalConfiguration().getString('img_carros_url_wash')}'+nombre;
+    }
+    
+  }
+  //return('http://intranet.lafar.net/images/rav4.jpg'); // cambiar por otra ruta
 }
 
 Future<dynamic> guardarVehiculo(Vehiculo vehiculo) async {
