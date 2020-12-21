@@ -1,10 +1,10 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:carwash/src/controllers/login_controller.dart';
+
 import '../../src/helpers/ui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../generated/i18n.dart';
-import '../repository/settings_repository.dart';
 import '../repository/user_repository.dart';
 
 class DrawerWidget extends StatefulWidget {
@@ -13,6 +13,19 @@ class DrawerWidget extends StatefulWidget {
 }
 
 class _DrawerWidgetState extends StateMVC<DrawerWidget> {
+  LoginController _con;
+
+  _DrawerWidgetState() : super(LoginController()) {
+    _con = controller;
+  }
+
+  @override
+  void initState() {
+    _con.obtenerUsuario();
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -22,27 +35,27 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
           children: <Widget>[
             GestureDetector(
               onTap: () {
-                currentUser.value.apiToken != null
+                currentUser.value.uid != null
                     ? Navigator.of(context).pushNamed('/Pages', arguments: 1)
                     : Navigator.of(context).pushNamed('/Login');
               },
-              child: currentUser.value.apiToken == null
+              child: currentUser.value.uid != null
                   ? UserAccountsDrawerHeader(
                       decoration: BoxDecoration(
                         color: Colors.transparent.withOpacity(0.1),
                       ),
                       accountName: Text(
-                        'Favio Duran',
+                        currentUser.value.displayName,
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
                       accountEmail: Text(
-                        'favio.duran@gmail.com',
+                        currentUser.value.email,
                         style: Theme.of(context).textTheme.subtitle2,
                       ),
                       currentAccountPicture: CircleAvatar(
                         backgroundColor: Theme.of(context).accentColor,
-                        backgroundImage: NetworkImage(
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7HRr0tmPAYWeeNS2tgW_PCLxH6gQ8yMZlGg&usqp=CAU'),
+                        backgroundImage:
+                            NetworkImage(currentUser.value.photoUrl),
                         // NetworkImage(currentUser.value.image.thumb),
                       ),
                     )
@@ -77,7 +90,8 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
                 color: Theme.of(context).focusColor.withOpacity(1),
               ),
               title: Text(
-                'Inicio',
+                this._con.usuario_actual,
+                // 'Inicio',
                 style: Theme.of(context).textTheme.subhead,
               ),
             ),
@@ -208,10 +222,11 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
             //     style: Theme.of(context).textTheme.subhead,
             //   ),
             // ),
+
             ListTile(
               onTap: () {
-                if (currentUser.value.apiToken != null) {
-                  logout().then((value) {
+                if (currentUser.value.verifyEmail != null) {
+                  _con.googleSignOut().then((value) {
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         '/Pages', (Route<dynamic> route) => false,
                         arguments: 2);
@@ -225,12 +240,13 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
                 color: Theme.of(context).focusColor.withOpacity(1),
               ),
               title: Text(
-                currentUser.value.apiToken != null
+                'currentUser.value.apiToken' != null
                     ? S.of(context).log_out
                     : S.of(context).login,
                 style: Theme.of(context).textTheme.subhead,
               ),
             ),
+
             // currentUser.value.apiToken == null
             //     ? ListTile(
             //         onTap: () {

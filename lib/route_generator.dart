@@ -2,6 +2,7 @@ import 'package:carwash/src/models/route_argument.dart';
 import 'package:carwash/src/models/vehiculoa.dart';
 import 'package:carwash/src/pages/detalle_servicio_page.dart';
 import 'package:carwash/src/pages/home_page.dart';
+import 'package:carwash/src/pages/login_page.dart';
 import 'package:carwash/src/pages/reservas_page.dart';
 import 'package:carwash/src/pages/splash_pages.dart';
 import 'package:carwash/src/pages/vehiculo_page.dart';
@@ -23,8 +24,8 @@ class RouteGenerator {
       //   return MaterialPageRoute(builder: (_) => SignUpWidget());
       // case '/MobileVerification2':
       //   return MaterialPageRoute(builder: (_) => SignUpWidget());
-      // case '/Login':
-      //   return MaterialPageRoute(builder: (_) => SignInWidget());
+      case '/Login':
+        return MaterialPageRoute(builder: (_) => LoginPage());
       // case '/ForgetPassword':
       //   return MaterialPageRoute(builder: (_) => ForgetPasswordWidget());
       case '/Pages':
