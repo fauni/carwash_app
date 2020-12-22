@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:carwash/generated/i18n.dart';
+import 'package:carwash/src/models/detalle_reserva.dart';
 import 'package:carwash/src/models/reserva.dart';
 import 'package:carwash/src/models/reserva_inner.dart';
 import 'package:carwash/src/models/vehiculo.dart';
@@ -16,6 +17,8 @@ class ReservaController extends ControllerMVC {
   Reserva reserva;
   ReservaInner resInner;
   List<ReservaInner> reservasInner = [];
+  List<DetalleReserva> ldetalleReserva = []; // Listado de detalle de reserva
+
   String strReserva = '';
   Map<String, dynamic> reservaCompleta = {
     "vehiculo": "",
@@ -28,6 +31,10 @@ class ReservaController extends ControllerMVC {
   ReservaController() {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
     listarReservasInnerByIdCli();
+  }
+
+  String rutaImg(String nombre) {
+    return getRutaImg(nombre);
   }
 
   void eligeReserva(Reserva reserv) async {
@@ -54,9 +61,9 @@ class ReservaController extends ControllerMVC {
   void listarReservasInnerByIdCli({String message}) async {
     final Stream<List<ReservaInner>> stream =
         await obtenerReservasInnerXIdCli();
-    stream.listen((List<ReservaInner> _productos) {
+    stream.listen((List<ReservaInner> _reservas) {
       setState(() {
-        reservasInner = _productos;
+        reservasInner = _reservas;
         // print("===============================");
         // //print(carros);
         // print(jsonEncode(carros));
@@ -72,5 +79,23 @@ class ReservaController extends ControllerMVC {
         ));
       }
     });
+  }
+
+  //listar reservas para mostrar
+  void listadoDetalleReservaPorId(String id_detalle_reserva) async {
+    final Stream<List<DetalleReserva>> stream =
+        await obtenerDetalleReservaPorId(id_detalle_reserva);
+    stream.listen((List<DetalleReserva> _detallereserva) {
+      setState(() {
+        ldetalleReserva = _detallereserva;
+        // print("===============================");
+        // //print(carros);
+        print(jsonEncode(ldetalleReserva));
+      });
+    }, onError: (a) {
+      scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text(S.current.verify_your_internet_connection),
+      ));
+    }, onDone: () {});
   }
 }

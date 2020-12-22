@@ -31,18 +31,20 @@ class _HomeSliderWidgetState extends StateMVC<HomeSliderWidget> {
         _con.publicidades.isEmpty
             ? CardsCarouselLoaderWidget()
             : CarouselSlider(
-                height: 260,
-                scrollDirection: Axis.vertical,
-                autoPlay: true,
-                autoPlayInterval: Duration(seconds: 4),
-                viewportFraction: 1.0,
-                enlargeCenterPage: true,
-                aspectRatio: 2.0,
-                onPageChanged: (index) {
-                  setState(() {
-                    _current = index.toInt();
-                  });
-                },
+                options: CarouselOptions(
+                  height: 260,
+                  scrollDirection: Axis.vertical,
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 4),
+                  viewportFraction: 1.0,
+                  enlargeCenterPage: true,
+                  aspectRatio: 2.0,
+                  onPageChanged: (index, pagechange) {
+                    setState(() {
+                      _current = index.toInt();
+                    });
+                  },
+                ),
                 items: _con.publicidades.map((publicidad) {
                   return Builder(
                     builder: (BuildContext context) {

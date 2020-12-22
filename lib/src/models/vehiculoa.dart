@@ -22,20 +22,20 @@ VehiculoA vehiculoAFromJson(String str) => VehiculoA.fromJson(json.decode(str));
 String vehiculoAToJson(VehiculoA data) => json.encode(data.toJson());
 
 class VehiculoA {
-  VehiculoA({
-    this.id,
-    this.placa,
-    this.idModelo,
-    this.modelo,
-    this.marca,
-    this.idTipo,
-    this.tipo,
-    this.tamanio,
-    this.anio,
-    this.observaciones,
-    this.estado,
-    this.foto,
-  });
+  VehiculoA(
+      {this.id,
+      this.placa,
+      this.idModelo,
+      this.modelo,
+      this.marca,
+      this.idTipo,
+      this.tipo,
+      this.tamanio,
+      this.anio,
+      this.observaciones,
+      this.estado,
+      this.foto,
+      this.esElegido});
 
   String id;
   String placa;
@@ -49,21 +49,22 @@ class VehiculoA {
   String observaciones;
   String estado;
   String foto;
+  bool esElegido = false;
 
   factory VehiculoA.fromJson(Map<String, dynamic> json) => VehiculoA(
-        id: json["id"],
-        placa: json["placa"],
-        idModelo: json["id_modelo"],
-        modelo: json["modelo"],
-        marca: json["marca"],
-        idTipo: json["id_tipo"],
-        tipo: json["tipo"],
-        tamanio: json["tamanio"],
-        anio: json["anio"],
-        observaciones: json["observaciones"],
-        estado: json["estado"],
-        foto: json["foto"],
-      );
+      id: json["id"],
+      placa: json["placa"],
+      idModelo: json["id_modelo"],
+      modelo: json["modelo"],
+      marca: json["marca"],
+      idTipo: json["id_tipo"],
+      tipo: json["tipo"],
+      tamanio: json["tamanio"],
+      anio: json["anio"],
+      observaciones: json["observaciones"],
+      estado: json["estado"],
+      foto: json["foto"],
+      esElegido: json["es_elegido"]);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -78,5 +79,6 @@ class VehiculoA {
         "observaciones": observaciones,
         "estado": estado,
         "foto": foto,
+        "es_elegido": esElegido
       };
 }

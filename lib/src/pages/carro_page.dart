@@ -59,13 +59,14 @@ class CarroPageState extends StateMVC<CarroPage> {
                   primary: false,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      onTap: () {
+                    return CheckboxListTile(
+                      value: false,
+                      onChanged: (bool value) {
                         //print(index.toString() );
                         _con.eligeVehiculo(_con.vehiculos.elementAt(index));
                         //print(_con.vehiculoElegido.placa );
                       },
-                      leading: CachedNetworkImage(
+                      secondary: CachedNetworkImage(
                         imageUrl:
                             _con.RutaImg(_con.vehiculos.elementAt(index).foto),
                         /************* */
@@ -91,6 +92,10 @@ class CarroPageState extends StateMVC<CarroPage> {
                             ' - ' +
                             _con.vehiculos.elementAt(index).tamanio,
                       ),
+                      // trailing: Checkbox(
+                      //   onChanged: (value) {},
+                      //   value: _con.vehiculos.elementAt(index).esElegido,
+                      // ),
                     );
                   },
                   separatorBuilder: (context, index) {

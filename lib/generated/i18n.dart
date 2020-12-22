@@ -14,7 +14,7 @@ class S implements WidgetsLocalizations {
   static S current;
 
   static const GeneratedLocalizationsDelegate delegate =
-    GeneratedLocalizationsDelegate();
+      GeneratedLocalizationsDelegate();
 
   static S of(BuildContext context) => Localizations.of<S>(context, S);
 
@@ -27,7 +27,8 @@ class S implements WidgetsLocalizations {
   String get add_new_delivery_address => "Add new shipping address";
   String get add_to_cart => "Add to Cart";
   String get address => "Address";
-  String get addresses_refreshed_successfuly => "Addresses refreshed successfuly";
+  String get addresses_refreshed_successfuly =>
+      "Addresses refreshed successfuly";
   String get all => "All";
   String get all_product => "All Product";
   String get app_language => "App Language";
@@ -44,20 +45,28 @@ class S implements WidgetsLocalizations {
   String get cash_on_delivery => "Cash on delivery";
   String get categories => "Categories";
   String get category => "Category";
-  String get category_refreshed_successfuly => "Category refreshed successfully";
+  String get category_refreshed_successfuly =>
+      "Category refreshed successfully";
   String get checkout => "Checkout";
   String get clear => "Clear";
-  String get clickToPayWithRazorpayMethod => "Click to pay with RazorPay method";
-  String get click_on_the_stars_below_to_leave_comments => "Click on the stars below to leave comments";
-  String get click_to_confirm_your_address_and_pay_or_long_press => "Click to confirm your address and pay or Long press to edit your address";
+  String get clickToPayWithRazorpayMethod =>
+      "Click to pay with RazorPay method";
+  String get click_on_the_stars_below_to_leave_comments =>
+      "Click on the stars below to leave comments";
+  String get click_to_confirm_your_address_and_pay_or_long_press =>
+      "Click to confirm your address and pay or Long press to edit your address";
   String get click_to_pay_cash_on_delivery => "Click to pay cash on delivery";
   String get click_to_pay_on_pickup => "Click to pay on pickup";
-  String get click_to_pay_with_your_mastercard => "Click to pay with your MasterCard";
-  String get click_to_pay_with_your_paypal_account => "Click to pay with your PayPal account";
-  String get click_to_pay_with_your_visa_card => "Click to pay with your Visa Card";
+  String get click_to_pay_with_your_mastercard =>
+      "Click to pay with your MasterCard";
+  String get click_to_pay_with_your_paypal_account =>
+      "Click to pay with your PayPal account";
+  String get click_to_pay_with_your_visa_card =>
+      "Click to pay with your Visa Card";
   String get close => "Close";
   String get closed => "Closed";
-  String get completeYourProfileDetailsToContinue => "Complete your profile details to continue";
+  String get completeYourProfileDetailsToContinue =>
+      "Complete your profile details to continue";
   String get confirm_payment => "Confirm Payment";
   String get confirm_your_delivery_address => "Confirm your shipping address";
   String get confirmation => "Confirmation";
@@ -69,16 +78,20 @@ class S implements WidgetsLocalizations {
   String get deliverable => "Deliverable";
   String get delivery => "Delivery";
   String get delivery_address => "Shipping Address";
-  String get delivery_address_removed_successfully => "Delivery Address removed successfully";
+  String get delivery_address_removed_successfully =>
+      "Delivery Address removed successfully";
   String get delivery_addresses => "Shipping Addresses";
   String get delivery_fee => "SHipping Fee";
   String get delivery_or_pickup => "Delivery or Pickup";
   String get description => "Description";
   String get detail => "Detail";
   String get discover__explorer => "Discover & Explorer";
-  String get dont_have_any_item_in_the_notification_list => "D'ont have any item in the notification list";
-  String get dont_have_any_item_in_your_cart => "D'ont have any item in your cart";
-  String get double_click_on_the_product_to_add_it_to_the => "Double click on the product to add it to the cart";
+  String get dont_have_any_item_in_the_notification_list =>
+      "D'ont have any item in the notification list";
+  String get dont_have_any_item_in_your_cart =>
+      "D'ont have any item in your cart";
+  String get double_click_on_the_product_to_add_it_to_the =>
+      "Double click on the product to add it to the cart";
   String get edit => "Edit";
   String get email => "Email";
   String get email_address => "Email Address";
@@ -104,15 +117,18 @@ class S implements WidgetsLocalizations {
   String get home => "Home";
   String get home_address => "Home Address";
   String get how_would_you_rate_this_store => "How would you rate this store ?";
-  String get how_would_you_rate_this_store_ => "How would you rate this store ?";
+  String get how_would_you_rate_this_store_ =>
+      "How would you rate this store ?";
   String get i_dont_have_an_account => "I don't have an account?";
   String get i_forgot_password => "I forgot password ?";
   String get i_have_account_back_to_login => "I have account? Back to login";
-  String get i_remember_my_password_return_to_login => "I remember my password return to login";
+  String get i_remember_my_password_return_to_login =>
+      "I remember my password return to login";
   String get information => "Information";
   String get items => "Items";
   String get john_doe => "John Doe";
-  String get keep_your_old_meals_of_this_store => "Keep your old meals of this store";
+  String get keep_your_old_meals_of_this_store =>
+      "Keep your old meals of this store";
   String get km => "Km";
   String get languages => "Languages";
   String get lets_start_with_login => "Let's Start with Login!";
@@ -120,8 +136,10 @@ class S implements WidgetsLocalizations {
   String get light_mode => "Light Mode";
   String get log_out => "Log out";
   String get login => "Login";
-  String get long_press_to_edit_item_swipe_item_to_delete_it => "Long press to edit item, swipe item to delete it";
-  String get longpress_on_the_product_to_add_suplements => "Longpress on the product to add suplements";
+  String get long_press_to_edit_item_swipe_item_to_delete_it =>
+      "Long press to edit item, swipe item to delete it";
+  String get longpress_on_the_product_to_add_suplements =>
+      "Longpress on the product to add suplements";
   String get make_it_default => "Make it default";
   String get maps_explorer => "Maps Explorer";
   String get mastercard => "MasterCard";
@@ -135,7 +153,8 @@ class S implements WidgetsLocalizations {
   String get new_address_added_successfully => "New Address added successfully";
   String get new_order_from_client => "New order from client";
   String get not_a_valid_address => "Not a valid address";
-  String get not_a_valid_address_description => "Not a valid address Description";
+  String get not_a_valid_address_description =>
+      "Not a valid address Description";
   String get not_a_valid_biography => "Not a valid biography";
   String get not_a_valid_cvc => "Not a valid CVC";
   String get not_a_valid_date => "Not a valid date";
@@ -145,7 +164,8 @@ class S implements WidgetsLocalizations {
   String get not_a_valid_phone => "Not a valid phone";
   String get not_deliverable => "Not Deliverable";
   String get notifications => "Notifications";
-  String get notifications_refreshed_successfuly => "Notifications refreshed successfully";
+  String get notifications_refreshed_successfuly =>
+      "Notifications refreshed successfully";
   String get number => "Number";
   String get on_the_way => "On the Way";
   String get open => "Open";
@@ -159,17 +179,20 @@ class S implements WidgetsLocalizations {
   String get orders_refreshed_successfuly => "Orders refreshed successfully";
   String get password => "Password";
   String get pay_on_pickup => "Pay on Pickup";
-  String get payment_card_updated_successfully => "Payment card updated successfully";
+  String get payment_card_updated_successfully =>
+      "Payment card updated successfully";
   String get payment_mode => "Payment Mode";
   String get payment_options => "Payment Options";
   String get payment_settings => "Payment Settings";
-  String get payment_settings_updated_successfully => "Payment settings updated successfully";
+  String get payment_settings_updated_successfully =>
+      "Payment settings updated successfully";
   String get payments_settings => "Payments Settings";
   String get paypal => "PayPal";
   String get paypal_payment => "PayPal Payment";
   String get phone => "Phone";
   String get pickup => "Pickup";
-  String get pickup_your_product_from_the_store => "Pickup your product from the store";
+  String get pickup_your_product_from_the_store =>
+      "Pickup your product from the store";
   String get preparing => "Preparing";
   String get product => "Product";
   String get product_brands => "Product Brands";
@@ -180,7 +203,8 @@ class S implements WidgetsLocalizations {
   String get products_results => "Products Results";
   String get profile => "Profile";
   String get profile_settings => "Profile Settings";
-  String get profile_settings_updated_successfully => "Profile settings updated successfully";
+  String get profile_settings_updated_successfully =>
+      "Profile settings updated successfully";
   String get quantity => "Quantity";
   String get razorpay => "RazorPay";
   String get razorpayPayment => "RazorPay Payment";
@@ -190,23 +214,29 @@ class S implements WidgetsLocalizations {
   String get register => "Register";
   String get reset => "Reset";
   String get reset_cart => "Reset Cart?";
-  String get reset_your_cart_and_order_meals_form_this_store => "Reset your cart and order meals form this store";
+  String get reset_your_cart_and_order_meals_form_this_store =>
+      "Reset your cart and order meals form this store";
   String get review => "Review";
   String get reviews => "Reviews";
-  String get reviews_refreshed_successfully => "Reviews refreshed successfully!";
+  String get reviews_refreshed_successfully =>
+      "Reviews refreshed successfully!";
   String get save => "Save";
   String get search => "Search";
   String get search_for_stores_or_products => "Search for stores or products";
-  String get select_options_to_add_them_on_the_product => "Select options to add them on the product";
-  String get select_your_preferred_languages => "Select your preferred languages";
-  String get select_your_preferred_payment_mode => "Select your preferred payment mode";
+  String get select_options_to_add_them_on_the_product =>
+      "Select options to add them on the product";
+  String get select_your_preferred_languages =>
+      "Select your preferred languages";
+  String get select_your_preferred_payment_mode =>
+      "Select your preferred payment mode";
   String get send_password_reset_link => "Send link";
   String get settings => "Settings";
   String get shipped => "Shipped";
   String get shopping => "Shopping";
   String get shopping_cart => "Shopping Cart";
   String get should_be_a_valid_email => "Should be a valid email";
-  String get should_be_more_than_3_characters => "Should be more than 3 characters";
+  String get should_be_more_than_3_characters =>
+      "Should be more than 3 characters";
   String get should_be_more_than_3_letters => "Should be more than 3 letters";
   String get should_be_more_than_6_letters => "Should be more than 6 letters";
   String get skip => "Skip";
@@ -214,16 +244,20 @@ class S implements WidgetsLocalizations {
   String get store => "Store";
   String get store_refreshed_successfuly => "Brand refreshed successfully";
   String get stores_near_to => "Stores near to";
-  String get stores_near_to_your_current_location => "Stores near to your current location";
+  String get stores_near_to_your_current_location =>
+      "Stores near to your current location";
   String get stores_results => "Stores Results";
   String get submit => "Submit";
   String get subtotal => "Subtotal";
   String get tax => "TAX";
   String get tell_us_about_this_product => "Tell us about this product";
   String get tell_us_about_this_store => "Tell us about this srore";
-  String get the_address_updated_successfully => "The address updated successfully";
-  String get the_product_has_been_rated_successfully => "The product has been rated successfully";
-  String get the_store_has_been_rated_successfully => "The store has been rated successfully";
+  String get the_address_updated_successfully =>
+      "The address updated successfully";
+  String get the_product_has_been_rated_successfully =>
+      "The product has been rated successfully";
+  String get the_store_has_been_rated_successfully =>
+      "The store has been rated successfully";
   String get this_account_not_exist => "This account not exist";
   String get this_email_account_exists => "This email account exists";
   String get this_notification_was_removed => "This notification was removed";
@@ -232,32 +266,43 @@ class S implements WidgetsLocalizations {
   String get top_stores => "Top Stores";
   String get total => "Total";
   String get tracking_order => "Tracking Order";
-  String get tracking_refreshed_successfuly => "Tracking refreshed successfully";
+  String get tracking_refreshed_successfuly =>
+      "Tracking refreshed successfully";
   String get trending_this_week => "Trending This Week";
   String get unknown => "Unknown";
   String get unpaid => "Unpaid";
   String get verify => "Verify";
   String get verify_phone => "Verify Phone";
   String get verify_your_account => "Verify Your Account";
-  String get verify_your_internet_connection => "Verify your internet connection";
-  String get verify_your_quantity_and_click_checkout => "Verify your quantity and click checkout";
+  String get verify_your_internet_connection => "Ocurrio un problema";
+  String get verify_your_quantity_and_click_checkout =>
+      "Verify your quantity and click checkout";
   String get version => "Version";
   String get visa_card => "Visa Card";
-  String get we_are_sending_OTP => "We are sending OTP to validate your mobile number. Hang on!";
+  String get we_are_sending_OTP =>
+      "We are sending OTP to validate your mobile number. Hang on!";
   String get welcome => "Welcome";
   String get what_they_say => "What They Say ?";
   String get wrong_email_or_password => "Wrong email or password";
-  String get you_can_discover_stores => "You can discover stores & fastproduct arround you and choose you best meal after few minutes we prepare and delivere it for you";
-  String get you_must_add_products_of_the_same_stores_choose_one => "You must add products of the same stores choose one stores only!";
-  String get you_must_signin_to_access_to_this_section => "You must sign-in to access to this section";
+  String get you_can_discover_stores =>
+      "You can discover stores & fastproduct arround you and choose you best meal after few minutes we prepare and delivere it for you";
+  String get you_must_add_products_of_the_same_stores_choose_one =>
+      "You must add products of the same stores choose one stores only!";
+  String get you_must_signin_to_access_to_this_section =>
+      "You must sign-in to access to this section";
   String get your_address => "Your Address";
   String get your_biography => "Your biography";
   String get your_credit_card_not_valid => "Your credit card not valid";
-  String get your_order_has_been_successfully_submitted => "Your order has been successfully submitted!";
-  String get your_phone_and_address_book_are_used_to_connect => "Your phone and address book are used to connect. Call you to verify your phone Number";
-  String get your_reset_link_has_been_sent_to_your_email => "Your reset link has been sent to your email";
-  String the_product_was_removed_from_your_cart(String productName) => "The $productName was removed from your cart";
-  String the_product_was_removed_from_your_favorite(String productName) => "The $productName was removed from your favorite";
+  String get your_order_has_been_successfully_submitted =>
+      "Your order has been successfully submitted!";
+  String get your_phone_and_address_book_are_used_to_connect =>
+      "Your phone and address book are used to connect. Call you to verify your phone Number";
+  String get your_reset_link_has_been_sent_to_your_email =>
+      "Your reset link has been sent to your email";
+  String the_product_was_removed_from_your_cart(String productName) =>
+      "The $productName was removed from your cart";
+  String the_product_was_removed_from_your_favorite(String productName) =>
+      "The $productName was removed from your favorite";
 }
 
 class $ar extends S {
@@ -305,15 +350,19 @@ class $ar extends S {
   @override
   String get edit => "تحرير";
   @override
-  String get you_must_add_products_of_the_same_stores_choose_one => "يجب عليك إضافة منتجات من نفس المتاجر اختر متجرًا واحدًا فقط!";
+  String get you_must_add_products_of_the_same_stores_choose_one =>
+      "يجب عليك إضافة منتجات من نفس المتاجر اختر متجرًا واحدًا فقط!";
   @override
   String get profile => "Profile";
   @override
-  String get double_click_on_the_product_to_add_it_to_the => "انقر مرتين على المنتج لإضافته إلى سلة التسوق";
+  String get double_click_on_the_product_to_add_it_to_the =>
+      "انقر مرتين على المنتج لإضافته إلى سلة التسوق";
   @override
-  String get profile_settings_updated_successfully => "تم تحديث إعدادات ملف التعريف بنجاح";
+  String get profile_settings_updated_successfully =>
+      "تم تحديث إعدادات ملف التعريف بنجاح";
   @override
-  String get longpress_on_the_product_to_add_suplements => "Longpress on the product to add suplements";
+  String get longpress_on_the_product_to_add_suplements =>
+      "Longpress on the product to add suplements";
   @override
   String get version => "الإصدار";
   @override
@@ -329,7 +378,8 @@ class $ar extends S {
   @override
   String get items => "العناصر";
   @override
-  String get stores_near_to_your_current_location => "المتاجر القريبة من موقعك الحالي";
+  String get stores_near_to_your_current_location =>
+      "المتاجر القريبة من موقعك الحالي";
   @override
   String get should_be_more_than_3_characters => "يجب أن يكون أكثر من 3 أحرف";
   @override
@@ -345,7 +395,8 @@ class $ar extends S {
   @override
   String get new_order_from_client => "طلب جديد من العميل";
   @override
-  String get this_product_was_added_to_cart => "تمت إضافة هذا المنتج إلى سلة التسوق";
+  String get this_product_was_added_to_cart =>
+      "تمت إضافة هذا المنتج إلى سلة التسوق";
   @override
   String get or_checkout_with => "Or Checkout With";
   @override
@@ -421,13 +472,15 @@ class $ar extends S {
   @override
   String get the_address_updated_successfully => "تم تحديث العنوان بنجاح";
   @override
-  String get verify_your_quantity_and_click_checkout => "تحقق من الكمية وانقر فوق الخروج";
+  String get verify_your_quantity_and_click_checkout =>
+      "تحقق من الكمية وانقر فوق الخروج";
   @override
   String get paypal_payment => "PayPal Payment";
   @override
   String get delivery_or_pickup => "التسليم أو الاستلام";
   @override
-  String get click_to_pay_with_your_paypal_account => "انقر للدفع باستخدام حساب PayPal";
+  String get click_to_pay_with_your_paypal_account =>
+      "انقر للدفع باستخدام حساب PayPal";
   @override
   String get click_to_pay_cash_on_delivery => "انقر للدفع نقدًا عند التسليم";
   @override
@@ -441,9 +494,11 @@ class $ar extends S {
   @override
   String get not_a_valid_cvc => "ليس رمز التحقق من البطاقة صالحًا";
   @override
-  String get clickToPayWithRazorpayMethod => "انقر للدفع باستخدام حساب RazorPay ";
+  String get clickToPayWithRazorpayMethod =>
+      "انقر للدفع باستخدام حساب RazorPay ";
   @override
-  String get you_must_signin_to_access_to_this_section => "يجب عليك تسجيل الدخول للوصول إلى هذا القسم";
+  String get you_must_signin_to_access_to_this_section =>
+      "يجب عليك تسجيل الدخول للوصول إلى هذا القسم";
   @override
   String get not_a_valid_full_name => "ليس اسمًا كاملاً صالحًا";
   @override
@@ -453,7 +508,8 @@ class $ar extends S {
   @override
   String get recents_search => "البحث عن المشاركات الأخيرة";
   @override
-  String get i_remember_my_password_return_to_login => "أتذكر عودة كلمة المرور لتسجيل الدخول";
+  String get i_remember_my_password_return_to_login =>
+      "أتذكر عودة كلمة المرور لتسجيل الدخول";
   @override
   String get all_product => "جميع المنتجات";
   @override
@@ -461,9 +517,11 @@ class $ar extends S {
   @override
   String get recent_orders => "Recent Orders";
   @override
-  String get ordered_by_nearby_first => "تم الترتيب بواسطة الأجهزة المجاورة أولاً";
+  String get ordered_by_nearby_first =>
+      "تم الترتيب بواسطة الأجهزة المجاورة أولاً";
   @override
-  String get long_press_to_edit_item_swipe_item_to_delete_it => "اضغط مع الاستمرار لتحرير العنصر , واسحب العنصر لحذفه";
+  String get long_press_to_edit_item_swipe_item_to_delete_it =>
+      "اضغط مع الاستمرار لتحرير العنصر , واسحب العنصر لحذفه";
   @override
   String get verify_your_account => "التحقق من حسابك";
   @override
@@ -477,7 +535,8 @@ class $ar extends S {
   @override
   String get click_to_pay_on_pickup => "انقر للدفع عند الاستلام";
   @override
-  String get dont_have_any_item_in_the_notification_list => "لا يوجد أي عنصر في قائمة الإشعارات";
+  String get dont_have_any_item_in_the_notification_list =>
+      "لا يوجد أي عنصر في قائمة الإشعارات";
   @override
   String get your_credit_card_not_valid => "بطاقتك الائتمانية غير صالحة";
   @override
@@ -489,7 +548,8 @@ class $ar extends S {
   @override
   String get product_brands => "علامات المنتج";
   @override
-  String get your_phone_and_address_book_are_used_to_connect => "يتم استخدام الهاتف ودفتر العناوين للاتصال. اتصل بك للتحقق من رقم هاتفك";
+  String get your_phone_and_address_book_are_used_to_connect =>
+      "يتم استخدام الهاتف ودفتر العناوين للاتصال. اتصل بك للتحقق من رقم هاتفك";
   @override
   String get help_supports => "المساعدة والدعم";
   @override
@@ -519,7 +579,8 @@ class $ar extends S {
   @override
   String get notifications_refreshed_successfuly => "تم تحديث الإشعارات بنجاح";
   @override
-  String get your_reset_link_has_been_sent_to_your_email => "تم إرسال رابط إعادة الضبط إلى بريدك الإلكتروني";
+  String get your_reset_link_has_been_sent_to_your_email =>
+      "تم إرسال رابط إعادة الضبط إلى بريدك الإلكتروني";
   @override
   String get number => "Number";
   @override
@@ -549,11 +610,13 @@ class $ar extends S {
   @override
   String get confirmation => "التأكيد";
   @override
-  String get payment_settings_updated_successfully => "تم تحديث إعدادات الدفع بنجاح";
+  String get payment_settings_updated_successfully =>
+      "تم تحديث إعدادات الدفع بنجاح";
   @override
   String get not_a_valid_number => "ليس رقمًا صالحًا";
   @override
-  String get click_to_pay_with_your_mastercard => "انقر للدفع باستخدام بطاقة MasterCard";
+  String get click_to_pay_with_your_mastercard =>
+      "انقر للدفع باستخدام بطاقة MasterCard";
   @override
   String get brand_refreshed_successfuly => "تم تحديث العلامة التجارية بنجاح";
   @override
@@ -573,7 +636,8 @@ class $ar extends S {
   @override
   String get order_refreshed_successfuly => "تم تحديث الطلب بنجاح";
   @override
-  String get we_are_sending_OTP => "نرسل OTP للتحقق من رقم هاتفك المحمول. انتظر!";
+  String get we_are_sending_OTP =>
+      "نرسل OTP للتحقق من رقم هاتفك المحمول. انتظر!";
   @override
   String get search_for_stores_or_products => "البحث عن المنتجات";
   @override
@@ -585,7 +649,8 @@ class $ar extends S {
   @override
   String get login => "دخول";
   @override
-  String get you_can_discover_stores => "يمكنك اكتشاف المتاجر والمنتوجات السريعة حولك واختيار أفضل وجبة لك بعد بضع دقائق من إعدادها وتقديمها لك";
+  String get you_can_discover_stores =>
+      "يمكنك اكتشاف المتاجر والمنتوجات السريعة حولك واختيار أفضل وجبة لك بعد بضع دقائق من إعدادها وتقديمها لك";
   @override
   String get unknown => " غير معروف";
   @override
@@ -625,7 +690,8 @@ class $ar extends S {
   @override
   String get maps_explorer => "خرائط مستكشف";
   @override
-  String get select_options_to_add_them_on_the_product => "حدد خيارات لإضافتها إلى المنتج";
+  String get select_options_to_add_them_on_the_product =>
+      "حدد خيارات لإضافتها إلى المنتج";
   @override
   String get not_a_valid_email => "ليس بريدًا إلكترونيًا صالحًا";
   @override
@@ -633,9 +699,11 @@ class $ar extends S {
   @override
   String get help_support => "المساعدة والدعم";
   @override
-  String get dont_have_any_item_in_your_cart => "لا يوجد أي عنصر في سلة التسوق الخاصة بك";
+  String get dont_have_any_item_in_your_cart =>
+      "لا يوجد أي عنصر في سلة التسوق الخاصة بك";
   @override
-  String get reset_your_cart_and_order_meals_form_this_store => "إعادة تعيين سلة التسوق وطلب وجبات الطعام من هذا المتجر";
+  String get reset_your_cart_and_order_meals_form_this_store =>
+      "إعادة تعيين سلة التسوق وطلب وجبات الطعام من هذا المتجر";
   @override
   String get orders_refreshed_successfuly => "تم تحديث الطلبات بنجاح";
   @override
@@ -681,7 +749,8 @@ class $ar extends S {
   @override
   String get pickup_your_product_from_the_store => "استلام منتجك من المتجر";
   @override
-  String get your_order_has_been_successfully_submitted => "لقد تم تقديم طلبك بنجاح!";
+  String get your_order_has_been_successfully_submitted =>
+      "لقد تم تقديم طلبك بنجاح!";
   @override
   String get verify_phone => "التحقق من الهاتف";
   @override
@@ -695,11 +764,14 @@ class $ar extends S {
   @override
   String get not_a_valid_address => "ليس عنوانًا صالحًا";
   @override
-  String get email_to_reset_password => "البريد الإلكتروني لإعادة تعيين كلمة المرور";
+  String get email_to_reset_password =>
+      "البريد الإلكتروني لإعادة تعيين كلمة المرور";
   @override
-  String get keep_your_old_meals_of_this_store => "احتفظ بوجباتك القديمة من هذا المتجر";
+  String get keep_your_old_meals_of_this_store =>
+      "احتفظ بوجباتك القديمة من هذا المتجر";
   @override
-  String get error_verify_email_settings => "خطأ! تحقق من إعدادات البريد الإلكتروني";
+  String get error_verify_email_settings =>
+      "خطأ! تحقق من إعدادات البريد الإلكتروني";
   @override
   String get app_settings => "إعدادات التطبيق";
   @override
@@ -711,9 +783,11 @@ class $ar extends S {
   @override
   String get make_it_default => "اجعله افتراضيًا";
   @override
-  String get click_to_confirm_your_address_and_pay_or_long_press => "انقر لتأكيد عنوانك والدفع أو الضغط مع الاستمرار لتحرير عنوانك";
+  String get click_to_confirm_your_address_and_pay_or_long_press =>
+      "انقر لتأكيد عنوانك والدفع أو الضغط مع الاستمرار لتحرير عنوانك";
   @override
-  String get click_on_the_stars_below_to_leave_comments => "انقر على النجوم أدناه لترك التعليقات";
+  String get click_on_the_stars_below_to_leave_comments =>
+      "انقر على النجوم أدناه لترك التعليقات";
   @override
   String get stores_results => "نتائج المتاجر";
   @override
@@ -723,11 +797,14 @@ class $ar extends S {
   @override
   String get category => "فئة";
   @override
-  String get delivery_address_removed_successfully => "تمت إزالة عنوان التسليم بنجاح";
+  String get delivery_address_removed_successfully =>
+      "تمت إزالة عنوان التسليم بنجاح";
   @override
-  String the_product_was_removed_from_your_favorite(String productName) => "تمت إزالة $productName من المفضلة";
+  String the_product_was_removed_from_your_favorite(String productName) =>
+      "تمت إزالة $productName من المفضلة";
   @override
-  String the_product_was_removed_from_your_cart(String productName) => "تمت إزالة $productName من سلة التسوق الخاصة بك";
+  String the_product_was_removed_from_your_cart(String productName) =>
+      "تمت إزالة $productName من سلة التسوق الخاصة بك";
 }
 
 class $en extends S {
@@ -744,7 +821,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
     ];
   }
 
-  LocaleListResolutionCallback listResolution({Locale fallback, bool withCountry = true}) {
+  LocaleListResolutionCallback listResolution(
+      {Locale fallback, bool withCountry = true}) {
     return (List<Locale> locales, Iterable<Locale> supported) {
       if (locales == null || locales.isEmpty) {
         return fallback ?? supported.first;
@@ -754,7 +832,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
     };
   }
 
-  LocaleResolutionCallback resolution({Locale fallback, bool withCountry = true}) {
+  LocaleResolutionCallback resolution(
+      {Locale fallback, bool withCountry = true}) {
     return (Locale locale, Iterable<Locale> supported) {
       return _resolve(locale, fallback, supported, withCountry);
     };
@@ -772,7 +851,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
           S.current = const $en();
           return SynchronousFuture<S>(S.current);
         default:
-          // NO-OP.
+        // NO-OP.
       }
     }
     S.current = const S();
@@ -788,7 +867,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
   ///
   /// Internal method to resolve a locale from a list of locales.
   ///
-  Locale _resolve(Locale locale, Locale fallback, Iterable<Locale> supported, bool withCountry) {
+  Locale _resolve(Locale locale, Locale fallback, Iterable<Locale> supported,
+      bool withCountry) {
     if (locale == null || !_isSupported(locale, withCountry)) {
       return fallback ?? supported.first;
     }
@@ -821,7 +901,9 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
         }
 
         // If no country requirement is requested, check if this locale has no country.
-        if (true != withCountry && (supportedLocale.countryCode == null || supportedLocale.countryCode.isEmpty)) {
+        if (true != withCountry &&
+            (supportedLocale.countryCode == null ||
+                supportedLocale.countryCode.isEmpty)) {
           return true;
         }
       }
@@ -831,7 +913,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
 }
 
 String getLang(Locale l) => l == null
-  ? null
-  : l.countryCode != null && l.countryCode.isEmpty
-    ? l.languageCode
-    : l.toString();
+    ? null
+    : l.countryCode != null && l.countryCode.isEmpty
+        ? l.languageCode
+        : l.toString();

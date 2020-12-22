@@ -1,5 +1,6 @@
 import 'package:carwash/src/models/route_argument.dart';
 import 'package:carwash/src/models/vehiculoa.dart';
+import 'package:carwash/src/pages/detalle_reserva_page.dart';
 import 'package:carwash/src/pages/detalle_servicio_page.dart';
 import 'package:carwash/src/pages/home_page.dart';
 import 'package:carwash/src/pages/login_page.dart';
@@ -33,8 +34,11 @@ class RouteGenerator {
       // case '/Carros':
       //   return MaterialPageRoute(builder: (_) => CarroPage());
 
-      /*case '/Details':
-        return MaterialPageRoute(builder: (_) => DetailsWidget(routeArgument: args as RouteArgument));
+      case '/DetalleReserva':
+        return MaterialPageRoute(
+            builder: (_) =>
+                DetalleReservaPage(routeArgument: args as RouteArgument));
+      /*
       case '/Menu':
         return MaterialPageRoute(builder: (_) => MenuWidget(routeArgument: args as RouteArgument));
       */
