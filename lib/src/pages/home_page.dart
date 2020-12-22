@@ -1,23 +1,58 @@
+import 'package:carwash/src/controllers/home_controller.dart';
 import 'package:carwash/src/pages/carro_page.dart';
 import 'package:carwash/src/pages/fecha_page.dart';
 import 'package:carwash/src/pages/servicio_page.dart';
 import 'package:carwash/src/widgets/DrawerWidget.dart';
+import 'package:carwash/src/widgets/HomeSliderWidget.dart';
 import 'package:carwash/src/widgets/ServiciosWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key key}) : super(key: key);
+  final GlobalKey<ScaffoldState> parentScaffoldKey;
+
+  const HomePage({Key key, this.parentScaffoldKey}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+class _HomePageState extends StateMVC<HomePage>
+    with SingleTickerProviderStateMixin {
+  Animation animationOpacity;
+  AnimationController animationController;
+  HomeController _con;
+
+  _HomePageState() : super(HomeController()) {
+    _con = controller;
+  }
 
   List<bool> _isSelected = [false, true, false];
   bool _switchValue = false;
+
+  @override
+  initState() {
+    // TODO: implement initState
+    super.initState();
+
+    _con.verificarSiEstaAutentificado(context);
+    animationController =
+        AnimationController(duration: Duration(milliseconds: 200), vsync: this);
+    CurvedAnimation curve =
+        CurvedAnimation(parent: animationController, curve: Curves.easeIn);
+    animationOpacity = Tween(begin: 0.0, end: 1.0).animate(curve)
+      ..addListener(() {
+        setState(() {});
+      });
+    animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +61,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text('CarWashApp'),
           elevation: 0,
           backgroundColor: Colors.transparent,
@@ -60,18 +96,20 @@ class _HomePageState extends State<HomePage> {
               child: Align(
                 child: Image.asset(
                   'assets/img/isotipo.png',
-                  width: 80,
+                  width: 70,
                 ),
                 alignment: Alignment.topCenter,
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  top: 30, left: 10, right: 10, bottom: 150),
+                  top: 0, left: 10, right: 10, bottom: 150),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [],
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  HomeSliderWidget(),
+                ],
               ),
             ),
             Align(
