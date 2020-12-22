@@ -8,6 +8,7 @@ import 'package:carwash/src/models/vehiculo_modelo.dart';
 import 'package:carwash/src/models/vehiculoa.dart';
 import 'package:carwash/src/repository/modelo_vehiculo_repository.dart';
 import 'package:carwash/src/repository/tipo_vehiculo_repository.dart';
+import 'package:carwash/src/repository/user_repository.dart';
 //import 'package:carwash/src/models/setting.dart';
 import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:carwash/src/repository/servicio_repository.dart';
@@ -33,7 +34,7 @@ class CarroController extends ControllerMVC {
 
   CarroController() {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
-    listarCarrosByIdCli();
+    // listarCarrosByIdCli();
     listarCarrosByCliente();
     obtenerServicio();
   }
@@ -53,7 +54,7 @@ class CarroController extends ControllerMVC {
       });
     }
   }
-  
+
   void obtenerServicio() async {
     this.servicio = await getServicio();
   }
@@ -64,8 +65,8 @@ class CarroController extends ControllerMVC {
     stream.listen((List<TipoVehiculo> _data) {
       setState(() {
         tipos = _data;
-        print("===============================");
-        print(jsonEncode(tipos));
+        // print("===============================");
+        // print(jsonEncode(tipos));
         // print(jsonEncode(carros));
       });
     }, onError: (a) {
@@ -87,8 +88,8 @@ class CarroController extends ControllerMVC {
     stream.listen((List<VehiculoModelo> _modelos) {
       setState(() {
         modelos = _modelos;
-        print("===============================");
-        print(jsonEncode(modelos));
+        // print("===============================");
+        // print(jsonEncode(modelos));
         // print(jsonEncode(carros));
       });
     }, onError: (a) {
@@ -128,15 +129,15 @@ class CarroController extends ControllerMVC {
 
   // Obtener vehiculos por codigo cliente con información adicional
   void listarCarrosByCliente({String message}) async {
-    String idCliente = "1";
+    String idCliente = currentUser.value.uid;
     final Stream<List<VehiculoA>> stream =
         await obtenerVehiculosPorCliente(idCliente);
     stream.listen((List<VehiculoA> _vehiculos) {
       setState(() {
         vehiculos = _vehiculos;
-        print("===============================");
-        //print(carros);
-        print(jsonEncode(carros));
+        // print("===============================");
+        // //print(carros);
+        // print(jsonEncode(carros));
       });
     }, onError: (a) {
       scaffoldKey.currentState.showSnackBar(SnackBar(
@@ -155,47 +156,40 @@ class CarroController extends ControllerMVC {
     this.vehiculoElegido = vehiculo;
     String strVehiculo = vehiculoAToJson(vehiculo);
     setVehiculo(strVehiculo);
-    print('_________en string____________');
-    print(await getVehiculo());
+    // print('_________en string____________');
+    // print(await getVehiculo());
   }
 
-  //registrar en servidor 
-void registrarVehiculo(Vehiculo newVehiculo) async {
-    
-    if(this.image == null){
-      this.scaffoldKey?.currentState?.showSnackBar(
-        SnackBar(
-          content: Text('Agregue una imagen por favor'),
-          //backgroundColor: Theme.of(context).hintColor ,
-        ));
-    }else{
+  //registrar en servidor
+  void registrarVehiculo(Vehiculo newVehiculo) async {
+    if (this.image == null) {
+      this.scaffoldKey?.currentState?.showSnackBar(SnackBar(
+            content: Text('Agregue una imagen por favor'),
+            //backgroundColor: Theme.of(context).hintColor ,
+          ));
+    } else {
+      String base64Image = base64Encode(this.image.readAsBytesSync());
+      String fileName = this.image.path.split("/").last;
+      newVehiculo.foto = fileName;
+      newVehiculo.imgFile = base64Image;
 
-        String base64Image = base64Encode(this.image.readAsBytesSync());
-        String fileName = this.image.path.split("/").last;
-        newVehiculo.foto = fileName;
-        newVehiculo.imgFile = base64Image; 
+      newVehiculo.idCliente = currentUser.value.uid;
 
-        this.loading = true;
-        setState(() { 
-          image = null;
-        });
-         var vehiculoResp = await guardarVehiculo(newVehiculo);
-        
-        this.loading = false;
-        setState(() { });
+      this.loading = true;
+      setState(() {
+        image = null;
+      });
+      var vehiculoResp = await guardarVehiculo(newVehiculo);
 
-        print('____ANTES DE ENVIAR___');
-        print(newVehiculo.imgFile);
+      this.loading = false;
+      setState(() {});
 
+      print('____ANTES DE ENVIAR___');
+      print(newVehiculo.imgFile);
     }
-
   }
 
-
-String RutaImg(String nombre){
-
-  return getRutaImg(nombre) ;
-  
-}
-
+  String RutaImg(String nombre) {
+    return getRutaImg(nombre);
+  }
 }

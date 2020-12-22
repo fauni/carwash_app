@@ -17,7 +17,11 @@ class ReservaController extends ControllerMVC {
   ReservaInner resInner;
   List<ReservaInner> reservasInner = [];
   String strReserva = '';
-  Map <String,dynamic> reservaCompleta = {"vehiculo" : "", "servicios":"", "fecha" :""};
+  Map<String, dynamic> reservaCompleta = {
+    "vehiculo": "",
+    "servicios": "",
+    "fecha": ""
+  };
 
   GlobalKey<ScaffoldState> scaffoldKey;
 
@@ -25,31 +29,31 @@ class ReservaController extends ControllerMVC {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
     listarReservasInnerByIdCli();
   }
-  
 
-
-  void eligeReserva(Reserva reserv) async{
-      this.reserva = reserv;
-      String strRes = reservaToJson(reserva);
-      setReserva(strRes);
-      print('_________en string____________');
-      print (await getReserva());
+  void eligeReserva(Reserva reserv) async {
+    this.reserva = reserv;
+    String strRes = reservaToJson(reserva);
+    setReserva(strRes);
+    print('_________en string____________');
+    print(await getReserva());
   }
-  void setReservaCompleta()async {
-    String strVehiculo = await getVehiculo();  
-    this.reservaCompleta["vehiculo"] = json.decode(strVehiculo) ;
-    String strServicios = await getServicio();  
+
+  void setReservaCompleta() async {
+    String strVehiculo = await getVehiculo();
+    this.reservaCompleta["vehiculo"] = json.decode(strVehiculo);
+    String strServicios = await getServicio();
     this.reservaCompleta["servicios"] = json.decode(strServicios);
-    String strFecha  = await getReserva();
+    String strFecha = await getReserva();
     this.reservaCompleta["fecha"] = json.decode(strFecha);
     print(json.encode(this.reservaCompleta));
     print('--------respuesta del post:----------');
-    var respuesta = registrarReserva(json.encode(this.reservaCompleta)) ;
-
+    var respuesta = registrarReserva(json.encode(this.reservaCompleta));
   }
+
   //listar reservas para mostrar
   void listarReservasInnerByIdCli({String message}) async {
-    final Stream<List<ReservaInner>> stream = await obtenerReservasInnerXIdCli ();
+    final Stream<List<ReservaInner>> stream =
+        await obtenerReservasInnerXIdCli();
     stream.listen((List<ReservaInner> _productos) {
       setState(() {
         reservasInner = _productos;
@@ -69,5 +73,4 @@ class ReservaController extends ControllerMVC {
       }
     });
   }
-
 }

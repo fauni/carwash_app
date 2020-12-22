@@ -52,9 +52,12 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
         // ],
       ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(
+          horizontal: 20,
+        ),
         child: Column(
           children: [
-            _con.carros.isEmpty
+            _con.vehiculos.isEmpty
                 ? CircularLoadingWidget(
                     height: 50,
                   )
@@ -66,7 +69,9 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                     itemBuilder: (context, index) {
                       return ListTile(
                         leading: CachedNetworkImage(
-                          imageUrl: _con.RutaImg(_con.vehiculos.elementAt(index).foto),/************* */
+                          imageUrl: _con.RutaImg(
+                              _con.vehiculos.elementAt(index).foto),
+                          /************* */
                           imageBuilder: (context, imageProvider) => Container(
                               width: 80.0,
                               height: 80.0,

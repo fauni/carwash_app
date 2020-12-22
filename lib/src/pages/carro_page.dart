@@ -37,6 +37,7 @@ class CarroPageState extends StateMVC<CarroPage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
         children: [
           Padding(
@@ -48,7 +49,7 @@ class CarroPageState extends StateMVC<CarroPage> {
               subtitle: Text('Presiona el el Item para Elegir el Vehiculo'),
             ),
           ),
-          _con.carros.isEmpty
+          _con.vehiculos.isEmpty
               ? CircularLoadingWidget(
                   height: 50,
                 )
@@ -59,13 +60,15 @@ class CarroPageState extends StateMVC<CarroPage> {
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      onTap: (){
+                      onTap: () {
                         //print(index.toString() );
                         _con.eligeVehiculo(_con.vehiculos.elementAt(index));
                         //print(_con.vehiculoElegido.placa );
                       },
                       leading: CachedNetworkImage(
-                        imageUrl: 'http://intranet.lafar.net/images/rav4.jpg',
+                        imageUrl:
+                            _con.RutaImg(_con.vehiculos.elementAt(index).foto),
+                        /************* */
                         imageBuilder: (context, imageProvider) => Container(
                             width: 80.0,
                             height: 80.0,
@@ -112,7 +115,7 @@ class CarroPageState extends StateMVC<CarroPage> {
               title: Text('Agregar un auto nuevo'),
               subtitle: Text('Nueva Movilidad'),
               onTap: () {
-                print('Agregar nuevo carro -------');
+                Navigator.of(context).pushNamed('/AddVehiculo');
               },
             ),
           ),
