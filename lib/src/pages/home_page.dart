@@ -4,6 +4,7 @@ import 'package:carwash/src/pages/servicio_page.dart';
 import 'package:carwash/src/widgets/DrawerWidget.dart';
 import 'package:carwash/src/widgets/ServiciosWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -25,12 +26,12 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          title: Text(''),
+          title: Text('CarWashApp'),
           elevation: 0,
           backgroundColor: Colors.transparent,
           leading: Builder(
             builder: (context) => IconButton(
-              icon: Icon(Icons.sort),
+              icon: FaIcon(FontAwesomeIcons.bars),
               onPressed: () => Scaffold.of(context).openDrawer(),
             ),
           ),
@@ -53,22 +54,24 @@ class _HomePageState extends State<HomePage> {
               height: double.infinity,
             ),
             Padding(
+              padding: EdgeInsets.only(
+                top: 100,
+              ),
+              child: Align(
+                child: Image.asset(
+                  'assets/img/isotipo.png',
+                  width: 80,
+                ),
+                alignment: Alignment.topCenter,
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.only(
                   top: 30, left: 10, right: 10, bottom: 150),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height / 2.8,
-                    width: MediaQuery.of(context).size.width,
-                    child: ClipRRect(
-                      child: Image.asset('assets/img/main_carwash.jpg'),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  ServiciosWidget()
-                ],
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [],
               ),
             ),
             Align(

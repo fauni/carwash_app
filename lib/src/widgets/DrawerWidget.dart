@@ -40,23 +40,27 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
                     : Navigator.of(context).pushNamed('/Login');
               },
               child: currentUser.value.uid != null
-                  ? UserAccountsDrawerHeader(
-                      decoration: BoxDecoration(
-                        color: Colors.transparent.withOpacity(0.1),
-                      ),
-                      accountName: Text(
-                        currentUser.value.displayName,
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
-                      accountEmail: Text(
-                        currentUser.value.email,
-                        style: Theme.of(context).textTheme.subtitle2,
-                      ),
-                      currentAccountPicture: CircleAvatar(
-                        backgroundColor: Theme.of(context).accentColor,
-                        backgroundImage:
-                            NetworkImage(currentUser.value.photoUrl),
-                        // NetworkImage(currentUser.value.image.thumb),
+                  ? Padding(
+                      padding: EdgeInsets.only(left: 25, top: 35),
+                      child: UserAccountsDrawerHeader(
+                        decoration: BoxDecoration(
+                          color: Colors.transparent.withOpacity(0.1),
+                        ),
+                        accountName: Text(''),
+                        // accountName: Text(
+                        //   currentUser.value.displayName,
+                        //   style: Theme.of(context).textTheme.subtitle1,
+                        // ),
+                        accountEmail: Text(
+                          currentUser.value.email,
+                          style: Theme.of(context).textTheme.subtitle2,
+                        ),
+                        currentAccountPicture: CircleAvatar(
+                          backgroundColor: Theme.of(context).accentColor,
+                          backgroundImage:
+                              NetworkImage(currentUser.value.photoUrl),
+                          // NetworkImage(currentUser.value.image.thumb),
+                        ),
                       ),
                     )
                   : Container(
@@ -85,13 +89,9 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
               onTap: () {
                 Navigator.of(context).pushNamed('/Pages', arguments: 2);
               },
-              leading: Icon(
-                UiIcons.home,
-                color: Theme.of(context).focusColor.withOpacity(1),
-              ),
+              leading: Image.asset('assets/img/inicio_blue.png'),
               title: Text(
-                this._con.usuario_actual,
-                // 'Inicio',
+                'Inicio',
                 style: Theme.of(context).textTheme.subhead,
               ),
             ),
@@ -99,10 +99,7 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
               onTap: () {
                 Navigator.of(context).pushNamed('/Reservas', arguments: 0);
               },
-              leading: Icon(
-                UiIcons.bell,
-                color: Theme.of(context).focusColor.withOpacity(1),
-              ),
+              leading: Image.asset('assets/img/mis_reservas_blue.png'),
               title: Text(
                 'Mis Reservas',
                 style: Theme.of(context).textTheme.subhead,
@@ -112,10 +109,7 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
               onTap: () {
                 Navigator.of(context).pushNamed('/Vehiculo', arguments: 3);
               },
-              leading: Icon(
-                UiIcons.inbox,
-                color: Theme.of(context).focusColor.withOpacity(1),
-              ),
+              leading: Image.asset('assets/img/mis_autos_blue.png'),
               title: Text(
                 'Mis Autos',
                 style: Theme.of(context).textTheme.subhead,
@@ -125,10 +119,7 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
               onTap: () {
                 Navigator.of(context).pushNamed('/Pages', arguments: 4);
               },
-              leading: Icon(
-                UiIcons.heart,
-                color: Theme.of(context).focusColor.withOpacity(1),
-              ),
+              leading: Image.asset('assets/img/contactanos_blue.png'),
               title: Text(
                 'Contáctanos',
                 style: Theme.of(context).textTheme.subhead,
@@ -226,22 +217,19 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
             ListTile(
               onTap: () {
                 if (currentUser.value.verifyEmail != null) {
-                  _con.googleSignOut().then((value) {
+                  logout().then((value) {
                     Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/Pages', (Route<dynamic> route) => false,
+                        '/Login', (Route<dynamic> route) => false,
                         arguments: 2);
                   });
                 } else {
                   Navigator.of(context).pushNamed('/Login');
                 }
               },
-              leading: Icon(
-                Icons.exit_to_app,
-                color: Theme.of(context).focusColor.withOpacity(1),
-              ),
+              leading: Image.asset('assets/img/cerrar_sesion_blue.png'),
               title: Text(
-                'currentUser.value.apiToken' != null
-                    ? S.of(context).log_out
+                currentUser.value.verifyEmail != null
+                    ? 'Cerrar Sessión'
                     : S.of(context).login,
                 style: Theme.of(context).textTheme.subhead,
               ),

@@ -9,7 +9,7 @@ import 'route_generator.dart';
 import 'src/helpers/app_config.dart' as config;
 import 'src/models/setting.dart';
 import 'src/repository/settings_repository.dart' as settingRepo;
-// import 'src/repository/user_repository.dart' as userRepo;
+import 'src/repository/user_repository.dart' as userRepo;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     settingRepo.initSettings();
 
-    // userRepo.getCurrentUser();
+    userRepo.getCurrentUser();
     super.initState();
   }
 

@@ -64,11 +64,11 @@ Future<bool> resetPassword(User user) async {
   }
 }
 
-// Future<void> logout() async {
-//   currentUser.value = new User();
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   await prefs.remove('current_user');
-// }
+Future<void> logout() async {
+  currentUser.value = new Usuario();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.remove('current_user');
+}
 
 Future<String> getUsuario() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();

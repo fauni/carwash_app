@@ -50,7 +50,6 @@ class LoginController extends ControllerMVC {
       setState(() {
         // print(jsonEncode(usuario));
         setCurrentUser(jsonEncode(usuario));
-        setUsuario('Avallejos@gmail.com');
         // Navigator.of(scaffoldKey.currentContext).pushReplacementNamed('/Pages');
         isLoggedIn = true;
       });
@@ -60,6 +59,7 @@ class LoginController extends ControllerMVC {
   }
 
   Future<void> googleSignOut() async {
+    logout();
     await _auth.signOut().then((onValue) {
       _googleSignIn.signOut();
       setState(() {
@@ -69,6 +69,8 @@ class LoginController extends ControllerMVC {
   }
 
   void obtenerUsuario() async {
+    final u = FirebaseAuth.instance.currentUser;
+    this.usuario = await getCurrentUser();
     this.usuario_actual = await getUsuario();
   }
   // Future<void> signOutGoogle() async {
