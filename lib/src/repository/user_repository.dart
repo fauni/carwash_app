@@ -1,15 +1,12 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:carwash/src/models/usuario.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:global_configuration/global_configuration.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../helpers/helper.dart';
 import '../repository/user_repository.dart' as userRepo;
 
 ValueNotifier<Usuario> currentUser = new ValueNotifier(Usuario());

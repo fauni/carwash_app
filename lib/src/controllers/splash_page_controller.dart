@@ -34,8 +34,9 @@ class SplashPageController extends ControllerMVC with ChangeNotifier {
       }
     });
 
-    Timer(Duration(seconds: 20), () {
-      print('Timer');
+    Timer(Duration(seconds: 5), () {
+      progress.value["User"] = 59;
+      progress?.notifyListeners();
       scaffoldKey?.currentState?.showSnackBar(SnackBar(
         content: Text(S.current.verify_your_internet_connection),
       ));

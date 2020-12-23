@@ -1,6 +1,5 @@
 //import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carwash/src/controllers/servicio_controller.dart';
-import 'package:carwash/src/models/route_argument.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -31,6 +30,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
   @override
   void initState() {
     // _switchValue = widget.switchValue;
+    tipoAuto = _con.vehiculoElegido.tamanio;
     super.initState();
   }
 
@@ -40,6 +40,14 @@ class ServicioPageState extends StateMVC<ServicioPage> {
       appBar: AppBar(
         title: Text('Servicios'),
         backgroundColor: Colors.transparent,
+        actions: [
+          _con.serviciosElegidos.length > 0
+              ? IconButton(
+                  color: Theme.of(context).hintColor,
+                  icon: Icon(Icons.check),
+                  onPressed: () => Navigator.of(context).pop())
+              : Text('')
+        ],
       ),
       body: Stack(
         children: [
@@ -93,7 +101,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                 style: TextStyle(
                                     color: Theme.of(context).hintColor),
                               ),
-                              if (this.tipoAuto == 'M')
+                              if (_con.vehiculoElegido.tamanio == 'M')
                                 Text(
                                   double.parse(_con.serviciosGeneral
                                               .elementAt(index)
@@ -102,7 +110,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                       '.Bs',
                                   style: TextStyle(fontSize: 20.0),
                                 ),
-                              if (this.tipoAuto == 'L')
+                              if (_con.vehiculoElegido.tamanio == 'L')
                                 Text(
                                   double.parse(_con.serviciosGeneral
                                               .elementAt(index)
@@ -111,7 +119,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                       '.Bs',
                                   style: TextStyle(fontSize: 20.0),
                                 ),
-                              if (this.tipoAuto == 'XL')
+                              if (_con.vehiculoElegido.tamanio == 'XL')
                                 Text(
                                   double.parse(_con.serviciosGeneral
                                               .elementAt(index)
@@ -185,7 +193,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                 style: TextStyle(
                                     color: Theme.of(context).hintColor),
                               ),
-                              if (this.tipoAuto == 'M')
+                              if (_con.vehiculoElegido.tamanio == 'M')
                                 Text(
                                   double.parse(_con.serviciosAdicionales
                                               .elementAt(index)
@@ -194,7 +202,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                       '.Bs',
                                   style: TextStyle(fontSize: 20.0),
                                 ),
-                              if (this.tipoAuto == 'L')
+                              if (_con.vehiculoElegido.tamanio == 'L')
                                 Text(
                                   double.parse(_con.serviciosAdicionales
                                               .elementAt(index)
@@ -203,7 +211,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                       '.Bs',
                                   style: TextStyle(fontSize: 20.0),
                                 ),
-                              if (this.tipoAuto == 'XL')
+                              if (_con.vehiculoElegido.tamanio == 'XL')
                                 Text(
                                   double.parse(_con.serviciosAdicionales
                                               .elementAt(index)
@@ -273,7 +281,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                 style: TextStyle(
                                     color: Theme.of(context).hintColor),
                               ),
-                              if (this.tipoAuto == 'M')
+                              if (_con.vehiculoElegido.tamanio == 'M')
                                 Text(
                                   double.parse(_con.serviciosMotos
                                               .elementAt(index)
@@ -282,7 +290,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                       '.Bs',
                                   style: TextStyle(fontSize: 20.0),
                                 ),
-                              if (this.tipoAuto == 'L')
+                              if (_con.vehiculoElegido.tamanio == 'L')
                                 Text(
                                   double.parse(_con.serviciosMotos
                                               .elementAt(index)
@@ -291,7 +299,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                       '.Bs',
                                   style: TextStyle(fontSize: 20.0),
                                 ),
-                              if (this.tipoAuto == 'XL')
+                              if (_con.vehiculoElegido.tamanio == 'XL')
                                 Text(
                                   double.parse(_con.serviciosMotos
                                               .elementAt(index)
@@ -324,7 +332,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                       borderRadius: BorderRadius.circular(10),
                       color: Theme.of(context).primaryColor),
                   child: Text(
-                    'Total del Servicio: 500.00 Bs.',
+                    'Total del Servicio: ' + _con.total.toString() + 'Bs.',
                     style: TextStyle(fontSize: 15.0),
                   ),
                 ),

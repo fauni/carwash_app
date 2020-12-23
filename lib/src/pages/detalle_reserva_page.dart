@@ -152,9 +152,10 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                       ),
                                       Text(
                                           'Bs. ' +
-                                              _con.ldetalleReserva
-                                                  .elementAt(index)
-                                                  .precioM,
+                                              (double.parse(_con.ldetalleReserva
+                                                      .elementAt(index)
+                                                      .precioM))
+                                                  .toString(),
                                           style: TextStyle(
                                               fontSize: 16,
                                               color: Theme.of(context)
@@ -256,28 +257,31 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                               ),
                             ),
                           ),
-                          Container(
-                            width: MediaQuery.of(context).size.width / 3,
-                            height: MediaQuery.of(context).size.height / 7,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(20),
-                              //border: Border.all(color: Theme.of(context).accentColor),
-                            ),
-                            child: Column(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Image.asset(
-                                  'assets/img/en_vivo.png',
-                                  width: 80,
-                                ),
-                                Text(
-                                  'Ver en Vivo',
-                                  style: TextStyle(
-                                      color: Theme.of(context).hintColor,
-                                      fontWeight: FontWeight.w200),
-                                ),
-                              ],
+                          InkWell(
+                            onTap: () => _con.launchURLVideo(),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 3,
+                              height: MediaQuery.of(context).size.height / 7,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                borderRadius: BorderRadius.circular(20),
+                                //border: Border.all(color: Theme.of(context).accentColor),
+                              ),
+                              child: Column(
+                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Image.asset(
+                                    'assets/img/en_vivo.png',
+                                    width: 80,
+                                  ),
+                                  Text(
+                                    'Ver en Vivo',
+                                    style: TextStyle(
+                                        color: Theme.of(context).hintColor,
+                                        fontWeight: FontWeight.w200),
+                                  ),
+                                ],
+                              ),
                             ),
                           )
                         ],

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:carwash/src/helpers/custom_trace.dart';
 import 'package:carwash/src/models/detalle_reserva.dart';
-import 'package:carwash/src/models/reserva.dart';
 import 'package:carwash/src/models/reserva_inner.dart';
 import 'package:carwash/src/repository/user_repository.dart';
 import 'package:global_configuration/global_configuration.dart';

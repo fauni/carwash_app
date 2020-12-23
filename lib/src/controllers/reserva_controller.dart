@@ -12,6 +12,7 @@ import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:carwash/src/repository/servicio_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ReservaController extends ControllerMVC {
   Reserva reserva;
@@ -98,5 +99,15 @@ class ReservaController extends ControllerMVC {
         content: Text(S.current.verify_your_internet_connection),
       ));
     }, onDone: () {});
+  }
+
+  void launchURLVideo() async {
+    const url =
+        'https://www.skylinewebcams.com/en/webcam/united-states/new-york/new-york/new-york-skyline.html';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

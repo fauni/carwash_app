@@ -1,14 +1,17 @@
 import 'dart:convert';
 
 import 'package:carwash/src/models/servicio.dart';
+import 'package:carwash/src/models/vehiculoa.dart';
 import 'package:carwash/src/repository/servicio_repository.dart';
+import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 class ServicioController extends ControllerMVC {
+  VehiculoA vehiculoElegido = new VehiculoA();
   List<Servicio> servicios = [];
 
-  List <Servicio> serviciosElegidos = [];
+  List<Servicio> serviciosElegidos = [];
 
   List<Servicio> serviciosGeneral = [];
   List<Servicio> serviciosAdicionales = [];
@@ -16,11 +19,21 @@ class ServicioController extends ControllerMVC {
 
   GlobalKey<ScaffoldState> scaffoldKey;
 
+  double subTotal = 0.0;
+  double total = 0.0;
+
   ServicioController() {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
+    obtenerVehiculo();
     listarServicios();
     listarServiciosAdicionales();
     listarServiciosMotos();
+  }
+
+  void obtenerVehiculo() async {
+    String vehiculo_json = await getVehiculo();
+    vehiculoElegido = VehiculoA.fromJson(jsonDecode(vehiculo_json));
+    print(jsonEncode(vehiculoElegido));
   }
 
   void listarServicios({String message}) async {
@@ -80,37 +93,59 @@ class ServicioController extends ControllerMVC {
       }
     });
   }
-  void insertaServElegidos(Servicio serv)async{
+
+  void insertaServElegidos(Servicio serv) async {
     bool seElimino = eliminaServElegido(serv);
-    
-    if(seElimino == false){
-       this.serviciosElegidos.add(serv); 
+
+    if (seElimino == false) {
+      this.serviciosElegidos.add(serv);
     }
-    
-    List <dynamic> lservJson = new List <dynamic>() ;  
-    for(var itms in this.serviciosElegidos){
+
+    List<dynamic> lservJson = new List<dynamic>();
+    for (var itms in this.serviciosElegidos) {
       lservJson.add(itms.toJson());
     }
 
     String servString = json.encode(lservJson);
     setServicio(servString);
     print('_____en share preferences:______');
-    print( await getServicio());
-    
+    print(await getServicio());
+    calculateSubtotal();
   }
-  bool eliminaServElegido(Servicio serv){
-  List<Servicio> srvTemp = [];    
-    bool resp=false;
-    for(var srv in serviciosElegidos){
-      if(serv.id.compareTo(srv.id) != 0  ){
+
+  bool eliminaServElegido(Servicio serv) {
+    List<Servicio> srvTemp = [];
+    bool resp = false;
+    for (var srv in serviciosElegidos) {
+      if (serv.id.compareTo(srv.id) != 0) {
         srvTemp.add(srv);
-      }else{
-          resp=true;
+      } else {
+        resp = true;
       }
     }
-    if(resp){
+    if (resp) {
       serviciosElegidos = srvTemp;
+      calculateSubtotal();
     }
     return resp;
+  }
+
+  void calculateSubtotal() async {
+    subTotal = 0;
+    total = 0;
+
+    serviciosElegidos.forEach(
+      (serv) {
+        if (vehiculoElegido.tamanio == 'M') {
+          subTotal = subTotal + double.parse(serv.precioM);
+        } else if (vehiculoElegido.tamanio == 'L') {
+          subTotal = subTotal + double.parse(serv.precioL);
+        } else {
+          subTotal = subTotal + double.parse(serv.precioXl);
+        }
+      },
+    );
+    total = subTotal;
+    setState(() {});
   }
 }
