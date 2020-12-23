@@ -40,15 +40,15 @@ class CarroPageState extends StateMVC<CarroPage> {
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.only(top: 10, left: 20, right: 20),
-            child: ListTile(
-              leading: Icon(Icons.directions_bus,
-                  color: Theme.of(context).hintColor),
-              title: Text('Elige tu vehiculo'),
-              subtitle: Text('Presiona el el Item para Elegir el Vehiculo'),
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+          //   child: ListTile(
+          //     leading: Icon(Icons.directions_bus,
+          //         color: Theme.of(context).hintColor),
+          //     title: Text('Elige tu vehiculo'),
+          //     subtitle: Text('Presiona el el Item para Elegir el Vehiculo'),
+          //   ),
+          // ),
           _con.vehiculos.isEmpty
               ? CircularLoadingWidget(
                   height: 50,
@@ -118,7 +118,7 @@ class CarroPageState extends StateMVC<CarroPage> {
                 size: 50,
               ),
               title: Text('Agregar un auto nuevo'),
-              subtitle: Text('Nueva Movilidad'),
+              subtitle: Text('Nuevo Vehiculo'),
               onTap: () {
                 Navigator.of(context).pushNamed('/AddVehiculo');
               },

@@ -144,7 +144,8 @@ class _ContactanosPageState extends StateMVC<ContactanosPage> {
                       title: Text('+591 77799292'),
                       onTap: () {
                         _con.launchWhatsApp(
-                            phone: '79521526', message: 'Estoy interesado');
+                            phone: '+591 79521526',
+                            message: 'Estoy interesado');
                         // Navigator.of(context).pushNamed('/AddVehiculo');
                       },
                     ),

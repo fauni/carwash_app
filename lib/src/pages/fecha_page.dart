@@ -55,7 +55,7 @@ class FechaPageState extends StateMVC<FechaPage> {
             margin: EdgeInsets.all(15),
             child: Center(
               child: Text(
-                'SELECCIONE LA FECHA',
+                'Selecciona Fecha',
                 style: TextStyle(color: Theme.of(context).hintColor),
               ),
             ),
@@ -65,7 +65,7 @@ class FechaPageState extends StateMVC<FechaPage> {
             width: 60,
             height: 100,
             initialSelectedDate: DateTime.now(),
-            selectionColor: Theme.of(context).primaryColor,
+            selectionColor: Theme.of(context).accentColor,
             selectedTextColor: Theme.of(context).hintColor,
             deactivatedColor: Theme.of(context).accentColor,
             monthTextStyle: TextStyle(color: Theme.of(context).hintColor),
@@ -89,7 +89,7 @@ class FechaPageState extends StateMVC<FechaPage> {
             margin: EdgeInsets.all(15),
             child: Center(
               child: Text(
-                'SELECCIONE LA HORA',
+                'Selecciona la Hora',
                 style: TextStyle(color: Theme.of(context).hintColor),
               ),
             ),

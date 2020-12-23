@@ -36,7 +36,7 @@ class HomeController extends ControllerMVC {
       if (Platform.isIOS) {
         return "whatsapp://wa.me/$phone/?text=${Uri.parse(message)}";
       } else {
-        return "whatsapp://send?   phone=$phone&text=${Uri.parse(message)}";
+        return "whatsapp://send?phone=$phone&text=${Uri.parse(message)}";
       }
     }
 

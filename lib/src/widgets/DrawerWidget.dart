@@ -217,6 +217,7 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
             ListTile(
               onTap: () {
                 if (currentUser.value.verifyEmail != null) {
+                  _con.googleSignOut();
                   logout().then((value) {
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         '/Login', (Route<dynamic> route) => false,

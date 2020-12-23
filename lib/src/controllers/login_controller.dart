@@ -50,7 +50,7 @@ class LoginController extends ControllerMVC {
       setState(() {
         // print(jsonEncode(usuario));
         setCurrentUser(jsonEncode(usuario));
-        // Navigator.of(scaffoldKey.currentContext).pushReplacementNamed('/Pages');
+
         isLoggedIn = true;
       });
     } catch (err) {
