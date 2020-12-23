@@ -45,12 +45,12 @@ class ServicioPageState extends StateMVC<ServicioPage> {
             width: MediaQuery.of(context).size.width,
             height: 30,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Theme.of(context).accentColor)),
-            margin: EdgeInsets.all(15),
+            margin: EdgeInsets.all(0),
             child: Center(
               child: Text(
-                'SELECCIONE LOS SERVICIOS',
+                'Seleccione los Servicios',
                 style: TextStyle(color: Theme.of(context).hintColor),
               ),
             ),
@@ -67,8 +67,8 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                   hoverColor: Theme.of(context).primaryColor,
                   onTap: () {
                     print(_con.serviciosGeneral.elementAt(index).nombre);
-                    _con.insertaServElegidos(_con.serviciosGeneral.elementAt(index));
-                    
+                    _con.insertaServElegidos(
+                        _con.serviciosGeneral.elementAt(index));
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width / 2,
@@ -80,7 +80,10 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                             Border.all(color: Theme.of(context).accentColor)),
                     child: Column(
                       children: [
-                        Text(_con.serviciosGeneral.elementAt(index).nombre),
+                        Text(
+                          _con.serviciosGeneral.elementAt(index).nombre,
+                          style: TextStyle(color: Theme.of(context).hintColor),
+                        ),
                         if (this.tipoAuto == 'M')
                           Text(
                             double.parse(_con.serviciosGeneral
@@ -110,7 +113,8 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                           ),
                         Text(
                           _con.serviciosGeneral.elementAt(index).detalle,
-                          style: TextStyle(fontSize: 12),
+                          style: TextStyle(
+                              color: Theme.of(context).hintColor, fontSize: 12),
                         ),
                       ],
                     ),
@@ -123,12 +127,12 @@ class ServicioPageState extends StateMVC<ServicioPage> {
             width: MediaQuery.of(context).size.width,
             height: 30,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Theme.of(context).accentColor)),
-            margin: EdgeInsets.all(15),
+            margin: EdgeInsets.all(0),
             child: Center(
               child: Text(
-                'SERVICIOS ADICIONALES',
+                'Servicios Adicionales',
                 style: TextStyle(color: Theme.of(context).hintColor),
               ),
             ),
@@ -145,8 +149,8 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                   hoverColor: Theme.of(context).primaryColor,
                   onTap: () {
                     print(_con.serviciosAdicionales.elementAt(index).nombre);
-                    _con.insertaServElegidos(_con.serviciosAdicionales.elementAt(index));
-                    
+                    _con.insertaServElegidos(
+                        _con.serviciosAdicionales.elementAt(index));
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width / 2.5,
@@ -158,7 +162,10 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                             Border.all(color: Theme.of(context).accentColor)),
                     child: Column(
                       children: [
-                        Text(_con.serviciosAdicionales.elementAt(index).nombre),
+                        Text(
+                          _con.serviciosAdicionales.elementAt(index).nombre,
+                          style: TextStyle(color: Theme.of(context).hintColor),
+                        ),
                         if (this.tipoAuto == 'M')
                           Text(
                             double.parse(_con.serviciosAdicionales
@@ -188,7 +195,8 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                           ),
                         Text(
                           _con.serviciosAdicionales.elementAt(index).detalle,
-                          style: TextStyle(fontSize: 12),
+                          style: TextStyle(
+                              color: Theme.of(context).hintColor, fontSize: 12),
                         ),
                       ],
                     ),
@@ -201,12 +209,12 @@ class ServicioPageState extends StateMVC<ServicioPage> {
             width: MediaQuery.of(context).size.width,
             height: 30,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Theme.of(context).accentColor)),
-            margin: EdgeInsets.all(15),
+            margin: EdgeInsets.all(0),
             child: Center(
               child: Text(
-                'SERVICIOS PARA MOTOS',
+                'Servicio para Motos',
                 style: TextStyle(color: Theme.of(context).hintColor),
               ),
             ),
@@ -223,8 +231,8 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                   hoverColor: Theme.of(context).primaryColor,
                   onTap: () {
                     print(_con.serviciosMotos.elementAt(index).nombre);
-                    _con.insertaServElegidos(_con.serviciosMotos.elementAt(index));
-                    
+                    _con.insertaServElegidos(
+                        _con.serviciosMotos.elementAt(index));
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width / 2.3,
@@ -236,7 +244,10 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                             Border.all(color: Theme.of(context).accentColor)),
                     child: Column(
                       children: [
-                        Text(_con.serviciosMotos.elementAt(index).nombre),
+                        Text(
+                          _con.serviciosMotos.elementAt(index).nombre,
+                          style: TextStyle(color: Theme.of(context).hintColor),
+                        ),
                         if (this.tipoAuto == 'M')
                           Text(
                             double.parse(_con.serviciosMotos
@@ -266,7 +277,8 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                           ),
                         Text(
                           _con.serviciosMotos.elementAt(index).detalle,
-                          style: TextStyle(fontSize: 12),
+                          style: TextStyle(
+                              color: Theme.of(context).hintColor, fontSize: 12),
                         ),
                       ],
                     ),

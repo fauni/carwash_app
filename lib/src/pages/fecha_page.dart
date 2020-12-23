@@ -37,20 +37,20 @@ class FechaPageState extends StateMVC<FechaPage> {
   void initState() {
     _switchValue = widget.switchValue;
     super.initState();
-    
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            height: 30,
+            height: 40,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Theme.of(context).accentColor)),
             margin: EdgeInsets.all(15),
             child: Center(
@@ -66,25 +66,25 @@ class FechaPageState extends StateMVC<FechaPage> {
             height: 100,
             initialSelectedDate: DateTime.now(),
             selectionColor: Theme.of(context).primaryColor,
-            selectedTextColor: Theme.of(context).accentColor,
+            selectedTextColor: Theme.of(context).hintColor,
             deactivatedColor: Theme.of(context).accentColor,
-            monthTextStyle: TextStyle(color: Theme.of(context).accentColor),
-            dateTextStyle: TextStyle(color: Theme.of(context).accentColor),
-            dayTextStyle: TextStyle(color: Theme.of(context).accentColor),
+            monthTextStyle: TextStyle(color: Theme.of(context).hintColor),
+            dateTextStyle: TextStyle(color: Theme.of(context).hintColor),
+            dayTextStyle: TextStyle(color: Theme.of(context).hintColor),
             locale: "es ES",
             onDateChange: (date) {
               setState(() {
                 print(date);
-                reserva.fechaReserva=date.toString();
+                reserva.fechaReserva = date.toString();
                 _con.eligeReserva(reserva);
               });
             },
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            height: 30,
+            height: 40,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Theme.of(context).accentColor)),
             margin: EdgeInsets.all(15),
             child: Center(
@@ -97,11 +97,11 @@ class FechaPageState extends StateMVC<FechaPage> {
           TimePickerSpinner(
             is24HourMode: true,
             normalTextStyle: TextStyle(
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).hintColor,
               fontSize: 20,
             ),
             highlightedTextStyle: TextStyle(
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).hintColor,
               fontSize: 30,
             ),
             time: DateTime.now(),
@@ -129,7 +129,7 @@ class FechaPageState extends StateMVC<FechaPage> {
               },
               child: Text('Enviar Reserva'),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(15),
               ),
             ),
           )

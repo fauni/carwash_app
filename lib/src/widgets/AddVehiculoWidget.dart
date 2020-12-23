@@ -107,8 +107,8 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                                     color: Theme.of(context).accentColor,
                                     width: 1.0),
                               ),
-                              labelStyle: TextStyle(
-                                  color: Theme.of(context).accentColor),
+                              labelStyle:
+                                  TextStyle(color: Theme.of(context).hintColor),
                             ),
                             searchBoxDecoration: InputDecoration(
                               border: OutlineInputBorder(),
@@ -169,8 +169,8 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                                     color: Theme.of(context).accentColor,
                                     width: 1.0),
                               ),
-                              labelStyle: TextStyle(
-                                  color: Theme.of(context).accentColor),
+                              labelStyle:
+                                  TextStyle(color: Theme.of(context).hintColor),
                             ),
                             searchBoxDecoration: InputDecoration(
                               border: OutlineInputBorder(),
@@ -210,7 +210,7 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                             decoration: InputDecoration(
                                 hintText: 'Ingrese su Nro. de Placa',
                                 hintStyle: TextStyle(
-                                    color: Theme.of(context).accentColor),
+                                    color: Theme.of(context).hintColor),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                   borderSide: BorderSide(
@@ -234,7 +234,7 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                             },
                             selectedColor: Theme.of(context).primaryColor,
                             unselectedTextStyle: TextStyle(
-                              color: Theme.of(context).accentColor,
+                              color: Theme.of(context).hintColor,
                             ),
                             unselectedColor: Colors.transparent,
                             unselectedBorderColor:
