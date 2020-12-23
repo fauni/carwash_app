@@ -36,95 +36,102 @@ class CarroPageState extends StateMVC<CarroPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child: Column(
-        children: [
-          // Padding(
-          //   padding: EdgeInsets.only(top: 10, left: 20, right: 20),
-          //   child: ListTile(
-          //     leading: Icon(Icons.directions_bus,
-          //         color: Theme.of(context).hintColor),
-          //     title: Text('Elige tu vehiculo'),
-          //     subtitle: Text('Presiona el el Item para Elegir el Vehiculo'),
-          //   ),
-          // ),
-          _con.vehiculos.isEmpty
-              ? CircularLoadingWidget(
-                  height: 50,
-                )
-              : ListView.separated(
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  shrinkWrap: true,
-                  primary: false,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) {
-                    return CheckboxListTile(
-                      value: false,
-                      onChanged: (bool value) {
-                        //print(index.toString() );
-                        _con.eligeVehiculo(_con.vehiculos.elementAt(index));
-                        //print(_con.vehiculoElegido.placa );
-                      },
-                      secondary: CachedNetworkImage(
-                        imageUrl:
-                            _con.RutaImg(_con.vehiculos.elementAt(index).foto),
-                        /************* */
-                        imageBuilder: (context, imageProvider) => Container(
-                            width: 80.0,
-                            height: 80.0,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              image: DecorationImage(
-                                  image: imageProvider, fit: BoxFit.cover),
-                            )),
-                        placeholder: (context, url) =>
-                            CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                      ),
-                      title: Text(_con.vehiculos.elementAt(index).placa +
-                          ' - ' +
-                          _con.vehiculos.elementAt(index).marca),
-                      subtitle: Text(
-                        _con.vehiculos.elementAt(index).modelo +
-                            ' ' +
-                            _con.vehiculos.elementAt(index).anio +
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Agregar Vehiculo'),
+        backgroundColor: Colors.transparent,
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: Column(
+          children: [
+            // Padding(
+            //   padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+            //   child: ListTile(
+            //     leading: Icon(Icons.directions_bus,
+            //         color: Theme.of(context).hintColor),
+            //     title: Text('Elige tu vehiculo'),
+            //     subtitle: Text('Presiona el el Item para Elegir el Vehiculo'),
+            //   ),
+            // ),
+            _con.vehiculos.isEmpty
+                ? CircularLoadingWidget(
+                    height: 50,
+                  )
+                : ListView.separated(
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                    shrinkWrap: true,
+                    primary: false,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) {
+                      return CheckboxListTile(
+                        value: false,
+                        onChanged: (bool value) {
+                          //print(index.toString() );
+                          _con.eligeVehiculo(_con.vehiculos.elementAt(index));
+                          //print(_con.vehiculoElegido.placa );
+                        },
+                        secondary: CachedNetworkImage(
+                          imageUrl: _con.RutaImg(
+                              _con.vehiculos.elementAt(index).foto),
+                          /************* */
+                          imageBuilder: (context, imageProvider) => Container(
+                              width: 80.0,
+                              height: 80.0,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    image: imageProvider, fit: BoxFit.cover),
+                              )),
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        ),
+                        title: Text(_con.vehiculos.elementAt(index).placa +
                             ' - ' +
-                            _con.vehiculos.elementAt(index).tamanio,
-                      ),
-                      // trailing: Checkbox(
-                      //   onChanged: (value) {},
-                      //   value: _con.vehiculos.elementAt(index).esElegido,
-                      // ),
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return SizedBox(
-                      height: 15,
-                    );
-                  },
-                  itemCount: _con.vehiculos.length,
-                ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              border:
-                  Border.all(color: Theme.of(context).accentColor, width: 1.0),
-            ),
-            child: ListTile(
-              leading: Icon(
-                Icons.add,
-                color: Theme.of(context).hintColor,
-                size: 50,
+                            _con.vehiculos.elementAt(index).marca),
+                        subtitle: Text(
+                          _con.vehiculos.elementAt(index).modelo +
+                              ' ' +
+                              _con.vehiculos.elementAt(index).anio +
+                              ' - ' +
+                              _con.vehiculos.elementAt(index).tamanio,
+                        ),
+                        // trailing: Checkbox(
+                        //   onChanged: (value) {},
+                        //   value: _con.vehiculos.elementAt(index).esElegido,
+                        // ),
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(
+                        height: 15,
+                      );
+                    },
+                    itemCount: _con.vehiculos.length,
+                  ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                    color: Theme.of(context).accentColor, width: 1.0),
               ),
-              title: Text('Agregar un auto nuevo'),
-              subtitle: Text('Nuevo Vehiculo'),
-              onTap: () {
-                Navigator.of(context).pushNamed('/AddVehiculo');
-              },
+              child: ListTile(
+                leading: Icon(
+                  Icons.add,
+                  color: Theme.of(context).hintColor,
+                  size: 50,
+                ),
+                title: Text('Agregar un auto nuevo'),
+                subtitle: Text('Nuevo Vehiculo'),
+                onTap: () {
+                  Navigator.of(context).pushNamed('/AddVehiculo');
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
     // return SingleChildScrollView(

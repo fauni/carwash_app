@@ -25,14 +25,14 @@ class _HomeSliderWidgetState extends StateMVC<HomeSliderWidget> {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      alignment: AlignmentDirectional.bottomEnd,
+      alignment: AlignmentDirectional.center,
 //      fit: StackFit.expand,
       children: <Widget>[
         _con.publicidades.isEmpty
             ? CardsCarouselLoaderWidget()
             : CarouselSlider(
                 options: CarouselOptions(
-                  height: 260,
+                  height: 500,
                   scrollDirection: Axis.vertical,
                   autoPlay: true,
                   autoPlayInterval: Duration(seconds: 4),
@@ -65,7 +65,7 @@ class _HomeSliderWidgetState extends StateMVC<HomeSliderWidget> {
                             child: Container(
                               margin: const EdgeInsets.symmetric(
                                   vertical: 20, horizontal: 20),
-                              height: 260,
+                              height: 380,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: NetworkImage(
@@ -138,6 +138,18 @@ class _HomeSliderWidgetState extends StateMVC<HomeSliderWidget> {
                         : Theme.of(context).hintColor.withOpacity(0.3)),
               );
             }).toList(),
+          ),
+        ),
+        Positioned(
+          top: 10,
+          right: 20,
+//          width: config.App(context).appWidth(100),
+          child: OutlineButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.close),
+            textColor: Theme.of(context).accentColor,
           ),
         ),
       ],

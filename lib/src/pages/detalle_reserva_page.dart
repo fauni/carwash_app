@@ -243,7 +243,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                 //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Image.asset(
-                                    'assets/img/mis_reservas_blue.png',
+                                    'assets/img/mis_fotos.png',
                                     width: 80,
                                   ),
                                   Text(
@@ -268,7 +268,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Image.asset(
-                                  'assets/img/mis_reservas_blue.png',
+                                  'assets/img/en_vivo.png',
                                   width: 80,
                                 ),
                                 Text(
@@ -299,7 +299,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Image.asset(
-                                  'assets/img/mis_reservas_blue.png',
+                                  'assets/img/mi_factura.png',
                                   width: 80,
                                 ),
                                 Text(
@@ -323,7 +323,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Image.asset(
-                                  'assets/img/mis_reservas_blue.png',
+                                  'assets/img/en_proceso.png',
                                   width: 80,
                                 ),
                                 Text(

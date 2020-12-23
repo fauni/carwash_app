@@ -41,99 +41,105 @@ class FechaPageState extends StateMVC<FechaPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 40,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Theme.of(context).accentColor)),
-            margin: EdgeInsets.all(15),
-            child: Center(
-              child: Text(
-                'Selecciona Fecha',
-                style: TextStyle(color: Theme.of(context).hintColor),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Fecha y Hora'),
+        backgroundColor: Colors.transparent,
+      ),
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 40,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Theme.of(context).accentColor)),
+              margin: EdgeInsets.all(15),
+              child: Center(
+                child: Text(
+                  'Selecciona Fecha',
+                  style: TextStyle(color: Theme.of(context).hintColor),
+                ),
               ),
             ),
-          ),
-          DatePicker(
-            DateTime.now(),
-            width: 60,
-            height: 100,
-            initialSelectedDate: DateTime.now(),
-            selectionColor: Theme.of(context).accentColor,
-            selectedTextColor: Theme.of(context).hintColor,
-            deactivatedColor: Theme.of(context).accentColor,
-            monthTextStyle: TextStyle(color: Theme.of(context).hintColor),
-            dateTextStyle: TextStyle(color: Theme.of(context).hintColor),
-            dayTextStyle: TextStyle(color: Theme.of(context).hintColor),
-            locale: "es ES",
-            onDateChange: (date) {
-              setState(() {
-                print(date);
-                reserva.fechaReserva = date.toString();
-                _con.eligeReserva(reserva);
-              });
-            },
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 40,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Theme.of(context).accentColor)),
-            margin: EdgeInsets.all(15),
-            child: Center(
-              child: Text(
-                'Selecciona la Hora',
-                style: TextStyle(color: Theme.of(context).hintColor),
-              ),
-            ),
-          ),
-          TimePickerSpinner(
-            is24HourMode: true,
-            normalTextStyle: TextStyle(
-              color: Theme.of(context).hintColor,
-              fontSize: 20,
-            ),
-            highlightedTextStyle: TextStyle(
-              color: Theme.of(context).hintColor,
-              fontSize: 30,
-            ),
-            time: DateTime.now(),
-            minutesInterval: 30,
-            spacing: 50,
-            itemHeight: 80,
-            isForce2Digits: true,
-            onTimeChange: (time) {
-              setState(() {
-                print(time);
-                reserva.horaReserva = time.toString();
-                _con.eligeReserva(reserva);
-                //_con.seleccionarHora(time);
-              });
-            },
-          ),
-          ButtonTheme(
-            minWidth: double.infinity,
-            height: 50.0,
-            child: RaisedButton(
-              color: Theme.of(context).primaryColor,
-              textColor: Theme.of(context).hintColor,
-              onPressed: () {
-                _con.setReservaCompleta();
+            DatePicker(
+              DateTime.now(),
+              width: 60,
+              height: 100,
+              initialSelectedDate: DateTime.now(),
+              selectionColor: Theme.of(context).accentColor,
+              selectedTextColor: Theme.of(context).hintColor,
+              deactivatedColor: Theme.of(context).accentColor,
+              monthTextStyle: TextStyle(color: Theme.of(context).hintColor),
+              dateTextStyle: TextStyle(color: Theme.of(context).hintColor),
+              dayTextStyle: TextStyle(color: Theme.of(context).hintColor),
+              locale: "es ES",
+              onDateChange: (date) {
+                setState(() {
+                  print(date);
+                  reserva.fechaReserva = date.toString();
+                  _con.eligeReserva(reserva);
+                });
               },
-              child: Text('Enviar Reserva'),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 40,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Theme.of(context).accentColor)),
+              margin: EdgeInsets.all(15),
+              child: Center(
+                child: Text(
+                  'Selecciona la Hora',
+                  style: TextStyle(color: Theme.of(context).hintColor),
+                ),
               ),
             ),
-          )
-        ],
+            TimePickerSpinner(
+              is24HourMode: true,
+              normalTextStyle: TextStyle(
+                color: Theme.of(context).hintColor,
+                fontSize: 20,
+              ),
+              highlightedTextStyle: TextStyle(
+                color: Theme.of(context).hintColor,
+                fontSize: 30,
+              ),
+              time: DateTime.now(),
+              minutesInterval: 30,
+              spacing: 50,
+              itemHeight: 80,
+              isForce2Digits: true,
+              onTimeChange: (time) {
+                setState(() {
+                  print(time);
+                  reserva.horaReserva = time.toString();
+                  _con.eligeReserva(reserva);
+                  //_con.seleccionarHora(time);
+                });
+              },
+            ),
+            ButtonTheme(
+              minWidth: double.infinity,
+              height: 50.0,
+              child: RaisedButton(
+                color: Theme.of(context).primaryColor,
+                textColor: Theme.of(context).hintColor,
+                onPressed: () {
+                  _con.setReservaCompleta();
+                },
+                child: Text('Enviar Reserva'),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

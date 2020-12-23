@@ -55,6 +55,7 @@ class ReservaController extends ControllerMVC {
     print(json.encode(this.reservaCompleta));
     print('--------respuesta del post:----------');
     var respuesta = registrarReserva(json.encode(this.reservaCompleta));
+    Navigator.of(context).pop();
   }
 
   //listar reservas para mostrar
