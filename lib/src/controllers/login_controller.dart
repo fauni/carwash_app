@@ -1,71 +1,58 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
+
+import 'package:carwash/src/helpers/helper.dart';
 import 'package:carwash/src/models/usuario.dart';
 import 'package:carwash/src/repository/user_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:mvc_pattern/mvc_pattern.dart';
+import '../repository/user_repository.dart' as repository;
 
 class LoginController extends ControllerMVC {
+  Usuario usuario = new Usuario();
   bool isLoggedIn = false;
 
   GlobalKey<ScaffoldState> scaffoldKey;
 
-  FirebaseAuth _auth = FirebaseAuth.instance;
-  User user;
-  GoogleSignIn _googleSignIn = new GoogleSignIn();
-
-  Usuario usuario = new Usuario();
-  // GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
-
+  OverlayEntry loader;
   LoginController() {
+    loader = Helper.overlayLoader(context);
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
   }
 
   String usuario_actual = '';
 
-  Future<void> login() async {
-    try {
-      GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
-      GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount.authentication;
-
-      AuthCredential credential = GoogleAuthProvider.credential(
-        idToken: googleSignInAuthentication.idToken,
-        accessToken: googleSignInAuthentication.accessToken,
-      );
-
-      UserCredential result = (await _auth.signInWithCredential(credential));
-
-      user = result.user;
-
-      usuario.uid = user.uid;
-      usuario.displayName = user.displayName;
-      usuario.email = user.email;
-      usuario.phoneNumber = user.phoneNumber;
-      usuario.photoUrl = user.photoURL;
-      usuario.verifyEmail = user.emailVerified;
-
-      setState(() {
-        // print(jsonEncode(usuario));
-        setCurrentUser(jsonEncode(usuario));
-
-        isLoggedIn = true;
-      });
-    } catch (err) {
-      print(err);
-    }
+  void login() async {
+    FocusScope.of(context).unfocus();
+    Overlay.of(context).insert(loader);
+    repository.login().then((value) {
+      if (value != null && value.verifyEmail != null) {
+        Navigator.of(context).pushReplacementNamed('/Pages');
+      } else {
+        scaffoldKey.currentState.showSnackBar(SnackBar(
+          content: Text('Ocurrio un error al autentificar'),
+        ));
+      }
+    }).catchError((e) {
+      loader.remove();
+      scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('No se pudo ingresar'),
+      ));
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
   }
 
   Future<void> googleSignOut() async {
     logout();
-    await _auth.signOut().then((onValue) {
-      _googleSignIn.signOut();
-      setState(() {
-        isLoggedIn = false;
-      });
-    });
+    // await _auth.signOut().then((onValue) {
+    //   _googleSignIn.signOut();
+    //   setState(() {
+    //     isLoggedIn = false;
+    //   });
+    // });
   }
 
   void obtenerUsuario() async {

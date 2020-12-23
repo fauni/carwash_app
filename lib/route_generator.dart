@@ -1,5 +1,4 @@
 import 'package:carwash/src/models/route_argument.dart';
-import 'package:carwash/src/models/vehiculoa.dart';
 import 'package:carwash/src/pages/contactanos_page.dart';
 import 'package:carwash/src/pages/detalle_reserva_page.dart';
 import 'package:carwash/src/pages/detalle_servicio_page.dart';

@@ -7,6 +7,10 @@
 // import 'package:flutter/services.dart';
 // import 'package:flutter/widgets.dart';
 // import 'package:flutter_html/flutter_html.dart';
+import 'dart:async';
+
+import 'package:carwash/src/widgets/CircularLoadingWidget.dart';
+import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:html/dom.dart' as dom;
@@ -74,5 +78,28 @@ class Helper {
             .port,
         path: _path + path);
     return uri;
+  }
+
+  static OverlayEntry overlayLoader(context) {
+    OverlayEntry loader = OverlayEntry(builder: (context) {
+      final size = MediaQuery.of(context).size;
+      return Positioned(
+        height: size.height,
+        width: size.width,
+        top: 0,
+        left: 0,
+        child: Material(
+          color: Theme.of(context).primaryColor.withOpacity(0.85),
+          child: CircularLoadingWidget(height: 200),
+        ),
+      );
+    });
+    return loader;
+  }
+
+  static hideLoader(OverlayEntry loader) {
+    Timer(Duration(milliseconds: 500), () {
+      loader?.remove();
+    });
   }
 }

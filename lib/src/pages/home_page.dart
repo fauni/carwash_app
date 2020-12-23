@@ -36,7 +36,7 @@ class _HomePageState extends StateMVC<HomePage>
     // TODO: implement initState
     super.initState();
 
-    _con.verificarSiEstaAutentificado(context);
+    // _con.verificarSiEstaAutentificado(context);
     animationController =
         AnimationController(duration: Duration(milliseconds: 200), vsync: this);
     CurvedAnimation curve =

@@ -13,15 +13,15 @@ class DrawerWidget extends StatefulWidget {
 }
 
 class _DrawerWidgetState extends StateMVC<DrawerWidget> {
-  LoginController _con;
+  // LoginController _con;
 
-  _DrawerWidgetState() : super(LoginController()) {
-    _con = controller;
-  }
+  // _DrawerWidgetState() : super(LoginController()) {
+  //   _con = controller;
+  // }
 
   @override
   void initState() {
-    _con.obtenerUsuario();
+    // _con.obtenerUsuario();
     // TODO: implement initState
     super.initState();
   }
@@ -217,11 +217,10 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
             ListTile(
               onTap: () {
                 if (currentUser.value.verifyEmail != null) {
-                  _con.googleSignOut();
+                  // _con.googleSignOut();
                   logout().then((value) {
                     Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/Login', (Route<dynamic> route) => false,
-                        arguments: 2);
+                        '/Login', (Route<dynamic> route) => false);
                   });
                 } else {
                   Navigator.of(context).pushNamed('/Login');

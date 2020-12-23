@@ -19,7 +19,7 @@ class LoginPageState extends StateMVC<LoginPage> {
   @override
   void initState() {
     super.initState();
-    if (userRepo.currentUser.value.verifyEmail) {
+    if (userRepo.currentUser.value.email != null) {
       Navigator.of(context).pushReplacementNamed('/Pages');
     }
   }
@@ -61,9 +61,7 @@ class LoginPageState extends StateMVC<LoginPage> {
                     color: Colors.transparent,
                     textColor: Theme.of(context).hintColor,
                     onPressed: () {
-                      _con.login().then((value) {
-                        Navigator.of(context).pushReplacementNamed('/Pages');
-                      });
+                      _con.login();
                     },
                     icon: FaIcon(
                       FontAwesomeIcons.google,
@@ -98,9 +96,7 @@ class LoginPageState extends StateMVC<LoginPage> {
                     color: Colors.transparent,
                     textColor: Theme.of(context).hintColor,
                     onPressed: () {
-                      _con.login().then((value) {
-                        Navigator.of(context).pushReplacementNamed('/Pages');
-                      });
+                      _con.login();
                     },
                     icon: FaIcon(
                       FontAwesomeIcons.facebookF,

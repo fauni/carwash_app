@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:carwash/src/models/user.dart';
 import 'package:carwash/src/models/usuario.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:global_configuration/global_configuration.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,23 +13,39 @@ import '../helpers/helper.dart';
 import '../repository/user_repository.dart' as userRepo;
 
 ValueNotifier<Usuario> currentUser = new ValueNotifier(Usuario());
+FirebaseAuth _auth = FirebaseAuth.instance;
+User user;
+GoogleSignIn _googleSignIn = new GoogleSignIn();
+Usuario usuario = new Usuario();
 
-// Future<User> login(User user) async {
-//   final String url = '${GlobalConfiguration().getString('api_base_url')}login';
-//   final client = new http.Client();
-//   final response = await client.post(
-//     url,
-//     headers: {HttpHeaders.contentTypeHeader: 'application/json'},
-//     body: json.encode(user.toMap()),
-//   );
-//   if (response.statusCode == 200) {
-//     setCurrentUser(response.body);
-//     currentUser.value = User.fromJSON(json.decode(response.body)['data']);
-//   } else {
-//     throw new Exception(response.body);
-//   }
-//   return currentUser.value;
-// }
+Future<Usuario> login() async {
+  GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
+  GoogleSignInAuthentication googleSignInAuthentication =
+      await googleSignInAccount.authentication;
+
+  AuthCredential credential = GoogleAuthProvider.credential(
+    idToken: googleSignInAuthentication.idToken,
+    accessToken: googleSignInAuthentication.accessToken,
+  );
+
+  UserCredential result = (await _auth.signInWithCredential(credential));
+
+  user = result.user;
+
+  if (user.emailVerified) {
+    usuario.uid = user.uid;
+    usuario.displayName = user.displayName;
+    usuario.email = user.email;
+    usuario.phoneNumber = user.phoneNumber;
+    usuario.photoUrl = user.photoURL;
+    usuario.verifyEmail = user.emailVerified;
+    setCurrentUser(json.encode(usuario));
+    currentUser.value = usuario;
+  } else {
+    throw new Exception('Ocurrio un error');
+  }
+  return currentUser.value;
+}
 
 // Future<User> register(User user) async {
 //   final String url =
@@ -48,26 +65,29 @@ ValueNotifier<Usuario> currentUser = new ValueNotifier(Usuario());
 //   return currentUser.value;
 // }
 
-Future<bool> resetPassword(User user) async {
-  final String url =
-      '${GlobalConfiguration().getString('api_base_url')}send_reset_link_email';
-  final client = new http.Client();
-  final response = await client.post(
-    url,
-    headers: {HttpHeaders.contentTypeHeader: 'application/json'},
-    body: json.encode(user.toMap()),
-  );
-  if (response.statusCode == 200) {
-    return true;
-  } else {
-    throw new Exception(response.body);
-  }
-}
+// Future<bool> resetPassword(User user) async {
+//   final String url =
+//       '${GlobalConfiguration().getString('api_base_url')}send_reset_link_email';
+//   final client = new http.Client();
+//   final response = await client.post(
+//     url,
+//     headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+//     body: json.encode(user.toMap()),
+//   );
+//   if (response.statusCode == 200) {
+//     return true;
+//   } else {
+//     throw new Exception(response.body);
+//   }
+// }
 
 Future<void> logout() async {
   currentUser.value = new Usuario();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.remove('current_user');
+  await _auth.signOut().then((onValue) {
+    _googleSignIn.signOut();
+  });
 }
 
 Future<String> getUsuario() async {
