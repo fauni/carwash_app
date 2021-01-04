@@ -184,11 +184,18 @@ class CarroController extends ControllerMVC {
       var vehiculoResp = await guardarVehiculo(newVehiculo);
 
       this.loading = false;
+      this.scaffoldKey?.currentState?.showSnackBar(SnackBar(
+            content: Text('Se agregó correctamente'),
+            //backgroundColor: Theme.of(context).hintColor ,
+          ));
       setState(() {});
-
-      print('____ANTES DE ENVIAR___');
-      print(newVehiculo.imgFile);
+    
+      //print('____ANTES DE ENVIAR___');
+      //print(newVehiculo.imgFile);
     }
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+    Navigator.of(context).pushNamed('/Vehiculo', arguments: 3);
   }
 
   String RutaImg(String nombre) {
