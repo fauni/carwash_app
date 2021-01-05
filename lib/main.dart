@@ -1,7 +1,6 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:global_configuration/global_configuration.dart';
 
 import 'generated/i18n.dart';
@@ -111,11 +110,11 @@ class _MyAppState extends State<MyApp> {
                   onGenerateRoute: RouteGenerator.generateRoute,
                   debugShowCheckedModeBanner: false,
                   locale: _setting.mobileLanguage.value,
-                  localizationsDelegates: [
-                    S.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                  ],
+                  // localizationsDelegates: [
+                  //   S.delegate,
+                  //   GlobalMaterialLocalizations.delegate,
+                  //   GlobalWidgetsLocalizations.delegate,
+                  // ],
                   supportedLocales: S.delegate.supportedLocales,
                   localeListResolutionCallback: S.delegate
                       .listResolution(fallback: const Locale('en', '')),

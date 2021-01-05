@@ -13,7 +13,6 @@ import 'package:carwash/src/repository/user_repository.dart';
 import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:carwash/src/repository/servicio_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -189,7 +188,7 @@ class CarroController extends ControllerMVC {
             //backgroundColor: Theme.of(context).hintColor ,
           ));
       setState(() {});
-    
+
       //print('____ANTES DE ENVIAR___');
       //print(newVehiculo.imgFile);
     }
