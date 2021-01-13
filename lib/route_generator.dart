@@ -1,4 +1,6 @@
+import 'package:carwash/src/models/cliente.dart';
 import 'package:carwash/src/models/route_argument.dart';
+import 'package:carwash/src/pages/cliente_page.dart';
 import 'package:carwash/src/pages/contactanos_page.dart';
 import 'package:carwash/src/pages/detalle_reserva_page.dart';
 import 'package:carwash/src/pages/detalle_servicio_page.dart';
@@ -19,8 +21,9 @@ class RouteGenerator {
       //   return MaterialPageRoute(builder: (_) => DebugWidget(routeArgument: args as RouteArgument));
       case '/Splash':
         return MaterialPageRoute(builder: (_) => SplashPage());
-      // case '/SignUp':
-      //   return MaterialPageRoute(builder: (_) => SignUpWidget());
+      case '/Cliente':
+        return MaterialPageRoute(
+            builder: (_) => ClientePage(cliente: args as Cliente));
       // case '/MobileVerification':
       //   return MaterialPageRoute(builder: (_) => SignUpWidget());
       // case '/MobileVerification2':

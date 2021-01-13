@@ -1,5 +1,8 @@
 import 'dart:io';
 
+import 'package:carwash/src/models/cliente.dart';
+import 'package:carwash/src/models/route_argument.dart';
+import 'package:carwash/src/repository/cliente_repository.dart';
 import 'package:carwash/src/repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,6 +29,26 @@ class HomeController extends ControllerMVC {
     if (currentUser.value.uid == null) {
       Navigator.of(context).pushNamed('/Login');
     }
+  }
+
+  Future<void> validaRegistroCliente() async {
+    final Stream<Cliente> stream =
+        await obtenerClienteXEmail(currentUser.value.email);
+    stream.listen((Cliente _cliente) {
+      setState(() {
+        if (_cliente.codigoCliente == null) {
+          Navigator.of(context).pushNamed('/Cliente', arguments: new Cliente());
+        } else {
+          if (_cliente.codigoCliente == '0') {
+            Navigator.of(context).pushNamed('/Cliente', arguments: _cliente);
+          }
+        }
+      });
+      // print(json.encode(_producto));
+      // setState(() => productoSemana.add(_producto));
+    }, onError: (a) {
+      print(a);
+    }, onDone: () {});
   }
 
   void launchWhatsApp({

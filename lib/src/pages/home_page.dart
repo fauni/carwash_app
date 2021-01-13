@@ -37,9 +37,18 @@ class _HomePageState extends StateMVC<HomePage>
 
   @override
   initState() {
+    // Timer.run(() {
+    //   _showAlert(context);
+    // });
+    Timer(Duration(seconds: 3), () {
+      _showAlert(context);
+    });
     // TODO: implement initState
     super.initState();
-    Timer.run(() => _showAlert(context));
+
+    // Timer.run(() {
+    //   _con.validaRegistroCliente();
+    // });
     // _con.verificarSiEstaAutentificado(context);
     animationController =
         AnimationController(duration: Duration(milliseconds: 200), vsync: this);
@@ -54,21 +63,21 @@ class _HomePageState extends StateMVC<HomePage>
     // _showAlert(context);
   }
 
-  void openPublicaciones() {
-    showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: CarroPage(
-            switchValue: _switchValue,
-            valueChanged: (value) {
-              _switchValue = value;
-            },
-          ),
-        );
-      },
-    );
-  }
+  // void openPublicaciones() {
+  //   showDialog<void>(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return Dialog(
+  //         child: CarroPage(
+  //           switchValue: _switchValue,
+  //           valueChanged: (value) {
+  //             _switchValue = value;
+  //           },
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   void _showAlert(BuildContext context) {
     showDialog(context: context, builder: (context) => HomeSliderWidget());
@@ -93,6 +102,13 @@ class _HomePageState extends StateMVC<HomePage>
           title: Text(''),
           elevation: 0,
           backgroundColor: Colors.transparent,
+          // actions: [
+          //   IconButton(
+          //     icon: FaIcon(FontAwesomeIcons.periscope,
+          //         color: Theme.of(context).hintColor),
+          //     onPressed: () => _showAlert(context),
+          //   )
+          // ],
           leading: Builder(
             builder: (context) => IconButton(
               icon: FaIcon(FontAwesomeIcons.bars),
