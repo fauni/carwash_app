@@ -23,16 +23,24 @@ class SplashPageState extends StateMVC<SplashPage> {
   }
 
   void loadData() {
+    int numero = 0;
     // Navigator.of(context).pushReplacementNamed('/Pages', arguments: 2);
     _con.progress.addListener(() {
       double progress = 0;
       _con.progress.value.values.forEach((_progress) {
         progress += _progress;
+        numero++;
       });
       if (progress == 100) {
         try {
           // Navigator.of(context).pushReplacementNamed('/Pages', arguments: 2);
           Navigator.of(context).pushReplacementNamed('/Pages');
+        } catch (e) {}
+      }
+      if (progress == 41 && numero == 4) {
+        try {
+          // Navigator.of(context).pushReplacementNamed('/Pages', arguments: 2);
+          Navigator.of(context).pushReplacementNamed('/Login');
         } catch (e) {}
       }
     });

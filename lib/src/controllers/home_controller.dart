@@ -24,32 +24,32 @@ class HomeController extends ControllerMVC {
   //   }, onDone: () {});
   // }
 
-  Future<void> verificarSiEstaAutentificado(BuildContext context) async {
-    // print('Verificaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-    if (currentUser.value.uid == null) {
-      Navigator.of(context).pushNamed('/Login');
-    }
-  }
+  // Future<void> verificarSiEstaAutentificado(BuildContext context) async {
+  //   // print('Verificaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  //   if (currentUser.value.uid == null) {
+  //     Navigator.of(context).pushNamed('/Login');
+  //   }
+  // }
 
-  Future<void> validaRegistroCliente() async {
-    final Stream<Cliente> stream =
-        await obtenerClienteXEmail(currentUser.value.email);
-    stream.listen((Cliente _cliente) {
-      setState(() {
-        if (_cliente.codigoCliente == null) {
-          Navigator.of(context).pushNamed('/Cliente', arguments: new Cliente());
-        } else {
-          if (_cliente.codigoCliente == '0') {
-            Navigator.of(context).pushNamed('/Cliente', arguments: _cliente);
-          }
-        }
-      });
-      // print(json.encode(_producto));
-      // setState(() => productoSemana.add(_producto));
-    }, onError: (a) {
-      print(a);
-    }, onDone: () {});
-  }
+  // Future<void> validaRegistroCliente() async {
+  //   final Stream<Cliente> stream =
+  //       await obtenerClienteXEmail(currentUser.value.email);
+  //   stream.listen((Cliente _cliente) {
+  //     setState(() {
+  //       if (_cliente.codigoCliente == null) {
+  //         Navigator.of(context).pushNamed('/Cliente', arguments: new Cliente());
+  //       } else {
+  //         if (_cliente.codigoCliente == '0') {
+  //           Navigator.of(context).pushNamed('/Cliente', arguments: _cliente);
+  //         }
+  //       }
+  //     });
+  //     // print(json.encode(_producto));
+  //     // setState(() => productoSemana.add(_producto));
+  //   }, onError: (a) {
+  //     print(a);
+  //   }, onDone: () {});
+  // }
 
   void launchWhatsApp({
     @required String phone,

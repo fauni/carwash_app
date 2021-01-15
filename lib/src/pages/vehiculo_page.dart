@@ -22,7 +22,8 @@ class VehiculoPage extends StatefulWidget {
 class VehiculoPageState extends StateMVC<VehiculoPage> {
   bool selected = false;
   CarroController _con;
-
+  double width_size;
+  double height_size;
   // bool _switchValue;
 
   VehiculoPageState() : super(CarroController()) {
@@ -36,7 +37,10 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
 
   @override
   Widget build(BuildContext context) {
+    width_size = MediaQuery.of(context).size.width;
+    height_size = MediaQuery.of(context).size.height;
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -50,17 +54,34 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
         //   new ShoppingCartButtonWidget(iconColor: Theme.of(context).hintColor, labelColor: Theme.of(context).accentColor),
         // ],
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(
-          horizontal: 20,
-        ),
-        child: Column(
-          children: [
-            _con.vehiculos.isEmpty
-                ? CircularLoadingWidget(
-                    height: 50,
-                  )
-                : ListView.separated(
+      body: Stack(
+        children: [
+          Image.asset(
+            'assets/img/fondo_car.png',
+            height: double.infinity,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              padding: EdgeInsets.only(top: 100),
+              child: Image.asset(
+                'assets/img/isotipo.png',
+                width: MediaQuery.of(context).size.width / 6,
+              ),
+            ),
+          ),
+          _con.vehiculos.isEmpty
+              ? CircularLoadingWidget(
+                  height: 50,
+                )
+              : Container(
+                  color: Colors.transparent.withOpacity(0.1),
+                  width: width_size,
+                  height: height_size,
+                  padding: EdgeInsets.only(top: 150),
+                  child: ListView.separated(
                     padding: EdgeInsets.symmetric(vertical: 15),
                     shrinkWrap: true,
                     primary: false,
@@ -103,8 +124,11 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                     },
                     itemCount: _con.vehiculos.length,
                   ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 10),
+                ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              margin: EdgeInsets.only(left: 20, right: 20, bottom: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
@@ -123,8 +147,8 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                 },
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

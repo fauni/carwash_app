@@ -41,7 +41,7 @@ class _HomePageState extends StateMVC<HomePage>
     //   _showAlert(context);
     // });
     Timer(Duration(seconds: 3), () {
-      _showAlert(context);
+      // _showAlert(context);
     });
     // TODO: implement initState
     super.initState();
@@ -173,7 +173,9 @@ class _HomePageState extends StateMVC<HomePage>
                           ),
                         ),
                         Text(
-                          currentUser.value.displayName + '!',
+                          currentUser.value.displayName == null
+                              ? ''
+                              : currentUser.value.displayName,
                           style: TextStyle(
                             fontWeight: FontWeight.w100,
                             fontSize: 30,
@@ -214,183 +216,6 @@ class _HomePageState extends StateMVC<HomePage>
                 ],
               ),
             ),
-            // Align(
-            //   alignment: Alignment.bottomCenter,
-            //   child: Container(
-            //     margin: EdgeInsets.only(bottom: 10),
-            //     child: ToggleButtons(
-            //       borderColor: Colors.transparent,
-            //       borderWidth: null,
-            //       selectedBorderColor: Colors.transparent,
-            //       splashColor: Colors.transparent,
-            //       children: [
-            //         Container(
-            //           decoration: BoxDecoration(
-            //             borderRadius: BorderRadius.circular(40),
-            //           ),
-            //           alignment: Alignment.center,
-            //           padding:
-            //               EdgeInsets.symmetric(vertical: 15, horizontal: 5),
-            //           width: _buttonWidth(context),
-            //           child: Column(
-            //             children: [
-            //               Container(
-            //                 width: 50,
-            //                 height: 50,
-            //                 child: Image.asset(
-            //                   'assets/img/auto_off.png',
-            //                 ),
-            //               ),
-            //               Text(
-            //                 'Seleccionar',
-            //                 style:
-            //                     TextStyle(color: Theme.of(context).hintColor),
-            //               ),
-            //               Text(
-            //                 'Auto',
-            //                 style:
-            //                     TextStyle(color: Theme.of(context).hintColor),
-            //               ),
-            //             ],
-            //           ),
-            //         ),
-            //         Container(
-            //           alignment: Alignment.center,
-            //           padding:
-            //               EdgeInsets.symmetric(vertical: 15, horizontal: 5),
-            //           width: _buttonWidth(context),
-            //           child: Column(
-            //             children: [
-            //               Container(
-            //                 width: 50,
-            //                 height: 50,
-            //                 child: Image.asset(
-            //                   'assets/img/servicio_off.png',
-            //                 ),
-            //               ),
-            //               Text(
-            //                 'Seleccionar',
-            //                 style:
-            //                     TextStyle(color: Theme.of(context).hintColor),
-            //               ),
-            //               Text(
-            //                 'Servicio',
-            //                 style:
-            //                     TextStyle(color: Theme.of(context).hintColor),
-            //               ),
-            //             ],
-            //           ),
-            //         ),
-            //         Container(
-            //           alignment: Alignment.center,
-            //           padding:
-            //               EdgeInsets.symmetric(vertical: 15, horizontal: 5),
-            //           width: _buttonWidth(context),
-            //           child: Column(
-            //             children: [
-            //               Container(
-            //                 width: 50,
-            //                 height: 50,
-            //                 child: Image.asset(
-            //                   'assets/img/cuando_off.png',
-            //                 ),
-            //               ),
-            //               Text(
-            //                 'Seleccionar',
-            //                 style:
-            //                     TextStyle(color: Theme.of(context).hintColor),
-            //               ),
-            //               Text(
-            //                 'Fecha y Hora',
-            //                 style:
-            //                     TextStyle(color: Theme.of(context).hintColor),
-            //               ),
-            //             ],
-            //           ),
-            //         ),
-            //       ],
-            //       onPressed: (int index) {
-            //         setState(() {
-            //           for (int i = 0; i < _isSelected.length; i++) {
-            //             _isSelected[i] = i == index;
-            //           }
-
-            //           if (index == 0) {
-            //             Navigator.of(context).push(
-            //               new MaterialPageRoute<Null>(
-            //                   builder: (BuildContext context) {
-            //                     return new CarroPage(
-            //                         switchValue: null, valueChanged: null);
-            //                   },
-            //                   fullscreenDialog: true),
-            //             );
-            //             // showDialog<void>(
-            //             //   context: context,
-            //             //   builder: (BuildContext context) {
-            //             //     return Dialog(
-            //             //       child: CarroPage(
-            //             //         switchValue: _switchValue,
-            //             //         valueChanged: (value) {
-            //             //           _switchValue = value;
-            //             //         },
-            //             //       ),
-            //             //     );
-            //             //   },
-            //             // );
-            //           } else if (index == 1) {
-            //             Navigator.of(context).push(
-            //               new MaterialPageRoute<Null>(
-            //                   builder: (BuildContext context) {
-            //                     return new ServicioPage(
-            //                         switchValue: null, valueChanged: null);
-            //                   },
-            //                   fullscreenDialog: true),
-            //             );
-            //             // showDialog<void>(
-            //             //   context: context,
-            //             //   builder: (BuildContext context) {
-            //             //     return Dialog(
-            //             //       child: ServicioPage(
-            //             //         switchValue: _switchValue,
-            //             //         valueChanged: (value) {
-            //             //           _switchValue = value;
-            //             //         },
-            //             //       ),
-            //             //     );
-            //             //   },
-            //             // );
-            //           } else {
-            //             Navigator.of(context).push(
-            //               new MaterialPageRoute<Null>(
-            //                   builder: (BuildContext context) {
-            //                     return new FechaPage(
-            //                         switchValue: null, valueChanged: null);
-            //                   },
-            //                   fullscreenDialog: true),
-            //             );
-            //             // showDialog<void>(
-            //             //   barrierDismissible: true,
-            //             //   context: context,
-            //             //   builder: (BuildContext context) {
-            //             //     return Dialog(
-            //             //       child: FechaPage(
-            //             //         switchValue: _switchValue,
-            //             //         valueChanged: (value) {
-            //             //           _switchValue = value;
-            //             //         },
-            //             //       ),
-            //             //     );
-            //             //   },
-            //             // );
-            //           }
-            //         });
-            //       },
-            //       isSelected: _isSelected,
-            //       selectedColor: Theme.of(context).primaryColor,
-            //       fillColor: Theme.of(context).primaryColor,
-            //     ),
-            //   ),
-            // ),
             Positioned(
               width: width_size,
               bottom: 30,

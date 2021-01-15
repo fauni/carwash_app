@@ -129,7 +129,7 @@ class CarroController extends ControllerMVC {
 
   // Obtener vehiculos por codigo cliente con información adicional
   void listarCarrosByCliente({String message}) async {
-    String idCliente = currentUser.value.uid;
+    String idCliente = currentUser.value.email;
     final Stream<List<VehiculoA>> stream =
         await obtenerVehiculosPorCliente(idCliente);
     stream.listen((List<VehiculoA> _vehiculos) {
