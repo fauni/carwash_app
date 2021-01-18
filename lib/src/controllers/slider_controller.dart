@@ -15,13 +15,13 @@ class SliderController extends ControllerMVC {
 
   SliderController() {
     // listenForSliders();
-    // cargarPublicidad();
+    cargarPublicidad();
   }
 
   void cargarPublicidad({String message}) async {
     final Stream<List<Publicidad>> stream = await obtenerPublicidades();
     stream.listen((List<Publicidad> _publicidades) {
-      // validaRegistroCliente();
+      validaRegistroCliente();
       setState(() {
         publicidades = _publicidades;
       });
@@ -30,25 +30,25 @@ class SliderController extends ControllerMVC {
     }, onDone: () {});
   }
 
-  // Future<void> validaRegistroCliente() async {
-  //   final Stream<Cliente> stream =
-  //       await obtenerClienteXEmail(currentUser.value.email);
-  //   stream.listen((Cliente _cliente) {
-  //     setState(() {
-  //       if (_cliente.codigoCliente == null) {
-  //         Navigator.of(context).pushNamed('/Cliente', arguments: new Cliente());
-  //       } else {
-  //         if (_cliente.codigoCliente == '0') {
-  //           Navigator.of(context).pushNamed('/Cliente', arguments: _cliente);
-  //         }
-  //       }
-  //     });
-  //     // print(json.encode(_producto));
-  //     // setState(() => productoSemana.add(_producto));
-  //   }, onError: (a) {
-  //     print(a);
-  //   }, onDone: () {});
-  // }
+  Future<void> validaRegistroCliente() async {
+    final Stream<Cliente> stream =
+        await obtenerClienteXEmail(currentUser.value.email);
+    stream.listen((Cliente _cliente) {
+      setState(() {
+        if (_cliente.codigoCliente == null) {
+          Navigator.of(context).pushNamed('/Cliente', arguments: new Cliente());
+        } else {
+          if (_cliente.codigoCliente == '0') {
+            Navigator.of(context).pushNamed('/Cliente', arguments: _cliente);
+          }
+        }
+      });
+      // print(json.encode(_producto));
+      // setState(() => productoSemana.add(_producto));
+    }, onError: (a) {
+      print(a);
+    }, onDone: () {});
+  }
 
   void listenForSliders({String message}) async {
     final Stream<Slider> stream = await getSliders();

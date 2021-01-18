@@ -41,7 +41,7 @@ class _HomePageState extends StateMVC<HomePage>
     //   _showAlert(context);
     // });
     Timer(Duration(seconds: 3), () {
-      // _showAlert(context);
+      _showAlert(context);
     });
     // TODO: implement initState
     super.initState();

@@ -44,133 +44,141 @@ class ClientePageState extends StateMVC<ClientePage> {
             width: double.infinity,
             fit: BoxFit.cover,
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 30),
-            child: Form(
-              key: _con.loginFormKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/img/logo_horizontal.png',
-                    width: MediaQuery.of(context).size.width / 2,
-                  ),
-                  SizedBox(
-                    height: 100,
-                  ),
-                  Text(
-                    'Es necesario completar o confirmar la siguiente información:',
-                    style: TextStyle(color: Theme.of(context).hintColor),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  TextFormField(
-                    // enabled: false,
-                    initialValue: widget.cliente.codigoCliente == null
-                        ? userRepo.currentUser.value.displayName
-                        : _con.cliente.nombreCompleto,
-                    onSaved: (input) => _con.cliente.nombreCompleto = input,
-                    style: TextStyle(color: Theme.of(context).hintColor),
-                    decoration: InputDecoration(
-                        labelText: 'Nombre Completo',
-                        hintText: 'Ingrese su Nombre Completo',
-                        hintStyle:
-                            TextStyle(color: Theme.of(context).hintColor),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                              color: Theme.of(context).accentColor, width: 1.0),
-                        ),
-                        border: OutlineInputBorder(),
-                        labelStyle:
-                            TextStyle(color: Theme.of(context).hintColor)),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  TextFormField(
-                    enabled: false,
-                    initialValue: userRepo.currentUser.value.email,
-                    onSaved: (input) => _con.cliente.email = input,
-                    style: TextStyle(color: Theme.of(context).hintColor),
-                    decoration: InputDecoration(
-                        labelText: 'Correo Electrónico',
-                        hintText: 'Ingrese su Nro. de Placa',
-                        hintStyle:
-                            TextStyle(color: Theme.of(context).hintColor),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                              color: Theme.of(context).accentColor, width: 1.0),
-                        ),
-                        border: OutlineInputBorder(),
-                        labelStyle:
-                            TextStyle(color: Theme.of(context).hintColor)),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    initialValue: widget.cliente.codigoCliente == null
-                        ? userRepo.currentUser.value.phoneNumber
-                        : widget.cliente.telefono,
-                    onSaved: (input) => _con.cliente.telefono = input,
-                    validator: (input) => input.length == 8
-                        ? null
-                        : 'El numero de telefono es invalido',
-                    style: TextStyle(color: Theme.of(context).hintColor),
-                    decoration: InputDecoration(
-                        labelText: 'Número de Celular',
-                        hintText: 'Ingrese su Nro. de Celular',
-                        hintStyle:
-                            TextStyle(color: Theme.of(context).hintColor),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                              color: Theme.of(context).accentColor, width: 1.0),
-                        ),
-                        border: OutlineInputBorder(),
-                        labelStyle:
-                            TextStyle(color: Theme.of(context).hintColor)),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  widget.cliente.email == null
-                      ? ButtonTheme(
-                          minWidth: double.infinity,
-                          height: 50.0,
-                          child: RaisedButton(
-                            color: Theme.of(context).primaryColor,
-                            textColor: Theme.of(context).hintColor,
-                            onPressed: () {
-                              _con.registrar();
-                            },
-                            child: Text('Registrate Ahora'),
-                            shape: RoundedRectangleBorder(
+          ListView(
+            padding: EdgeInsets.only(top: 100.0),
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                child: Form(
+                  key: _con.loginFormKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/img/logo_horizontal.png',
+                        width: MediaQuery.of(context).size.width / 2,
+                      ),
+                      SizedBox(
+                        height: 100,
+                      ),
+                      Text(
+                        'Es necesario completar o confirmar la siguiente información:',
+                        style: TextStyle(color: Theme.of(context).hintColor),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      TextFormField(
+                        // enabled: false,
+                        initialValue: widget.cliente.codigoCliente == null
+                            ? userRepo.currentUser.value.displayName
+                            : _con.cliente.nombreCompleto,
+                        onSaved: (input) => _con.cliente.nombreCompleto = input,
+                        style: TextStyle(color: Theme.of(context).hintColor),
+                        decoration: InputDecoration(
+                            labelText: 'Nombre Completo',
+                            hintText: 'Ingrese su Nombre Completo',
+                            hintStyle:
+                                TextStyle(color: Theme.of(context).hintColor),
+                            enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).accentColor,
+                                  width: 1.0),
                             ),
-                          ),
-                        )
-                      : ButtonTheme(
-                          minWidth: double.infinity,
-                          height: 50.0,
-                          child: RaisedButton(
-                            color: Theme.of(context).primaryColor,
-                            textColor: Theme.of(context).hintColor,
-                            onPressed: () {
-                              _con.actualizar();
-                            },
-                            child: Text('Actualizar Datos'),
-                            shape: RoundedRectangleBorder(
+                            border: OutlineInputBorder(),
+                            labelStyle:
+                                TextStyle(color: Theme.of(context).hintColor)),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      TextFormField(
+                        enabled: false,
+                        initialValue: userRepo.currentUser.value.email,
+                        onSaved: (input) => _con.cliente.email = input,
+                        style: TextStyle(color: Theme.of(context).hintColor),
+                        decoration: InputDecoration(
+                            labelText: 'Correo Electrónico',
+                            hintText: 'Ingrese su Nro. de Placa',
+                            hintStyle:
+                                TextStyle(color: Theme.of(context).hintColor),
+                            enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).accentColor,
+                                  width: 1.0),
                             ),
-                          ),
-                        )
-                ],
+                            border: OutlineInputBorder(),
+                            labelStyle:
+                                TextStyle(color: Theme.of(context).hintColor)),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        initialValue: widget.cliente.codigoCliente == null
+                            ? userRepo.currentUser.value.phoneNumber
+                            : widget.cliente.telefono,
+                        onSaved: (input) => _con.cliente.telefono = input,
+                        validator: (input) => input.length == 8
+                            ? null
+                            : 'El numero de telefono es invalido',
+                        style: TextStyle(color: Theme.of(context).hintColor),
+                        decoration: InputDecoration(
+                            labelText: 'Número de Celular',
+                            hintText: 'Ingrese su Nro. de Celular',
+                            hintStyle:
+                                TextStyle(color: Theme.of(context).hintColor),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).accentColor,
+                                  width: 1.0),
+                            ),
+                            border: OutlineInputBorder(),
+                            labelStyle:
+                                TextStyle(color: Theme.of(context).hintColor)),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      widget.cliente.email == null
+                          ? ButtonTheme(
+                              minWidth: double.infinity,
+                              height: 50.0,
+                              child: RaisedButton(
+                                color: Theme.of(context).primaryColor,
+                                textColor: Theme.of(context).hintColor,
+                                onPressed: () {
+                                  _con.registrar();
+                                },
+                                child: Text('Registrate Ahora'),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                            )
+                          : ButtonTheme(
+                              minWidth: double.infinity,
+                              height: 50.0,
+                              child: RaisedButton(
+                                color: Theme.of(context).primaryColor,
+                                textColor: Theme.of(context).hintColor,
+                                onPressed: () {
+                                  _con.actualizar();
+                                },
+                                child: Text('Actualizar Datos'),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                            )
+                    ],
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
         ],
       ),
