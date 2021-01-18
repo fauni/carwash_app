@@ -47,7 +47,8 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
         centerTitle: true,
         title: Text('Mis Autos'),
         leading: new IconButton(
-          icon: new Icon(Icons.clear, color: Theme.of(context).hintColor),
+          icon: new Icon(Icons.arrow_back_ios,
+              color: Theme.of(context).hintColor),
           onPressed: () => Navigator.of(context).pop(),
         ),
         // actions: <Widget>[
@@ -80,7 +81,7 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                   color: Colors.transparent.withOpacity(0.1),
                   width: width_size,
                   height: height_size,
-                  padding: EdgeInsets.only(top: 150),
+                  padding: EdgeInsets.only(top: 160),
                   child: ListView.separated(
                     padding: EdgeInsets.symmetric(vertical: 15),
                     shrinkWrap: true,

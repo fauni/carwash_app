@@ -26,6 +26,8 @@ class ReservasPageState extends StateMVC<ReservasPage> {
   bool selected = false;
   ReservaController _con;
 
+  double width_size;
+  double height_size;
   // bool _switchValue;
 
   ReservasPageState() : super(ReservaController()) {
@@ -39,14 +41,19 @@ class ReservasPageState extends StateMVC<ReservasPage> {
 
   @override
   Widget build(BuildContext context) {
+    width_size = MediaQuery.of(context).size.width;
+    height_size = MediaQuery.of(context).size.height;
+
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
         title: Text('Mis Reservas'),
         leading: new IconButton(
-          icon: new Icon(Icons.clear, color: Theme.of(context).hintColor),
+          icon: new Icon(Icons.arrow_back_ios,
+              color: Theme.of(context).hintColor),
           onPressed: () => Navigator.of(context).pop(),
         ),
         // actions: <Widget>[
@@ -60,89 +67,158 @@ class ReservasPageState extends StateMVC<ReservasPage> {
           width: double.infinity,
           fit: BoxFit.cover,
         ),
-        SingleChildScrollView(
-          child: Column(
-            children: [
-              _con.reservasInner.isEmpty
-                  ? CircularLoadingWidget(
-                      height: 50,
-                    )
-                  : ListView.separated(
-                      padding: EdgeInsets.symmetric(vertical: 15),
-                      shrinkWrap: true,
-                      primary: false,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          leading: _con.reservasInner.elementAt(index).estado ==
-                                  'E'
-                              ? Image.asset('assets/img/auto_proceso.png')
-                              : CachedNetworkImage(
-                                  imageUrl: _con.rutaImg(
-                                    _con.reservasInner.elementAt(index).foto,
-                                  ),
-                                  /************* */
-                                  imageBuilder: (context, imageProvider) =>
-                                      Container(
-                                          width: 55.0,
-                                          height: 80.0,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.cover),
-                                          )),
-                                  placeholder: (context, url) =>
-                                      CircularProgressIndicator(),
-                                  errorWidget: (context, url, error) =>
-                                      Icon(Icons.error),
-                                ),
-                          title: Text(
-                            _con.reservasInner.elementAt(index).placa,
-                            style:
-                                TextStyle(color: Theme.of(context).hintColor),
-                          ),
-                          subtitle: Text(
-                            _con.reservasInner.elementAt(index).marca +
-                                ', ' +
-                                _con.reservasInner.elementAt(index).modelo +
-                                '\n' +
-                                _con.reservasInner
-                                    .elementAt(index)
-                                    .fechaReserva +
-                                ' ' +
-                                _con.reservasInner.elementAt(index).horaReserva,
-                            style:
-                                TextStyle(color: Theme.of(context).hintColor),
-                          ),
-                          trailing: FaIcon(
-                            FontAwesomeIcons.caretRight,
-                            color: Theme.of(context).hintColor,
-                          ),
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                              '/DetalleReserva',
-                              arguments: new RouteArgument(
-                                  id: _con.reservasInner.elementAt(index).id,
-                                  param: [
-                                    _con.reservasInner.elementAt(index),
-                                    'Detalle'
-                                  ]),
-                            );
-                          },
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return SizedBox(
-                          height: 15,
-                        );
-                      },
-                      itemCount: _con.reservasInner.length,
-                    ),
-            ],
+        Align(
+          alignment: Alignment.topCenter,
+          child: Container(
+            padding: EdgeInsets.only(top: 100),
+            child: Image.asset(
+              'assets/img/isotipo.png',
+              width: MediaQuery.of(context).size.width / 6,
+            ),
           ),
         ),
+        Container(
+          width: width_size,
+          height: height_size,
+          padding: EdgeInsets.only(top: 200, bottom: 80),
+          child: SingleChildScrollView(
+            child: _con.reservasInner.isEmpty
+                ? Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Theme.of(context).accentColor),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/img/auto_on.png',
+                          width: 100,
+                        ),
+                        Text(
+                          'No encontramos reservas',
+                          style: TextStyle(
+                            color: Theme.of(context).hintColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        // Text(
+                        //   'Presiona actualizar para ver \n si ya existen  reservas \n o puedes la realizar atención \n sin reserva',
+                        //   style: TextStyle(
+                        //     color: Theme.of(context).hintColor,
+                        //     fontSize: 15,
+                        //     fontWeight: FontWeight.w200,
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   height: 30,
+                        // ),
+                        // ButtonTheme(
+                        //   minWidth: double.infinity,
+                        //   height: 50,
+                        //   child: RaisedButton.icon(
+                        //     color: Colors.transparent,
+                        //     textColor: Theme.of(context).hintColor,
+                        //     onPressed: () {
+                        //       // _con.refreshHome();
+                        //     },
+                        //     icon: FaIcon(
+                        //       FontAwesomeIcons.sync,
+                        //       color: Theme.of(context).accentColor,
+                        //       size: 35,
+                        //     ),
+                        //     label: Text('Actualizar'),
+                        //     shape: RoundedRectangleBorder(
+                        //       borderRadius: BorderRadius.circular(20),
+                        //       side: BorderSide(
+                        //         color: Colors
+                        //             .blue, //Theme.of(context).primaryColor,
+                        //         width: 1,
+                        //         style: BorderStyle.solid,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                  )
+                : ListView.separated(
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                    shrinkWrap: true,
+                    primary: false,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        leading:
+                            _con.reservasInner.elementAt(index).estado == 'E'
+                                ? Image.asset('assets/img/auto_proceso.png')
+                                : CachedNetworkImage(
+                                    imageUrl: _con.rutaImg(
+                                      _con.reservasInner.elementAt(index).foto,
+                                    ),
+                                    /************* */
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                            width: 55.0,
+                                            height: 80.0,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.cover),
+                                            )),
+                                    placeholder: (context, url) =>
+                                        CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
+                                  ),
+                        title: Text(
+                          _con.reservasInner.elementAt(index).placa,
+                          style: TextStyle(color: Theme.of(context).hintColor),
+                        ),
+                        subtitle: Text(
+                          _con.reservasInner.elementAt(index).marca +
+                              ', ' +
+                              _con.reservasInner.elementAt(index).modelo +
+                              '\n' +
+                              _con.reservasInner.elementAt(index).fechaReserva +
+                              ' ' +
+                              _con.reservasInner.elementAt(index).horaReserva,
+                          style: TextStyle(color: Theme.of(context).hintColor),
+                        ),
+                        trailing: FaIcon(
+                          FontAwesomeIcons.caretRight,
+                          color: Theme.of(context).hintColor,
+                        ),
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                            '/DetalleReserva',
+                            arguments: new RouteArgument(
+                                id: _con.reservasInner.elementAt(index).id,
+                                param: [
+                                  _con.reservasInner.elementAt(index),
+                                  'Detalle'
+                                ]),
+                          );
+                        },
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return Divider(
+                        color: Theme.of(context).accentColor,
+                        height: 15,
+                      );
+                    },
+                    itemCount: _con.reservasInner.length,
+                  ),
+          ),
+        )
       ]),
     );
   }

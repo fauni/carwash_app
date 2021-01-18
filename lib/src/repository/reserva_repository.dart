@@ -12,7 +12,7 @@ import 'package:http/http.dart' as http;
 /*Obtiene  reservas de acuerdo al cliente con datos de los vehiculos  */
 Future<Stream<List<ReservaInner>>> obtenerReservasInnerXIdCli() async {
   // Uri uri = Helper.getUriLfr('api/producto');
-  String idcli = currentUser.value.uid; /*cambiar por id del cliente*/
+  String idcli = currentUser.value.email; /*cambiar por id del cliente*/
   final String url =
       '${GlobalConfiguration().getString('api_base_url_wash')}reserva/getByIdVehiculo/' +
           idcli;

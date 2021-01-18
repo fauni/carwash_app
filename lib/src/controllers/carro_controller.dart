@@ -174,7 +174,7 @@ class CarroController extends ControllerMVC {
       newVehiculo.foto = fileName;
       newVehiculo.imgFile = base64Image;
 
-      newVehiculo.idCliente = currentUser.value.uid;
+      newVehiculo.idCliente = currentUser.value.email;
 
       this.loading = true;
       setState(() {

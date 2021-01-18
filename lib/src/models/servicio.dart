@@ -9,7 +9,7 @@ import 'dart:ffi';
 class LServicio {
   List<Servicio> items = new List();
   LServicio();
-  
+
   LServicio.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) return;
 
@@ -49,16 +49,16 @@ class Servicio {
   bool esSeleccionado = false;
 
   factory Servicio.fromJson(Map<String, dynamic> json) => Servicio(
-        id: json["id"],
-        nombre: json["nombre"],
-        tipo: json["tipo"],
-        esAdicional: json["esAdicional"],
-        precioM: json["precio_m"],
-        precioL: json["precio_l"],
-        precioXl: json["precio_xl"],
-        estado: json["estado"],
-        detalle: json["detalle"],
-      );
+      id: json["id"],
+      nombre: json["nombre"],
+      tipo: json["tipo"],
+      esAdicional: json["esAdicional"],
+      precioM: json["precio_m"],
+      precioL: json["precio_l"],
+      precioXl: json["precio_xl"],
+      estado: json["estado"],
+      detalle: json["detalle"],
+      esSeleccionado: false);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -69,6 +69,7 @@ class Servicio {
         "precio_l": precioL,
         "precio_xl": precioXl,
         "estado": estado,
-        "detalle": detalle
+        "detalle": detalle,
+        "esSeleccionado": false
       };
 }

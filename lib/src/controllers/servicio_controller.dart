@@ -37,10 +37,11 @@ class ServicioController extends ControllerMVC {
   }
 
   void listarServicios({String message}) async {
-    final Stream<List<Servicio>> stream = await obtenerServiciosPorTipo('1');
+    // final Stream<List<Servicio>> stream = await obtenerServiciosPorTipo('1');
+    final Stream<List<Servicio>> stream = await obtenerServicios();
     stream.listen((List<Servicio> _servicios) {
       setState(() {
-        // servicios = _servicios;
+        servicios = _servicios;
         serviciosGeneral = _servicios;
       });
     }, onError: (a) {

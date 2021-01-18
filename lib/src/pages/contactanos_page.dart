@@ -30,6 +30,7 @@ class _ContactanosPageState extends StateMVC<ContactanosPage> {
     width_size = MediaQuery.of(context).size.width;
     height_size = MediaQuery.of(context).size.height;
     return Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
           title: Text('Contactanos'),
           backgroundColor: Colors.transparent,
