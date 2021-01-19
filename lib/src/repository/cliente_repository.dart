@@ -42,8 +42,14 @@ Future<Stream<Cliente>> obtenerClienteXEmail(String email) async {
   final response = await client.get(url);
   try {
     if (response.statusCode == 200) {
-      final cliente = Cliente.fromJson(json.decode(response.body)['body'][0]);
-      return new Stream.value(cliente);
+      Map<String, dynamic> resp = jsonDecode(response.body);
+      final length = resp['length'];
+      if (length == 0) {
+        return new Stream.value(new Cliente());
+      } else {
+        return new Stream.value(
+            Cliente.fromJson(json.decode(response.body)['body'][0]));
+      }
     } else {
       return new Stream.value(new Cliente());
     }
