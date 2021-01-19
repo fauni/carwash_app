@@ -107,43 +107,6 @@ class ReservasPageState extends StateMVC<ReservasPage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        // Text(
-                        //   'Presiona actualizar para ver \n si ya existen  reservas \n o puedes la realizar atención \n sin reserva',
-                        //   style: TextStyle(
-                        //     color: Theme.of(context).hintColor,
-                        //     fontSize: 15,
-                        //     fontWeight: FontWeight.w200,
-                        //   ),
-                        // ),
-                        // SizedBox(
-                        //   height: 30,
-                        // ),
-                        // ButtonTheme(
-                        //   minWidth: double.infinity,
-                        //   height: 50,
-                        //   child: RaisedButton.icon(
-                        //     color: Colors.transparent,
-                        //     textColor: Theme.of(context).hintColor,
-                        //     onPressed: () {
-                        //       // _con.refreshHome();
-                        //     },
-                        //     icon: FaIcon(
-                        //       FontAwesomeIcons.sync,
-                        //       color: Theme.of(context).accentColor,
-                        //       size: 35,
-                        //     ),
-                        //     label: Text('Actualizar'),
-                        //     shape: RoundedRectangleBorder(
-                        //       borderRadius: BorderRadius.circular(20),
-                        //       side: BorderSide(
-                        //         color: Colors
-                        //             .blue, //Theme.of(context).primaryColor,
-                        //         width: 1,
-                        //         style: BorderStyle.solid,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ),
                   )

@@ -52,6 +52,7 @@ dependencies:
   photo_view: ^0.9.2
   group_button: ^1.1.0
   url_launcher: ^5.4.1
+  flutter_facebook_login: ^3.0.0
 
 dev_dependencies:
   flutter_test:

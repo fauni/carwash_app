@@ -9,16 +9,19 @@ import 'package:carwash/src/models/vehiculo.dart';
 
 import '../widgets/CircularLoadingWidget.dart';
 
-class AddVehiculoWidget extends StatefulWidget {
+class AgregarVehiculoPage extends StatefulWidget {
+  VoidCallback onDismissed;
+
+  AgregarVehiculoPage({this.onDismissed});
   @override
-  AddVehiculoWidgetState createState() => AddVehiculoWidgetState();
+  AgregarVehiculoPageState createState() => AgregarVehiculoPageState();
 }
 
-class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
+class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
   Vehiculo vehiculoNuevo = new Vehiculo();
   CarroController _con;
 
-  AddVehiculoWidgetState() : super(CarroController()) {
+  AgregarVehiculoPageState() : super(CarroController()) {
     _con = controller;
   }
 
@@ -40,8 +43,9 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
           centerTitle: true,
           title: Text('Agregar un auto nuevo'),
           leading: new IconButton(
-            icon: new Icon(Icons.clear, color: Theme.of(context).hintColor),
-            onPressed: () => Navigator.of(context).pop(),
+            icon: new Icon(Icons.arrow_back_ios,
+                color: Theme.of(context).hintColor),
+            onPressed: () => Navigator.of(context).pop(true),
           ),
         ),
         body: !_con.loading

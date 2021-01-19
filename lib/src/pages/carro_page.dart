@@ -1,6 +1,7 @@
 //import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carwash/src/controllers/carro_controller.dart';
+import 'package:carwash/src/pages/agregar_vehiculo_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -45,18 +46,33 @@ class CarroPageState extends StateMVC<CarroPage> {
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
           children: [
-            // Padding(
-            //   padding: EdgeInsets.only(top: 10, left: 20, right: 20),
-            //   child: ListTile(
-            //     leading: Icon(Icons.directions_bus,
-            //         color: Theme.of(context).hintColor),
-            //     title: Text('Elige tu vehiculo'),
-            //     subtitle: Text('Presiona el el Item para Elegir el Vehiculo'),
-            //   ),
-            // ),
             _con.vehiculos.isEmpty
-                ? CircularLoadingWidget(
-                    height: 50,
+                ? Container(
+                    margin: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Theme.of(context).accentColor),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/img/auto_on.png',
+                          width: 100,
+                        ),
+                        Text(
+                          'No tiene vehiculos',
+                          style: TextStyle(
+                            color: Theme.of(context).hintColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   )
                 : ListView.separated(
                     padding: EdgeInsets.symmetric(vertical: 15),
@@ -123,10 +139,12 @@ class CarroPageState extends StateMVC<CarroPage> {
                   color: Theme.of(context).hintColor,
                   size: 50,
                 ),
-                title: Text('Agregar un auto nuevo'),
+                title: Text('Agregar un Vehiculo'),
                 subtitle: Text('Nuevo Vehiculo'),
                 onTap: () {
-                  Navigator.of(context).pushNamed('/AddVehiculo');
+                  // _con.abrirNuevoVehiculo();
+                  _abrirNuevoVehiculo();
+                  //Navigator.of(context).pushNamed('/AddVehiculo');
                 },
               ),
             ),
@@ -134,58 +152,25 @@ class CarroPageState extends StateMVC<CarroPage> {
         ),
       ),
     );
-    // return SingleChildScrollView(
-    //   child: Column(
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     mainAxisAlignment: MainAxisAlignment.start,
-    //     mainAxisSize: MainAxisSize.max,
-    //     children: [
-    //       Text('Hora: ' + _con.servicio,
-    //           style: TextStyle(color: Theme.of(context).accentColor)),
-    //       Padding(
-    //         padding: EdgeInsets.only(top: 10, left: 20, right: 20),
-    //         child: ListTile(
-    //           leading: Icon(Icons.directions_bus,
-    //               color: Theme.of(context).hintColor),
-    //           title: Text('Elige tu vehiculo'),
-    //           subtitle: Text('Long press to edit item swipe'),
-    //         ),
-    //       ),
-    //       _con.carros.isEmpty
-    //           ? CircularLoadingWidget(height: 50)
-    //           : ListView.separated(
-    //               padding: EdgeInsets.symmetric(vertical: 15),
-    //               shrinkWrap: true,
-    //               primary: false,
-    //               scrollDirection: Axis.vertical,
-    //               itemBuilder: (context, index) {
-    //                 return ListTile(
-    //                   leading:
-    //                       Icon(Icons.map, color: Theme.of(context).hintColor),
-    //                   title: Text(_con.carros.elementAt(index).id.toString() +
-    //                       ', Placa :' +
-    //                       _con.carros.elementAt(index).placa),
-    //                   subtitle:
-    //                       Text(_con.carros.elementAt(index).observaciones),
-    //                   trailing: Checkbox(
-    //                     value: selected,
-    //                     onChanged: (bool val) {
-    //                       setState(() {
-    //                         selected = val;
-    //                       });
-    //                     },
-    //                   ),
-    //                 );
-    //               },
-    //               separatorBuilder: (context, index) {
-    //                 return SizedBox(
-    //                   height: 15,
-    //                 );
-    //               },
-    //               itemCount: _con.carros.length,
-    //             )
-    //     ],
-    //   ),
-    // );
+  }
+
+  _abrirNuevoVehiculo() async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgregarVehiculoPage(
+          onDismissed: () {
+            print('Cerrar siiiiiiiiiiiiiiiiiii');
+          },
+        ),
+      ),
+    );
+
+    if (result != null) {
+      if (result) {
+        _con.listarCarrosByCliente();
+        // widget.onDismissed.call();
+      }
+    }
   }
 }

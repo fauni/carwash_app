@@ -96,7 +96,7 @@ class LoginPageState extends StateMVC<LoginPage> {
                     color: Colors.transparent,
                     textColor: Theme.of(context).hintColor,
                     onPressed: () {
-                      _con.login();
+                      _con.facebookSignIn();
                     },
                     icon: FaIcon(
                       FontAwesomeIcons.facebookF,

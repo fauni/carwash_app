@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:carwash/src/models/usuario.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,6 +43,40 @@ Future<Usuario> login() async {
     throw new Exception('Ocurrio un error');
   }
   return currentUser.value;
+}
+
+Future<Usuario> loginFacebook() async {
+  final usuarioF = new Usuario();
+  final facebookLogin = FacebookLogin();
+  // final result = await facebookLogin.logIn(['email']);
+  final result = await facebookLogin.logIn(['email']);
+  if (result.status == FacebookLoginStatus.loggedIn) {
+    final token = result.accessToken.token;
+    final graphResponse = await http.get(
+        'https://graph.facebook.com/v2.12/me?fields=id,name,first_name,last_name,email,picture&access_token=${token}');
+    final profile = json.decode(graphResponse.body);
+    final credential = FacebookAuthProvider.getCredential(token);
+    _auth.signInWithCredential(credential);
+
+    final imagen = profile["picture"]["data"]["url"];
+
+    usuarioF.uid = profile["id"];
+    usuarioF.displayName = profile["name"];
+    usuarioF.email = profile["email"];
+    usuarioF.phoneNumber = "";
+    usuarioF.verifyEmail = true;
+    usuarioF.photoUrl = ""; //imagen;
+
+    setCurrentUser(json.encode(usuarioF));
+    currentUser.value = usuarioF;
+    return usuarioF;
+  } else if (result.status == FacebookLoginStatus.cancelledByUser) {
+    usuarioF.uid = "-1";
+    return null;
+  } else {
+    usuarioF.uid = "0";
+    return null;
+  }
 }
 
 // Future<User> register(User user) async {

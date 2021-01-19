@@ -15,6 +15,7 @@ import 'package:carwash/src/repository/servicio_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:carwash/src/pages/servicio_page.dart';
 
 class CarroController extends ControllerMVC {
   List<Vehiculo> carros = [];
@@ -157,6 +158,14 @@ class CarroController extends ControllerMVC {
     String strVehiculo = vehiculoAToJson(vehiculo);
     setVehiculo(strVehiculo);
     Navigator.pop(context);
+
+    Navigator.of(context).push(
+      new MaterialPageRoute<Null>(
+          builder: (BuildContext context) {
+            return new ServicioPage(switchValue: null, valueChanged: null);
+          },
+          fullscreenDialog: true),
+    );
     // print('_________en string____________');
     // print(await getVehiculo());
   }
@@ -192,12 +201,14 @@ class CarroController extends ControllerMVC {
       //print('____ANTES DE ENVIAR___');
       //print(newVehiculo.imgFile);
     }
-    Navigator.of(context).pop();
-    Navigator.of(context).pop();
-    Navigator.of(context).pushNamed('/Vehiculo', arguments: 3);
+    Navigator.of(context).pop(true);
+    // Navigator.of(context).pop();
+    // Navigator.of(context).pushNamed('/Vehiculo', arguments: 3);
   }
 
   String RutaImg(String nombre) {
     return getRutaImg(nombre);
   }
+
+  void abrirNuevoVehiculo() {}
 }

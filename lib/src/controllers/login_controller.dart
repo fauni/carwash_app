@@ -55,6 +55,27 @@ class LoginController extends ControllerMVC {
     // });
   }
 
+  Future<void> facebookSignIn() async {
+    FocusScope.of(context).unfocus();
+    Overlay.of(context).insert(loader);
+    repository.loginFacebook().then((value) {
+      if (value != null && value.verifyEmail != null) {
+        Navigator.of(context).pushReplacementNamed('/Pages');
+      } else {
+        scaffoldKey.currentState.showSnackBar(SnackBar(
+          content: Text('Ocurrio un error al autentificar'),
+        ));
+      }
+    }).catchError((e) {
+      loader.remove();
+      scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('No se pudo ingresar'),
+      ));
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
+  }
+
   void obtenerUsuario() async {
     final u = FirebaseAuth.instance.currentUser;
     this.usuario = await getCurrentUser();
