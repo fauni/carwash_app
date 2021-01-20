@@ -56,6 +56,19 @@ Future<dynamic> registrarReserva(String reserva) async {
   return reserva;
 }
 
+// String getRutaImg(String nombre) {
+//   if (nombre == null) {
+//     return ('http://intranet.lafar.net/images/rav4.jpg'); // cambiar por otra ruta
+//   } else {
+//     if (nombre == '') {
+//       return ('http://intranet.lafar.net/images/rav4.jpg');
+//     } else {
+//       return '${GlobalConfiguration().getString('img_carros_url_wash')}' +
+//           nombre;
+//     }
+//   }
+// }
+
 Future<String> getReserva() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   return await prefs.get('reserva');

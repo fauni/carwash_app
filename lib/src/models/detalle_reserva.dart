@@ -23,17 +23,17 @@ DetalleReserva detalleReservaFromJson(String str) =>
 String detalleReservaToJson(DetalleReserva data) => json.encode(data.toJson());
 
 class DetalleReserva {
-  DetalleReserva({
-    this.id,
-    this.idReserva,
-    this.idServicio,
-    this.estado,
-    this.nombre,
-    this.precioM,
-    this.precioL,
-    this.precioXl,
-    this.detalle,
-  });
+  DetalleReserva(
+      {this.id,
+      this.idReserva,
+      this.idServicio,
+      this.estado,
+      this.nombre,
+      this.precioM,
+      this.precioL,
+      this.precioXl,
+      this.detalle,
+      this.precio});
 
   String id;
   String idReserva;
@@ -44,18 +44,19 @@ class DetalleReserva {
   String precioL;
   String precioXl;
   String detalle;
+  String precio;
 
   factory DetalleReserva.fromJson(Map<String, dynamic> json) => DetalleReserva(
-        id: json["id"],
-        idReserva: json["idReserva"],
-        idServicio: json["idServicio"],
-        estado: json["estado"],
-        nombre: json["nombre"],
-        precioM: json["precio_m"],
-        precioL: json["precio_l"],
-        precioXl: json["precio_xl"],
-        detalle: json["detalle"],
-      );
+      id: json["id"],
+      idReserva: json["idReserva"],
+      idServicio: json["idServicio"],
+      estado: json["estado"],
+      nombre: json["nombre"],
+      precioM: json["precio_m"],
+      precioL: json["precio_l"],
+      precioXl: json["precio_xl"],
+      detalle: json["detalle"],
+      precio: json["precio"]);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -67,5 +68,6 @@ class DetalleReserva {
         "precio_l": precioL,
         "precio_xl": precioXl,
         "detalle": detalle,
+        "precio": precio
       };
 }

@@ -36,6 +36,7 @@ class FechaPageState extends StateMVC<FechaPage> {
   @override
   void initState() {
     _switchValue = widget.switchValue;
+    _con.verificaInformacion();
     super.initState();
   }
 

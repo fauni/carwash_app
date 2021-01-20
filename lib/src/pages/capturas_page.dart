@@ -2,32 +2,33 @@ import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carwash/src/controllers/reserva_controller.dart';
+import 'package:carwash/src/models/reserva.dart';
 import 'package:carwash/src/models/reserva_inner.dart';
 import 'package:carwash/src/models/route_argument.dart';
 import 'package:carwash/src/widgets/CircularLoadingWidget.dart';
+import 'package:carwash/src/widgets/DrawerWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:carwash/src/pages/atencion_page.dart';
 
-class DetalleReservaPage extends StatefulWidget {
+class CapturasPage extends StatefulWidget {
   RouteArgument routeArgument;
   String _heroTag;
 
-  DetalleReservaPage({Key key, this.routeArgument}) {
+  CapturasPage({Key key, this.routeArgument}) {
     _heroTag = this.routeArgument.param[1] as String;
   }
 
   @override
-  _DetalleReservaPageState createState() => _DetalleReservaPageState();
+  _CapturasPageState createState() => _CapturasPageState();
 }
 
-class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
+class _CapturasPageState extends StateMVC<CapturasPage>
     with SingleTickerProviderStateMixin {
   ReservaController _con;
 
   ReservaInner reserva;
-  _DetalleReservaPageState() : super(ReservaController()) {
+  _CapturasPageState() : super(ReservaController()) {
     _con = controller;
   }
 
@@ -54,7 +55,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text('Detalle de la Reserva'),
+        title: Text('Capturas Reserva'),
         // title: Text(widget.routeArgument.id),
       ),
       body: _con.ldetalleReserva == null
@@ -227,53 +228,42 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           InkWell(
-                            onTap: () async {
-                              if (widget.routeArgument.param[0].estado == 'P') {
-                                _con.alertDialogPendiente();
-                              } else {
-                                final result = await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => AtencionPage(
-                                      routeArgument: new RouteArgument(
-                                          id: widget.routeArgument.id,
-                                          param: [
-                                            widget.routeArgument.param[0],
-                                            widget._heroTag
-                                          ]),
-                                    ),
+                            onTap: () {
+                              print('J');
+                            },
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                  '/DetalleReserva',
+                                  arguments: new RouteArgument(
+                                    id: widget.routeArgument.id,
+                                    param: [widget.routeArgument.param[0]],
                                   ),
                                 );
-
-                                if (result != null) {
-                                  if (result) {
-                                    // widget.onDismissed.call();
-                                  }
-                                }
-                              }
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 3,
-                              height: MediaQuery.of(context).size.height / 7,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                borderRadius: BorderRadius.circular(20),
-                                //border: Border.all(color: Theme.of(context).accentColor),
-                              ),
-                              child: Column(
-                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Image.asset(
-                                    'assets/img/mis_fotos.png',
-                                    width: 80,
-                                  ),
-                                  Text(
-                                    'Ver Capturas',
-                                    style: TextStyle(
-                                        color: Theme.of(context).hintColor,
-                                        fontWeight: FontWeight.w200),
-                                  ),
-                                ],
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width / 3,
+                                height: MediaQuery.of(context).size.height / 7,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius: BorderRadius.circular(20),
+                                  //border: Border.all(color: Theme.of(context).accentColor),
+                                ),
+                                child: Column(
+                                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Image.asset(
+                                      'assets/img/mis_fotos.png',
+                                      width: 80,
+                                    ),
+                                    Text(
+                                      'Ver Fotos',
+                                      style: TextStyle(
+                                          color: Theme.of(context).hintColor,
+                                          fontWeight: FontWeight.w200),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -311,107 +301,54 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          InkWell(
-                            onTap: () {
-                              _con.alertDialogFacturas();
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 3,
-                              height: MediaQuery.of(context).size.height / 7,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                borderRadius: BorderRadius.circular(20),
-                                //border: Border.all(color: Theme.of(context).accentColor),
-                              ),
-                              child: Column(
-                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Image.asset(
-                                    'assets/img/mi_factura.png',
-                                    width: 80,
-                                  ),
-                                  Text(
-                                    'Mi Factura',
-                                    style: TextStyle(
-                                        color: Theme.of(context).hintColor,
-                                        fontWeight: FontWeight.w200),
-                                  ),
-                                ],
-                              ),
+                          Container(
+                            width: MediaQuery.of(context).size.width / 3,
+                            height: MediaQuery.of(context).size.height / 7,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(20),
+                              //border: Border.all(color: Theme.of(context).accentColor),
+                            ),
+                            child: Column(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Image.asset(
+                                  'assets/img/mi_factura.png',
+                                  width: 80,
+                                ),
+                                Text(
+                                  'Mi Factura',
+                                  style: TextStyle(
+                                      color: Theme.of(context).hintColor,
+                                      fontWeight: FontWeight.w200),
+                                ),
+                              ],
                             ),
                           ),
-                          widget.routeArgument.param[0].estado == 'L'
-                              ? Container(
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  height:
-                                      MediaQuery.of(context).size.height / 7,
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).hintColor,
-                                    borderRadius: BorderRadius.circular(20),
-                                    //border: Border.all(color: Theme.of(context).accentColor),
-                                  ),
-                                  child: Image.asset(
-                                    'assets/img/en_proceso_white.png',
-                                    width: 80,
-                                  ),
-                                )
-                              : widget.routeArgument.param[0].estado == 'F'
-                                  ? Container(
-                                      width:
-                                          MediaQuery.of(context).size.width / 3,
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              7,
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context).primaryColor,
-                                        borderRadius: BorderRadius.circular(20),
-                                        //border: Border.all(color: Theme.of(context).accentColor),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Image.asset(
-                                            'assets/img/en_proceso.png',
-                                            width: 80,
-                                          ),
-                                          Text(
-                                            'Finalizado',
-                                            style: TextStyle(
-                                                color:
-                                                    Theme.of(context).hintColor,
-                                                fontWeight: FontWeight.w200),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  : Container(
-                                      width:
-                                          MediaQuery.of(context).size.width / 3,
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              7,
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context).accentColor,
-                                        borderRadius: BorderRadius.circular(20),
-                                        //border: Border.all(color: Theme.of(context).accentColor),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            'assets/img/isotipo.png',
-                                            width: 50,
-                                          ),
-                                          Text(
-                                            'Pendiente',
-                                            style: TextStyle(
-                                                color:
-                                                    Theme.of(context).hintColor,
-                                                fontWeight: FontWeight.w200),
-                                          ),
-                                        ],
-                                      ),
-                                    )
+                          Container(
+                            width: MediaQuery.of(context).size.width / 3,
+                            height: MediaQuery.of(context).size.height / 7,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(20),
+                              //border: Border.all(color: Theme.of(context).accentColor),
+                            ),
+                            child: Column(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Image.asset(
+                                  'assets/img/en_proceso.png',
+                                  width: 80,
+                                ),
+                                Text(
+                                  'En Proceso',
+                                  style: TextStyle(
+                                      color: Theme.of(context).hintColor,
+                                      fontWeight: FontWeight.w200),
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       )
                     ],

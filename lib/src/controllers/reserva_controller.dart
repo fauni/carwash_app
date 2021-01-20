@@ -31,12 +31,13 @@ class ReservaController extends ControllerMVC {
     "fecha": ""
   };
 
+  double subTotal = 0.0;
+  double total = 0.0;
   GlobalKey<ScaffoldState> scaffoldKey;
 
   ReservaController() {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
     listarReservasInnerByIdCli();
-    verificaInformacion();
   }
 
   String rutaImg(String nombre) {
@@ -155,6 +156,7 @@ class ReservaController extends ControllerMVC {
         ldetalleReserva = _detallereserva;
         // print("===============================");
         // //print(carros);
+        calculateTotal();
         print(jsonEncode(ldetalleReserva));
       });
     }, onError: (a) {
@@ -162,6 +164,75 @@ class ReservaController extends ControllerMVC {
         content: Text(S.current.verify_your_internet_connection),
       ));
     }, onDone: () {});
+  }
+
+  void calculateTotal() async {
+    subTotal = 0;
+    total = 0;
+
+    ldetalleReserva.forEach(
+      (serv) {
+        subTotal = subTotal + double.parse(serv.precio);
+      },
+    );
+    total = subTotal;
+    setState(() {});
+  }
+
+  Future<void> alertDialogPendiente() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Reserva Pendiente'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Reserva Pendiente.'),
+                Text('No existe información sobre la atención de esta reserva'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Volver'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> alertDialogFacturas() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Factura de Reserva'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('No existe la factura.'),
+                Text('Intente, mas adelante'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Volver'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void launchURLVideo() async {

@@ -118,8 +118,8 @@ class ReservasPageState extends StateMVC<ReservasPage> {
                     itemBuilder: (context, index) {
                       return ListTile(
                         leading:
-                            _con.reservasInner.elementAt(index).estado == 'E'
-                                ? Image.asset('assets/img/auto_proceso.png')
+                            _con.reservasInner.elementAt(index).estado == 'L'
+                                ? Image.asset('assets/img/en_proceso_white.png')
                                 : CachedNetworkImage(
                                     imageUrl: _con.rutaImg(
                                       _con.reservasInner.elementAt(index).foto,

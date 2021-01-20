@@ -9,6 +9,7 @@ import 'package:carwash/src/pages/login_page.dart';
 import 'package:carwash/src/pages/reservas_page.dart';
 import 'package:carwash/src/pages/splash_pages.dart';
 import 'package:carwash/src/pages/vehiculo_page.dart';
+import 'package:carwash/src/pages/capturas_page.dart';
 import 'package:carwash/src/widgets/AddVehiculoWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -41,6 +42,10 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) =>
                 DetalleReservaPage(routeArgument: args as RouteArgument));
+
+      case '/CapturasReserva':
+        return MaterialPageRoute(
+            builder: (_) => CapturasPage(routeArgument: args as RouteArgument));
       /*
       case '/Menu':
         return MaterialPageRoute(builder: (_) => MenuWidget(routeArgument: args as RouteArgument));

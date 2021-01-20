@@ -39,8 +39,13 @@ class CarroPageState extends StateMVC<CarroPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Agregar Vehiculo'),
+        title: Text('Seleccione un Vehículo'),
         backgroundColor: Colors.transparent,
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back_ios,
+              color: Theme.of(context).hintColor),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
