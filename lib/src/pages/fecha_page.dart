@@ -130,7 +130,7 @@ class FechaPageState extends StateMVC<FechaPage> {
                 color: Theme.of(context).primaryColor,
                 textColor: Theme.of(context).hintColor,
                 onPressed: () {
-                  _con.setReservaCompleta();
+                  _con.showAlertDialog(context);
                 },
                 child: Text('Enviar Reserva'),
                 shape: RoundedRectangleBorder(

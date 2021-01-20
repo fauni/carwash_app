@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:carwash/src/models/servicio.dart';
 import 'package:carwash/src/models/vehiculoa.dart';
+import 'package:carwash/src/pages/carro_page.dart';
 import 'package:carwash/src/repository/servicio_repository.dart';
 import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +33,19 @@ class ServicioController extends ControllerMVC {
 
   void obtenerVehiculo() async {
     String vehiculo_json = await getVehiculo();
-    vehiculoElegido = VehiculoA.fromJson(jsonDecode(vehiculo_json));
-    print(jsonEncode(vehiculoElegido));
+    if (vehiculo_json == null) {
+      Navigator.pop(context);
+      Navigator.of(context).push(
+        new MaterialPageRoute<Null>(
+            builder: (BuildContext context) {
+              return new CarroPage(switchValue: null, valueChanged: null);
+            },
+            fullscreenDialog: true),
+      );
+    } else {
+      vehiculoElegido = VehiculoA.fromJson(jsonDecode(vehiculo_json));
+    }
+    // print(jsonEncode(vehiculoElegido));
   }
 
   void listarServicios({String message}) async {

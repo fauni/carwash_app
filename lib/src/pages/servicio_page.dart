@@ -1,5 +1,6 @@
 //import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carwash/src/controllers/servicio_controller.dart';
+import 'package:carwash/src/pages/fecha_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -50,10 +51,21 @@ class ServicioPageState extends StateMVC<ServicioPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
           Navigator.of(context).pop();
+          Navigator.of(context).push(
+            new MaterialPageRoute<Null>(
+                builder: (BuildContext context) {
+                  return new FechaPage(switchValue: null, valueChanged: null);
+                },
+                fullscreenDialog: true),
+          );
         },
-        label: Text(_con.total.toString() + 'Bs.'),
+        label: Text(
+          _con.total.toString() + 'Bs.',
+          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w100),
+        ),
         icon: Icon(Icons.navigate_next),
       ),
       body: Stack(
