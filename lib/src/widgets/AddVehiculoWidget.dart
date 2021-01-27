@@ -68,19 +68,21 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                             height:
                                 150, //MediaQuery.of(context).size.height / 3,
                             child: Center(
-                                child: _con.image == null
-                                    ? FloatingActionButton(
-                                        onPressed: () {
-                                          _con.getImage(2);
-                                        },
-                                        child: Icon(Icons.camera_alt),
-                                        backgroundColor:
-                                            Theme.of(context).primaryColor,
-                                      )
-                                    : Image(
-                                        image: FileImage(_con.image),
-                                      )),
+                              child: _con.image == null
+                                  ? FloatingActionButton(
+                                      onPressed: () {
+                                        _con.getImage(1);
+                                      },
+                                      child: Icon(Icons.camera_alt),
+                                      backgroundColor:
+                                          Theme.of(context).primaryColor,
+                                    )
+                                  : Image(
+                                      image: FileImage(_con.image),
+                                    ),
+                            ),
                           ),
+
                           Divider(),
                           DropdownSearch<VehiculoModelo>(
                             mode: Mode.BOTTOM_SHEET,

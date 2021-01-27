@@ -45,7 +45,7 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: Text('Mis Autos'),
+        title: Text('Mis Vehiculos'),
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back_ios,
               color: Theme.of(context).hintColor),
@@ -74,8 +74,33 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
             ),
           ),
           _con.vehiculos.isEmpty
-              ? CircularLoadingWidget(
-                  height: 50,
+              ? Container(
+                  height: 200,
+                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 200),
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Theme.of(context).accentColor),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/img/auto_on.png',
+                        width: 100,
+                      ),
+                      Text(
+                        'No tiene vehiculos registrados',
+                        style: TextStyle(
+                          color: Theme.of(context).hintColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
                 )
               : Container(
                   color: Colors.transparent.withOpacity(0.1),
@@ -88,35 +113,48 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                     primary: false,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        leading: CachedNetworkImage(
-                          imageUrl: _con.RutaImg(
-                              _con.vehiculos.elementAt(index).foto),
-                          /************* */
-                          imageBuilder: (context, imageProvider) => Container(
-                              width: 80.0,
-                              height: 80.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                image: DecorationImage(
-                                    image: imageProvider, fit: BoxFit.cover),
-                              )),
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                        ),
-                        title: Text(_con.vehiculos.elementAt(index).placa +
-                            ' - ' +
-                            _con.vehiculos.elementAt(index).marca),
-                        subtitle: Text(
-                          _con.vehiculos.elementAt(index).modelo +
-                              ' ' +
-                              _con.vehiculos.elementAt(index).anio +
-                              ' - ' +
-                              _con.vehiculos.elementAt(index).tamanio,
+                      return Card(
+                        child: Stack(
+                          children: [
+                            Container(
+                              height: 200,
+                              child: CachedNetworkImage(
+                                imageUrl: _con.RutaImg(
+                                    _con.vehiculos.elementAt(index).foto),
+                              ),
+                            )
+                          ],
                         ),
                       );
+                      // return ListTile(
+                      //   leading: CachedNetworkImage(
+                      //     imageUrl: _con.RutaImg(
+                      //         _con.vehiculos.elementAt(index).foto),
+                      //     /************* */
+                      //     imageBuilder: (context, imageProvider) => Container(
+                      //         width: 80.0,
+                      //         height: 80.0,
+                      //         decoration: BoxDecoration(
+                      //           borderRadius: BorderRadius.circular(20),
+                      //           image: DecorationImage(
+                      //               image: imageProvider, fit: BoxFit.cover),
+                      //         )),
+                      //     placeholder: (context, url) =>
+                      //         CircularProgressIndicator(),
+                      //     errorWidget: (context, url, error) =>
+                      //         Icon(Icons.error),
+                      //   ),
+                      //   title: Text(_con.vehiculos.elementAt(index).placa +
+                      //       ' - ' +
+                      //       _con.vehiculos.elementAt(index).marca),
+                      //   subtitle: Text(
+                      //     _con.vehiculos.elementAt(index).modelo +
+                      //         ' ' +
+                      //         _con.vehiculos.elementAt(index).anio +
+                      //         ' - ' +
+                      //         _con.vehiculos.elementAt(index).tamanio,
+                      //   ),
+                      // );
                     },
                     separatorBuilder: (context, index) {
                       return SizedBox(
@@ -141,8 +179,8 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                   color: Theme.of(context).hintColor,
                   size: 50,
                 ),
-                title: Text('Agregar un auto nuevo'),
-                subtitle: Text('Nueva Movilidad'),
+                title: Text('Agregar un Vehiculo'),
+                subtitle: Text('Nuevo Vehiculo'),
                 onTap: () {
                   Navigator.of(context).pushNamed('/AddVehiculo');
                 },
