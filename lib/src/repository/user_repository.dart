@@ -17,31 +17,36 @@ GoogleSignIn _googleSignIn = new GoogleSignIn();
 Usuario usuario = new Usuario();
 
 Future<Usuario> login() async {
-  GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
-  GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount.authentication;
+  try {
+    GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
+    GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
 
-  AuthCredential credential = GoogleAuthProvider.credential(
-    idToken: googleSignInAuthentication.idToken,
-    accessToken: googleSignInAuthentication.accessToken,
-  );
+    AuthCredential credential = GoogleAuthProvider.credential(
+      idToken: googleSignInAuthentication.idToken,
+      accessToken: googleSignInAuthentication.accessToken,
+    );
 
-  UserCredential result = (await _auth.signInWithCredential(credential));
+    UserCredential result = (await _auth.signInWithCredential(credential));
 
-  user = result.user;
+    user = result.user;
 
-  if (user.emailVerified) {
-    usuario.uid = user.uid;
-    usuario.displayName = user.displayName;
-    usuario.email = user.email;
-    usuario.phoneNumber = user.phoneNumber;
-    usuario.photoUrl = user.photoURL;
-    usuario.verifyEmail = user.emailVerified;
-    setCurrentUser(json.encode(usuario));
-    currentUser.value = usuario;
-  } else {
-    throw new Exception('Ocurrio un error');
+    if (user.emailVerified) {
+      usuario.uid = user.uid;
+      usuario.displayName = user.displayName;
+      usuario.email = user.email;
+      usuario.phoneNumber = user.phoneNumber;
+      usuario.photoUrl = user.photoURL;
+      usuario.verifyEmail = user.emailVerified;
+      setCurrentUser(json.encode(usuario));
+      currentUser.value = usuario;
+    } else {
+      throw new Exception('Ocurrio un error');
+    }
+  } catch (error) {
+    print(error);
   }
+
   return currentUser.value;
 }
 
