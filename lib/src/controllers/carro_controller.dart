@@ -190,7 +190,7 @@ class CarroController extends ControllerMVC {
         image = null;
       });
       var vehiculoResp = await guardarVehiculo(newVehiculo);
-
+      Navigator.of(context).pop(true);
       this.loading = false;
       this.scaffoldKey?.currentState?.showSnackBar(SnackBar(
             content: Text('Se agregó correctamente'),
@@ -208,6 +208,59 @@ class CarroController extends ControllerMVC {
 
   String RutaImg(String nombre) {
     return getRutaImg(nombre);
+  }
+
+  showAlertDialog(BuildContext context, String id_vehiculo) {
+    // set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text("No!"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text("Si!"),
+      onPressed: () async {
+        await deleteVehiculo(id_vehiculo);
+
+        // setReservaCompleta();
+        Navigator.of(context).pop();
+      },
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Eliminar Vehiculo"),
+      content: Text("Deseas eliminar este vehiculo?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  // Eliminar vehiculo
+  Future<void> deleteVehiculo(String id_vehiculo) async {
+    final Stream<bool> stream = await eliminarVehiculo(id_vehiculo);
+    stream.listen((bool _data) {
+      setState(() {
+        vehiculos = [];
+        listarCarrosByCliente();
+        // if (_data) {
+        //   listarCarrosByCliente();
+        // } else {}
+      });
+    }, onError: (a) {
+      scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text(S.current.verify_your_internet_connection),
+      ));
+    }, onDone: () {});
   }
 
   void abrirNuevoVehiculo() {}

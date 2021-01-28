@@ -13,7 +13,7 @@ import 'package:http/http.dart' as http;
 Future<Stream<List<Vehiculo>>> obtenerVehiculos() async {
   // Uri uri = Helper.getUriLfr('api/producto');
 
-  final String url = 
+  final String url =
       '${GlobalConfiguration().getString('api_base_url_wash')}vehiculos/getByIdCliente/1'; /*cambiar por id del cliente*/
 
   final client = new http.Client();
@@ -59,31 +59,28 @@ Future<Stream<List<VehiculoA>>> obtenerVehiculosPorCliente(
   }
 }
 
-String getRutaImg(String nombre){
-  if(nombre == null){
-    return('http://intranet.lafar.net/images/rav4.jpg'); // cambiar por otra ruta
-  }else{
-    if(nombre == ''){
-      return('http://intranet.lafar.net/images/rav4.jpg');
-    }else{
-      return '${GlobalConfiguration().getString('img_carros_url_wash')}'+nombre;
+String getRutaImg(String nombre) {
+  if (nombre == null) {
+    return ('http://intranet.lafar.net/images/rav4.jpg'); // cambiar por otra ruta
+  } else {
+    if (nombre == '') {
+      return ('http://intranet.lafar.net/images/rav4.jpg');
+    } else {
+      return '${GlobalConfiguration().getString('img_carros_url_wash')}' +
+          nombre;
     }
-    
   }
   //return('http://intranet.lafar.net/images/rav4.jpg'); // cambiar por otra ruta
 }
 
 Future<dynamic> guardarVehiculo(Vehiculo vehiculo) async {
-  
   final String url =
       '${GlobalConfiguration().getString('api_base_url_wash')}vehiculos/save';
   final client = new http.Client();
-  final response = await client.post(
-    url,
-    headers: {HttpHeaders.contentTypeHeader: 'application/json'},
-    body: vehiculoToJson(vehiculo) 
-  );
-   print(url);
+  final response = await client.post(url,
+      headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+      body: vehiculoToJson(vehiculo));
+  print(url);
   if (response.statusCode == 200) {
     //setCurrentUser(response.body);
     //currentUser.value = User.fromJSON(json.decode(response.body)['data']);
@@ -95,6 +92,20 @@ Future<dynamic> guardarVehiculo(Vehiculo vehiculo) async {
   return response.body;
 }
 
+Future<Stream<bool>> eliminarVehiculo(String id_vehiculo) async {
+  final String url =
+      '${GlobalConfiguration().getString('api_base_url_wash')}vehiculos/eliminarVehiculo/' +
+          id_vehiculo;
+  final client = new http.Client();
+  final response = await client.get(url);
+  if (response.statusCode == 200) {
+    return new Stream.value(true);
+    //setCurrentUser(response.body);
+    //currentUser.value = User.fromJSON(json.decode(response.body)['data']);
+  } else {
+    return new Stream.value(false);
+  }
+}
 
 Future<String> getVehiculo() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();

@@ -41,7 +41,7 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           centerTitle: true,
-          title: Text('Agregar un auto nuevo'),
+          title: Text('Agregar un auto Vehiculo'),
           leading: new IconButton(
             icon: new Icon(Icons.arrow_back_ios,
                 color: Theme.of(context).hintColor),
@@ -90,7 +90,7 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                             mode: Mode.BOTTOM_SHEET,
                             maxHeight: 300,
                             items: _con.modelos,
-                            label: "Seleccionar Modelo de Automovil",
+                            label: "Seleccionar Modelo de Vehiculo",
                             itemAsString: (VehiculoModelo mod) =>
                                 mod.marca + ' ' + mod.modelo + ' ' + mod.anio,
                             onChanged: (modelo) {
@@ -118,7 +118,7 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                             searchBoxDecoration: InputDecoration(
                               border: OutlineInputBorder(),
                               contentPadding: EdgeInsets.fromLTRB(12, 12, 8, 0),
-                              labelText: "Buscar Modelo de Automovil",
+                              labelText: "Buscar Modelo de Vehiculo",
                             ),
                             popupTitle: Container(
                               height: 50,
@@ -131,7 +131,7 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                               ),
                               child: Center(
                                 child: Text(
-                                  'Modelo de Automovil',
+                                  'Modelo de Vehiculo',
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -152,7 +152,7 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                             mode: Mode.BOTTOM_SHEET,
                             maxHeight: 300,
                             items: _con.tipos,
-                            label: "Seleccionar Tipo de Automovil",
+                            label: "Seleccionar Tipo de Vehiculo",
                             itemAsString: (TipoVehiculo data) =>
                                 data.tipo + ' ' + data.tamanio,
                             onChanged: (tipo) {
@@ -301,10 +301,10 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                                 vehiculoNuevo.estado = "A";
                                 vehiculoNuevo.anio = "1900";
                                 vehiculoNuevo.foto = "ff";
-                                print('guardando el auto');
+                                print('guardando el vehiculo');
                                 _con.registrarVehiculo(vehiculoNuevo);
                               },
-                              child: Text('Guardar Movilidad'),
+                              child: Text('Guardar Vehiculo'),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:carwash/generated/i18n.dart';
 import 'package:carwash/src/models/detalle_reserva.dart';
+import 'package:carwash/src/models/horas.dart';
 import 'package:carwash/src/models/reserva.dart';
 import 'package:carwash/src/models/reserva_inner.dart';
 import 'package:carwash/src/models/route_argument.dart';
@@ -23,6 +24,8 @@ class ReservaController extends ControllerMVC {
   ReservaInner resInner;
   List<ReservaInner> reservasInner = [];
   List<DetalleReserva> ldetalleReserva = []; // Listado de detalle de reserva
+
+  List<Horas> horas = [];
 
   String strReserva = '';
   Map<String, dynamic> reservaCompleta = {
@@ -242,6 +245,71 @@ class ReservaController extends ControllerMVC {
       await launch(url);
     } else {
       throw 'Could not launch $url';
+    }
+  }
+
+  Future<void> listarReservasDeHoy({String message}) async {
+    // FocusScope.of(context).unfocus();
+    // Overlay.of(context).insert(loader);
+
+    final Stream<List<ReservaInner>> stream =
+        await obtenerReservasInnerCurrent();
+    stream.listen((List<ReservaInner> _reservas) {
+      setState(() {
+        reservasInner = _reservas;
+        listarHorarioHoy();
+      });
+    }, onError: (a) {
+      // loader.remove();
+      scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Ocurrio un error al obtener reservas'),
+      ));
+    }, onDone: () {
+      // Helper.hideLoader(loader);
+      if (message != null) {
+        scaffoldKey.currentState.showSnackBar(SnackBar(
+          content: Text(message),
+        ));
+      }
+    });
+  }
+
+  Future<void> listarHorarioHoy() async {
+    // FocusScope.of(context).unfocus();
+    // Overlay.of(context).insert(loader);
+    List<Horas> nuevo_horario = [];
+
+    final Stream<List<Horas>> stream = await obtenerHorarios();
+    stream.listen((List<Horas> _horas) {
+      setState(() {
+        horas = _horas;
+        horas.forEach((_hora) {
+          Horas hora = new Horas();
+          hora = _hora;
+          if (isDataExist(hora.hora)) {
+            hora.dia = "1";
+          } else {
+            hora.dia = "0";
+          }
+          print(jsonEncode(hora));
+        });
+      });
+    }, onError: (a) {
+      // loader.remove();
+      scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Ocurrio un error al obtener las horas'),
+      ));
+    }, onDone: () {
+      // Helper.hideLoader(loader);
+    });
+  }
+
+  bool isDataExist(String value) {
+    var data = reservasInner.where((row) => (row.horaReserva.contains(value)));
+    if (data.length >= 1) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

@@ -1,0 +1,46 @@
+// To parse this JSON data, do
+//
+//     final horas = horasFromJson(jsonString);
+
+import 'dart:convert';
+
+class LHoras {
+  List<Horas> items = new List();
+  LHoras();
+  LHoras.fromJsonList(List<dynamic> jsonList) {
+    if (jsonList == null) return;
+
+    for (var item in jsonList) {
+      final horas = new Horas.fromJson(item);
+      items.add(horas);
+    }
+  }
+}
+
+Horas horasFromJson(String str) => Horas.fromJson(json.decode(str));
+
+String horasToJson(Horas data) => json.encode(data.toJson());
+
+class Horas {
+  Horas({
+    this.id,
+    this.hora,
+    this.dia,
+  });
+
+  String id;
+  String hora;
+  String dia;
+
+  factory Horas.fromJson(Map<String, dynamic> json) => Horas(
+        id: json["id"],
+        hora: json["hora"],
+        dia: json["dia"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "hora": hora,
+        "dia": dia,
+      };
+}

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../widgets/CircularLoadingWidget.dart';
+import 'agregar_vehiculo_page.dart';
 
 class VehiculoPage extends StatefulWidget {
   // VehiculoPage({@required this.switchValue, @required this.valueChanged});
@@ -114,15 +115,61 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) {
                       return Card(
-                        child: Stack(
-                          children: [
-                            Container(
-                              height: 200,
-                              child: CachedNetworkImage(
+                        color: Colors.transparent.withOpacity(0.5),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            ListTile(
+                              leading: CachedNetworkImage(
                                 imageUrl: _con.RutaImg(
                                     _con.vehiculos.elementAt(index).foto),
+                                /************* */
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                        width: 80.0,
+                                        height: 80.0,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover),
+                                        )),
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
                               ),
-                            )
+                              title: Text(
+                                  _con.vehiculos.elementAt(index).placa +
+                                      ' - ' +
+                                      _con.vehiculos.elementAt(index).marca),
+                              subtitle: Text(
+                                _con.vehiculos.elementAt(index).modelo +
+                                    ' ' +
+                                    _con.vehiculos.elementAt(index).anio +
+                                    ' - ' +
+                                    _con.vehiculos.elementAt(index).tamanio,
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                TextButton(
+                                  child: const Text('Editar'),
+                                  onPressed: () {/* ... */},
+                                ),
+                                const SizedBox(width: 8),
+                                TextButton(
+                                  child: const Text('Eliminar'),
+                                  onPressed: () {
+                                    _con.showAlertDialog(context,
+                                        _con.vehiculos.elementAt(index).id);
+                                  },
+                                ),
+                                const SizedBox(width: 8),
+                              ],
+                            ),
                           ],
                         ),
                       );
@@ -182,6 +229,7 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                 title: Text('Agregar un Vehiculo'),
                 subtitle: Text('Nuevo Vehiculo'),
                 onTap: () {
+                  _abrirNuevoVehiculo();
                   Navigator.of(context).pushNamed('/AddVehiculo');
                 },
               ),
@@ -190,5 +238,25 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
         ],
       ),
     );
+  }
+
+  _abrirNuevoVehiculo() async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgregarVehiculoPage(
+          onDismissed: () {
+            print('Cerrar siiiiiiiiiiiiiiiiiii');
+          },
+        ),
+      ),
+    );
+
+    if (result != null) {
+      if (result) {
+        _con.listarCarrosByCliente();
+        // widget.onDismissed.call();
+      }
+    }
   }
 }
