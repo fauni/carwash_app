@@ -22,25 +22,19 @@ Horas horasFromJson(String str) => Horas.fromJson(json.decode(str));
 String horasToJson(Horas data) => json.encode(data.toJson());
 
 class Horas {
-  Horas({
-    this.id,
-    this.hora,
-    this.dia,
-  });
+  Horas({this.id, this.hora, this.dia, this.esSeleccionado});
 
   String id;
   String hora;
   String dia;
+  bool esSeleccionado = false;
 
   factory Horas.fromJson(Map<String, dynamic> json) => Horas(
-        id: json["id"],
-        hora: json["hora"],
-        dia: json["dia"],
-      );
+      id: json["id"],
+      hora: json["hora"],
+      dia: json["dia"],
+      esSeleccionado: false);
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "hora": hora,
-        "dia": dia,
-      };
+  Map<String, dynamic> toJson() =>
+      {"id": id, "hora": hora, "dia": dia, "esSeleccionado": false};
 }

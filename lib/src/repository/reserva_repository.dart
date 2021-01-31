@@ -107,9 +107,11 @@ Future<Stream<List<DetalleReserva>>> obtenerDetalleReservaPorId(
   }
 }
 
-Future<Stream<List<ReservaInner>>> obtenerReservasInnerCurrent() async {
+Future<Stream<List<ReservaInner>>> obtenerReservasPorFecha(
+    String fecha_seleccionada) async {
   final String url =
-      '${GlobalConfiguration().getString('api_base_url_wash')}reserva/getreservascurrent';
+      '${GlobalConfiguration().getString('api_base_url_wash')}reserva/getreservasxfecha/' +
+          fecha_seleccionada;
 
   final client = new http.Client();
   final response = await client.get(url);

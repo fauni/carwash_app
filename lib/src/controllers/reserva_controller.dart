@@ -5,10 +5,6 @@ import 'package:carwash/src/models/detalle_reserva.dart';
 import 'package:carwash/src/models/horas.dart';
 import 'package:carwash/src/models/reserva.dart';
 import 'package:carwash/src/models/reserva_inner.dart';
-import 'package:carwash/src/models/route_argument.dart';
-import 'package:carwash/src/models/servicio.dart';
-import 'package:carwash/src/models/vehiculo.dart';
-import 'package:carwash/src/models/vehiculoa.dart';
 import 'package:carwash/src/pages/carro_page.dart';
 import 'package:carwash/src/pages/servicio_page.dart';
 import 'package:carwash/src/repository/reserva_repository.dart';
@@ -20,12 +16,16 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ReservaController extends ControllerMVC {
+  int selectedIndex;
+
   Reserva reserva;
   ReservaInner resInner;
   List<ReservaInner> reservasInner = [];
   List<DetalleReserva> ldetalleReserva = []; // Listado de detalle de reserva
 
   List<Horas> horas = [];
+
+  Horas hora = new Horas();
 
   String strReserva = '';
   Map<String, dynamic> reservaCompleta = {
@@ -128,6 +128,13 @@ class ReservaController extends ControllerMVC {
 
   //listar reservas para mostrar
   void listarReservasInnerByIdCli({String message}) async {
+    // var now = new DateTime.now();
+    // var formatter = new DateFormat('yyyy-MM-dd');
+    // String formattedDate = formatter.format(now);
+    // reserva.fechaReserva = formatter.format(now);
+
+    // print(formattedDate); // 2016-01-25
+
     final Stream<List<ReservaInner>> stream =
         await obtenerReservasInnerXIdCli();
     stream.listen((List<ReservaInner> _reservas) {
@@ -248,12 +255,12 @@ class ReservaController extends ControllerMVC {
     }
   }
 
-  Future<void> listarReservasDeHoy({String message}) async {
+  Future<void> listarReservasPorFecha(String fecha_seleccionada) async {
+    // print("Fecha de la Reserva");
     // FocusScope.of(context).unfocus();
     // Overlay.of(context).insert(loader);
-
     final Stream<List<ReservaInner>> stream =
-        await obtenerReservasInnerCurrent();
+        await obtenerReservasPorFecha(fecha_seleccionada);
     stream.listen((List<ReservaInner> _reservas) {
       setState(() {
         reservasInner = _reservas;
@@ -266,11 +273,11 @@ class ReservaController extends ControllerMVC {
       ));
     }, onDone: () {
       // Helper.hideLoader(loader);
-      if (message != null) {
-        scaffoldKey.currentState.showSnackBar(SnackBar(
-          content: Text(message),
-        ));
-      }
+      // if (message != null) {
+      //   scaffoldKey.currentState.showSnackBar(SnackBar(
+      //     content: Text(message),
+      //   ));
+      // }
     });
   }
 
@@ -278,6 +285,8 @@ class ReservaController extends ControllerMVC {
     // FocusScope.of(context).unfocus();
     // Overlay.of(context).insert(loader);
     List<Horas> nuevo_horario = [];
+    List<ReservaInner> lreservas = [];
+    lreservas = reservasInner;
 
     final Stream<List<Horas>> stream = await obtenerHorarios();
     stream.listen((List<Horas> _horas) {
@@ -286,13 +295,20 @@ class ReservaController extends ControllerMVC {
         horas.forEach((_hora) {
           Horas hora = new Horas();
           hora = _hora;
-          if (isDataExist(hora.hora)) {
-            hora.dia = "1";
-          } else {
+          int count = 0;
+          lreservas.forEach((_reservas) {
+            if (_hora.hora == _reservas.horaReserva) {
+              count++;
+            }
+          });
+          if (count == 0) {
             hora.dia = "0";
+            nuevo_horario.add(hora);
           }
           print(jsonEncode(hora));
         });
+        horas = nuevo_horario;
+        // print(jsonEncode(nuevo_horario));
       });
     }, onError: (a) {
       // loader.remove();
@@ -305,11 +321,36 @@ class ReservaController extends ControllerMVC {
   }
 
   bool isDataExist(String value) {
-    var data = reservasInner.where((row) => (row.horaReserva.contains(value)));
-    if (data.length >= 1) {
-      return true;
-    } else {
+    List<ReservaInner> _reservasInner = [];
+    reservasInner.forEach((element) {
+      if (element.horaReserva == value) {
+        return true;
+      }
       return false;
-    }
+    });
+
+    // var data = reservasInner.where((row) => (row.horaReserva.contains(value)));
+    // if (data.length >= 1) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+  }
+
+  deseleccionarHoras() {
+    // List<Horas> aux_horas = [];
+    horas.forEach((element) {
+      if (element == hora) {
+      } else {
+        element.esSeleccionado = false;
+      }
+    });
+    setState(() {});
+  }
+
+  String obtieneFechaActual() {
+    DateTime now = new DateTime.now();
+    DateTime date = new DateTime(now.year, now.month, now.day);
+    return date.toString();
   }
 }
