@@ -104,6 +104,7 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                   ),
                 )
               : Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   color: Colors.transparent.withOpacity(0.1),
                   width: width_size,
                   height: height_size,
@@ -115,7 +116,7 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) {
                       return Card(
-                        color: Colors.transparent.withOpacity(0.5),
+                        color: Colors.transparent.withOpacity(0.1),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
@@ -155,10 +156,10 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: <Widget>[
-                                TextButton(
-                                  child: const Text('Editar'),
-                                  onPressed: () {/* ... */},
-                                ),
+                                // TextButton(
+                                //   child: const Text('Editar'),
+                                //   onPressed: () {/* ... */},
+                                // ),
                                 const SizedBox(width: 8),
                                 TextButton(
                                   child: const Text('Eliminar'),
@@ -205,7 +206,7 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                     },
                     separatorBuilder: (context, index) {
                       return SizedBox(
-                        height: 15,
+                        height: 0,
                       );
                     },
                     itemCount: _con.vehiculos.length,
