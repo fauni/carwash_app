@@ -23,6 +23,7 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
 
   AgregarVehiculoPageState() : super(CarroController()) {
     _con = controller;
+    vehiculoNuevo.idTipo="1";
   }
 
   @override
@@ -35,13 +36,14 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
 
   @override
   Widget build(BuildContext context) {
+    vehiculoNuevo.idTipo="1";
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
           centerTitle: true,
-          title: Text('Agregar un auto Vehiculo'),
+          title: Text('Agregar un Vehiculo'),
           leading: new IconButton(
             icon: new Icon(Icons.arrow_back_ios,
                 color: Theme.of(context).hintColor),
@@ -148,7 +150,7 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                             ),
                           ),
                           Divider(),
-                          DropdownSearch<TipoVehiculo>(
+                          /*DropdownSearch<TipoVehiculo>(
                             mode: Mode.BOTTOM_SHEET,
                             maxHeight: 300,
                             items: _con.tipos,
@@ -205,7 +207,35 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                                 topRight: Radius.circular(24),
                               ),
                             ),
+                          ),*/
+                           Text('Elija el tamaño de su vehículo'),
+                          Divider(),
+                          GroupButton(
+                            isRadio: true,
+                            spacing: 10,
+                            buttons: ['M', 'L', 'XL'],
+                            onSelected: (index, isSelected) {
+                              
+                              print('$index fue seleccionado');
+                              if (index == 0) {
+                                vehiculoNuevo.idTipo = "1";
+                              } else if (index == 1) {
+                                vehiculoNuevo.idTipo = "3";
+                              } else {
+                                vehiculoNuevo.idTipo = "5";
+                              }
+                              
+                            },
+                            selectedColor: Theme.of(context).primaryColor,
+                            unselectedTextStyle: TextStyle(
+                              color: Theme.of(context).hintColor,
+                            ),
+                            unselectedColor: Colors.transparent,
+                            unselectedBorderColor:
+                                Theme.of(context).accentColor,
+                            borderRadius: BorderRadius.circular(15),
                           ),
+                          Divider(),
                           Divider(),
                           TextField(
                             onChanged: (cadena) {
@@ -304,7 +334,7 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                                 print('guardando el vehiculo');
                                 _con.registrarVehiculo(vehiculoNuevo);
                               },
-                              child: Text('Guardar Vehiculo'),
+                              child: Text('Guardar Datos de su Vehiculo'),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
