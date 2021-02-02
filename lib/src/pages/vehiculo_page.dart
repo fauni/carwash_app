@@ -231,7 +231,7 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                 subtitle: Text('Nuevo Vehiculo'),
                 onTap: () {
                   _abrirNuevoVehiculo();
-                  Navigator.of(context).pushNamed('/AddVehiculo');
+                  // Navigator.of(context).pushNamed('/AddVehiculo');
                 },
               ),
             ),

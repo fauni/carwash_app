@@ -70,6 +70,22 @@ class HomeController extends ControllerMVC {
     }
   }
 
+  void launchMaps() async {
+    String url() {
+      if (Platform.isIOS) {
+        return "https://www.google.com/maps/place/ProCare+Washing/@-16.5464371,-68.079098,17z/data=!3m1!4b1!4m5!3m4!1s0x915f21e62eec6d5b:0x896894a86534283d!8m2!3d-16.5464371!4d-68.0769093";
+      } else {
+        return "https://www.google.com/maps/place/ProCare+Washing/@-16.5464371,-68.079098,17z/data=!3m1!4b1!4m5!3m4!1s0x915f21e62eec6d5b:0x896894a86534283d!8m2!3d-16.5464371!4d-68.0769093";
+      }
+    }
+
+    if (await canLaunch(url())) {
+      await launch(url());
+    } else {
+      throw 'Could not launch ${url()}';
+    }
+  }
+
   // Future<void> listenProductosSemana() async {
   //   // await iniciarNotificaciones();
   //   final Stream<Producto> stream = await obtenerProductosSemana();

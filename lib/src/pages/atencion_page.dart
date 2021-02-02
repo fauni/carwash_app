@@ -412,26 +412,52 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                                   color: Theme.of(context).hintColor))
                         ],
                       ),
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Text('Observaciones: ',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w200,
-                                    color: Theme.of(context).accentColor)),
-                          ),
-                          Text(_con.atencion.observaciones ?? '',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Theme.of(context).hintColor))
-                        ],
-                      ),
+                      // Row(
+                      //   children: <Widget>[
+                      //     Expanded(
+                      //       child: Text('Observaciones: ',
+                      //           style: TextStyle(
+                      //               fontSize: 15,
+                      //               fontWeight: FontWeight.w200,
+                      //               color: Theme.of(context).accentColor)),
+                      //     ),
+                      //     Text(_con.atencion.observaciones ?? '',
+                      //         style: TextStyle(
+                      //             fontSize: 15,
+                      //             color: Theme.of(context).hintColor))
+                      //   ],
+                      // ),
                     ],
                   ),
                 ),
                 SizedBox(
                   height: 15,
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Theme.of(context).accentColor),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Observaciones',
+                        style: TextStyle(
+                          color: Theme.of(context).accentColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w200,
+                        ),
+                      ),
+                      Text(_con.atencion.observaciones ?? '',
+                          style: TextStyle(
+                              fontSize: 15, color: Theme.of(context).hintColor))
+                    ],
+                  ),
                 ),
                 // Container(
                 //   margin: EdgeInsets.symmetric(horizontal: 20),

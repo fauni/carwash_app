@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:carwash/src/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 class ContactanosPage extends StatefulWidget {
@@ -15,6 +18,19 @@ class _ContactanosPageState extends StateMVC<ContactanosPage> {
   double width_size;
   double height_size;
 
+  Completer<GoogleMapController> _controller = Completer();
+
+  static final CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(-16.546246824383367, -68.07693076039882),
+    zoom: 14.4746,
+  );
+
+  static final CameraPosition _kLake = CameraPosition(
+      bearing: 45.8334901395799,
+      target: LatLng(-16.546246824383367, -68.07693076039882),
+      tilt: 59.440717697143555,
+      zoom: 18.151926040649414);
+
   _ContactanosPageState() : super(HomeController()) {
     _con = controller;
   }
@@ -25,136 +41,154 @@ class _ContactanosPageState extends StateMVC<ContactanosPage> {
     super.initState();
   }
 
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+  }
+
+  final Set<Marker> _markers = Set();
+
   @override
   Widget build(BuildContext context) {
     width_size = MediaQuery.of(context).size.width;
     height_size = MediaQuery.of(context).size.height;
     return Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          title: Text('Contactanos'),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        title: Text('Contactanos'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        body: Stack(
-          children: [
-            Image.asset(
-              'assets/img/fondo_car.png',
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: double.infinity,
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                top: 100,
-              ),
-              child: Align(
+      ),
+      body: Stack(
+        children: [
+          Image.asset(
+            'assets/img/fondo_car.png',
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
                 child: Image.asset(
                   'assets/img/isotipo.png',
                   width: 70,
                 ),
-                alignment: Alignment.topCenter,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 220, left: 0, right: 10),
-              child: Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 50),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Encuéntranos',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w100,
-                            fontSize: 30,
-                            color: Theme.of(context).hintColor,
-                          ),
-                        ),
-                        Text(
-                          'en',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w100,
-                            fontSize: 30,
-                            color: Theme.of(context).hintColor,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          'Final Calle 21 de Calacoto y',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w100,
-                            fontSize: 12,
-                            color: Theme.of(context).hintColor,
-                          ),
-                        ),
-                        Text(
-                          'Avenida Costanera N° 100',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w100,
-                            fontSize: 12,
-                            color: Theme.of(context).hintColor,
-                          ),
-                        ),
-                        Text(
-                          'La Paz / Bolivia',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w100,
-                            fontSize: 12,
-                            color: Theme.of(context).hintColor,
-                          ),
-                        ),
-                        Container()
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    width: width_size - 100,
-                    height: height_size / 3,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('assets/img/mapa_ubicacion.png'),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 50),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(
-                          color: Theme.of(context).accentColor, width: 1.0),
-                    ),
-                    child: ListTile(
-                      leading: FaIcon(
-                        FontAwesomeIcons.whatsapp,
-                        color: Colors.greenAccent,
-                      ),
-                      title: Text('+591 77799292'),
-                      onTap: () {
-                        _con.launchWhatsApp(
-                            phone: '+591 79521526',
-                            message: 'Estoy interesado');
-                        // Navigator.of(context).pushNamed('/AddVehiculo');
-                      },
-                    ),
-                  ),
-                ],
+              SizedBox(
+                height: 15,
               ),
-            ),
-          ],
-        ));
+              Text(
+                'Encuéntranos en',
+                style: TextStyle(
+                  fontWeight: FontWeight.w100,
+                  fontSize: 30,
+                  color: Theme.of(context).hintColor,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                'Final Calle 21 de Calacoto y',
+                style: TextStyle(
+                  fontWeight: FontWeight.w100,
+                  fontSize: 12,
+                  color: Theme.of(context).hintColor,
+                ),
+              ),
+              Text(
+                'Avenida Costanera N° 100',
+                style: TextStyle(
+                  fontWeight: FontWeight.w100,
+                  fontSize: 12,
+                  color: Theme.of(context).hintColor,
+                ),
+              ),
+              Text(
+                'La Paz / Bolivia',
+                style: TextStyle(
+                  fontWeight: FontWeight.w100,
+                  fontSize: 12,
+                  color: Theme.of(context).hintColor,
+                ),
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                height: 350.0,
+                width: double.infinity,
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                child: GoogleMap(
+                  markers: _markers,
+                  mapType: MapType.normal,
+                  initialCameraPosition: _kGooglePlex,
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                    _goToTheLake();
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: ButtonTheme(
+                  minWidth: double.infinity,
+                  height: 50.0,
+                  child: RaisedButton(
+                    color: Theme.of(context).primaryColor,
+                    textColor: Theme.of(context).hintColor,
+                    onPressed: () {
+                      _con.launchMaps();
+                    },
+                    child: Text('Como llegar?'),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Colors.greenAccent,
+        onPressed: () {
+          _con.launchWhatsApp(
+              phone: '+591 79521526', message: 'Estoy interesado');
+        },
+        label: Text('+591 77799292'),
+        icon: FaIcon(
+          FontAwesomeIcons.whatsapp,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _goToTheLake() async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+    setState(() {
+      _markers.add(
+        Marker(
+            markerId: MarkerId('ProCar Washing'),
+            infoWindow:
+                InfoWindow(title: 'ProCar Washing', snippet: 'Lavado de Autos'),
+            position: LatLng(-16.546411816435178, -68.07691674993652)),
+      );
+    });
   }
 }
