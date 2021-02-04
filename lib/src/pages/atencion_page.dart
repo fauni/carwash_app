@@ -65,10 +65,8 @@ class _AtencionPageState extends StateMVC<AtencionPage>
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         leading: IconButton(
-          icon: FaIcon(
-            FontAwesomeIcons.arrowLeft,
-            color: Theme.of(context).hintColor,
-          ),
+          icon: new Icon(Icons.arrow_back_ios,
+              color: Theme.of(context).hintColor),
           onPressed: () {
             Navigator.pop(context, true);
           },

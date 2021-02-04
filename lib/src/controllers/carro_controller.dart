@@ -263,5 +263,40 @@ class CarroController extends ControllerMVC {
     }, onDone: () {});
   }
 
+  // Informaciion sobre tipod e vehiculo
+  informacionConfirmacion(BuildContext context) {
+    // set up the buttons
+    // Widget cancelButton = FlatButton(
+    //   child: Text("Todavia no!"),
+    //   onPressed: () {
+    //     Navigator.of(context).pop();
+    //   },
+    // );
+    Widget continueButton = FlatButton(
+      child: Text("De acuerdo!"),
+      onPressed: () {
+        // setReservaCompleta();
+        Navigator.of(context).pop();
+      },
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Tamaño del Vehículo"),
+      content: Text(
+          "El tamaño elegido será verificado al momento de la recepción del vehículo"),
+      actions: [
+        //cancelButton,
+        continueButton,
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   void abrirNuevoVehiculo() {}
 }

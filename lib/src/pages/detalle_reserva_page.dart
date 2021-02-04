@@ -55,6 +55,11 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Text('Detalle de la Reserva'),
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back_ios,
+              color: Theme.of(context).hintColor),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         // title: Text(widget.routeArgument.id),
       ),
       body: _con.ldetalleReserva == null

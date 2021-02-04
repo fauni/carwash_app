@@ -23,7 +23,7 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
 
   AgregarVehiculoPageState() : super(CarroController()) {
     _con = controller;
-    vehiculoNuevo.idTipo="1";
+    vehiculoNuevo.idTipo = "1";
   }
 
   @override
@@ -36,7 +36,7 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
 
   @override
   Widget build(BuildContext context) {
-    vehiculoNuevo.idTipo="1";
+    vehiculoNuevo.idTipo = "1";
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -208,14 +208,14 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                               ),
                             ),
                           ),*/
-                           Text('Elija el tamaño de su vehículo'),
+                          Text('Elija el tamaño de su vehículo'),
                           Divider(),
                           GroupButton(
                             isRadio: true,
                             spacing: 10,
                             buttons: ['M', 'L', 'XL'],
                             onSelected: (index, isSelected) {
-                              
+                              _con.informacionConfirmacion(context);
                               print('$index fue seleccionado');
                               if (index == 0) {
                                 vehiculoNuevo.idTipo = "1";
@@ -224,7 +224,6 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                               } else {
                                 vehiculoNuevo.idTipo = "5";
                               }
-                              
                             },
                             selectedColor: Theme.of(context).primaryColor,
                             unselectedTextStyle: TextStyle(
@@ -236,6 +235,14 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                           Divider(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Image.asset('assets/img/sedan_opt.png'),
+                              Image.asset('assets/img/suv_1_opt.png'),
+                              Image.asset('assets/img/explorer_1_opt.png')
+                            ],
+                          ),
                           Divider(),
                           TextField(
                             onChanged: (cadena) {
