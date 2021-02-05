@@ -12,10 +12,14 @@ import 'package:carwash/src/repository/reserva_repository.dart';
 import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:carwash/src/repository/servicio_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ReservaController extends ControllerMVC {
+  var platform = MethodChannel("example/procare");
+  String hiText = "";
+
   int selectedIndex;
 
   Reserva reserva;
@@ -352,5 +356,20 @@ class ReservaController extends ControllerMVC {
     DateTime now = new DateTime.now();
     DateTime date = new DateTime(now.year, now.month, now.day);
     return date.toString();
+  }
+
+  compartirReserva() async {
+    String response;
+    try {
+      response = await platform.invokeMethod("hello",
+          "https://alquiauto.es/wp-content/uploads/2020/05/limpieza-y-lavado-del-coche-DURANTE-CORONA-VIRUS.jpg");
+    } on Exception {
+      response = 'Comunicacion Plattforms Error!';
+    }
+
+    setState(() {
+      hiText = response;
+      print(hiText);
+    });
   }
 }

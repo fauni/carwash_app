@@ -60,6 +60,10 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
               color: Theme.of(context).hintColor),
           onPressed: () => Navigator.of(context).pop(),
         ),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.share), onPressed: () => _con.compartirReserva())
+        ],
         // title: Text(widget.routeArgument.id),
       ),
       body: _con.ldetalleReserva == null
