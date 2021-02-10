@@ -53,7 +53,13 @@
       <sourceFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-1.1.1/android/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-1.1.1/android/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-1.1.1/android/src/test/resources" type="java-test-resource" />
+      <excludeFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-1.1.1/.dart_tool" />
+      <excludeFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-1.1.1/.pub" />
       <excludeFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-1.1.1/android/.gradle" />
+      <excludeFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-1.1.1/build" />
+      <excludeFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-1.1.1/example/.dart_tool" />
+      <excludeFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-1.1.1/example/.pub" />
+      <excludeFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-1.1.1/example/build" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

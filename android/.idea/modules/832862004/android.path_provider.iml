@@ -52,7 +52,13 @@
     <content url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.27">
       <sourceFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.27/android/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.27/android/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.27/.dart_tool" />
+      <excludeFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.27/.pub" />
       <excludeFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.27/android/.gradle" />
+      <excludeFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.27/build" />
+      <excludeFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.27/example/.dart_tool" />
+      <excludeFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.27/example/.pub" />
+      <excludeFolder url="file://$USER_HOME$/development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.27/example/build" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

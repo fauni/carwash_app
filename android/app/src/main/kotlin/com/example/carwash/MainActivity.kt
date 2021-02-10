@@ -1,7 +1,7 @@
 package app.carwash.mobile
 
 import android.net.Uri
-import android.os.Bundle
+import android.util.Log
 import androidx.annotation.NonNull
 import com.facebook.share.model.ShareLinkContent
 import com.facebook.share.model.SharePhoto
@@ -19,6 +19,7 @@ class MainActivity: FlutterActivity() {
         super.configureFlutterEngine(flutterEngine)
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler {
             call, result ->
+            Log.i("Desde android","el LOG ingreso aqui")
             if(call.method == "hello") {
                 val name = call.arguments as String
                 result.success(sayHello(name))
@@ -31,6 +32,8 @@ class MainActivity: FlutterActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        FacebookSdk.sdkInitialize(applicationContext)
+
         MethodChannel(flutterEngine?.dartExecutor?.binaryMessenger, "example/procare").setMethodCallHandler { call, result ->
             if(call.method == "hello") {
                 val name = call.arguments as String
@@ -42,14 +45,30 @@ class MainActivity: FlutterActivity() {
      */
 
     private fun sayHello(name: String): String {
-        var photo = SharePhoto.Builder().setImageUrl(Uri.parse(name)).build()
+        compartirFacebook(name)
 
-        var builder = SharePhotoContent.Builder().addPhoto(photo).build()
-        // builder = builder.setContentUrl(Uri.parse("https://developers.facebook.com"))
-
-        ShareDialog.show(activity, builder)
+        // var photo = SharePhoto.Builder().setImageUrl(Uri.parse(name)).build()
+        // var builder = SharePhotoContent.Builder().addPhoto(photo).build()
+        // ShareDialog.show(activity, builder)
         // ShareLinkContent content = ShareLinkContent.Builder().setContentUrl(Uri.parse("https://developers.facebook.com")).build();
         return "Hola $name desde Android Franz!";
+    }
+
+    private fun compartirFacebook(urlImagen: String): Unit {
+/*
+        var shareDialog = ShareDialog(this)
+        var photo = SharePhoto.Builder().setImageUrl(Uri.parse(urlImagen)).build()
+        var content = SharePhotoContent.Builder().addPhoto(photo).build()
+        shareDialog.show(content)
+*/
+
+
+        var shareDialog = ShareDialog(this)
+        var content = ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse("https://developers.facebook.com")).build()
+        shareDialog.show(content)
+        
+        // ShareLinkContent content = ShareLinkContent.Builder().setContentUrl(Uri.parse("https://developers.facebook.com")).build();
     }
 
 

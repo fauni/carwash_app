@@ -4,7 +4,7 @@
 
     <!-- Replace "000000000000" with your Facebook App ID here. -->
     <string name="facebook_app_id">875353736566589</string>
-
+    <string name="facebook_application_id">875353736566589</string>
     <!--
       Replace "000000000000" with your Facebook App ID here.
       **NOTE**: The scheme needs to start with `fb` and then your ID.

@@ -363,8 +363,13 @@ class ReservaController extends ControllerMVC {
     try {
       response = await platform.invokeMethod("hello",
           "https://alquiauto.es/wp-content/uploads/2020/05/limpieza-y-lavado-del-coche-DURANTE-CORONA-VIRUS.jpg");
-    } on Exception {
+    } on Exception catch (exception) {
+      print('=============================');
+      print(exception);
       response = 'Comunicacion Plattforms Error!';
+    } catch (error) {
+      print('==============ERROR==============');
+      print(error);
     }
 
     setState(() {
