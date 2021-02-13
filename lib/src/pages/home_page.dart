@@ -4,6 +4,7 @@ import 'package:carwash/src/controllers/home_controller.dart';
 import 'package:carwash/src/pages/carro_page.dart';
 import 'package:carwash/src/pages/fecha_page.dart';
 import 'package:carwash/src/pages/servicio_page.dart';
+import 'package:carwash/src/providers/push_notifications_providers.dart';
 import 'package:carwash/src/repository/user_repository.dart';
 import 'package:carwash/src/widgets/DrawerWidget.dart';
 import 'package:carwash/src/widgets/HomeSliderWidget.dart';
@@ -46,6 +47,14 @@ class _HomePageState extends StateMVC<HomePage>
     // TODO: implement initState
     super.initState();
 
+    final pushProvider = new PushNotificationsProviders();
+    pushProvider.initNotifications();
+    pushProvider.mensaje.listen((argumento) {
+      print("=======================ARGUMENTO NOTIFICACION===============");
+      print(argumento);
+      // Navigator.of(context).pushNamed('/PoliticasPrivacidad');
+      Navigator.of(context).pushReplacementNamed('/Pages');
+    });
     // Timer.run(() {
     //   _con.validaRegistroCliente();
     // });
