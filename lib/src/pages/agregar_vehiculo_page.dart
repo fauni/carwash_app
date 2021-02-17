@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:carwash/src/controllers/carro_controller.dart';
 import 'package:carwash/src/models/tipo_vehiculo.dart';
@@ -87,6 +89,46 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                                         image: FileImage(_con.image),
                                       )),
                           ),
+                          Container(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                RaisedButton.icon(
+                                  icon: Icon(Icons.camera_rounded),
+                                  label: Text('Buscar Imagen'),
+                                  color: Theme.of(context).primaryColor,
+                                  textColor: Theme.of(context).hintColor,
+                                  onPressed: () {
+                                    _con.getImage(1);
+                                  },
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                ),
+                                RaisedButton.icon(
+                                  icon: Icon(Icons.camera_alt),
+                                  label: Text('Capturar Imagen'),
+                                  color: Theme.of(context).primaryColor,
+                                  textColor: Theme.of(context).hintColor,
+                                  onPressed: () {
+                                    _con.getImage(2);
+                                  },
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          OutlineButton.icon(
+                              textColor: Theme.of(context).hintColor,
+                              label: Text('Nuevo Modelo de Vehículo'),
+                              icon: Icon(Icons.add),
+                              onPressed: () {
+                                showDialogGuardarModeloVehiculo();
+                              }),
                           Divider(),
                           DropdownSearch<VehiculoModelo>(
                             mode: Mode.BOTTOM_SHEET,
@@ -283,47 +325,6 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                                 Theme.of(context).accentColor,
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     new Radio(
-                          //       value: 0,
-                          //       activeColor: Colors.green,
-                          //       groupValue: 'Auto',
-                          //       onChanged: (value) {
-                          //         print(value);
-                          //       },
-                          //     ),
-                          //     new Text(
-                          //       'Auto',
-                          //       style: new TextStyle(fontSize: 16.0),
-                          //     ),
-                          //     new Radio(
-                          //       value: 1,
-                          //       groupValue: 'Moto',
-                          //       onChanged: (value) {
-                          //         print(value);
-                          //       },
-                          //     ),
-                          //     new Text(
-                          //       'Moto',
-                          //       style: new TextStyle(
-                          //         fontSize: 16.0,
-                          //       ),
-                          //     ),
-                          //     new Radio(
-                          //       value: 2,
-                          //       groupValue: 'UTV',
-                          //       onChanged: (value) {
-                          //         print(value);
-                          //       },
-                          //     ),
-                          //     new Text(
-                          //       'UTV',
-                          //       style: new TextStyle(fontSize: 16.0),
-                          //     ),
-                          //   ],
-                          // ),
                           Divider(),
                           ButtonTheme(
                             minWidth: double.infinity,
@@ -356,5 +357,185 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
             : CircularLoadingWidget(
                 height: MediaQuery.of(context).size.height,
               ));
+  }
+
+  void showDialogGuardarModeloVehiculo() {
+    showDialog(
+        context: context,
+        builder: (_) => new AlertDialog(
+              title: new Text("Modelo de Vehículo"),
+              content: Container(
+                height: 300,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Text('Agregar Modelo de Vehiculo'),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      DropdownSearch<String>(
+                        mode: Mode.BOTTOM_SHEET,
+                        maxHeight: 350,
+                        items: _con.anios,
+                        label: "Seleccionar el Año",
+                        itemAsString: (String mod) => mod,
+                        onChanged: (modelo) {
+                          //print (modelo.modelo);
+                          _con.vehiculomodelo.anio = modelo;
+                        },
+                        selectedItem: null,
+                        showSearchBox: true,
+                        dropdownSearchDecoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).accentColor,
+                              width: 0.0,
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context).accentColor,
+                                width: 1.0),
+                          ),
+                          labelStyle:
+                              TextStyle(color: Theme.of(context).hintColor),
+                        ),
+                        searchBoxDecoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.fromLTRB(12, 12, 8, 0),
+                          labelText: "Buscar Año del Vehiculo",
+                        ),
+                        popupTitle: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Año del Vehiculo',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        popupShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(24),
+                            topRight: Radius.circular(24),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      DropdownSearch<String>(
+                        mode: Mode.BOTTOM_SHEET,
+                        maxHeight: 350,
+                        items: _con.marcas,
+                        label: "Seleccionar el Fabricante",
+                        itemAsString: (String mod) => mod,
+                        onChanged: (modelo) {
+                          //print (modelo.modelo);
+                          _con.vehiculomodelo.marca = modelo;
+                        },
+                        selectedItem: null,
+                        showSearchBox: true,
+                        dropdownSearchDecoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).accentColor,
+                              width: 0.0,
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context).accentColor,
+                                width: 1.0),
+                          ),
+                          labelStyle:
+                              TextStyle(color: Theme.of(context).hintColor),
+                        ),
+                        searchBoxDecoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.fromLTRB(12, 12, 8, 0),
+                          labelText: "Buscar Fabricantes de Vehiculo",
+                        ),
+                        popupTitle: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Fabricantes de Vehiculo',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        popupShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(24),
+                            topRight: Radius.circular(24),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      TextField(
+                        onChanged: (cadena) {
+                          print(cadena);
+                          _con.vehiculomodelo.modelo = cadena;
+                        },
+                        decoration: InputDecoration(
+                            hintText: 'Ingrese el Modelo',
+                            hintStyle:
+                                TextStyle(color: Theme.of(context).hintColor),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).accentColor,
+                                  width: 1.0),
+                            ),
+                            border: OutlineInputBorder(),
+                            labelStyle: TextStyle(
+                                color: Theme.of(context).accentColor)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('Guardar'),
+                  onPressed: () {
+                    _con.registrarModeloVehiculo();
+                  },
+                ),
+                FlatButton(
+                  child: Text('Cancelar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            ));
   }
 }

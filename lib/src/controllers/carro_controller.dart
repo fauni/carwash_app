@@ -23,7 +23,13 @@ class CarroController extends ControllerMVC {
   List<VehiculoModelo> modelos = [];
   List<TipoVehiculo> tipos = [];
 
+  List<String> anios = [];
+  List<String> marcas = [];
+
   VehiculoA vehiculoElegido;
+  VehiculoModelo vehiculomodelo =
+      new VehiculoModelo(); // Modelo para crear vehiculo
+
   String servicio = '';
 
   File image;
@@ -31,13 +37,47 @@ class CarroController extends ControllerMVC {
   bool isCapture = false;
   bool loading = false;
 
+  String dropdownValueAnio = '2020';
+
   GlobalKey<ScaffoldState> scaffoldKey;
 
   CarroController() {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
     // listarCarrosByIdCli();
+    cargarAnios();
+    cargarMarcas();
     listarCarrosByCliente();
     obtenerServicio();
+  }
+
+  void cargarAnios() {
+    this.anios.add('2015');
+    this.anios.add('2016');
+    this.anios.add('2017');
+    this.anios.add('2018');
+    this.anios.add('2019');
+    this.anios.add('2020');
+    this.anios.add('2021');
+  }
+
+  void cargarMarcas() {
+    this.marcas.add('Toyota');
+    this.marcas.add('Volkswagen');
+    this.marcas.add('Ford');
+    this.marcas.add('Nissan');
+    this.marcas.add('Honda');
+    this.marcas.add('Hyundai');
+    this.marcas.add('Chevrolet');
+    this.marcas.add('Kia');
+    this.marcas.add('Renault');
+    this.marcas.add('Mercedes');
+    this.marcas.add('Mazda');
+    this.marcas.add('Jeep');
+    this.marcas.add('Fiat');
+    this.marcas.add('Geely');
+    this.marcas.add('Changan');
+    this.marcas.add('Mitsubishi');
+    this.marcas.add('Suzuki');
   }
 
   Future getImage(int tipo) async {
@@ -204,6 +244,21 @@ class CarroController extends ControllerMVC {
     Navigator.of(context).pop(true);
     // Navigator.of(context).pop();
     // Navigator.of(context).pushNamed('/Vehiculo', arguments: 3);
+  }
+
+  // GUARDAR EL MODELO DE VEHICULO
+  void registrarModeloVehiculo() async {
+    this.loading = true;
+    var vehiculoResp = await guardarModeloVehiculo(vehiculomodelo);
+    Navigator.of(context).pop(true);
+    this.loading = false;
+    this.scaffoldKey?.currentState?.showSnackBar(SnackBar(
+          content: Text('Se guardo correctamente!'),
+          //backgroundColor: Theme.of(context).hintColor ,
+        ));
+    setState(() {
+      this.listarModelosVehiculo();
+    });
   }
 
   String RutaImg(String nombre) {

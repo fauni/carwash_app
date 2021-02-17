@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:carwash/src/helpers/custom_trace.dart';
 import 'package:carwash/src/models/vehiculo_modelo.dart';
@@ -26,6 +27,26 @@ Future<Stream<List<VehiculoModelo>>> obtenerModelosVehiculo() async {
     //print('error en repository al llenar '+e.toString());
     return new Stream.value(new List<VehiculoModelo>());
   }
+}
+
+//GUARDAR MODELO DE VEHICULO
+Future<dynamic> guardarModeloVehiculo(VehiculoModelo vehiculo_modelo) async {
+  final String url =
+      '${GlobalConfiguration().getString('api_base_url_wash')}modelos/save';
+  final client = new http.Client();
+  final response = await client.post(url,
+      headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+      body: vehiculoModeloToJson(vehiculo_modelo));
+  // print(url);
+  if (response.statusCode == 200) {
+    //setCurrentUser(response.body);
+    //currentUser.value = User.fromJSON(json.decode(response.body)['data']);
+    print(response.body);
+  } else {
+    print(response.body);
+    throw new Exception(response.body);
+  }
+  return response.body;
 }
 
 // // Obtiene listado de vehiculo con información adicional sobre marcas, modelos y tipos
