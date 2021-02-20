@@ -44,8 +44,8 @@ class FechaPageState extends StateMVC<FechaPage> {
 
   @override
   Widget build(BuildContext context) {
-    reserva.fechaReserva = _con.obtieneFechaActual();
-    _con.eligeReserva(reserva);
+    // reserva.fechaReserva = _con.obtieneFechaActual();
+    // _con.eligeReserva(reserva);
     return Scaffold(
       appBar: AppBar(
         title: Text('Fecha y Hora'),
@@ -83,6 +83,8 @@ class FechaPageState extends StateMVC<FechaPage> {
               locale: "es ES",
               onDateChange: (date) {
                 setState(() {
+                  print("--------------------date ------------------");
+                  print(date);
                   _con.listarReservasPorFecha(date.toString());
                   reserva.fechaReserva = date.toString();
                   _con.eligeReserva(reserva);

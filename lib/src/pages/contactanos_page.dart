@@ -78,7 +78,7 @@ class _ContactanosPageState extends StateMVC<ContactanosPage> {
               Container(
                 child: Image.asset(
                   'assets/img/isotipo.png',
-                  width: 70,
+                  width: 50,
                 ),
               ),
               SizedBox(
@@ -88,7 +88,7 @@ class _ContactanosPageState extends StateMVC<ContactanosPage> {
                 'Encuéntranos en',
                 style: TextStyle(
                   fontWeight: FontWeight.w100,
-                  fontSize: 30,
+                  fontSize: 25,
                   color: Theme.of(context).hintColor,
                 ),
               ),
@@ -124,7 +124,7 @@ class _ContactanosPageState extends StateMVC<ContactanosPage> {
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                height: 350.0,
+                height: 250.0,
                 width: double.infinity,
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(20)),

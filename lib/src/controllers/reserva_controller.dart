@@ -309,7 +309,7 @@ class ReservaController extends ControllerMVC {
             hora.dia = "0";
             nuevo_horario.add(hora);
           }
-          print(jsonEncode(hora));
+          // print(jsonEncode(hora));
         });
         horas = nuevo_horario;
         // print(jsonEncode(nuevo_horario));
