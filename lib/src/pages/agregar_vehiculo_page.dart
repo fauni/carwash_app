@@ -39,7 +39,7 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
 
   @override
   Widget build(BuildContext context) {
-    vehiculoNuevo.idTipo = "1";
+   // vehiculoNuevo.idTipo = "1";
     return Scaffold(
         key: scaffoldKey,
         extendBodyBehindAppBar: true,
