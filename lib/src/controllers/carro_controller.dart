@@ -51,6 +51,14 @@ class CarroController extends ControllerMVC {
   }
 
   void cargarAnios() {
+    this.anios.add('2007');
+    this.anios.add('2008');
+    this.anios.add('2009');
+    this.anios.add('2010');
+    this.anios.add('2011');
+    this.anios.add('2012');
+    this.anios.add('2013');
+    this.anios.add('2014');
     this.anios.add('2015');
     this.anios.add('2016');
     this.anios.add('2017');
@@ -213,35 +221,39 @@ class CarroController extends ControllerMVC {
   //registrar en servidor
   void registrarVehiculo(Vehiculo newVehiculo) async {
     if (this.image == null) {
-      this.scaffoldKey?.currentState?.showSnackBar(SnackBar(
-            content: Text('Agregue una imagen por favor'),
-            //backgroundColor: Theme.of(context).hintColor ,
-          ));
+      showAlertDialogError(context, "Necesita agregar una imagen del vehiculo");
     } else {
       String base64Image = base64Encode(this.image.readAsBytesSync());
       String fileName = this.image.path.split("/").last;
       newVehiculo.foto = fileName;
       newVehiculo.imgFile = base64Image;
-
       newVehiculo.idCliente = currentUser.value.email;
 
-      this.loading = true;
-      setState(() {
-        image = null;
-      });
-      var vehiculoResp = await guardarVehiculo(newVehiculo);
-      Navigator.of(context).pop(true);
-      this.loading = false;
-      this.scaffoldKey?.currentState?.showSnackBar(SnackBar(
-            content: Text('Se agregó correctamente'),
-            //backgroundColor: Theme.of(context).hintColor ,
-          ));
-      setState(() {});
+      if (newVehiculo.placa == null) {
+        showAlertDialogError(
+            context, "Complete la información antes de guardar");
+      } else {
+        this.loading = true;
+        setState(() {
+          image = null;
+        });
+
+        var vehiculoResp = await guardarVehiculo(newVehiculo);
+        Navigator.of(context).pop(true);
+        this.loading = false;
+        this.scaffoldKey?.currentState?.showSnackBar(SnackBar(
+              content: Text('Se agregó correctamente'),
+              //backgroundColor: Theme.of(context).hintColor ,
+            ));
+        setState(() {});
+
+        Navigator.of(context).pop(true);
+      }
 
       //print('____ANTES DE ENVIAR___');
       //print(newVehiculo.imgFile);
     }
-    Navigator.of(context).pop(true);
+
     // Navigator.of(context).pop();
     // Navigator.of(context).pushNamed('/Vehiculo', arguments: 3);
   }
@@ -263,6 +275,31 @@ class CarroController extends ControllerMVC {
 
   String RutaImg(String nombre) {
     return getRutaImg(nombre);
+  }
+
+  showAlertDialogError(BuildContext context, String mensaje) {
+    // set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text("Aceptar"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("No se guardo!"),
+      content: Text(mensaje),
+      actions: [
+        cancelButton,
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
   showAlertDialog(BuildContext context, String id_vehiculo) {

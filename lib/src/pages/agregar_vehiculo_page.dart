@@ -23,6 +23,7 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
   Vehiculo vehiculoNuevo = new Vehiculo();
   CarroController _con;
 
+  GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   AgregarVehiculoPageState() : super(CarroController()) {
     _con = controller;
     vehiculoNuevo.idTipo = "1";
@@ -40,6 +41,7 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
   Widget build(BuildContext context) {
     vehiculoNuevo.idTipo = "1";
     return Scaffold(
+        key: scaffoldKey,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -51,6 +53,7 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                 color: Theme.of(context).hintColor),
             onPressed: () => Navigator.of(context).pop(true),
           ),
+          // actions: [IconButton(icon: Icon(Icons.save), onPressed: () {})],
         ),
         body: !_con.loading
             ? Stack(
@@ -123,12 +126,13 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                           ),
                           Divider(),
                           OutlineButton.icon(
-                              textColor: Theme.of(context).hintColor,
-                              label: Text('Nuevo Modelo de Vehículo'),
-                              icon: Icon(Icons.add),
-                              onPressed: () {
-                                showDialogGuardarModeloVehiculo();
-                              }),
+                            textColor: Theme.of(context).hintColor,
+                            label: Text('Nuevo Modelo de Vehículo'),
+                            icon: Icon(Icons.add),
+                            onPressed: () {
+                              showDialogGuardarModeloVehiculo();
+                            },
+                          ),
                           Divider(),
                           DropdownSearch<VehiculoModelo>(
                             mode: Mode.BOTTOM_SHEET,
@@ -526,7 +530,20 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                 FlatButton(
                   child: Text('Guardar'),
                   onPressed: () {
-                    _con.registrarModeloVehiculo();
+                    if (_con.vehiculomodelo.anio == null ||
+                        _con.vehiculomodelo.marca == null ||
+                        _con.vehiculomodelo.modelo == null) {
+                      scaffoldKey.currentState.showSnackBar(
+                        SnackBar(
+                          content:
+                              Text('Completa la información, antes de guardar'),
+                          action: SnackBarAction(
+                              label: "Aceptar", onPressed: () {}),
+                        ),
+                      );
+                    } else {
+                      _con.registrarModeloVehiculo();
+                    }
                   },
                 ),
                 FlatButton(

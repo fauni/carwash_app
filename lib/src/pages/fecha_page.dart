@@ -47,19 +47,21 @@ class FechaPageState extends StateMVC<FechaPage> {
     reserva.fechaReserva = _con.obtieneFechaActual();
     _con.eligeReserva(reserva);
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Fecha y Hora'),
-          backgroundColor: Colors.transparent,
-        ),
-        body: Column(
+      appBar: AppBar(
+        title: Text('Fecha y Hora'),
+        backgroundColor: Colors.transparent,
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+        child: Column(
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              height: 40,
+              height: 35,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: Theme.of(context).accentColor)),
-              margin: EdgeInsets.all(15),
+              margin: EdgeInsets.all(10),
               child: Center(
                 child: Text(
                   'Selecciona Fecha',
@@ -89,11 +91,11 @@ class FechaPageState extends StateMVC<FechaPage> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: 40,
+              height: 35,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: Theme.of(context).accentColor)),
-              margin: EdgeInsets.all(15),
+              margin: EdgeInsets.all(10),
               child: Center(
                 child: Text(
                   'Selecciona la Hora',
@@ -102,7 +104,7 @@ class FechaPageState extends StateMVC<FechaPage> {
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: EdgeInsets.symmetric(horizontal: 0),
               child: Center(
                 child: Wrap(
                     spacing: 8.0, // gap between adjacent chips
@@ -155,104 +157,8 @@ class FechaPageState extends StateMVC<FechaPage> {
               ),
             )
           ],
-        )
-
-        // body: Container(
-        //   padding: EdgeInsets.symmetric(horizontal: 20),
-        //   child: Column(
-        //     mainAxisAlignment: MainAxisAlignment.center,
-        //     children: [
-        //       Container(
-        //         width: MediaQuery.of(context).size.width,
-        //         height: 40,
-        //         decoration: BoxDecoration(
-        //             borderRadius: BorderRadius.circular(10),
-        //             border: Border.all(color: Theme.of(context).accentColor)),
-        //         margin: EdgeInsets.all(15),
-        //         child: Center(
-        //           child: Text(
-        //             'Selecciona Fecha',
-        //             style: TextStyle(color: Theme.of(context).hintColor),
-        //           ),
-        //         ),
-        //       ),
-        //       DatePicker(
-        //         DateTime.now(),
-        //         width: 60,
-        //         height: 100,
-        //         initialSelectedDate: DateTime.now(),
-        //         selectionColor: Theme.of(context).accentColor,
-        //         selectedTextColor: Theme.of(context).hintColor,
-        //         deactivatedColor: Theme.of(context).accentColor,
-        //         monthTextStyle: TextStyle(color: Theme.of(context).hintColor),
-        //         dateTextStyle: TextStyle(color: Theme.of(context).hintColor),
-        //         dayTextStyle: TextStyle(color: Theme.of(context).hintColor),
-        //         locale: "es ES",
-        //         onDateChange: (date) {
-        //           setState(() {
-        //             print(date);
-        //             reserva.fechaReserva = date.toString();
-        //             _con.eligeReserva(reserva);
-        //           });
-        //         },
-        //       ),
-        //       Container(
-        //         width: MediaQuery.of(context).size.width,
-        //         height: 40,
-        //         decoration: BoxDecoration(
-        //             borderRadius: BorderRadius.circular(10),
-        //             border: Border.all(color: Theme.of(context).accentColor)),
-        //         margin: EdgeInsets.all(15),
-        //         child: Center(
-        //           child: Text(
-        //             'Selecciona la Hora',
-        //             style: TextStyle(color: Theme.of(context).hintColor),
-        //           ),
-        //         ),
-        //       ),
-
-        //       TimePickerSpinner(
-        //         is24HourMode: true,
-        //         normalTextStyle: TextStyle(
-        //           color: Theme.of(context).hintColor,
-        //           fontSize: 20,
-        //         ),
-        //         highlightedTextStyle: TextStyle(
-        //           color: Theme.of(context).hintColor,
-        //           fontSize: 30,
-        //         ),
-        //         time: DateTime.now(),
-        //         minutesInterval: 30,
-        //         spacing: 50,
-        //         itemHeight: 80,
-        //         isForce2Digits: true,
-        //         onTimeChange: (time) {
-        //           setState(() {
-        //             print(time);
-        //             reserva.horaReserva = time.toString();
-        //             _con.eligeReserva(reserva);
-        //             //_con.seleccionarHora(time);
-        //           });
-        //         },
-        //       ),
-        //       ButtonTheme(
-        //         minWidth: double.infinity,
-        //         height: 50.0,
-        //         child: RaisedButton(
-        //           color: Theme.of(context).primaryColor,
-        //           textColor: Theme.of(context).hintColor,
-        //           onPressed: () {
-        //             _con.showAlertDialog(context);
-        //           },
-        //           child: Text('Enviar Reserva'),
-        //           shape: RoundedRectangleBorder(
-        //             borderRadius: BorderRadius.circular(15),
-        //           ),
-        //         ),
-        //       )
-        //     ],
-        //   ),
-        // ),
-        );
+        ),
+      ),
+    );
   }
 }

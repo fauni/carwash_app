@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:carwash/src/models/route_argument.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import 'package:carwash/src/controllers/atencion_controller.dart';
@@ -74,6 +71,15 @@ class _AtencionPageState extends StateMVC<AtencionPage>
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text('Atención del Vehiculo'),
+        actions: [
+          Container(
+            padding: EdgeInsets.only(right: 20),
+            child: Image.asset(
+              'assets/img/isotipo.png',
+              width: 25,
+            ),
+          )
+        ],
       ),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () {
@@ -92,26 +98,26 @@ class _AtencionPageState extends StateMVC<AtencionPage>
             width: double.infinity,
             fit: BoxFit.cover,
           ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              padding: EdgeInsets.only(top: 100),
-              child: Image.asset(
-                'assets/img/isotipo.png',
-                width: MediaQuery.of(context).size.width / 6,
-              ),
-            ),
-          ),
+          // Align(
+          //   alignment: Alignment.topCenter,
+          //   child: Container(
+          //     padding: EdgeInsets.only(top: 100),
+          //     child: Image.asset(
+          //       'assets/img/isotipo.png',
+          //       width: MediaQuery.of(context).size.width / 8,
+          //     ),
+          //   ),
+          // ),
           Container(
             width: width_size,
             height: height_size,
-            padding: EdgeInsets.only(top: 150),
+            padding: EdgeInsets.only(top: 0),
             child: ListView(
               children: [
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Theme.of(context).accentColor),
@@ -149,7 +155,7 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Theme.of(context).accentColor),
@@ -187,7 +193,7 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                 Container(
                   width: MediaQuery.of(context).size.width,
                   margin: EdgeInsets.symmetric(horizontal: 20),
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Theme.of(context).accentColor),
@@ -363,7 +369,7 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Theme.of(context).accentColor),
@@ -434,7 +440,7 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Theme.of(context).accentColor),

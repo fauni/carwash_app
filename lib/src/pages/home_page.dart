@@ -169,7 +169,7 @@ class _HomePageState extends StateMVC<HomePage>
                           'Hola',
                           style: TextStyle(
                             fontWeight: FontWeight.w100,
-                            fontSize: 40,
+                            fontSize: 28,
                             color: Theme.of(context).hintColor,
                           ),
                         ),
@@ -177,7 +177,7 @@ class _HomePageState extends StateMVC<HomePage>
                           'bienvenido',
                           style: TextStyle(
                             fontWeight: FontWeight.w100,
-                            fontSize: 30,
+                            fontSize: 23,
                             color: Theme.of(context).hintColor,
                           ),
                         ),
@@ -187,7 +187,7 @@ class _HomePageState extends StateMVC<HomePage>
                               : currentUser.value.displayName,
                           style: TextStyle(
                             fontWeight: FontWeight.w100,
-                            fontSize: 30,
+                            fontSize: 23,
                             color: Theme.of(context).hintColor,
                           ),
                         ),
@@ -198,7 +198,7 @@ class _HomePageState extends StateMVC<HomePage>
                           'Estas a unos pasos de',
                           style: TextStyle(
                             fontWeight: FontWeight.w100,
-                            fontSize: 16,
+                            fontSize: 13,
                             color: Theme.of(context).hintColor,
                           ),
                         ),
@@ -206,7 +206,7 @@ class _HomePageState extends StateMVC<HomePage>
                           'dejar tu auto al cuidado',
                           style: TextStyle(
                             fontWeight: FontWeight.w100,
-                            fontSize: 16,
+                            fontSize: 13,
                             color: Theme.of(context).hintColor,
                           ),
                         ),
@@ -214,7 +214,7 @@ class _HomePageState extends StateMVC<HomePage>
                           'de profesionales',
                           style: TextStyle(
                             fontWeight: FontWeight.w100,
-                            fontSize: 16,
+                            fontSize: 13,
                             color: Theme.of(context).hintColor,
                           ),
                         ),
@@ -237,14 +237,16 @@ class _HomePageState extends StateMVC<HomePage>
                       children: [
                         InkWell(
                           onTap: () {
-                            Navigator.of(context).push(
-                              new MaterialPageRoute<Null>(
-                                  builder: (BuildContext context) {
-                                    return new CarroPage(
-                                        switchValue: null, valueChanged: null);
-                                  },
-                                  fullscreenDialog: true),
-                            );
+                            Navigator.of(context)
+                                .pushNamed('/NuevoVehiculoHome');
+                            // Navigator.of(context).push(
+                            //   new MaterialPageRoute<Null>(
+                            //       builder: (BuildContext context) {
+                            //         return new CarroPage(
+                            //             switchValue: null, valueChanged: null);
+                            //       },
+                            //       fullscreenDialog: true),
+                            // );
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -261,7 +263,7 @@ class _HomePageState extends StateMVC<HomePage>
                           height: 20,
                         ),
                         Text(
-                          'Seleccionar \n Auto',
+                          'Seleccionar \n Vehiculo',
                           style: TextStyle(
                             color: Theme.of(context).hintColor,
                             fontSize: 15,

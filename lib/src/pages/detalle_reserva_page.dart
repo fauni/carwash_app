@@ -84,8 +84,8 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        height: 110,
-                        padding: EdgeInsets.only(left: 40),
+                        height: 80,
+                        padding: EdgeInsets.only(left: 20),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           border:
@@ -110,7 +110,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                   fontSize: 18),
                             ),
                             Text(
-                              'Placa ' +
+                              'Placa: ' +
                                   this.widget.routeArgument.param[0].placa,
                               style: TextStyle(
                                   color: Theme.of(context).hintColor,
@@ -126,7 +126,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                         width: MediaQuery.of(context).size.width,
                         margin: EdgeInsets.symmetric(horizontal: 0),
                         padding:
-                            EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           border:
@@ -197,7 +197,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                       Container(
                         width: MediaQuery.of(context).size.width,
                         height: 50,
-                        padding: EdgeInsets.only(left: 40, right: 40),
+                        padding: EdgeInsets.only(left: 20, right: 20),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           border:
@@ -263,7 +263,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                             },
                             child: Container(
                               width: MediaQuery.of(context).size.width / 3,
-                              height: MediaQuery.of(context).size.height / 7,
+                              height: MediaQuery.of(context).size.height / 8,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
                                 borderRadius: BorderRadius.circular(20),
@@ -274,7 +274,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                 children: [
                                   Image.asset(
                                     'assets/img/mis_fotos.png',
-                                    width: 80,
+                                    width: 60,
                                   ),
                                   Text(
                                     'Ver Capturas',
@@ -290,7 +290,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                             onTap: () => _con.launchURLVideo(),
                             child: Container(
                               width: MediaQuery.of(context).size.width / 3,
-                              height: MediaQuery.of(context).size.height / 7,
+                              height: MediaQuery.of(context).size.height / 8,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
                                 borderRadius: BorderRadius.circular(20),
@@ -301,7 +301,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                 children: [
                                   Image.asset(
                                     'assets/img/en_vivo.png',
-                                    width: 80,
+                                    width: 60,
                                   ),
                                   Text(
                                     'Ver en Vivo',
@@ -326,7 +326,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                             },
                             child: Container(
                               width: MediaQuery.of(context).size.width / 3,
-                              height: MediaQuery.of(context).size.height / 7,
+                              height: MediaQuery.of(context).size.height / 8,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
                                 borderRadius: BorderRadius.circular(20),
@@ -337,7 +337,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                 children: [
                                   Image.asset(
                                     'assets/img/mi_factura.png',
-                                    width: 80,
+                                    width: 60,
                                   ),
                                   Text(
                                     'Mi Factura',
@@ -353,7 +353,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                               ? Container(
                                   width: MediaQuery.of(context).size.width / 3,
                                   height:
-                                      MediaQuery.of(context).size.height / 7,
+                                      MediaQuery.of(context).size.height / 8,
                                   decoration: BoxDecoration(
                                     color: Theme.of(context).hintColor,
                                     borderRadius: BorderRadius.circular(20),
@@ -361,7 +361,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                   ),
                                   child: Image.asset(
                                     'assets/img/en_proceso_white.png',
-                                    width: 80,
+                                    width: 60,
                                   ),
                                 )
                               : widget.routeArgument.param[0].estado == 'F'
@@ -370,7 +370,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                           MediaQuery.of(context).size.width / 3,
                                       height:
                                           MediaQuery.of(context).size.height /
-                                              7,
+                                              8,
                                       decoration: BoxDecoration(
                                         color: Theme.of(context).primaryColor,
                                         borderRadius: BorderRadius.circular(20),
@@ -380,7 +380,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                         children: [
                                           Image.asset(
                                             'assets/img/en_proceso.png',
-                                            width: 80,
+                                            width: 60,
                                           ),
                                           Text(
                                             'Finalizado',
@@ -397,7 +397,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                           MediaQuery.of(context).size.width / 3,
                                       height:
                                           MediaQuery.of(context).size.height /
-                                              7,
+                                              8,
                                       decoration: BoxDecoration(
                                         color: Theme.of(context).accentColor,
                                         borderRadius: BorderRadius.circular(20),
