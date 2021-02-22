@@ -36,7 +36,7 @@ class SliderController extends ControllerMVC {
     stream.listen((Cliente _cliente) {
       setState(() {
         if (_cliente.codigoCliente == null) {
-          Navigator.of(context).pushNamed('/Cliente', arguments: new Cliente());
+          Navigator.of(context).pushNamed('/Cliente', arguments: _cliente);
         } else {
           if (_cliente.codigoCliente == '0') {
             Navigator.of(context).pushNamed('/Cliente', arguments: _cliente);
