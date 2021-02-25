@@ -31,13 +31,14 @@ class FechaPageState extends StateMVC<FechaPage> {
 
   FechaPageState() : super(ReservaController()) {
     _con = controller;
+  reserva.fechaReserva = _con.obtieneFechaActual();
   }
 
   @override
   void initState() {
     _switchValue = widget.switchValue;
     _con.verificaInformacion();
-
+    
     _con.listarReservasPorFecha(_con.obtieneFechaActual());
     super.initState();
   }

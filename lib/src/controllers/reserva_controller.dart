@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:carwash/generated/i18n.dart';
 import 'package:carwash/src/models/detalle_reserva.dart';
 import 'package:carwash/src/models/horas.dart';
@@ -15,7 +15,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:global_configuration/global_configuration.dart';
+import 'package:http/http.dart' as http;
 
+import 'package:path_provider/path_provider.dart';
+import 'package:image/image.dart' as ima;
 class ReservaController extends ControllerMVC {
   var platform = MethodChannel("example/procare");
   String hiText = "";
@@ -28,7 +32,7 @@ class ReservaController extends ControllerMVC {
   List<DetalleReserva> ldetalleReserva = []; // Listado de detalle de reserva
 
   List<Horas> horas = [];
-
+  File fileImgFac=null;
   Horas hora = new Horas();
 
   String strReserva = '';
@@ -40,6 +44,8 @@ class ReservaController extends ControllerMVC {
 
   double subTotal = 0.0;
   double total = 0.0;
+
+  bool tieneImgFac=false;
   GlobalKey<ScaffoldState> scaffoldKey;
 
   ReservaController() {
@@ -231,14 +237,20 @@ class ReservaController extends ControllerMVC {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('No existe la factura.'),
-                Text('Intente, mas adelante'),
+                // Text('No existe la factura.'),
+                // Text('Intente, mas adelante'),
+                this.tieneImgFac
+                 ?Text('Su factura se guardó en su dispositivo')
+                 :Text('No existe la factura.'),
+                this.tieneImgFac
+                 ?Image.file(fileImgFac)
+                 :Text(' Intente, mas adelante'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Volver'),
+              child: Text('Aceptar'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -376,5 +388,33 @@ class ReservaController extends ControllerMVC {
       hiText = response;
       print(hiText);
     });
+  }
+  obtieneImg(String idReserva) async{
+    print("reservaa "+idReserva);
+    final String url =
+      '${GlobalConfiguration().getString('img_capturas_carwash')+idReserva}/factura.jpg';
+      
+      
+
+      final client = http.Client();
+      final response = await client.get(url);
+      try {
+    if (response.statusCode == 200) {
+      this.tieneImgFac =true;
+      var directorio = await getApplicationDocumentsDirectory();
+      fileImgFac = new File(directorio.path + '/factura.jpg');
+      fileImgFac.writeAsBytesSync(response.bodyBytes);
+       //final bytes = base64.decode(base64.encode(response.bodyBytes));
+      //Image image = ima. (file.readAsBytesSync());
+      print( base64.encode(response.bodyBytes));
+
+    } else {
+      this.tieneImgFac = false;
+    }
+  } catch (e) {
+     scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Verifica tu conexión de internet!'),
+      ));
+  }
   }
 }

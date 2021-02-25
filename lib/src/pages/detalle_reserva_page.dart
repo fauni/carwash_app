@@ -40,6 +40,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
       jsonEncode(this.widget.routeArgument.param[0]),
     );
     _con.listadoDetalleReservaPorId(widget.routeArgument.id);
+    _con.obtieneImg(widget.routeArgument.id);
     super.initState();
   }
 
@@ -322,6 +323,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                         children: [
                           InkWell(
                             onTap: () {
+                             // _con.obtieneImg(widget.routeArgument.id );
                               _con.alertDialogFacturas();
                             },
                             child: Container(
