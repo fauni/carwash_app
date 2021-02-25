@@ -144,6 +144,7 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                             onChanged: (modelo) {
                               //print (modelo.modelo);
                               vehiculoNuevo.idModelo = modelo.id;
+                              vehiculoNuevo.anio = modelo.anio;
                             },
                             selectedItem: null,
                             showSearchBox: true,
@@ -196,64 +197,7 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                             ),
                           ),
                           Divider(),
-                          /*DropdownSearch<TipoVehiculo>(
-                            mode: Mode.BOTTOM_SHEET,
-                            maxHeight: 300,
-                            items: _con.tipos,
-                            label: "Seleccionar Tipo de Vehiculo",
-                            itemAsString: (TipoVehiculo data) =>
-                                data.tipo + ' ' + data.tamanio,
-                            onChanged: (tipo) {
-                              print(tipo.tipo);
-                              vehiculoNuevo.idTipo = tipo.id;
-                            },
-                            selectedItem: null,
-                            showSearchBox: true,
-                            dropdownSearchDecoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: Theme.of(context).accentColor,
-                                  width: 0.0,
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).accentColor,
-                                    width: 1.0),
-                              ),
-                              labelStyle:
-                                  TextStyle(color: Theme.of(context).hintColor),
-                            ),
-                            searchBoxDecoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.fromLTRB(12, 12, 8, 0),
-                              labelText: "Buscar Tipo de Vehiculo",
-                            ),
-                            popupTitle: Container(
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'Tipo de Vehiculo',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            popupShape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(24),
-                                topRight: Radius.circular(24),
-                              ),
-                            ),
-                          ),*/
+                          
                           Text('Elija el tamaño de su vehículo'),
                           Divider(),
                           GroupButton(
@@ -341,7 +285,7 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                                     "1"; //provisional cambiar por cliente actual
                                 vehiculoNuevo.observaciones = "";
                                 vehiculoNuevo.estado = "A";
-                                vehiculoNuevo.anio = "1900";
+                                //vehiculoNuevo.anio = "1900";
                                 vehiculoNuevo.foto = "ff";
                                 print('guardando el vehiculo');
                                 _con.registrarVehiculo(vehiculoNuevo);
