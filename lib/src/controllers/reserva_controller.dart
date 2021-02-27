@@ -33,6 +33,8 @@ class ReservaController extends ControllerMVC {
 
   List<Horas> horas = [];
   File fileImgFac=null;
+  File fileImgFin=null;
+
   Horas hora = new Horas();
 
   String strReserva = '';
@@ -46,6 +48,7 @@ class ReservaController extends ControllerMVC {
   double total = 0.0;
 
   bool tieneImgFac=false;
+  bool tieneImgFin=false;
   GlobalKey<ScaffoldState> scaffoldKey;
 
   ReservaController() {
@@ -393,8 +396,6 @@ class ReservaController extends ControllerMVC {
     print("reservaa "+idReserva);
     final String url =
       '${GlobalConfiguration().getString('img_capturas_carwash')+idReserva}/factura.jpg';
-      
-      
 
       final client = http.Client();
       final response = await client.get(url);
@@ -416,5 +417,65 @@ class ReservaController extends ControllerMVC {
         content: Text('Verifica tu conexión de internet!'),
       ));
   }
+  }
+
+  obtieneImgFinal(String idReserva) async{
+    print("reservaa "+idReserva);
+    final String url =
+      '${GlobalConfiguration().getString('img_capturas_carwash')+idReserva}/final.jpg';
+
+      final client = http.Client();
+      final response = await client.get(url);
+      try {
+    if (response.statusCode == 200) {
+      this.tieneImgFin =true;
+      var directorio = await getApplicationDocumentsDirectory();
+      fileImgFin = new File(directorio.path + '/final.jpg');
+      fileImgFin.writeAsBytesSync(response.bodyBytes);
+       //final bytes = base64.decode(base64.encode(response.bodyBytes));
+      //Image image = ima. (file.readAsBytesSync());
+      print( base64.encode(response.bodyBytes));
+
+    } else {
+      this.tieneImgFin = false;
+    }
+  } catch (e) {
+     scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Verifica tu conexión de internet!'),
+      ));
+  }
+  }
+   Future<void> alertDialogFinal() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Final de atención'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                // Text('No existe la factura.'),
+                // Text('Intente, mas adelante'),
+                this.tieneImgFin
+                 ?Text('Su vehículo esta listo')
+                 :Text('El proceso de lavado continua'),
+                this.tieneImgFin
+                 ?Image.file(fileImgFin)
+                 :Text(' Intente, mas adelante'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Aceptar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

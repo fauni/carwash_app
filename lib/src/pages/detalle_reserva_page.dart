@@ -41,6 +41,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
     );
     _con.listadoDetalleReservaPorId(widget.routeArgument.id);
     _con.obtieneImg(widget.routeArgument.id);
+    _con.obtieneImgFinal(widget.routeArgument.id);
     super.initState();
   }
 
@@ -323,7 +324,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                         children: [
                           InkWell(
                             onTap: () {
-                             // _con.obtieneImg(widget.routeArgument.id );
+                              _con.obtieneImg(widget.routeArgument.id );
                               _con.alertDialogFacturas();
                             },
                             child: Container(
@@ -378,7 +379,12 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                         borderRadius: BorderRadius.circular(20),
                                         //border: Border.all(color: Theme.of(context).accentColor),
                                       ),
-                                      child: Column(
+                                      child: InkWell( 
+                                        onTap: (){
+                                          _con.obtieneImgFinal(widget.routeArgument.id);
+                                          _con.alertDialogFinal();
+                                        },
+                                        child: Column(
                                         children: [
                                           Image.asset(
                                             'assets/img/en_proceso.png',
@@ -393,6 +399,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                           ),
                                         ],
                                       ),
+                                      )
                                     )
                                   : Container(
                                       width:
