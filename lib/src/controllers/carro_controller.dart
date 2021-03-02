@@ -178,7 +178,7 @@ class CarroController extends ControllerMVC {
 
   // Obtener vehiculos por codigo cliente con información adicional
   void listarCarrosByCliente({String message}) async {
-    String idCliente = currentUser.value.email;
+    String idCliente = currentUser.value.email.replaceAll('.', '|');
     final Stream<List<VehiculoA>> stream =
         await obtenerVehiculosPorCliente(idCliente);
     stream.listen((List<VehiculoA> _vehiculos) {
@@ -214,8 +214,6 @@ class CarroController extends ControllerMVC {
           },
           fullscreenDialog: true),
     );
-    // print('_________en string____________');
-    // print(await getVehiculo());
   }
 
   //registrar en servidor
@@ -239,23 +237,14 @@ class CarroController extends ControllerMVC {
         });
 
         var vehiculoResp = await guardarVehiculo(newVehiculo);
-        Navigator.of(context).pop(true);
         this.loading = false;
         this.scaffoldKey?.currentState?.showSnackBar(SnackBar(
               content: Text('Se agregó correctamente'),
-              //backgroundColor: Theme.of(context).hintColor ,
             ));
         setState(() {});
-
         Navigator.of(context).pop(true);
       }
-
-      //print('____ANTES DE ENVIAR___');
-      //print(newVehiculo.imgFile);
     }
-
-    // Navigator.of(context).pop();
-    // Navigator.of(context).pushNamed('/Vehiculo', arguments: 3);
   }
 
   // GUARDAR EL MODELO DE VEHICULO

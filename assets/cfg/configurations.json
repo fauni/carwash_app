@@ -3,7 +3,10 @@
   "api_base_url": "http://ecommerce.smartersvision.com/api/",
   "base_url_lfr":"http://190.104.26.91/appclientes/",
   "api_base_url_lfr":"http://190.104.26.91/appclientes/api/",
-  "api_base_url_wash":"http://190.104.26.90/apicwash/public/",
-  "img_carros_url_wash": "http://190.104.26.90/apicwash/assets/imagenes_vehiculos/",
-  "img_capturas_carwash": "http://190.104.26.90/apicwash/assets/capturas_vehiculos/"
+  "api_base_url_wash_old":"http://190.104.26.90/apicwash/public/",
+  "api_base_url_wash":"https://procarewashing.com/apicwash/public/",
+  "img_carros_url_wash_old": "http://190.104.26.90/apicwash/assets/imagenes_vehiculos/",
+  "img_carros_url_wash": "https://procarewashing.com/apicwash/assets/imagenes_vehiculos/",
+  "img_capturas_carwash_old": "http://190.104.26.90/apicwash/assets/capturas_vehiculos/",
+  "img_capturas_carwash": "https://procarewashing.com/apicwash/assets/capturas_vehiculos/"
 }

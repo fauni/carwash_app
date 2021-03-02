@@ -114,7 +114,7 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
               },
               leading: Image.asset('assets/img/mis_autos_blue.png'),
               title: Text(
-                'Mis Autos',
+                'Mis Vehiculos',
                 style: Theme.of(context).textTheme.subhead,
               ),
             ),

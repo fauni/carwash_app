@@ -37,9 +37,10 @@ Future<Stream<List<Cliente>>> obtenerClientesXPlaca(String placa) async {
 
 /*Obtiene  clientes de acuerdo a la placa d un vehiculo dado  */
 Future<Stream<Cliente>> obtenerClienteXEmail(String email) async {
+  final new_email = email.replaceAll('.', '|');
   final String url =
       '${GlobalConfiguration().getString('api_base_url_wash')}clientes/getByEmail/' +
-          email;
+          new_email;
 
   final client = new http.Client();
   final response = await client.get(url);

@@ -58,7 +58,7 @@ class _HomeSliderWidgetState extends StateMVC<HomeSliderWidget> {
                                 return DetailScreen(
                                   heroTag: '${publicidad.idPublicidad}',
                                   image:
-                                      'http://intranet.lafar.net/apicwash/assets/imagenes_publicidad/${publicidad.urlPublicacion}',
+                                      'https://procarewashing.com/apicwash/assets/imagenes_publicidad/${publicidad.urlPublicacion}',
                                 );
                               }));
                             },
@@ -69,7 +69,7 @@ class _HomeSliderWidgetState extends StateMVC<HomeSliderWidget> {
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: NetworkImage(
-                                    'http://intranet.lafar.net/apicwash/assets/imagenes_publicidad/${publicidad.urlPublicacion}',
+                                    'https://procarewashing.com/apicwash/assets/imagenes_publicidad/${publicidad.urlPublicacion}',
                                   ), // NetworkImage(slide.image.url,),
                                   fit: BoxFit.cover,
                                 ),

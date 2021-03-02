@@ -7,6 +7,7 @@ import 'package:carwash/src/pages/detalle_reserva_page.dart';
 import 'package:carwash/src/pages/detalle_servicio_page.dart';
 import 'package:carwash/src/pages/home_page.dart';
 import 'package:carwash/src/pages/login_page.dart';
+import 'package:carwash/src/pages/reserva_confirmacion_page.dart';
 import 'package:carwash/src/pages/reservas_page.dart';
 import 'package:carwash/src/pages/splash_pages.dart';
 import 'package:carwash/src/pages/vehiculo_page.dart';
@@ -43,6 +44,9 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) =>
                 DetalleReservaPage(routeArgument: args as RouteArgument));
+
+      case '/ConfirmacionReserva':
+        return MaterialPageRoute(builder: (_) => ReservaConfirmacionPage());
 
       case '/CapturasReserva':
         return MaterialPageRoute(

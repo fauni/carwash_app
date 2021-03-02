@@ -39,15 +39,15 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
 
   @override
   Widget build(BuildContext context) {
-   // vehiculoNuevo.idTipo = "1";
+    // vehiculoNuevo.idTipo = "1";
     return Scaffold(
         key: scaffoldKey,
-        extendBodyBehindAppBar: true,
+        extendBodyBehindAppBar: false,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
           centerTitle: true,
-          title: Text('Agregar un Vehiculo'),
+          title: Text('Agregar Nuevo Vehiculo'),
           leading: new IconButton(
             icon: new Icon(Icons.arrow_back_ios,
                 color: Theme.of(context).hintColor),
@@ -65,7 +65,7 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                     fit: BoxFit.cover,
                   ),
                   SingleChildScrollView(
-                    padding: EdgeInsets.only(top: 100),
+                    padding: EdgeInsets.only(top: 10),
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
@@ -124,18 +124,26 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                               ],
                             ),
                           ),
-                          Divider(),
-                          OutlineButton.icon(
+                          SizedBox(
+                            height: 0,
+                          ),
+                          RaisedButton.icon(
+                            color: Theme.of(context).primaryColor,
                             textColor: Theme.of(context).hintColor,
                             label: Text('Nuevo Modelo de Vehículo'),
                             icon: Icon(Icons.add),
                             onPressed: () {
                               showDialogGuardarModeloVehiculo();
                             },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
                           ),
-                          Divider(),
+                          SizedBox(
+                            height: 10,
+                          ),
                           DropdownSearch<VehiculoModelo>(
-                            mode: Mode.BOTTOM_SHEET,
+                            mode: Mode.DIALOG,
                             maxHeight: 300,
                             items: _con.modelos,
                             label: "Seleccionar Modelo de Vehiculo",
@@ -197,7 +205,6 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                             ),
                           ),
                           Divider(),
-                          
                           Text('Elija el tamaño de su vehículo'),
                           Divider(),
                           GroupButton(

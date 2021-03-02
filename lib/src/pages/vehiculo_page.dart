@@ -108,7 +108,7 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                   color: Colors.transparent.withOpacity(0.1),
                   width: width_size,
                   height: height_size,
-                  padding: EdgeInsets.only(top: 160),
+                  padding: EdgeInsets.only(top: 160, bottom: 100),
                   child: ListView.separated(
                     padding: EdgeInsets.symmetric(vertical: 15),
                     shrinkWrap: true,

@@ -54,7 +54,7 @@ class _ContactanosPageState extends StateMVC<ContactanosPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text('Contactanos'),
+        // title: Text('Contactanos'),
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
@@ -72,108 +72,128 @@ class _ContactanosPageState extends StateMVC<ContactanosPage> {
             width: double.infinity,
             height: double.infinity,
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                child: Image.asset(
-                  'assets/img/isotipo.png',
-                  width: 50,
-                ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                'Encuéntranos en',
-                style: TextStyle(
-                  fontWeight: FontWeight.w100,
-                  fontSize: 25,
-                  color: Theme.of(context).hintColor,
-                ),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                'Final Calle 21 de Calacoto y',
-                style: TextStyle(
-                  fontWeight: FontWeight.w100,
-                  fontSize: 12,
-                  color: Theme.of(context).hintColor,
-                ),
-              ),
-              Text(
-                'Avenida Costanera N° 100',
-                style: TextStyle(
-                  fontWeight: FontWeight.w100,
-                  fontSize: 12,
-                  color: Theme.of(context).hintColor,
-                ),
-              ),
-              Text(
-                'La Paz / Bolivia',
-                style: TextStyle(
-                  fontWeight: FontWeight.w100,
-                  fontSize: 12,
-                  color: Theme.of(context).hintColor,
-                ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                height: 250.0,
-                width: double.infinity,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                child: GoogleMap(
-                  markers: _markers,
-                  mapType: MapType.normal,
-                  initialCameraPosition: _kGooglePlex,
-                  onMapCreated: (GoogleMapController controller) {
-                    _controller.complete(controller);
-                    _goToTheLake();
-                  },
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: ButtonTheme(
-                  minWidth: double.infinity,
-                  height: 50.0,
-                  child: RaisedButton(
-                    color: Theme.of(context).primaryColor,
-                    textColor: Theme.of(context).hintColor,
-                    onPressed: () {
-                      _con.launchMaps();
-                    },
-                    child: Text('Como llegar?'),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+          SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.only(top: 70),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: Image.asset(
+                      'assets/img/isotipo.png',
+                      width: 50,
                     ),
                   ),
-                ),
-              )
-            ],
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Text(
+                    'Encuéntranos en',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w100,
+                      fontSize: 25,
+                      color: Theme.of(context).hintColor,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    'Final Calle 21 de Calacoto y',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w100,
+                      fontSize: 12,
+                      color: Theme.of(context).hintColor,
+                    ),
+                  ),
+                  Text(
+                    'Avenida Costanera N° 100',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w100,
+                      fontSize: 12,
+                      color: Theme.of(context).hintColor,
+                    ),
+                  ),
+                  Text(
+                    'La Paz / Bolivia',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w100,
+                      fontSize: 12,
+                      color: Theme.of(context).hintColor,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    height: 250.0,
+                    width: double.infinity,
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                    child: GoogleMap(
+                      markers: _markers,
+                      mapType: MapType.normal,
+                      initialCameraPosition: _kGooglePlex,
+                      onMapCreated: (GoogleMapController controller) {
+                        _controller.complete(controller);
+                        _goToTheLake();
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: ButtonTheme(
+                      minWidth: double.infinity,
+                      height: 50.0,
+                      child: RaisedButton(
+                        color: Theme.of(context).primaryColor,
+                        textColor: Theme.of(context).hintColor,
+                        onPressed: () {
+                          _con.launchMaps();
+                        },
+                        child: Text('Como llegar?'),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: ButtonTheme(
+                      minWidth: double.infinity,
+                      height: 50.0,
+                      child: RaisedButton.icon(
+                        color: Colors.greenAccent,
+                        textColor: Theme.of(context).hintColor,
+                        onPressed: () {
+                          _con.launchWhatsApp(
+                              phone: '+591 77799292',
+                              message: 'Estoy interesado');
+                        },
+                        label: Text('Escribenos al Whatsapp'),
+                        icon: FaIcon(
+                          FontAwesomeIcons.whatsapp,
+                          color: Colors.white,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.greenAccent,
-        onPressed: () {
-          _con.launchWhatsApp(
-              phone: '+591 79521526', message: 'Estoy interesado');
-        },
-        label: Text('+591 77799292'),
-        icon: FaIcon(
-          FontAwesomeIcons.whatsapp,
-          color: Colors.white,
-        ),
       ),
     );
   }

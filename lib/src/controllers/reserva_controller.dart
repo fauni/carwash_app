@@ -20,6 +20,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:path_provider/path_provider.dart';
 import 'package:image/image.dart' as ima;
+
 class ReservaController extends ControllerMVC {
   var platform = MethodChannel("example/procare");
   String hiText = "";
@@ -32,8 +33,8 @@ class ReservaController extends ControllerMVC {
   List<DetalleReserva> ldetalleReserva = []; // Listado de detalle de reserva
 
   List<Horas> horas = [];
-  File fileImgFac=null;
-  File fileImgFin=null;
+  File fileImgFac = null;
+  File fileImgFin = null;
 
   Horas hora = new Horas();
 
@@ -47,8 +48,8 @@ class ReservaController extends ControllerMVC {
   double subTotal = 0.0;
   double total = 0.0;
 
-  bool tieneImgFac=false;
-  bool tieneImgFin=false;
+  bool tieneImgFac = false;
+  bool tieneImgFin = false;
   GlobalKey<ScaffoldState> scaffoldKey;
 
   ReservaController() {
@@ -103,7 +104,7 @@ class ReservaController extends ControllerMVC {
     print(json.encode(this.reservaCompleta));
     print('--------respuesta del post:----------');
     var respuesta = registrarReserva(json.encode(this.reservaCompleta));
-    Navigator.of(context).pop();
+    Navigator.of(context).pushReplacementNamed('/ConfirmacionReserva');
   }
 
   showAlertDialog(BuildContext context) {
@@ -243,11 +244,12 @@ class ReservaController extends ControllerMVC {
                 // Text('No existe la factura.'),
                 // Text('Intente, mas adelante'),
                 this.tieneImgFac
-                 ?Text('Su factura se guardó en su dispositivo')
-                 :Text('No existe la factura.'),
+                    ? Text('Su factura se guardó en su dispositivo')
+                    : Text('No existe la factura.'),
                 this.tieneImgFac
-                 ?Image.file(fileImgFac)
-                 :Text(' Intente, mas adelante'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
+                    ? Image.file(fileImgFac)
+                    : Text(
+                        ' Intente, mas adelante'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
               ],
             ),
           ),
@@ -392,60 +394,60 @@ class ReservaController extends ControllerMVC {
       print(hiText);
     });
   }
-  obtieneImg(String idReserva) async{
-    print("reservaa "+idReserva);
+
+  obtieneImg(String idReserva) async {
+    print("reservaa " + idReserva);
     final String url =
-      '${GlobalConfiguration().getString('img_capturas_carwash')+idReserva}/factura.jpg';
+        '${GlobalConfiguration().getString('img_capturas_carwash') + idReserva}/factura.jpg';
 
-      final client = http.Client();
-      final response = await client.get(url);
-      try {
-    if (response.statusCode == 200) {
-      this.tieneImgFac =true;
-      var directorio = await getApplicationDocumentsDirectory();
-      fileImgFac = new File(directorio.path + '/factura.jpg');
-      fileImgFac.writeAsBytesSync(response.bodyBytes);
-       //final bytes = base64.decode(base64.encode(response.bodyBytes));
-      //Image image = ima. (file.readAsBytesSync());
-      print( base64.encode(response.bodyBytes));
-
-    } else {
-      this.tieneImgFac = false;
-    }
-  } catch (e) {
-     scaffoldKey.currentState.showSnackBar(SnackBar(
+    final client = http.Client();
+    final response = await client.get(url);
+    try {
+      if (response.statusCode == 200) {
+        this.tieneImgFac = true;
+        var directorio = await getApplicationDocumentsDirectory();
+        fileImgFac = new File(directorio.path + '/factura.jpg');
+        fileImgFac.writeAsBytesSync(response.bodyBytes);
+        //final bytes = base64.decode(base64.encode(response.bodyBytes));
+        //Image image = ima. (file.readAsBytesSync());
+        print(base64.encode(response.bodyBytes));
+      } else {
+        this.tieneImgFac = false;
+      }
+    } catch (e) {
+      scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text('Verifica tu conexión de internet!'),
       ));
-  }
-  }
-
-  obtieneImgFinal(String idReserva) async{
-    print("reservaa "+idReserva);
-    final String url =
-      '${GlobalConfiguration().getString('img_capturas_carwash')+idReserva}/final.jpg';
-
-      final client = http.Client();
-      final response = await client.get(url);
-      try {
-    if (response.statusCode == 200) {
-      this.tieneImgFin =true;
-      var directorio = await getApplicationDocumentsDirectory();
-      fileImgFin = new File(directorio.path + '/final.jpg');
-      fileImgFin.writeAsBytesSync(response.bodyBytes);
-       //final bytes = base64.decode(base64.encode(response.bodyBytes));
-      //Image image = ima. (file.readAsBytesSync());
-      print( base64.encode(response.bodyBytes));
-
-    } else {
-      this.tieneImgFin = false;
     }
-  } catch (e) {
-     scaffoldKey.currentState.showSnackBar(SnackBar(
+  }
+
+  obtieneImgFinal(String idReserva) async {
+    print("reservaa " + idReserva);
+    final String url =
+        '${GlobalConfiguration().getString('img_capturas_carwash') + idReserva}/final.jpg';
+
+    final client = http.Client();
+    final response = await client.get(url);
+    try {
+      if (response.statusCode == 200) {
+        this.tieneImgFin = true;
+        var directorio = await getApplicationDocumentsDirectory();
+        fileImgFin = new File(directorio.path + '/final.jpg');
+        fileImgFin.writeAsBytesSync(response.bodyBytes);
+        //final bytes = base64.decode(base64.encode(response.bodyBytes));
+        //Image image = ima. (file.readAsBytesSync());
+        print(base64.encode(response.bodyBytes));
+      } else {
+        this.tieneImgFin = false;
+      }
+    } catch (e) {
+      scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text('Verifica tu conexión de internet!'),
       ));
+    }
   }
-  }
-   Future<void> alertDialogFinal() async {
+
+  Future<void> alertDialogFinal() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -458,11 +460,12 @@ class ReservaController extends ControllerMVC {
                 // Text('No existe la factura.'),
                 // Text('Intente, mas adelante'),
                 this.tieneImgFin
-                 ?Text('Su vehículo esta listo')
-                 :Text('El proceso de lavado continua'),
+                    ? Text('Su vehículo esta listo')
+                    : Text('El proceso de lavado continua'),
                 this.tieneImgFin
-                 ?Image.file(fileImgFin)
-                 :Text(' Intente, mas adelante'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
+                    ? Image.file(fileImgFin)
+                    : Text(
+                        ' Intente, mas adelante'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
               ],
             ),
           ),

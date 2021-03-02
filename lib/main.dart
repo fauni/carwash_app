@@ -15,11 +15,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await GlobalConfiguration().loadFromAsset("configurations");
-  // runApp(MyApp());
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) {
-    runApp(MyApp());
-  });
+  runApp(MyApp());
+  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+  //     .then((_) {
+  //   runApp(MyApp());
+  // });
 }
 
 class MyApp extends StatefulWidget {
