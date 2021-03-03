@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:carwash/src/models/usuario.dart';
+import 'package:carwash/src/repository/reserva_repository.dart';
+import 'package:carwash/src/repository/servicio_repository.dart';
+import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
@@ -122,6 +125,8 @@ Future<void> logout() async {
   currentUser.value = new Usuario();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.remove('current_user');
+  deleteServicio();
+  deleteVehiculo();
   await _auth.signOut().then((onValue) {
     _googleSignIn.signOut();
   });

@@ -80,7 +80,7 @@ class ReservasPageState extends StateMVC<ReservasPage> {
         Container(
           width: width_size,
           height: height_size,
-          padding: EdgeInsets.only(top: 200, bottom: 80),
+          padding: EdgeInsets.only(top: 200, bottom: 0),
           child: SingleChildScrollView(
             child: _con.reservasInner.isEmpty
                 ? Container(

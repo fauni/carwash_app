@@ -4,7 +4,9 @@ import 'package:carwash/src/helpers/custom_trace.dart';
 import 'package:carwash/src/models/detalle_reserva.dart';
 import 'package:carwash/src/models/horas.dart';
 import 'package:carwash/src/models/reserva_inner.dart';
+import 'package:carwash/src/repository/servicio_repository.dart';
 import 'package:carwash/src/repository/user_repository.dart';
+import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,7 +15,8 @@ import 'package:http/http.dart' as http;
 /*Obtiene  reservas de acuerdo al cliente con datos de los vehiculos  */
 Future<Stream<List<ReservaInner>>> obtenerReservasInnerXIdCli() async {
   // Uri uri = Helper.getUriLfr('api/producto');
-  String idcli = currentUser.value.email; /*cambiar por id del cliente*/
+  String idcli = currentUser.value.email
+      .replaceAll('.', '|'); /*cambiar por id del cliente*/
   final String url =
       '${GlobalConfiguration().getString('api_base_url_wash')}reserva/getByIdVehiculo/' +
           idcli;
@@ -47,6 +50,8 @@ Future<dynamic> registrarReserva(String reserva) async {
 
   print(url);
   if (response.statusCode == 200) {
+    deleteServicio();
+    deleteVehiculo();
     //setCurrentUser(response.body);
     //currentUser.value = User.fromJSON(json.decode(response.body)['data']);
     print(response.body);

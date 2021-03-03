@@ -119,3 +119,8 @@ Future<void> setVehiculo(String vehiculo) async {
     await prefs.setString('vehiculo', vehiculo);
   }
 }
+
+Future<void> deleteVehiculo() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.remove('vehiculo');
+}

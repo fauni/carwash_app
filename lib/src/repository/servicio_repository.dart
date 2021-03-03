@@ -60,3 +60,8 @@ Future<void> setServicio(String servicio) async {
     await prefs.setString('servicio', servicio);
   }
 }
+
+Future<void> deleteServicio() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.remove('servicio');
+}
