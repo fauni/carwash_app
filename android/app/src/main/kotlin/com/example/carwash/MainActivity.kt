@@ -50,7 +50,7 @@ class MainActivity: FlutterActivity() {
         // var photo = SharePhoto.Builder().setImageUrl(Uri.parse(name)).build()
         // var builder = SharePhotoContent.Builder().addPhoto(photo).build()
         // ShareDialog.show(activity, builder)
-        // ShareLinkContent content = ShareLinkContent.Builder().setContentUrl(Uri.parse("https://developers.facebook.com")).build();
+        // ShareLinkContent content = ShareLinkContent.Builder().setContentUrl(Uri.parse("http://procarewashing.com")).build();
         return "Hola $name desde Android Franz!";
     }
 
@@ -65,10 +65,10 @@ class MainActivity: FlutterActivity() {
 
         var shareDialog = ShareDialog(this)
         var content = ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse("https://developers.facebook.com")).build()
+                .setContentUrl(Uri.parse("http://procarewashing.com")).build()
         shareDialog.show(content)
         
-        // ShareLinkContent content = ShareLinkContent.Builder().setContentUrl(Uri.parse("https://developers.facebook.com")).build();
+        // ShareLinkContent content = ShareLinkContent.Builder().setContentUrl(Uri.parse("http://procarewashing.com")).build();
     }
 
 

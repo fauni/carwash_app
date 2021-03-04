@@ -378,8 +378,9 @@ class ReservaController extends ControllerMVC {
   compartirReserva() async {
     String response;
     try {
-      response = await platform.invokeMethod("hello",
-          "https://alquiauto.es/wp-content/uploads/2020/05/limpieza-y-lavado-del-coche-DURANTE-CORONA-VIRUS.jpg");
+      // response = await platform.invokeMethod("hello", "https://alquiauto.es/wp-content/uploads/2020/05/limpieza-y-lavado-del-coche-DURANTE-CORONA-VIRUS.jpg");
+      response =
+          await platform.invokeMethod("hello", "http://procarewashing.com");
     } on Exception catch (exception) {
       print('=============================');
       print(exception);
