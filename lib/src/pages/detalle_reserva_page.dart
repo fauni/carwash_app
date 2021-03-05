@@ -64,7 +64,10 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
         ),
         actions: [
           IconButton(
-              icon: Icon(Icons.share), onPressed: () => _con.compartirReserva())
+            icon: Icon(Icons.share),
+            onPressed: () => Navigator.of(context)
+                .pushNamed('/Compartir', arguments: widget.routeArgument.id),
+          )
         ],
         // title: Text(widget.routeArgument.id),
       ),
@@ -324,7 +327,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                         children: [
                           InkWell(
                             onTap: () {
-                              _con.obtieneImg(widget.routeArgument.id );
+                              _con.obtieneImg(widget.routeArgument.id);
                               _con.alertDialogFacturas();
                             },
                             child: Container(
@@ -379,28 +382,28 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                         borderRadius: BorderRadius.circular(20),
                                         //border: Border.all(color: Theme.of(context).accentColor),
                                       ),
-                                      child: InkWell( 
-                                        onTap: (){
-                                          _con.obtieneImgFinal(widget.routeArgument.id);
+                                      child: InkWell(
+                                        onTap: () {
+                                          _con.obtieneImgFinal(
+                                              widget.routeArgument.id);
                                           _con.alertDialogFinal();
                                         },
                                         child: Column(
-                                        children: [
-                                          Image.asset(
-                                            'assets/img/en_proceso.png',
-                                            width: 60,
-                                          ),
-                                          Text(
-                                            'Finalizado',
-                                            style: TextStyle(
-                                                color:
-                                                    Theme.of(context).hintColor,
-                                                fontWeight: FontWeight.w200),
-                                          ),
-                                        ],
-                                      ),
-                                      )
-                                    )
+                                          children: [
+                                            Image.asset(
+                                              'assets/img/en_proceso.png',
+                                              width: 60,
+                                            ),
+                                            Text(
+                                              'Finalizado',
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .hintColor,
+                                                  fontWeight: FontWeight.w200),
+                                            ),
+                                          ],
+                                        ),
+                                      ))
                                   : Container(
                                       width:
                                           MediaQuery.of(context).size.width / 3,

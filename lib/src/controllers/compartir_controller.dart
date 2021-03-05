@@ -27,7 +27,7 @@ class CompartirController extends ControllerMVC {
     stream.listen((Atencion _atencion) {
       setState(() {
         atencion = _atencion;
-        obtieneImgFinal(atencion.idReserva);
+        // obtieneImgFinal(atencion.idReserva);
         // print('==========================');
         // print(json.encode(atencion));
       });
