@@ -33,7 +33,7 @@ class PushNotificationsProviders {
         // if (Platform.isAndroid) {
         //   argumento = info['data'] ?? 'no-data';
         // }
-        String argumento = info['data']['id'];
+        String argumento = info['data']['id_reserva'];
         _mensajesStreamController.sink.add(argumento);
       },
       onLaunch: (info) {
@@ -44,7 +44,7 @@ class PushNotificationsProviders {
         print('===================== On Resume ====================');
         print(info);
 
-        String argumento = info['data']['id'];
+        String argumento = info['data']['id_reserva'];
         _mensajesStreamController.sink.add(argumento);
       },
     );
