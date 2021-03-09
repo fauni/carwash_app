@@ -114,7 +114,7 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
               },
               leading: Image.asset('assets/img/mis_autos_blue.png'),
               title: Text(
-                'Mis Vehiculos',
+                'Mis Vehículos',
                 style: Theme.of(context).textTheme.subhead,
               ),
             ),
@@ -232,7 +232,7 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
               leading: Image.asset('assets/img/cerrar_sesion_blue.png'),
               title: Text(
                 currentUser.value.verifyEmail != null
-                    ? 'Cerrar Sessión'
+                    ? 'Cerrar Sesión'
                     : S.of(context).login,
                 style: Theme.of(context).textTheme.subhead,
               ),

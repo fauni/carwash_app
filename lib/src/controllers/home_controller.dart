@@ -1,19 +1,41 @@
 import 'dart:io';
 
-import 'package:carwash/src/models/cliente.dart';
-import 'package:carwash/src/models/route_argument.dart';
-import 'package:carwash/src/repository/cliente_repository.dart';
-import 'package:carwash/src/repository/user_repository.dart';
+import 'package:carwash/src/repository/servicio_repository.dart';
+import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../helpers/helper.dart';
-import '../repository/settings_repository.dart';
+
 import '../repository/user_repository.dart' as userRepo;
 
 class HomeController extends ControllerMVC {
-  HomeController() {}
+  bool vehiculo_elegido = false;
+  bool servicio_elegido = false;
+  HomeController() {
+    obtenerVehiculo();
+    obtenerServicio();
+  }
+
+  void obtenerVehiculo() async {
+    String vehiculo_json = await getVehiculo();
+    if (vehiculo_json == null) {
+      vehiculo_elegido = false;
+    } else {
+      vehiculo_elegido = true;
+    }
+    // print(jsonEncode(vehiculoElegido));
+  }
+
+  void obtenerServicio() async {
+    String strServicios = await getServicio();
+    if (strServicios == null) {
+      servicio_elegido = false;
+    } else {
+      servicio_elegido = true;
+    }
+    // print(jsonEncode(vehiculoElegido));
+  }
 
   // Future<void> listenForTrendingProducts() async {
   //   final Stream<Product> stream = await getTrendingProducts();

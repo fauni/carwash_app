@@ -44,7 +44,7 @@ class CarroPageState extends StateMVC<CarroPage> {
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back_ios,
               color: Theme.of(context).hintColor),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.of(context).pop(true),
         ),
       ),
       body: SingleChildScrollView(

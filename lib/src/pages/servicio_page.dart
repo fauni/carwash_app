@@ -46,14 +46,14 @@ class ServicioPageState extends StateMVC<ServicioPage> {
               ? IconButton(
                   color: Theme.of(context).hintColor,
                   icon: Icon(Icons.check),
-                  onPressed: () => Navigator.of(context).pop())
+                  onPressed: () => Navigator.of(context).pop(true))
               : Text('')
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
-          Navigator.of(context).pop();
+          Navigator.of(context).pop(true);
           Navigator.of(context).push(
             new MaterialPageRoute<Null>(
                 builder: (BuildContext context) {

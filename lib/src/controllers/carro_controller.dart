@@ -205,7 +205,8 @@ class CarroController extends ControllerMVC {
     this.vehiculoElegido = vehiculo;
     String strVehiculo = vehiculoAToJson(vehiculo);
     setVehiculo(strVehiculo);
-    Navigator.pop(context);
+    // Navigator.pop(context);
+    Navigator.of(context).pop(true);
 
     Navigator.of(context).push(
       new MaterialPageRoute<Null>(
