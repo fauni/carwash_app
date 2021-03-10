@@ -231,13 +231,21 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                                 Theme.of(context).accentColor,
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          Divider(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Image.asset('assets/img/sedan_opt.png'),
-                              Image.asset('assets/img/suv_1_opt.png'),
-                              Image.asset('assets/img/explorer_1_opt.png')
+                              Image.asset(
+                                'assets/img/m-min.png',
+                                width: 100,
+                              ),
+                              Image.asset(
+                                'assets/img/l-min.png',
+                                width: 100,
+                              ),
+                              Image.asset(
+                                'assets/img/xl-min.png',
+                                width: 100,
+                              )
                             ],
                           ),
                           Divider(),
