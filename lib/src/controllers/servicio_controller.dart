@@ -23,12 +23,16 @@ class ServicioController extends ControllerMVC {
   double subTotal = 0.0;
   double total = 0.0;
 
+  bool isRadioSelected = false;
+  int currentServicioValue = 1;
+  int valueRadio;
+
   ServicioController() {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
     obtenerVehiculo();
     listarServicios();
     listarServiciosAdicionales();
-    listarServiciosMotos();
+    // listarServiciosMotos();
   }
 
   void obtenerVehiculo() async {
@@ -49,8 +53,8 @@ class ServicioController extends ControllerMVC {
   }
 
   void listarServicios({String message}) async {
-    // final Stream<List<Servicio>> stream = await obtenerServiciosPorTipo('1');
-    final Stream<List<Servicio>> stream = await obtenerServicios();
+    final Stream<List<Servicio>> stream = await obtenerServiciosPorTipo('0');
+    // final Stream<List<Servicio>> stream = await obtenerServicios();
     stream.listen((List<Servicio> _servicios) {
       setState(() {
         servicios = _servicios;
@@ -89,7 +93,7 @@ class ServicioController extends ControllerMVC {
   }
 
   void listarServiciosAdicionales({String message}) async {
-    final Stream<List<Servicio>> stream = await obtenerServiciosPorTipo('3');
+    final Stream<List<Servicio>> stream = await obtenerServiciosPorTipo('1');
     stream.listen((List<Servicio> _servicios) {
       setState(() {
         serviciosAdicionales = _servicios;
@@ -107,7 +111,7 @@ class ServicioController extends ControllerMVC {
     });
   }
 
-  void insertaServElegidos(Servicio serv) async {
+  void insertaServElegidosAdicional(Servicio serv) async {
     bool seElimino = eliminaServElegido(serv);
 
     if (seElimino == false) {
@@ -124,6 +128,42 @@ class ServicioController extends ControllerMVC {
     print('_____en share preferences:______');
     print(await getServicio());
     calculateSubtotal();
+  }
+
+  void insertaServElegidosGeneral(Servicio serv) async {
+    bool seElimino = eliminaServElegidoGenerales();
+
+    if (seElimino == false) {
+      this.serviciosElegidos.add(serv);
+    }
+
+    List<dynamic> lservJson = new List<dynamic>();
+    for (var itms in this.serviciosElegidos) {
+      lservJson.add(itms.toJson());
+    }
+
+    String servString = json.encode(lservJson);
+    setServicio(servString);
+    print('_____en share preferences:______');
+    print(await getServicio());
+    calculateSubtotal();
+  }
+
+  bool eliminaServElegidoGenerales() {
+    List<Servicio> srvTemp = [];
+    bool resp = false;
+    for (var srv in serviciosElegidos) {
+      if (srv.esAdicional == "1") {
+        srvTemp.add(srv);
+      } else {
+        resp = true;
+      }
+    }
+    if (resp) {
+      serviciosElegidos = srvTemp;
+      calculateSubtotal();
+    }
+    return resp;
   }
 
   bool eliminaServElegido(Servicio serv) {

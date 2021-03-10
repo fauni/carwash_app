@@ -208,12 +208,20 @@ class CarroController extends ControllerMVC {
     // Navigator.pop(context);
     Navigator.of(context).pop(true);
 
-    Navigator.of(context).push(
-      new MaterialPageRoute<Null>(
-          builder: (BuildContext context) {
-            return new ServicioPage(switchValue: null, valueChanged: null);
-          },
-          fullscreenDialog: true),
+    // Navigator.of(context).push(
+    //   new MaterialPageRoute<Null>(
+    //       builder: (BuildContext context) {
+    //         return new ServicioPage(switchValue: null, valueChanged: null);
+    //       },
+    //       fullscreenDialog: true),
+    // );
+
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            ServicioPage(switchValue: null, valueChanged: null),
+      ),
     );
   }
 

@@ -76,106 +76,260 @@ class ServicioPageState extends StateMVC<ServicioPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Container(
-                //   width: MediaQuery.of(context).size.width,
-                //   height: 40,
-                //   decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(10),
-                //       border: Border.all(color: Theme.of(context).accentColor)),
-                //   margin: EdgeInsets.all(0),
-                //   child: Center(
-                //     child: Text(
-                //       'Seleccione los Servicios',
-                //       style: TextStyle(color: Theme.of(context).hintColor),
-                //     ),
-                //   ),
-                // ),
-                ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: _con.serviciosGeneral.length,
-                  itemBuilder: (BuildContext context, index) {
-                    return Card(
-                      color: Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          side:
-                              BorderSide(color: Theme.of(context).accentColor)),
-                      child: Container(
-                        padding: EdgeInsets.all(10.0),
-                        child: Column(
-                          children: [
-                            CheckboxListTile(
-                              secondary: _con.vehiculoElegido.tamanio == 'M'
-                                  ? Text(
-                                      double.parse(_con.serviciosGeneral
-                                                  .elementAt(index)
-                                                  .precioM)
-                                              .toString() +
-                                          '  Bs.',
-                                      style: TextStyle(fontSize: 20.0),
-                                    )
-                                  : _con.vehiculoElegido.tamanio == 'L'
-                                      ? Text(
-                                          double.parse(_con.serviciosGeneral
-                                                      .elementAt(index)
-                                                      .precioL)
-                                                  .toString() +
-                                              '  Bs.',
-                                          style: TextStyle(fontSize: 20.0),
-                                        )
-                                      : Text(
-                                          double.parse(_con.serviciosGeneral
-                                                      .elementAt(index)
-                                                      .precioXl)
-                                                  .toString() +
-                                              '  Bs.',
-                                          style: TextStyle(fontSize: 20.0),
-                                        ),
-                              title:
-                                  Text(_con.servicios.elementAt(index).nombre),
-                              subtitle:
-                                  Text(_con.servicios.elementAt(index).detalle),
-                              value: this
-                                  ._con
-                                  .servicios
-                                  .elementAt(index)
-                                  .esSeleccionado,
-                              onChanged: (bool elegido) {
-                                setState(() {
-                                  this
-                                      ._con
-                                      .servicios
-                                      .elementAt(index)
-                                      .esSeleccionado = elegido;
-                                  _con.insertaServElegidos(
-                                      _con.serviciosGeneral.elementAt(index));
-                                });
-                              },
-                            ),
-                          ],
+                Divider(
+                  color: Theme.of(context).accentColor,
+                ),
+                Theme(
+                  data: ThemeData(unselectedWidgetColor: Colors.white),
+                  child: ExpansionTile(
+                    title: Text(
+                      'SERVICIOS GENERALES',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    subtitle: Text(
+                      'Seleccione un Servicio General',
+                      style: TextStyle(color: Theme.of(context).accentColor),
+                    ),
+                    leading: CircleAvatar(
+                      radius: 30.0,
+                      backgroundColor: Theme.of(context).primaryColor,
+                      child: Text(
+                        'G',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
                         ),
                       ),
-                    );
-                  },
+                    ),
+                    children: [
+                      ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: _con.serviciosGeneral.length,
+                        itemBuilder: (BuildContext context, index) {
+                          return Card(
+                            color: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              side: BorderSide(
+                                  color: Theme.of(context).accentColor),
+                            ),
+                            child: Container(
+                              padding: EdgeInsets.all(10.0),
+                              child: Column(
+                                children: [
+                                  RadioListTile(
+                                    // value: this
+                                    //     ._con
+                                    //     .servicios
+                                    //     .elementAt(index)
+                                    //     .esSeleccionado,
+                                    value: index,
+                                    groupValue: _con.valueRadio,
+                                    onChanged: (ind) {
+                                      setState(() {
+                                        _con.valueRadio = ind;
+                                        this._con.insertaServElegidosGeneral(
+                                            _con.serviciosGeneral
+                                                .elementAt(index));
+                                      });
+                                    },
+
+                                    // onChanged: (bool elegido) {
+                                    //   setState(() {
+                                    //     this
+                                    //         ._con
+                                    //         .servicios
+                                    //         .elementAt(index)
+                                    //         .esSeleccionado = elegido;
+                                    //     _con.insertaServElegidos(_con
+                                    //         .serviciosGeneral
+                                    //         .elementAt(index));
+                                    //   });
+                                    // },
+                                    secondary: _con.vehiculoElegido.tamanio ==
+                                            'M'
+                                        ? Text(
+                                            double.parse(_con.serviciosGeneral
+                                                        .elementAt(index)
+                                                        .precioM)
+                                                    .toString() +
+                                                '  Bs.',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20.0),
+                                          )
+                                        : _con.vehiculoElegido.tamanio == 'L'
+                                            ? Text(
+                                                double.parse(_con
+                                                            .serviciosGeneral
+                                                            .elementAt(index)
+                                                            .precioL)
+                                                        .toString() +
+                                                    '  Bs.',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20.0),
+                                              )
+                                            : Text(
+                                                double.parse(_con
+                                                            .serviciosGeneral
+                                                            .elementAt(index)
+                                                            .precioXl)
+                                                        .toString() +
+                                                    '  Bs.',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20.0),
+                                              ),
+                                    title: Text(
+                                      _con.servicios.elementAt(index).nombre,
+                                      style: TextStyle(
+                                        color: Theme.of(context).accentColor,
+                                      ),
+                                    ),
+                                    subtitle: Text(
+                                      _con.servicios.elementAt(index).detalle,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-                SizedBox(
-                  height: 10,
+                Divider(
+                  color: Theme.of(context).accentColor,
                 ),
-                // Container(
-                //   width: double.infinity,
-                //   height: 60.0,
-                //   padding: EdgeInsets.all(20),
-                //   margin: EdgeInsets.only(bottom: 20),
-                //   decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(10),
-                //       color: Theme.of(context).primaryColor),
-                //   child: Text(
-                //     'Total del Servicio: ' + _con.total.toString() + 'Bs.',
-                //     style: TextStyle(fontSize: 15.0),
-                //   ),
-                // ),
+                Theme(
+                  data: ThemeData(
+                    unselectedWidgetColor: Colors.white,
+                  ),
+                  child: ExpansionTile(
+                    title: Text(
+                      'SERVICIOS ADICIONALES',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    subtitle: Text(
+                      'Seleccione uno varios servicios adicionales',
+                      style: TextStyle(color: Theme.of(context).accentColor),
+                    ),
+                    leading: CircleAvatar(
+                      radius: 30.0,
+                      child: Text(
+                        'A',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30.0,
+                        ),
+                      ),
+                      backgroundColor: Theme.of(context).accentColor,
+                    ),
+                    children: [
+                      ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: _con.serviciosAdicionales.length,
+                        itemBuilder: (BuildContext context, index) {
+                          return Card(
+                            color: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                side: BorderSide(
+                                    color: Theme.of(context).accentColor)),
+                            child: Container(
+                              padding: EdgeInsets.all(10.0),
+                              child: Column(
+                                children: [
+                                  CheckboxListTile(
+                                    secondary: _con.vehiculoElegido.tamanio ==
+                                            'M'
+                                        ? Text(
+                                            double.parse(_con
+                                                        .serviciosAdicionales
+                                                        .elementAt(index)
+                                                        .precioM)
+                                                    .toString() +
+                                                '  Bs.',
+                                            style: TextStyle(
+                                                fontSize: 20.0,
+                                                color: Colors.white),
+                                          )
+                                        : _con.vehiculoElegido.tamanio == 'L'
+                                            ? Text(
+                                                double.parse(_con
+                                                            .serviciosAdicionales
+                                                            .elementAt(index)
+                                                            .precioL)
+                                                        .toString() +
+                                                    '  Bs.',
+                                                style: TextStyle(
+                                                    fontSize: 20.0,
+                                                    color: Colors.white),
+                                              )
+                                            : Text(
+                                                double.parse(_con
+                                                            .serviciosAdicionales
+                                                            .elementAt(index)
+                                                            .precioXl)
+                                                        .toString() +
+                                                    '  Bs.',
+                                                style: TextStyle(
+                                                    fontSize: 20.0,
+                                                    color: Colors.white),
+                                              ),
+                                    title: Text(
+                                      _con.serviciosAdicionales
+                                          .elementAt(index)
+                                          .nombre,
+                                      style: TextStyle(
+                                        color: Theme.of(context).accentColor,
+                                      ),
+                                    ),
+                                    subtitle: Text(
+                                      _con.serviciosAdicionales
+                                          .elementAt(index)
+                                          .detalle,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    value: this
+                                        ._con
+                                        .serviciosAdicionales
+                                        .elementAt(index)
+                                        .esSeleccionado,
+                                    onChanged: (bool elegido) {
+                                      setState(() {
+                                        this
+                                            ._con
+                                            .serviciosAdicionales
+                                            .elementAt(index)
+                                            .esSeleccionado = elegido;
+                                        _con.insertaServElegidosAdicional(_con
+                                            .serviciosAdicionales
+                                            .elementAt(index));
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                Divider(
+                  color: Theme.of(context).accentColor,
+                ),
               ],
             ),
           ),
