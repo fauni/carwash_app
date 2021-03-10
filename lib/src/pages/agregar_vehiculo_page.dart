@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:carwash/src/controllers/carro_controller.dart';
-import 'package:carwash/src/models/tipo_vehiculo.dart';
 import 'package:carwash/src/models/vehiculo_modelo.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:group_button/group_button.dart';
@@ -72,9 +70,10 @@ class AgregarVehiculoPageState extends StateMVC<AgregarVehiculoPage> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(
-                                    color: Theme.of(context).accentColor)),
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(
+                                  color: Theme.of(context).accentColor),
+                            ),
 
                             height:
                                 150, //MediaQuery.of(context).size.height / 3,

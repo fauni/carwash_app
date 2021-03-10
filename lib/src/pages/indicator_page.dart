@@ -20,7 +20,7 @@ class IndicatorPageState extends State<IndicatorPage> {
         image: "assets/img/Paso1.png"),
     SliderPage(
         title: "Paso 2",
-        description: "Selecciona el servicio que requiere tu vehiculo",
+        description: "Selecciona el servicio que requiere tu vehículo",
         image: "assets/img/Paso2.png"),
     SliderPage(
         title: "Paso 3",
