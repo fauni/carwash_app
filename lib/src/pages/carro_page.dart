@@ -86,10 +86,15 @@ class CarroPageState extends StateMVC<CarroPage> {
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) {
                       return CheckboxListTile(
-                        value: false,
+                        value: _con.vehiculos.elementAt(index).esElegido != null
+                        ?_con.vehiculos.elementAt(index).esElegido
+                        :false,
                         onChanged: (bool value) {
                           //print(index.toString() );
                           _con.eligeVehiculo(_con.vehiculos.elementAt(index));
+                          //_con.vehiculos.elementAt(index).esElegido=true;
+                          _con.asignarVehiculoElegido();
+                          setState(() { });
                           //print(_con.vehiculoElegido.placa );
                         },
                         secondary: CachedNetworkImage(
