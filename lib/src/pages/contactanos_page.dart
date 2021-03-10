@@ -176,9 +176,10 @@ class _ContactanosPageState extends StateMVC<ContactanosPage> {
                         onPressed: () {
                           _con.launchWhatsApp(
                               phone: '+591 77799292',
-                              message: 'Estoy interesado');
+                              message:
+                                  '¡Hola! \n Bienvenid@ a Procare Washing.\n ¿En que podemos ayudarte?');
                         },
-                        label: Text('Escribenos al Whatsapp'),
+                        label: Text('EscrÍbenos al Whatsapp'),
                         icon: FaIcon(
                           FontAwesomeIcons.whatsapp,
                           color: Colors.white,

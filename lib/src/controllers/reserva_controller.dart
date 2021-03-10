@@ -244,12 +244,43 @@ class ReservaController extends ControllerMVC {
                 // Text('No existe la factura.'),
                 // Text('Intente, mas adelante'),
                 this.tieneImgFac
-                    ? Text('Su factura se guardó en su dispositivo')
-                    : Text('No existe la factura.'),
+                    ? Text('')
+                    : Text('Todavía no esta lista tu factura.'),
                 this.tieneImgFac
                     ? Image.file(fileImgFac)
                     : Text(
-                        ' Intente, mas adelante'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
+                        'Vuelva a intentar, mas adelante'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Aceptar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> alertDialogVideo() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Ver video lavado'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                // Text('No existe la factura.'),
+                // Text('Intente, mas adelante'),
+
+                Text(
+                    'Esta funcionalidad todavia no esta disponible en esta versión.'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
               ],
             ),
           ),
@@ -461,12 +492,12 @@ class ReservaController extends ControllerMVC {
                 // Text('No existe la factura.'),
                 // Text('Intente, mas adelante'),
                 this.tieneImgFin
-                    ? Text('Su vehículo esta listo')
+                    ? Text('')
                     : Text('El proceso de lavado continua'),
                 this.tieneImgFin
                     ? Image.file(fileImgFin)
                     : Text(
-                        ' Intente, mas adelante'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
+                        'Vuelva a intentar, mas adelante'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
               ],
             ),
           ),

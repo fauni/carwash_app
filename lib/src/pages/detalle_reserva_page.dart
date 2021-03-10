@@ -101,7 +101,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Auto Seleccionado',
+                              'Vehículo Seleccionado',
                               style: TextStyle(
                                   color: Theme.of(context).hintColor,
                                   fontSize: 15),
@@ -292,7 +292,8 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                             ),
                           ),
                           InkWell(
-                            onTap: () => _con.launchURLVideo(),
+                            onTap: () => _con
+                                .alertDialogVideo(), //_con.launchURLVideo(),
                             child: Container(
                               width: MediaQuery.of(context).size.width / 3,
                               height: MediaQuery.of(context).size.height / 8,
