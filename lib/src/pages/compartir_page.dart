@@ -26,6 +26,7 @@ class CompartirPageState extends StateMVC<CompartirPage> {
   @override
   void initState() {
     _con.obtenerAtencionPorReserva(widget.id_reserva);
+    _con.cliente.nombreCompleto = '';
     super.initState();
   }
 
@@ -64,31 +65,34 @@ class CompartirPageState extends StateMVC<CompartirPage> {
                   width: 200.0,
                   height: 250.0,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3), // changes position of shadow
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
-                      image: DecorationImage(
-                        image: NetworkImage(
-                            'https://procarewashing.com/apicwash/assets/capturas_vehiculos/' +
-                                widget.id_reserva +
-                                '/final.jpg'),
-                      )
-                      // image: DecorationImage(
-                      //     image: Image.file(_con.fileImgFin).image,
-                      //     fit: BoxFit.cover),
-                      ),
+                    ],
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          'https://procarewashing.com/apicwash/assets/capturas_vehiculos/' +
+                              widget.id_reserva +
+                              '/final.jpg'),
+                    ),
+                  ),
                 ),
+
+                // Hola Franz.
+                // Contarte que tu auto quedó como nuevo!
+                // Puedes pasar a recogerlo.
+                // Gracias por confiar en Procare Washing.
+                // Tu auto, nuestro cuidado
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -101,11 +105,21 @@ class CompartirPageState extends StateMVC<CompartirPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Hemos finalizado con el Lavado de tu Vehiculo',
+                        'Hola ' +
+                            _con.cliente.nombreCompleto +
+                            ', contarte que tu vehículo quedó como nuevo!. Puedes pasar a recogerlo.',
                         style: TextStyle(
                           color: Theme.of(context).hintColor,
                           fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                      Text(
+                        'Gracias por confirar en Procare Washing. Tu auto, nuestro cuidado.',
+                        style: TextStyle(
+                          color: Theme.of(context).hintColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w300,
                         ),
                       ),
                       SizedBox(

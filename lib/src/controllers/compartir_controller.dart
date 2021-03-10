@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:carwash/src/models/atencion.dart';
+import 'package:carwash/src/models/cliente.dart';
 import 'package:carwash/src/repository/atencion_repository.dart';
+import 'package:carwash/src/repository/cliente_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:global_configuration/global_configuration.dart';
@@ -12,6 +14,8 @@ import 'package:path_provider/path_provider.dart';
 
 class CompartirController extends ControllerMVC {
   Atencion atencion = new Atencion();
+  Cliente cliente = new Cliente();
+
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
   var platform = MethodChannel("example/procare");
@@ -27,6 +31,7 @@ class CompartirController extends ControllerMVC {
     stream.listen((Atencion _atencion) {
       setState(() {
         atencion = _atencion;
+        listadoClientePorEmail(_atencion.usuario);
         // obtieneImgFinal(atencion.idReserva);
         // print('==========================');
         // print(json.encode(atencion));
@@ -85,6 +90,24 @@ class CompartirController extends ControllerMVC {
       ));
     }
   }
+
+  // listar cliente por Email
+  void listadoClientePorEmail(String email) async {
+    final Stream<Cliente> stream = await obtenerClienteXEmail(email);
+    stream.listen((Cliente _cliente) {
+      setState(() {
+        cliente = _cliente;
+        // print("===============================");
+        // //print(carros);
+        // print(jsonEncode(cliente));
+      });
+    }, onError: (a) {
+      scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Verifica tu conexión de internet!'),
+      ));
+    }, onDone: () {});
+  }
+
   // void registrar() async {
   //   cliente.id = "0";
   //   cliente.codigoCliente = repository.currentUser.value.uid;

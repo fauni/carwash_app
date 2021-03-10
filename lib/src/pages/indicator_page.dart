@@ -17,19 +17,19 @@ class IndicatorPageState extends State<IndicatorPage> {
     SliderPage(
         title: "Paso 1",
         description: "Agrega y Selecciona tu vehículo",
-        image: "assets/img/primer_paso.jpeg"),
+        image: "assets/img/Paso1.png"),
     SliderPage(
         title: "Paso 2",
-        description: "Selecciona el servicio que requiere tu vehiculo",
-        image: "assets/img/primer_paso.jpeg"),
+        description: "Selecciona el servicio que requiere tu vehículo",
+        image: "assets/img/Paso2.png"),
     SliderPage(
         title: "Paso 3",
         description: "Selecciona el día y la hora del servicio",
-        image: "assets/img/primer_paso.jpeg"),
+        image: "assets/img/Paso3.png"),
     SliderPage(
-        title: "¡Fantastico!",
+        title: "¡Fantástico!",
         description: "Ahora sí, tu auto, nuestro cuidado",
-        image: "assets/img/primer_paso.jpeg"),
+        image: "assets/img/Fantastico.png"),
   ];
 
   _onchanged(int index) {
@@ -93,7 +93,7 @@ class IndicatorPageState extends State<IndicatorPage> {
                           "Realizar mi Reserva",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 15,
                           ),
                         )
                       : Icon(

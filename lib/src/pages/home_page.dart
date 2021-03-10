@@ -175,7 +175,7 @@ class _HomePageState extends StateMVC<HomePage>
                           ),
                         ),
                         Text(
-                          'bienvenido',
+                          'bienvenid@',
                           style: TextStyle(
                             fontWeight: FontWeight.w100,
                             fontSize: 23,
@@ -196,7 +196,7 @@ class _HomePageState extends StateMVC<HomePage>
                           height: 15,
                         ),
                         Text(
-                          'Estas a unos pasos de',
+                          'Estás a unos pasos de',
                           style: TextStyle(
                             fontWeight: FontWeight.w100,
                             fontSize: 13,
@@ -204,7 +204,7 @@ class _HomePageState extends StateMVC<HomePage>
                           ),
                         ),
                         Text(
-                          'dejar tu auto al cuidado',
+                          'dejar tu vehículo al cuidado',
                           style: TextStyle(
                             fontWeight: FontWeight.w100,
                             fontSize: 13,
@@ -225,56 +225,58 @@ class _HomePageState extends StateMVC<HomePage>
                 ],
               ),
             ),
-            Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => IndicatorPage(),
-                    ),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 210),
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 25),
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    height: 65,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '¿Nuevo en la App?',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
-                            ),
-                            Text(
-                              '¡Te ayudamos en tu primera experiencia!',
-                              style: TextStyle(fontSize: 12),
-                            ),
-                          ],
+            _con.reservasInner.length == 0
+                ? Align(
+                    alignment: FractionalOffset.bottomCenter,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => IndicatorPage(),
+                          ),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 210),
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 25),
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          height: 65,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '¿Nuevo en la App?',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 18),
+                                  ),
+                                  Text(
+                                    '¡Te ayudamos en tu primera experiencia!',
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                ],
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                size: 15,
+                                color: Theme.of(context).accentColor,
+                              )
+                            ],
+                          ),
                         ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          size: 15,
-                          color: Theme.of(context).accentColor,
-                        )
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-              ),
-            ),
+                  )
+                : Container(),
             Positioned(
               width: width_size,
               bottom: 30,
@@ -342,7 +344,7 @@ class _HomePageState extends StateMVC<HomePage>
                           height: 20,
                         ),
                         Text(
-                          'Seleccionar \n Vehiculo',
+                          'Seleccionar \n Vehículo',
                           style: TextStyle(
                             color: Theme.of(context).hintColor,
                             fontSize: 15,

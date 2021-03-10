@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:carwash/src/models/reserva_inner.dart';
+import 'package:carwash/src/repository/reserva_repository.dart';
 import 'package:carwash/src/repository/servicio_repository.dart';
 import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +14,12 @@ import '../repository/user_repository.dart' as userRepo;
 class HomeController extends ControllerMVC {
   bool vehiculo_elegido = false;
   bool servicio_elegido = false;
+  List<ReservaInner> reservasInner = [];
+
   HomeController() {
     obtenerVehiculo();
     obtenerServicio();
+    listarReservasInnerByIdCli();
   }
 
   void obtenerVehiculo() async {
@@ -108,6 +113,16 @@ class HomeController extends ControllerMVC {
     }
   }
 
+//listar reservas para mostrar
+  void listarReservasInnerByIdCli() async {
+    final Stream<List<ReservaInner>> stream =
+        await obtenerReservasInnerXIdCli();
+    stream.listen((List<ReservaInner> _reservas) {
+      setState(() {
+        reservasInner = _reservas;
+      });
+    }, onError: (a) {}, onDone: () {});
+  }
   // Future<void> listenProductosSemana() async {
   //   // await iniciarNotificaciones();
   //   final Stream<Producto> stream = await obtenerProductosSemana();
