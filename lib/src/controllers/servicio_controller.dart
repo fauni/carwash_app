@@ -131,12 +131,8 @@ class ServicioController extends ControllerMVC {
   }
 
   void insertaServElegidosGeneral(Servicio serv) async {
-    bool seElimino = eliminaServElegidoGenerales();
-
-    if (seElimino == false) {
-      this.serviciosElegidos.add(serv);
-    }
-
+    eliminaServElegidoGenerales();
+    this.serviciosElegidos.add(serv);
     List<dynamic> lservJson = new List<dynamic>();
     for (var itms in this.serviciosElegidos) {
       lservJson.add(itms.toJson());
@@ -149,21 +145,15 @@ class ServicioController extends ControllerMVC {
     calculateSubtotal();
   }
 
-  bool eliminaServElegidoGenerales() {
+  void eliminaServElegidoGenerales() {
     List<Servicio> srvTemp = [];
-    bool resp = false;
     for (var srv in serviciosElegidos) {
       if (srv.esAdicional == "1") {
         srvTemp.add(srv);
-      } else {
-        resp = true;
       }
     }
-    if (resp) {
-      serviciosElegidos = srvTemp;
-      calculateSubtotal();
-    }
-    return resp;
+    serviciosElegidos = srvTemp;
+    calculateSubtotal();
   }
 
   bool eliminaServElegido(Servicio serv) {

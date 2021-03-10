@@ -85,53 +85,65 @@ class CarroPageState extends StateMVC<CarroPage> {
                     primary: false,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) {
-                      return CheckboxListTile(
-                        value: _con.vehiculos.elementAt(index).esElegido != null
-                        ?_con.vehiculos.elementAt(index).esElegido
-                        :false,
-                        onChanged: (bool value) {
-                          //print(index.toString() );
-                          _con.eligeVehiculo(_con.vehiculos.elementAt(index));
-                          //_con.vehiculos.elementAt(index).esElegido=true;
-                          _con.asignarVehiculoElegido();
-                          setState(() { });
-                          //print(_con.vehiculoElegido.placa );
-                        },
-                        secondary: CachedNetworkImage(
-                          imageUrl: _con.RutaImg(
-                              _con.vehiculos.elementAt(index).foto),
-                          /************* */
-                          imageBuilder: (context, imageProvider) => Container(
-                              width: 80.0,
-                              height: 80.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                image: DecorationImage(
-                                    image: imageProvider, fit: BoxFit.cover),
-                              )),
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
+                      return Theme(
+                        data: ThemeData(
+                          unselectedWidgetColor: Colors.white,
                         ),
-                        title: Text(_con.vehiculos.elementAt(index).placa +
-                            ' - ' +
-                            _con.vehiculos.elementAt(index).marca),
-                        subtitle: Text(
-                          _con.vehiculos.elementAt(index).modelo +
-                              ' ' +
-                              _con.vehiculos.elementAt(index).anio +
-                              ' - ' +
-                              _con.vehiculos.elementAt(index).tamanio,
+                        child: CheckboxListTile(
+                          value:
+                              _con.vehiculos.elementAt(index).esElegido != null
+                                  ? _con.vehiculos.elementAt(index).esElegido
+                                  : false,
+                          onChanged: (bool value) {
+                            //print(index.toString() );
+                            _con.eligeVehiculo(_con.vehiculos.elementAt(index));
+                            //_con.vehiculos.elementAt(index).esElegido=true;
+                            _con.asignarVehiculoElegido();
+                            setState(() {});
+                            //print(_con.vehiculoElegido.placa );
+                          },
+                          secondary: CachedNetworkImage(
+                            imageUrl: _con.RutaImg(
+                                _con.vehiculos.elementAt(index).foto),
+                            /************* */
+                            imageBuilder: (context, imageProvider) => Container(
+                                width: 80.0,
+                                height: 80.0,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.cover),
+                                )),
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                          ),
+                          title: Text(
+                            _con.vehiculos.elementAt(index).placa +
+                                ' - ' +
+                                _con.vehiculos.elementAt(index).marca,
+                            style:
+                                TextStyle(color: Theme.of(context).hintColor),
+                          ),
+                          subtitle: Text(
+                            _con.vehiculos.elementAt(index).modelo +
+                                ' ' +
+                                _con.vehiculos.elementAt(index).anio +
+                                ' - ' +
+                                _con.vehiculos.elementAt(index).tamanio,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          // trailing: Checkbox(
+                          //   onChanged: (value) {},
+                          //   value: _con.vehiculos.elementAt(index).esElegido,
+                          // ),
                         ),
-                        // trailing: Checkbox(
-                        //   onChanged: (value) {},
-                        //   value: _con.vehiculos.elementAt(index).esElegido,
-                        // ),
                       );
                     },
                     separatorBuilder: (context, index) {
-                      return SizedBox(
+                      return Divider(
+                        color: Theme.of(context).accentColor,
                         height: 15,
                       );
                     },

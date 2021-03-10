@@ -48,7 +48,7 @@ class CarroController extends ControllerMVC {
     cargarMarcas();
     listarCarrosByCliente();
     obtenerServicio();
-    asignarVehiculoElegido();
+    // asignarVehiculoElegido();
   }
 
   void cargarAnios() {
@@ -391,21 +391,20 @@ class CarroController extends ControllerMVC {
   }
 
   void abrirNuevoVehiculo() {}
-  void asignarVehiculoElegido() async{
+  void asignarVehiculoElegido() async {
     String vehiel = await getVehiculo();
     if (vehiel != null) {
       this.vehiculoElegido = vehiculoAFromJson(vehiel);
       this.vehiculoElegido.esElegido = true;
       for (var item in this.vehiculos) {
-        if(item.id == this.vehiculoElegido.id){
-          item.esElegido=true;
-        }else{
-          item.esElegido=false;
+        if (item.id == this.vehiculoElegido.id) {
+          item.esElegido = true;
+        } else {
+          item.esElegido = false;
         }
       }
-    
-    } 
-    print('asigna nuevo vehiculo');
-    print(vehiculoAToJson(vehiculoElegido));
+    }
+    // print('asigna nuevo vehiculo');
+    // print(vehiculoAToJson(vehiculoElegido));
   }
 }

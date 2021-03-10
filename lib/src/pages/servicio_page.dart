@@ -49,6 +49,11 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                   onPressed: () => Navigator.of(context).pop(true))
               : Text('')
         ],
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back_ios,
+              color: Theme.of(context).hintColor),
+          onPressed: () => Navigator.of(context).pop(true),
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Theme.of(context).primaryColor,

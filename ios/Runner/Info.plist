@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>ProCar</string>
+	<string>ProCare</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -50,7 +50,7 @@
 	<key>FacebookAppID</key>
 	<string>875353736566589</string>
 	<key>FacebookDisplayName</key>
-	<string>ProCar</string>
+	<string>ProCare</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>

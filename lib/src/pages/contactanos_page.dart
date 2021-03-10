@@ -205,9 +205,9 @@ class _ContactanosPageState extends StateMVC<ContactanosPage> {
     setState(() {
       _markers.add(
         Marker(
-            markerId: MarkerId('ProCar Washing'),
-            infoWindow:
-                InfoWindow(title: 'ProCar Washing', snippet: 'Lavado de Autos'),
+            markerId: MarkerId('ProCare Washing'),
+            infoWindow: InfoWindow(
+                title: 'ProCare Washing', snippet: 'Lavado de Autos'),
             position: LatLng(-16.546411816435178, -68.07691674993652)),
       );
     });

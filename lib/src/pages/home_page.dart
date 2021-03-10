@@ -366,12 +366,13 @@ class _HomePageState extends StateMVC<HomePage>
                                     switchValue: null, valueChanged: null),
                               ),
                             );
-
-                            if (result) {
-                              setState(() {
-                                _con.obtenerVehiculo();
-                                _con.obtenerServicio();
-                              });
+                            if (result != null) {
+                              if (result) {
+                                setState(() {
+                                  _con.obtenerVehiculo();
+                                  _con.obtenerServicio();
+                                });
+                              }
                             }
 
                             // Navigator.of(context).push(
