@@ -92,13 +92,13 @@ class CarroController extends ControllerMVC {
   Future getImage(int tipo) async {
     if (tipo == 1) {
       final pickedFile = await picker.getImage(
-          source: ImageSource.gallery, maxWidth: 450.0, maxHeight: 450.0);
+          source: ImageSource.gallery, maxWidth: 300.0, maxHeight: 300.0);
       setState(() {
         image = File(pickedFile.path);
       });
     } else {
       final pickedFile = await picker.getImage(
-          source: ImageSource.camera, maxWidth: 450.0, maxHeight: 450.0);
+          source: ImageSource.camera, maxWidth: 300.0, maxHeight: 300.0);
       setState(() {
         image = File(pickedFile.path);
       });
@@ -321,8 +321,8 @@ class CarroController extends ControllerMVC {
     );
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Eliminar Vehiculo"),
-      content: Text("Deseas eliminar este vehiculo?"),
+      title: Text("Eliminar Vehículo"),
+      content: Text("Deseas eliminar este vehículo?"),
       actions: [
         cancelButton,
         continueButton,

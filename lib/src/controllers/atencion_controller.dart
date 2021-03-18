@@ -61,7 +61,7 @@ class AtencionController extends ControllerMVC {
 
   Future getImageCar(String lado) async {
     final pickedFile = await picker.getImage(
-        source: ImageSource.camera, maxHeight: 480, maxWidth: 480);
+        source: ImageSource.camera, maxHeight: 300, maxWidth: 300);
     setState(() {
       if (pickedFile != null) {
         if (lado == 'L') {
