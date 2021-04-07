@@ -169,6 +169,12 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                                   },
                                 ),
                                 const SizedBox(width: 8),
+                                TextButton(
+                                  child: const Text('Modificar'),
+                                  onPressed: () {
+                                    print('presionaste ver para editar');
+                                  },
+                                ),
                               ],
                             ),
                           ],
