@@ -23,7 +23,7 @@ class VerVehiculoPage extends StatefulWidget {
 }
 
 class VerVehiculoPageState extends StateMVC<VerVehiculoPage> {
-  String url = '${GlobalConfiguration().getString('img_carros_url_wash')}/';
+  
   VerVehiculoController _con;
   double width_size = 0;
   double height_size = 0;
@@ -37,8 +37,8 @@ class VerVehiculoPageState extends StateMVC<VerVehiculoPage> {
     super.initState();
     _con.vehiculo = this.widget.routeArgument.param[0];
 
-    url = url + _con.vehiculo.foto;
-    print(url);
+    _con.url = _con.url + _con.vehiculo.foto;
+    //print(url);
   }
 
   @override
@@ -88,11 +88,46 @@ class VerVehiculoPageState extends StateMVC<VerVehiculoPage> {
                                 150, //MediaQuery.of(context).size.height / 3,
                             child: Center(
                                 child: Image(
-                              image: NetworkImage(url),
+                              image: NetworkImage(_con.url),
                             )),
                           ),
                           SizedBox(
                             height: 15,
+                          ),
+                          Container(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                RaisedButton.icon(
+                                  icon: Icon(Icons.camera_rounded),
+                                  label: Text('Buscar Imagen'),
+                                  color: Theme.of(context).primaryColor,
+                                  textColor: Theme.of(context).hintColor,
+                                  onPressed: () {
+                                    _con.getImage(1);
+                                  },
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                ),
+                                RaisedButton.icon(
+                                  icon: Icon(Icons.camera_alt),
+                                  label: Text('Capturar Imagen'),
+                                  color: Theme.of(context).primaryColor,
+                                  textColor: Theme.of(context).hintColor,
+                                  onPressed: () {
+                                    _con.getImage(2);
+                                  },
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 0,
                           ),
                           Container(
                             margin: EdgeInsets.symmetric(horizontal: 20),

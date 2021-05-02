@@ -1,6 +1,8 @@
 //import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carwash/src/controllers/carro_controller.dart';
+import 'package:carwash/src/models/route_argument.dart';
+import 'package:carwash/src/pages/vervehiculo_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -173,6 +175,14 @@ class VehiculoPageState extends StateMVC<VehiculoPage> {
                                   child: const Text('Modificar'),
                                   onPressed: () {
                                     print('presionaste ver para editar');
+                                    final result = Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => VerVehiculoPage(
+                                        routeArgument: new RouteArgument(id: "0", param: [_con.vehiculos.elementAt(index)]),
+                                      ),
+                                    ),
+                                  );
                                   },
                                 ),
                               ],

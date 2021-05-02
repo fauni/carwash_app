@@ -147,3 +147,25 @@ Future<dynamic> modificarVehiculo(VehiculoA vehiculo) async {
   }
   return response.body;
 }
+//modificar foto del vehiculo
+Future<dynamic> modificarFotoVehiculo(Vehiculo vehiculo) async {
+  
+  final String url =
+      '${GlobalConfiguration().getString('api_base_url_wash')}vehiculos/updfoto';
+  final client = new http.Client();
+  final response = await client.post(
+    url,
+    headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+    body: vehiculoToJson(vehiculo) 
+  );
+   print(url);
+  if (response.statusCode == 200) {
+    //setCurrentUser(response.body);
+    //currentUser.value = User.fromJSON(json.decode(response.body)['data']);
+    print(response.body);
+  } else {
+    print(response.body);
+    throw new Exception(response.body);
+  }
+  return response.body;
+}
