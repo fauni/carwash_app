@@ -37,7 +37,8 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
             GestureDetector(
               onTap: () {
                 currentUser.value.uid != null
-                    ? Navigator.of(context).pushNamed('/Pages', arguments: 1)
+                    //? Navigator.of(context).pushNamed('/Pages', arguments: 1)
+                    ? Navigator.of(context).pushNamed('/Main', arguments: 1)
                     : Navigator.of(context).pushNamed('/Login');
               },
               child: currentUser.value.uid != null
@@ -90,6 +91,7 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
             ),
             ListTile(
               onTap: () {
+                // Navigator.of(context).pushNamed('/Pages', arguments: 2);
                 Navigator.of(context).pushNamed('/Pages', arguments: 2);
               },
               leading: Image.asset('assets/img/inicio_blue.png'),

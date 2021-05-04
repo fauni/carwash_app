@@ -8,6 +8,7 @@ import 'package:carwash/src/pages/detalle_reserva_page.dart';
 import 'package:carwash/src/pages/detalle_servicio_page.dart';
 import 'package:carwash/src/pages/home_page.dart';
 import 'package:carwash/src/pages/login_page.dart';
+import 'package:carwash/src/pages/main_page.dart';
 import 'package:carwash/src/pages/reserva_confirmacion_page.dart';
 import 'package:carwash/src/pages/reservas_page.dart';
 import 'package:carwash/src/pages/splash_pages.dart';
@@ -38,6 +39,10 @@ class RouteGenerator {
       //   return MaterialPageRoute(builder: (_) => ForgetPasswordWidget());
       case '/Pages':
         return MaterialPageRoute(builder: (_) => HomePage());
+
+      case '/Main':
+        return MaterialPageRoute(builder: (_) => MainPage());
+
       case '/Compartir':
         return MaterialPageRoute(
             builder: (_) => CompartirPage(id_reserva: args as String));

@@ -34,7 +34,8 @@ class SplashPageState extends StateMVC<SplashPage> {
       if (progress == 100) {
         try {
           // Navigator.of(context).pushReplacementNamed('/Pages', arguments: 2);
-          Navigator.of(context).pushReplacementNamed('/Pages');
+          //Navigator.of(context).pushReplacementNamed('/Pages');
+          Navigator.of(context).pushReplacementNamed('/Main');
         } catch (e) {}
       }
       if (progress == 41 && numero == 4) {

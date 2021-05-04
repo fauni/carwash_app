@@ -29,7 +29,8 @@ class LoginController extends ControllerMVC {
     Overlay.of(context).insert(loader);
     repository.login().then((value) {
       if (value != null && value.verifyEmail != null) {
-        Navigator.of(context).pushReplacementNamed('/Pages');
+        // Navigator.of(context).pushReplacementNamed('/Pages');
+        Navigator.of(context).pushReplacementNamed('/Main');
       } else {
         scaffoldKey.currentState.showSnackBar(SnackBar(
           content: Text('Ocurrio un error al autentificar'),
@@ -60,7 +61,8 @@ class LoginController extends ControllerMVC {
     Overlay.of(context).insert(loader);
     repository.loginFacebook().then((value) {
       if (value != null && value.verifyEmail != null) {
-        Navigator.of(context).pushReplacementNamed('/Pages');
+        // Navigator.of(context).pushReplacementNamed('/Pages');
+        Navigator.of(context).pushReplacementNamed('/Main');
       } else {
         scaffoldKey.currentState.showSnackBar(SnackBar(
           content: Text('Ocurrio un error al autentificar'),

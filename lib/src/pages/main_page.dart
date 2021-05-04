@@ -1,0 +1,224 @@
+import 'package:carwash/src/controllers/main_controller.dart';
+import 'package:carwash/src/pages/seleccionar_vehiculo_page.dart';
+import 'package:carwash/src/providers/push_notifications_providers.dart';
+import 'package:carwash/src/repository/user_repository.dart';
+import 'package:carwash/src/widgets/DrawerWidget.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
+
+class MainPage extends StatefulWidget {
+  final GlobalKey<ScaffoldState> parentScaffoldKey;
+  MainPage({Key key, this.parentScaffoldKey}) : super(key: key);
+
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends StateMVC<MainPage>
+    with SingleTickerProviderStateMixin {
+  Animation animationOpacity;
+  AnimationController animationController;
+  MainController _con;
+  double width_size;
+  double height_size;
+
+  _MainPageState() : super(MainController()) {
+    _con = controller;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final pushProvider = new PushNotificationsProviders();
+    pushProvider.initNotifications();
+    pushProvider.mensaje.listen((argumento) {
+      print("=======================ARGUMENTO NOTIFICACION===============");
+      print(argumento);
+      // Navigator.of(context).pushNamed('/PoliticasPrivacidad');
+      Navigator.of(context).pushNamed('/Compartir', arguments: argumento);
+    });
+
+    animationController =
+        AnimationController(duration: Duration(milliseconds: 200), vsync: this);
+    CurvedAnimation curve =
+        CurvedAnimation(parent: animationController, curve: Curves.easeIn);
+    animationOpacity = Tween(begin: 0.0, end: 1.0).animate(curve)
+      ..addListener(() {
+        setState(() {});
+      });
+    animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    width_size = MediaQuery.of(context).size.width;
+    height_size = MediaQuery.of(context).size.height;
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: Text(''),
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            leading: Builder(
+              builder: (context) => IconButton(
+                icon: FaIcon(FontAwesomeIcons.bars),
+                onPressed: () => Scaffold.of(context).openDrawer(),
+              ),
+            ),
+          ),
+          drawer: Theme(
+            data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
+            child: DrawerWidget(),
+          ),
+          body: Stack(
+            children: [
+              Image.asset(
+                'assets/img/fondo_car.png',
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 100,
+                ),
+                child: Align(
+                  child: Image.asset(
+                    'assets/img/isotipo.png',
+                    width: 70,
+                  ),
+                  alignment: Alignment.topCenter,
+                ),
+              ),
+              Positioned(
+                bottom: 200,
+                // padding: const EdgeInsets.only(left: 10, right: 10),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 50),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Hola',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w100,
+                              fontSize: 28,
+                              color: Theme.of(context).hintColor,
+                            ),
+                          ),
+                          Text(
+                            'bienvenid@',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w100,
+                              fontSize: 23,
+                              color: Theme.of(context).hintColor,
+                            ),
+                          ),
+                          Text(
+                            currentUser.value.displayName == null
+                                ? ''
+                                : currentUser.value.displayName,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w100,
+                              fontSize: 23,
+                              color: Theme.of(context).hintColor,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Text(
+                            'Estás a unos pasos de',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w100,
+                              fontSize: 13,
+                              color: Theme.of(context).hintColor,
+                            ),
+                          ),
+                          Text(
+                            'dejar tu vehículo al cuidado',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w100,
+                              fontSize: 13,
+                              color: Theme.of(context).hintColor,
+                            ),
+                          ),
+                          Text(
+                            'de profesionales',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w100,
+                              fontSize: 13,
+                              color: Theme.of(context).hintColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(bottom: 30),
+                child: Align(
+                  alignment: FractionalOffset.bottomCenter,
+                  child: InkWell(
+                    onTap: () async {
+                      final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SeleccionarVehiculoPage(),
+                        ),
+                      );
+                      if (result) {
+                        setState(() {});
+                      }
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 25),
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      height: 65,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Image.asset(
+                            'assets/img/cuando_off.png',
+                            height: 50,
+                          ),
+                          Text(
+                            'Realizar mi Reserva',
+                            style: TextStyle(color: Colors.white, fontSize: 15),
+                          ),
+                          Image.asset(
+                            'assets/img/servicio_off.png',
+                            height: 50,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          )),
+    );
+  }
+}

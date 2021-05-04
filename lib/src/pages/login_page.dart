@@ -20,7 +20,8 @@ class LoginPageState extends StateMVC<LoginPage> {
   void initState() {
     super.initState();
     if (userRepo.currentUser.value.email != null) {
-      Navigator.of(context).pushReplacementNamed('/Pages');
+      // Navigator.of(context).pushReplacementNamed('/Pages');
+      Navigator.of(context).pushReplacementNamed('/Main');
     }
   }
 
