@@ -50,182 +50,189 @@ class SeleccionarFechahoraPageState extends StateMVC<SeleccionarFechahoraPage> {
         title: Text('Seleccionar la fecha y hora'),
         backgroundColor: Colors.transparent,
       ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-            child: Column(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 35,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Theme.of(context).accentColor)),
-                  margin: EdgeInsets.all(10),
-                  child: Center(
-                    child: Text(
-                      'Selecciona la Fecha',
-                      style: TextStyle(color: Theme.of(context).hintColor),
+      body: Container(
+        padding: EdgeInsets.only(bottom: 50),
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+              child: Column(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 35,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border:
+                            Border.all(color: Theme.of(context).accentColor)),
+                    margin: EdgeInsets.all(10),
+                    child: Center(
+                      child: Text(
+                        'Selecciona la Fecha',
+                        style: TextStyle(color: Theme.of(context).hintColor),
+                      ),
                     ),
                   ),
-                ),
-                DatePicker(
-                  DateTime.now(),
-                  width: 60,
-                  height: 100,
-                  initialSelectedDate: DateTime.now(),
-                  selectionColor: Theme.of(context).primaryColor,
-                  selectedTextColor: Theme.of(context).hintColor,
-                  deactivatedColor: Theme.of(context).primaryColor,
-                  monthTextStyle: TextStyle(color: Theme.of(context).hintColor),
-                  dateTextStyle: TextStyle(color: Theme.of(context).hintColor),
-                  dayTextStyle: TextStyle(color: Theme.of(context).hintColor),
-                  locale: "es ES",
-                  onDateChange: (date) {
-                    setState(() {
-                      print("--------------------date ------------------");
-                      print(date);
-                      _con.listarReservasPorFecha(date.toString());
-                      reserva.fechaReserva = date.toString();
-                      _con.eligeReserva(reserva);
-                    });
-                  },
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 35,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Theme.of(context).accentColor)),
-                  margin: EdgeInsets.all(10),
-                  child: Center(
-                    child: Text(
-                      'Selecciona la Hora',
-                      style: TextStyle(color: Theme.of(context).hintColor),
+                  DatePicker(
+                    DateTime.now(),
+                    width: 60,
+                    height: 100,
+                    initialSelectedDate: DateTime.now(),
+                    selectionColor: Theme.of(context).primaryColor,
+                    selectedTextColor: Theme.of(context).hintColor,
+                    deactivatedColor: Theme.of(context).primaryColor,
+                    monthTextStyle:
+                        TextStyle(color: Theme.of(context).hintColor),
+                    dateTextStyle:
+                        TextStyle(color: Theme.of(context).hintColor),
+                    dayTextStyle: TextStyle(color: Theme.of(context).hintColor),
+                    locale: "es ES",
+                    onDateChange: (date) {
+                      setState(() {
+                        print("--------------------date ------------------");
+                        print(date);
+                        _con.listarReservasPorFecha(date.toString());
+                        reserva.fechaReserva = date.toString();
+                        _con.eligeReserva(reserva);
+                      });
+                    },
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 35,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border:
+                            Border.all(color: Theme.of(context).accentColor)),
+                    margin: EdgeInsets.all(10),
+                    child: Center(
+                      child: Text(
+                        'Selecciona la Hora',
+                        style: TextStyle(color: Theme.of(context).hintColor),
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 0),
-                  child: Center(
-                    child: Wrap(
-                        spacing: 2.0, // gap between adjacent chips
-                        runSpacing: 0.0, // gap between lines
-                        children: [
-                          for (var item in _con.horas)
-                            ChoiceChip(
-                              selected: item.esSeleccionado,
-                              label: Text(item.hora.substring(0, 5)),
-                              labelStyle:
-                                  TextStyle(color: Theme.of(context).hintColor),
-                              backgroundColor: Colors
-                                  .black, // Theme.of(context).accentColor,
-                              selectedColor: Theme.of(context).primaryColor,
-                              onSelected: (bool selected) {
-                                setState(() {
-                                  item.esSeleccionado = !item.esSeleccionado;
-                                  _con.hora = item;
-                                  if (selected) {
-                                    _con.deseleccionarHoras();
-                                    reserva.horaReserva = _con.hora.hora;
-                                    _con.eligeReserva(reserva);
-                                  }
-                                });
-                              },
-                            ),
-                        ]),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 0),
+                    child: Center(
+                      child: Wrap(
+                          spacing: 2.0, // gap between adjacent chips
+                          runSpacing: 0.0, // gap between lines
+                          children: [
+                            for (var item in _con.horas)
+                              ChoiceChip(
+                                selected: item.esSeleccionado,
+                                label: Text(item.hora.substring(0, 5)),
+                                labelStyle: TextStyle(
+                                    color: Theme.of(context).hintColor),
+                                backgroundColor: Colors
+                                    .black, // Theme.of(context).accentColor,
+                                selectedColor: Theme.of(context).primaryColor,
+                                onSelected: (bool selected) {
+                                  setState(() {
+                                    item.esSeleccionado = !item.esSeleccionado;
+                                    _con.hora = item;
+                                    if (selected) {
+                                      _con.deseleccionarHoras();
+                                      reserva.horaReserva = _con.hora.hora;
+                                      _con.eligeReserva(reserva);
+                                    }
+                                  });
+                                },
+                              ),
+                          ]),
+                    ),
                   ),
-                ),
-                // SizedBox(
-                //   height: 20,
-                // ),
-                // Container(
-                //   padding: EdgeInsets.symmetric(horizontal: 20),
-                //   child: ButtonTheme(
-                //     minWidth: double.infinity,
-                //     height: 50.0,
-                //     child: RaisedButton(
-                //       color: Theme.of(context).primaryColor,
-                //       textColor: Theme.of(context).hintColor,
-                //       onPressed: () {
-                //         Navigator.of(context).pop(true);
-                //         Navigator.of(context).push(
-                //           new MaterialPageRoute(
-                //               builder: (BuildContext context) {
-                //                 return new ConfirmarReservaPage();
-                //               },
-                //               fullscreenDialog: true),
-                //         );
-                //       },
-                //       child: Text('Enviar Reserva'),
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(15),
-                //       ),
-                //     ),
-                //   ),
-                // )
-              ],
+                  // SizedBox(
+                  //   height: 20,
+                  // ),
+                  // Container(
+                  //   padding: EdgeInsets.symmetric(horizontal: 20),
+                  //   child: ButtonTheme(
+                  //     minWidth: double.infinity,
+                  //     height: 50.0,
+                  //     child: RaisedButton(
+                  //       color: Theme.of(context).primaryColor,
+                  //       textColor: Theme.of(context).hintColor,
+                  //       onPressed: () {
+                  //         Navigator.of(context).pop(true);
+                  //         Navigator.of(context).push(
+                  //           new MaterialPageRoute(
+                  //               builder: (BuildContext context) {
+                  //                 return new ConfirmarReservaPage();
+                  //               },
+                  //               fullscreenDialog: true),
+                  //         );
+                  //       },
+                  //       child: Text('Enviar Reserva'),
+                  //       shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(15),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // )
+                ],
+              ),
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: ButtonTheme(
-                    minWidth: double.infinity,
-                    height: 50.0,
-                    child: RaisedButton.icon(
-                      onPressed: () {
-                        Navigator.of(context).pop();
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: ButtonTheme(
+                      minWidth: double.infinity,
+                      height: 50.0,
+                      child: RaisedButton.icon(
+                        onPressed: () {
+                          Navigator.of(context).pop();
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ConfirmarReservaPage(),
-                          ),
-                        );
-                      },
-                      color: Theme.of(context).primaryColor,
-                      textColor: Theme.of(context).hintColor,
-                      icon: Image.asset(
-                        'assets/img/cuando_off.png',
-                        width: 50,
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ConfirmarReservaPage(),
+                            ),
+                          );
+                        },
+                        color: Theme.of(context).primaryColor,
+                        textColor: Theme.of(context).hintColor,
+                        icon: Image.asset(
+                          'assets/img/cuando_off.png',
+                          width: 50,
+                        ),
+                        label: Text('Finalizar la Reserva'),
                       ),
-                      label: Text('Finalizar la Reserva'),
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: ButtonTheme(
-                    minWidth: double.infinity,
-                    height: 50.0,
-                    child: RaisedButton.icon(
-                      onPressed: () => Navigator.of(context).pop(true),
-                      color: Theme.of(context).primaryColor,
-                      textColor: Theme.of(context).hintColor,
-                      icon: Image.asset(
-                        'assets/img/isotipo.png',
-                        width: 30,
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: ButtonTheme(
+                      minWidth: double.infinity,
+                      height: 50.0,
+                      child: RaisedButton.icon(
+                        onPressed: () => Navigator.of(context).pop(true),
+                        color: Theme.of(context).primaryColor,
+                        textColor: Theme.of(context).hintColor,
+                        icon: Image.asset(
+                          'assets/img/isotipo.png',
+                          width: 30,
+                        ),
+                        label: Text('Volver al Inicio'),
                       ),
-                      label: Text('Volver al Inicio'),
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          )
-        ],
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

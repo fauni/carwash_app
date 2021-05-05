@@ -71,7 +71,7 @@ class _ReservaConfirmacionPageState extends State<ReservaConfirmacionPage> {
                   color: Theme.of(context).primaryColor,
                   textColor: Theme.of(context).hintColor,
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/Pages');
+                    Navigator.of(context).pushNamed('/Main');
                   },
                   label: Text('Volver al Inicio'),
                   icon: Icon(

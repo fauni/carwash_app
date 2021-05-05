@@ -1,11 +1,16 @@
+import 'dart:async';
+
 import 'package:carwash/src/controllers/main_controller.dart';
 import 'package:carwash/src/pages/seleccionar_vehiculo_page.dart';
 import 'package:carwash/src/providers/push_notifications_providers.dart';
 import 'package:carwash/src/repository/user_repository.dart';
 import 'package:carwash/src/widgets/DrawerWidget.dart';
+import 'package:carwash/src/widgets/HomeSliderWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+
+import 'indicator_page.dart';
 
 class MainPage extends StatefulWidget {
   final GlobalKey<ScaffoldState> parentScaffoldKey;
@@ -29,6 +34,9 @@ class _MainPageState extends StateMVC<MainPage>
 
   @override
   void initState() {
+    Timer(Duration(seconds: 4), () {
+      _showAlert(context);
+    });
     // TODO: implement initState
     super.initState();
     final pushProvider = new PushNotificationsProviders();
@@ -51,6 +59,10 @@ class _MainPageState extends StateMVC<MainPage>
     animationController.forward();
   }
 
+  void _showAlert(BuildContext context) {
+    showDialog(context: context, builder: (context) => HomeSliderWidget());
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -65,6 +77,7 @@ class _MainPageState extends StateMVC<MainPage>
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
+          extendBodyBehindAppBar: true,
           appBar: AppBar(
             automaticallyImplyLeading: false,
             title: Text(''),
@@ -171,6 +184,58 @@ class _MainPageState extends StateMVC<MainPage>
                   ],
                 ),
               ),
+              _con.reservasInner.length == 0
+                  ? Align(
+                      alignment: FractionalOffset.bottomCenter,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => IndicatorPage(),
+                            ),
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 110),
+                          child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 25),
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            height: 65,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '¿Nuevo en la App?',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 18),
+                                    ),
+                                    Text(
+                                      '¡Te ayudamos en tu primera experiencia!',
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                                Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 15,
+                                  color: Theme.of(context).accentColor,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : Container(),
               Container(
                 padding: EdgeInsets.only(bottom: 30),
                 child: Align(

@@ -5,6 +5,8 @@ import 'package:carwash/src/models/detalle_reserva.dart';
 import 'package:carwash/src/models/horas.dart';
 import 'package:carwash/src/models/reserva.dart';
 import 'package:carwash/src/models/reserva_inner.dart';
+import 'package:carwash/src/models/servicio.dart';
+import 'package:carwash/src/models/vehiculoa.dart';
 import 'package:carwash/src/pages/carro_page.dart';
 import 'package:carwash/src/pages/servicio_page.dart';
 import 'package:carwash/src/repository/reserva_repository.dart';
@@ -50,6 +52,11 @@ class ReservaController extends ControllerMVC {
 
   bool tieneImgFac = false;
   bool tieneImgFin = false;
+
+  VehiculoA vehiculoElegido = new VehiculoA();
+  List<Servicio> servicioElegido = new List<Servicio>();
+  Reserva fechaHoraElegida = new Reserva();
+
   GlobalKey<ScaffoldState> scaffoldKey;
 
   ReservaController() {
@@ -83,6 +90,40 @@ class ReservaController extends ControllerMVC {
             },
             fullscreenDialog: true),
       );
+    }
+  }
+
+  void obtenerServicio() async {
+    String servicio_json = await getServicio();
+    if (servicioElegido == null) {
+      print('Es nulo');
+    } else {
+      final servicios = json.decode(servicio_json);
+      servicioElegido = (servicios as List)
+          .map((data) => new Servicio.fromJson(data))
+          .toList();
+      calculateSubTotal();
+    }
+  }
+
+  void obtenerVehiculo() async {
+    String vehiculo_json = await getVehiculo();
+    if (vehiculo_json == null) {
+      vehiculoElegido = new VehiculoA();
+    } else {
+      vehiculoElegido = VehiculoA.fromJson(jsonDecode(vehiculo_json));
+    }
+    // print(jsonEncode(vehiculoElegido));
+  }
+
+  void obtenerFechaHora() async {
+    String fecha_json = await getReserva();
+    if (fecha_json == null) {
+      fechaHoraElegida = new Reserva();
+    } else {
+      fechaHoraElegida = Reserva.fromJson(jsonDecode(fecha_json));
+      fechaHoraElegida.fechaReserva =
+          fechaHoraElegida.fechaReserva.substring(0, 10);
     }
   }
 
@@ -197,6 +238,25 @@ class ReservaController extends ControllerMVC {
     ldetalleReserva.forEach(
       (serv) {
         subTotal = subTotal + double.parse(serv.precio);
+      },
+    );
+    total = subTotal;
+    setState(() {});
+  }
+
+  void calculateSubTotal() async {
+    subTotal = 0;
+    total = 0;
+
+    servicioElegido.forEach(
+      (serv) {
+        if (vehiculoElegido.tamanio == 'M') {
+          subTotal = subTotal + double.parse(serv.precioM);
+        } else if (vehiculoElegido.tamanio == 'L') {
+          subTotal = subTotal + double.parse(serv.precioL);
+        } else {
+          subTotal = subTotal + double.parse(serv.precioXl);
+        }
       },
     );
     total = subTotal;

@@ -92,7 +92,7 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
             ListTile(
               onTap: () {
                 // Navigator.of(context).pushNamed('/Pages', arguments: 2);
-                Navigator.of(context).pushNamed('/Pages', arguments: 2);
+                Navigator.of(context).pushNamed('/Main', arguments: 2);
               },
               leading: Image.asset('assets/img/inicio_blue.png'),
               title: Text(

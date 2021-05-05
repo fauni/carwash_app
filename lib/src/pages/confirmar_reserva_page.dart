@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 class ConfirmarReservaPage extends StatefulWidget {
-  ConfirmarReservaPage({Key key}) {}
+  ConfirmarReservaPage({Key key});
 
   @override
   _ConfirmarReservaPageState createState() => _ConfirmarReservaPageState();
@@ -25,6 +25,9 @@ class _ConfirmarReservaPageState extends StateMVC<ConfirmarReservaPage>
     // _con.listadoDetalleReservaPorId(widget.routeArgument.id);
     // _con.obtieneImg(widget.routeArgument.id);
     // _con.obtieneImgFinal(widget.routeArgument.id);
+    _con.obtenerVehiculo();
+    _con.obtenerServicio();
+    _con.obtenerFechaHora();
     super.initState();
   }
 
@@ -39,7 +42,7 @@ class _ConfirmarReservaPageState extends StateMVC<ConfirmarReservaPage>
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text('Detalle de la Reserva'),
+        title: Text('Confirmar la Reserva'),
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back_ios,
               color: Theme.of(context).hintColor),
@@ -57,9 +60,29 @@ class _ConfirmarReservaPageState extends StateMVC<ConfirmarReservaPage>
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Image.asset(
+                            'assets/img/Paso1.png',
+                            height: 70,
+                          ),
+                          Image.asset(
+                            'assets/img/Paso2.png',
+                            height: 70,
+                          ),
+                          Image.asset(
+                            'assets/img/Paso3.png',
+                            height: 70,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        height: 80,
+                        height: 90,
                         padding: EdgeInsets.only(left: 20),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -77,7 +100,13 @@ class _ConfirmarReservaPageState extends StateMVC<ConfirmarReservaPage>
                                   fontSize: 15),
                             ),
                             Text(
-                              'Marca y modelo del vehiculo',
+                              _con.vehiculoElegido.marca ?? '',
+                              style: TextStyle(
+                                  color: Theme.of(context).accentColor,
+                                  fontSize: 18),
+                            ),
+                            Text(
+                              _con.vehiculoElegido.modelo ?? '',
                               style: TextStyle(
                                   color: Theme.of(context).accentColor,
                                   fontSize: 18),
@@ -118,7 +147,7 @@ class _ConfirmarReservaPageState extends StateMVC<ConfirmarReservaPage>
                             ),
                             Column(
                               children: [
-                                for (var item in _con.ldetalleReserva)
+                                for (var item in _con.servicioElegido)
                                   Row(
                                     children: <Widget>[
                                       Expanded(
@@ -131,8 +160,19 @@ class _ConfirmarReservaPageState extends StateMVC<ConfirmarReservaPage>
                                       ),
                                       Text(
                                           'Bs. ' +
-                                              (double.parse(item.precio))
-                                                  .toString(),
+                                              (_con.vehiculoElegido.tamanio ==
+                                                      'M'
+                                                  ? double.parse(item.precioM)
+                                                      .toString()
+                                                  : _con.vehiculoElegido
+                                                              .tamanio ==
+                                                          'L'
+                                                      ? double.parse(
+                                                              item.precioL)
+                                                          .toString()
+                                                      : double.parse(
+                                                              item.precioXl)
+                                                          .toString()),
                                           style: TextStyle(
                                               fontSize: 15,
                                               color: Theme.of(context)
@@ -163,6 +203,34 @@ class _ConfirmarReservaPageState extends StateMVC<ConfirmarReservaPage>
                       SizedBox(
                         height: 15,
                       ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 50,
+                        padding: EdgeInsets.only(left: 20, right: 20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border:
+                              Border.all(color: Theme.of(context).accentColor),
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text('Fecha de la Reserva:',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w200,
+                                      color: Theme.of(context).hintColor)),
+                            ),
+                            Text(
+                                _con.fechaHoraElegida.fechaReserva == null
+                                    ? ''
+                                    : _con.fechaHoraElegida.fechaReserva,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Theme.of(context).accentColor))
+                          ],
+                        ),
+                      ),
                       SizedBox(
                         height: 15,
                       ),
@@ -178,44 +246,40 @@ class _ConfirmarReservaPageState extends StateMVC<ConfirmarReservaPage>
                         child: Row(
                           children: <Widget>[
                             Expanded(
-                              child: Text('Fecha',
+                              child: Text('Hora de la Reserva: ',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w200,
                                       color: Theme.of(context).hintColor)),
                             ),
-                            Text('Fecha y Hora ',
+                            Text(_con.fechaHoraElegida.horaReserva ?? '',
                                 style: TextStyle(
                                     fontSize: 16,
                                     color: Theme.of(context).accentColor))
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
+                      SizedBox(
+                        height: 15,
+                      ),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 0),
                         child: ButtonTheme(
                           minWidth: double.infinity,
                           height: 50.0,
                           child: RaisedButton.icon(
                             onPressed: () {
-                              Navigator.of(context).pop();
+                              _con.showAlertDialog(context);
+                              // Navigator.of(context).pop();
 
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ConfirmarReservaPage(),
-                                ),
-                              );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => ConfirmarReservaPage(),
+                              //   ),
+                              // );
                             },
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context).accentColor,
                             textColor: Theme.of(context).hintColor,
                             icon: Image.asset(
                               'assets/img/cuando_off.png',
@@ -228,9 +292,11 @@ class _ConfirmarReservaPageState extends StateMVC<ConfirmarReservaPage>
                           ),
                         ),
                       ),
+                      SizedBox(
+                        height: 15,
+                      ),
                       Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding: EdgeInsets.symmetric(horizontal: 0),
                         child: ButtonTheme(
                           minWidth: double.infinity,
                           height: 50.0,
@@ -250,6 +316,13 @@ class _ConfirmarReservaPageState extends StateMVC<ConfirmarReservaPage>
                         ),
                       ),
                     ],
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [],
                   ),
                 )
               ],

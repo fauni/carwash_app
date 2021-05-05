@@ -13,7 +13,9 @@ import '../repository/user_repository.dart' as userRepo;
 
 class MainController extends ControllerMVC {
   List<ReservaInner> reservasInner = [];
-  MainController() {}
+  MainController() {
+    listarReservasInnerByIdCli();
+  }
 
 //listar reservas para mostrar
   void listarReservasInnerByIdCli() async {
