@@ -6,6 +6,7 @@ import 'package:carwash/src/pages/compartir_page.dart';
 import 'package:carwash/src/pages/contactanos_page.dart';
 import 'package:carwash/src/pages/detalle_reserva_page.dart';
 import 'package:carwash/src/pages/detalle_servicio_page.dart';
+import 'package:carwash/src/pages/en_vivo_page.dart';
 import 'package:carwash/src/pages/home_page.dart';
 import 'package:carwash/src/pages/login_page.dart';
 import 'package:carwash/src/pages/main_page.dart';
@@ -115,6 +116,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ReservasPage());
       case '/Contactanos':
         return MaterialPageRoute(builder: (_) => ContactanosPage());
+      case '/EnVivo':
+        return MaterialPageRoute(builder: (_) => EnVivoPage());
       // case '/Settings':
       //   return MaterialPageRoute(builder: (_) => SettingsWidget());
       default:

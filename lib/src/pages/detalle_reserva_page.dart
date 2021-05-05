@@ -36,9 +36,11 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
     // _con.listenForProduct(productId: widget.routeArgument.id);
 
     // _con.listarCarrito();
-    print(
-      jsonEncode(this.widget.routeArgument.param[0]),
-    );
+    // print(
+    //   jsonEncode(this.widget.routeArgument.param[0]),
+    // );
+
+    _con.resInner = this.widget.routeArgument.param[0];
     _con.listadoDetalleReservaPorId(widget.routeArgument.id);
     _con.obtieneImg(widget.routeArgument.id);
     _con.obtieneImgFinal(widget.routeArgument.id);

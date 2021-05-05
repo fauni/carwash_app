@@ -82,7 +82,7 @@ class _ConfirmarReservaPageState extends StateMVC<ConfirmarReservaPage>
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        height: 90,
+                        height: 120,
                         padding: EdgeInsets.only(left: 20),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -103,16 +103,16 @@ class _ConfirmarReservaPageState extends StateMVC<ConfirmarReservaPage>
                               _con.vehiculoElegido.marca ?? '',
                               style: TextStyle(
                                   color: Theme.of(context).accentColor,
-                                  fontSize: 18),
+                                  fontSize: 15),
                             ),
                             Text(
                               _con.vehiculoElegido.modelo ?? '',
                               style: TextStyle(
                                   color: Theme.of(context).accentColor,
-                                  fontSize: 18),
+                                  fontSize: 15),
                             ),
                             Text(
-                              'Placa: Numero de Placa',
+                              'Placa: ' + _con.vehiculoElegido.placa ?? '',
                               style: TextStyle(
                                   color: Theme.of(context).hintColor,
                                   fontSize: 15),

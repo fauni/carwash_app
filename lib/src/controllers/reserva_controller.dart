@@ -327,34 +327,36 @@ class ReservaController extends ControllerMVC {
   }
 
   Future<void> alertDialogVideo() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Ver video lavado'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                // Text('No existe la factura.'),
-                // Text('Intente, mas adelante'),
+    print(resInner.estado);
+    Navigator.of(context).pushNamed('/EnVivo');
+    // return showDialog<void>(
+    //   context: context,
+    //   barrierDismissible: false, // user must tap button!
+    //   builder: (BuildContext context) {
+    //     return AlertDialog(
+    //       title: Text('Ver video lavado'),
+    //       content: SingleChildScrollView(
+    //         child: ListBody(
+    //           children: <Widget>[
+    //             // Text('No existe la factura.'),
+    //             // Text('Intente, mas adelante'),
 
-                Text(
-                    'Esta funcionalidad todavia no esta disponible en esta versión.'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Aceptar'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+    //             Text(
+    //                 'Esta funcionalidad todavia no esta disponible en esta versión.'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
+    //           ],
+    //         ),
+    //       ),
+    //       actions: <Widget>[
+    //         TextButton(
+    //           child: Text('Aceptar'),
+    //           onPressed: () {
+    //             Navigator.of(context).pop();
+    //           },
+    //         ),
+    //       ],
+    //     );
+    //   },
+    // );
   }
 
   void launchURLVideo() async {
