@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:carwash/src/controllers/reserva_controller.dart';
+import 'package:carwash/src/models/atencion.dart';
 import 'package:carwash/src/models/reserva_inner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,9 +9,9 @@ import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 class EnVivoPage extends StatefulWidget {
-  ReservaInner reserva;
+  Atencion atencion;
 
-  EnVivoPage({Key key, this.reserva}) : super(key: key);
+  EnVivoPage({Key key, this.atencion}) : super(key: key);
   @override
   _EnVivoPageState createState() => _EnVivoPageState();
 }
@@ -29,15 +30,15 @@ class _EnVivoPageState extends StateMVC<EnVivoPage> {
     // startTimer();
     // TODO: implement initState
     super.initState();
-    _con.obtenerAtencionPorReserva(widget.reserva.id);
+    // _con.obtenerAtencionPorReserva(widget.reserva.id);
     print('=========== en vivoo =============');
-    print(widget.reserva.id);
+    print(widget.atencion.idReserva);
 
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.landscapeRight, DeviceOrientation.landscapeLeft]);
 
     _videoPlayerController = VlcPlayerController.network(
-      _con.atencion.rtsp,
+      widget.atencion.rtsp,
       // 'rtsp://procare:procare...@190.104.10.52:554/cam/realmonitor?channel=3&subtype=0',
       hwAcc: HwAcc.FULL,
       autoPlay: true,

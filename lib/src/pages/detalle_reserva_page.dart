@@ -330,7 +330,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                         children: [
                           InkWell(
                             onTap: () {
-                              _con.obtieneImg(widget.routeArgument.id);
+                              // _con.obtieneImg(widget.routeArgument.id);
                               _con.alertDialogFacturas();
                             },
                             child: Container(

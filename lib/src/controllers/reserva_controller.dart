@@ -190,8 +190,15 @@ class ReservaController extends ControllerMVC {
     stream.listen((Atencion _atencion) {
       setState(() {
         atencion = _atencion;
-        print('==========================');
-        print(json.encode(atencion));
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EnVivoPage(
+              atencion: _atencion,
+            ),
+          ),
+        );
       });
     }, onError: (a) {
       scaffoldKey.currentState.showSnackBar(SnackBar(
@@ -322,13 +329,9 @@ class ReservaController extends ControllerMVC {
               children: <Widget>[
                 // Text('No existe la factura.'),
                 // Text('Intente, mas adelante'),
-                this.tieneImgFac
-                    ? Text('')
-                    : Text('Todavía no esta lista tu factura.'),
-                this.tieneImgFac
-                    ? Image.file(fileImgFac)
-                    : Text(
-                        'Vuelva a intentar, mas adelante'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
+                Text('Todavía no esta lista tu factura.'),
+                Text(
+                    'Nosotros te notificaremos cuando ya esté disponible!'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
               ],
             ),
           ),
@@ -348,14 +351,7 @@ class ReservaController extends ControllerMVC {
   Future<void> alertDialogVideo() async {
     print(resInner.estado);
     if (resInner.estado == 'L') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => EnVivoPage(
-            reserva: resInner,
-          ),
-        ),
-      );
+      obtenerAtencionPorReserva(resInner.id);
     } else {
       return showDialog<void>(
         context: context,
