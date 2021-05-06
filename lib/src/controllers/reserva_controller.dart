@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:carwash/generated/i18n.dart';
+import 'package:carwash/src/models/atencion.dart';
 import 'package:carwash/src/models/detalle_reserva.dart';
 import 'package:carwash/src/models/horas.dart';
 import 'package:carwash/src/models/reserva.dart';
@@ -8,7 +9,9 @@ import 'package:carwash/src/models/reserva_inner.dart';
 import 'package:carwash/src/models/servicio.dart';
 import 'package:carwash/src/models/vehiculoa.dart';
 import 'package:carwash/src/pages/carro_page.dart';
+import 'package:carwash/src/pages/en_vivo_page.dart';
 import 'package:carwash/src/pages/servicio_page.dart';
+import 'package:carwash/src/repository/atencion_repository.dart';
 import 'package:carwash/src/repository/reserva_repository.dart';
 //import 'package:carwash/src/models/setting.dart';
 import 'package:carwash/src/repository/vehiculo_repository.dart';
@@ -28,7 +31,7 @@ class ReservaController extends ControllerMVC {
   String hiText = "";
 
   int selectedIndex;
-
+  Atencion atencion = new Atencion();
   Reserva reserva;
   ReservaInner resInner;
   List<ReservaInner> reservasInner = [];
@@ -181,6 +184,22 @@ class ReservaController extends ControllerMVC {
     );
   }
 
+// Obtener Atención por codigo de Reserva
+  void obtenerAtencionPorReserva(String idReserva) async {
+    final Stream<Atencion> stream = await getAtencionesPorReserva(idReserva);
+    stream.listen((Atencion _atencion) {
+      setState(() {
+        atencion = _atencion;
+        print('==========================');
+        print(json.encode(atencion));
+      });
+    }, onError: (a) {
+      scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('No se pudo traer la información de la atención!'),
+      ));
+    }, onDone: () {});
+  }
+
   //listar reservas para mostrar
   void listarReservasInnerByIdCli({String message}) async {
     // var now = new DateTime.now();
@@ -328,35 +347,45 @@ class ReservaController extends ControllerMVC {
 
   Future<void> alertDialogVideo() async {
     print(resInner.estado);
-    Navigator.of(context).pushNamed('/EnVivo');
-    // return showDialog<void>(
-    //   context: context,
-    //   barrierDismissible: false, // user must tap button!
-    //   builder: (BuildContext context) {
-    //     return AlertDialog(
-    //       title: Text('Ver video lavado'),
-    //       content: SingleChildScrollView(
-    //         child: ListBody(
-    //           children: <Widget>[
-    //             // Text('No existe la factura.'),
-    //             // Text('Intente, mas adelante'),
+    if (resInner.estado == 'L') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => EnVivoPage(
+            reserva: resInner,
+          ),
+        ),
+      );
+    } else {
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Ver video lavado'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  // Text('No existe la factura.'),
+                  // Text('Intente, mas adelante'),
 
-    //             Text(
-    //                 'Esta funcionalidad todavia no esta disponible en esta versión.'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
-    //           ],
-    //         ),
-    //       ),
-    //       actions: <Widget>[
-    //         TextButton(
-    //           child: Text('Aceptar'),
-    //           onPressed: () {
-    //             Navigator.of(context).pop();
-    //           },
-    //         ),
-    //       ],
-    //     );
-    //   },
-    // );
+                  Text(
+                      'Solo puede utilizar esta funcionalidad cuando su vehículo este en proceso de lavado.'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Aceptar'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   void launchURLVideo() async {

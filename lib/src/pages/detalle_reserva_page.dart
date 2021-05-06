@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carwash/src/controllers/reserva_controller.dart';
+import 'package:carwash/src/models/atencion.dart';
 import 'package:carwash/src/models/reserva_inner.dart';
 import 'package:carwash/src/models/route_argument.dart';
 import 'package:carwash/src/widgets/CircularLoadingWidget.dart';
@@ -25,7 +26,6 @@ class DetalleReservaPage extends StatefulWidget {
 class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
     with SingleTickerProviderStateMixin {
   ReservaController _con;
-
   ReservaInner reserva;
   _DetalleReservaPageState() : super(ReservaController()) {
     _con = controller;
