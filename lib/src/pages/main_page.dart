@@ -34,7 +34,7 @@ class _MainPageState extends StateMVC<MainPage>
 
   @override
   void initState() {
-    Timer(Duration(seconds: 4), () {
+    Timer(Duration(seconds: 2), () {
       _showAlert(context);
     });
     // TODO: implement initState

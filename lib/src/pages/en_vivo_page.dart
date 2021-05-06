@@ -37,12 +37,27 @@ class _EnVivoPageState extends StateMVC<EnVivoPage> {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.landscapeRight, DeviceOrientation.landscapeLeft]);
 
+    // SystemChrome.setPreferredOrientations(
+    //     [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+
     _videoPlayerController = VlcPlayerController.network(
       widget.atencion.rtsp,
-      // 'rtsp://procare:procare...@190.104.10.52:554/cam/realmonitor?channel=3&subtype=0',
       hwAcc: HwAcc.FULL,
-      autoPlay: true,
-      options: VlcPlayerOptions(),
+      // autoPlay: false,
+      options: VlcPlayerOptions(
+        advanced: VlcAdvancedOptions([VlcAdvancedOptions.networkCaching(2000)]),
+        subtitle: VlcSubtitleOptions([
+          VlcSubtitleOptions.boldStyle(true),
+          VlcSubtitleOptions.fontSize(30),
+          VlcSubtitleOptions.outlineColor(VlcSubtitleColor.yellow),
+          VlcSubtitleOptions.outlineThickness(VlcSubtitleThickness.normal),
+          // works only on externally added subtitles
+          VlcSubtitleOptions.color(VlcSubtitleColor.navy),
+        ]),
+        rtp: VlcRtpOptions([
+          VlcRtpOptions.rtpOverRtsp(true),
+        ]),
+      ),
     );
   }
 
@@ -74,7 +89,7 @@ class _EnVivoPageState extends StateMVC<EnVivoPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: Text('Tu auto, nuestro cuidado, Espere porfavor...'),
+        title: Text('Tu auto, nuestro cuidado'),
       ),
       body: Center(
         child: VlcPlayer(
