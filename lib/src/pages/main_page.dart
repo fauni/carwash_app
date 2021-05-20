@@ -45,7 +45,9 @@ class _MainPageState extends StateMVC<MainPage>
       print("=======================ARGUMENTO NOTIFICACION===============");
       print(argumento);
       // Navigator.of(context).pushNamed('/PoliticasPrivacidad');
-      Navigator.of(context).pushNamed('/Compartir', arguments: argumento);
+      Navigator.of(context).pop(context);
+      Navigator.of(context)
+          .pushReplacementNamed('/Compartir', arguments: argumento);
     });
 
     animationController =

@@ -58,18 +58,20 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text('Detalle de la Reserva'),
+        title: Text('Detalle de mi Reserva'),
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back_ios,
               color: Theme.of(context).hintColor),
           onPressed: () => Navigator.of(context).pop(),
         ),
         actions: [
-          IconButton(
-            icon: Icon(Icons.share),
-            onPressed: () => Navigator.of(context)
-                .pushNamed('/Compartir', arguments: widget.routeArgument.id),
-          )
+          // IconButton(
+          //     icon: Icon(Icons.share),
+          //     onPressed: () {
+          //       Navigator.pop(context);
+          //       Navigator.of(context).pushNamed('/Compartir',
+          //           arguments: widget.routeArgument.id);
+          //     })
         ],
         // title: Text(widget.routeArgument.id),
       ),
@@ -270,7 +272,6 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                             },
                             child: Container(
                               width: MediaQuery.of(context).size.width / 3,
-                              height: MediaQuery.of(context).size.height / 8,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
                                 borderRadius: BorderRadius.circular(20),
@@ -298,7 +299,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                 .alertDialogVideo(), //_con.launchURLVideo(),
                             child: Container(
                               width: MediaQuery.of(context).size.width / 3,
-                              height: MediaQuery.of(context).size.height / 8,
+                              // height: MediaQuery.of(context).size.height / 8,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
                                 borderRadius: BorderRadius.circular(20),
@@ -335,7 +336,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                             },
                             child: Container(
                               width: MediaQuery.of(context).size.width / 3,
-                              height: MediaQuery.of(context).size.height / 8,
+                              // height: MediaQuery.of(context).size.height / 8,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
                                 borderRadius: BorderRadius.circular(20),
@@ -361,25 +362,22 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                           widget.routeArgument.param[0].estado == 'L'
                               ? Container(
                                   width: MediaQuery.of(context).size.width / 3,
-                                  height:
-                                      MediaQuery.of(context).size.height / 8,
+                                  // height:MediaQuery.of(context).size.height / 8,
                                   decoration: BoxDecoration(
                                     color: Theme.of(context).hintColor,
                                     borderRadius: BorderRadius.circular(20),
                                     //border: Border.all(color: Theme.of(context).accentColor),
                                   ),
                                   child: Image.asset(
-                                    'assets/img/en_proceso_white.png',
-                                    width: 60,
-                                  ),
+                                      'assets/img/en_proceso_white.png',
+                                      width: 60,
+                                      height: 80),
                                 )
                               : widget.routeArgument.param[0].estado == 'F'
                                   ? Container(
                                       width:
                                           MediaQuery.of(context).size.width / 3,
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              8,
+                                      // height: MediaQuery.of(context).size.height /8,
                                       decoration: BoxDecoration(
                                         color: Theme.of(context).primaryColor,
                                         borderRadius: BorderRadius.circular(20),
@@ -410,9 +408,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                   : Container(
                                       width:
                                           MediaQuery.of(context).size.width / 3,
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              8,
+                                      // height: MediaQuery.of(context).size.height /8,
                                       decoration: BoxDecoration(
                                         color: Theme.of(context).accentColor,
                                         borderRadius: BorderRadius.circular(20),
@@ -437,7 +433,33 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                       ),
                                     )
                         ],
-                      )
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      widget.routeArgument.param[0].estado == 'F'
+                          ? Container(
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: ButtonTheme(
+                                minWidth: double.infinity,
+                                height: 50.0,
+                                child: RaisedButton.icon(
+                                  onPressed: () {
+                                    Navigator.of(context).pushNamed(
+                                        '/Compartir',
+                                        arguments: widget.routeArgument.id);
+                                  },
+                                  color: Theme.of(context).primaryColor,
+                                  textColor: Theme.of(context).hintColor,
+                                  icon: Icon(Icons.share),
+                                  label: Text('Compartir Reserva'),
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                              ),
+                            )
+                          : Container()
                     ],
                   ),
                 )

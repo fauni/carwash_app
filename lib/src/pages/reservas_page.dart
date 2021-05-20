@@ -2,7 +2,9 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carwash/src/controllers/reserva_controller.dart';
+import 'package:carwash/src/models/detalle_reserva.dart';
 import 'package:carwash/src/models/route_argument.dart';
+import 'package:carwash/src/pages/detalle_reserva_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -159,16 +161,38 @@ class ReservasPageState extends StateMVC<ReservasPage> {
                           FontAwesomeIcons.caretRight,
                           color: Theme.of(context).hintColor,
                         ),
-                        onTap: () {
-                          Navigator.of(context).pushNamed(
-                            '/DetalleReserva',
-                            arguments: new RouteArgument(
-                                id: _con.reservasInner.elementAt(index).id,
-                                param: [
-                                  _con.reservasInner.elementAt(index),
-                                  'Detalle'
-                                ]),
+                        onTap: () async {
+                          final result = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DetalleReservaPage(
+                                      routeArgument: new RouteArgument(
+                                          id: _con.reservasInner
+                                              .elementAt(index)
+                                              .id,
+                                          param: [
+                                            _con.reservasInner.elementAt(index),
+                                            'Detalle'
+                                          ]),
+                                    )),
                           );
+                          _con.reservasInner = [];
+
+                          if (result == null) {
+                            setState(() {
+                              _con.reservasInner = [];
+                              _con.listarReservasInnerByIdCli();
+                            });
+                          }
+                          // Navigator.of(context).pushNamed(
+                          //   '/DetalleReserva',
+                          //   arguments: new RouteArgument(
+                          //       id: _con.reservasInner.elementAt(index).id,
+                          //       param: [
+                          //         _con.reservasInner.elementAt(index),
+                          //         'Detalle'
+                          //       ]),
+                          // );
                         },
                       );
                     },

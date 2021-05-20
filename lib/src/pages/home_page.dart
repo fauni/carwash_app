@@ -53,7 +53,8 @@ class _HomePageState extends StateMVC<HomePage>
     pushProvider.mensaje.listen((argumento) {
       print("=======================ARGUMENTO NOTIFICACION===============");
       print(argumento);
-      // Navigator.of(context).pushNamed('/PoliticasPrivacidad');
+      // Navigator.of(context).pushReplacementNamed('/PoliticasPrivacidad');
+      // Navigator.pop(context);
       Navigator.of(context).pushNamed('/Compartir', arguments: argumento);
     });
     // Timer.run(() {
