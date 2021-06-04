@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>657893521689-tlhsquhls17apnoeobrhjcr8t45068pg.apps.googleusercontent.com</string>
+	<string>657893521689-rhhcg102al9a7gsdltnttcqt5mfi0gec.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.657893521689-tlhsquhls17apnoeobrhjcr8t45068pg</string>
+	<string>com.googleusercontent.apps.657893521689-rhhcg102al9a7gsdltnttcqt5mfi0gec</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>657893521689-2jotg7daquts9aqm9ljjg8avqfs2ui64.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>app.carwash.mobile</string>
+	<string>com.procarewashing.mobile</string>
 	<key>PROJECT_ID</key>
 	<string>carwash-a08b9</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:657893521689:ios:7b22a7e004e80e98e16d88</string>
+	<string>1:657893521689:ios:3df4c337f3048b59e16d88</string>
 </dict>
 </plist>

@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -7,10 +7,11 @@ import 'package:carwash/src/helpers/helper.dart';
 import 'package:carwash/src/models/usuario.dart';
 import 'package:carwash/src/repository/user_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import '../repository/user_repository.dart' as repository;
 
 class LoginController extends ControllerMVC {
+  bool supportsAppleSignIn = false;
+
   Usuario usuario = new Usuario();
   bool isLoggedIn = false;
 
@@ -23,6 +24,12 @@ class LoginController extends ControllerMVC {
   }
 
   String usuario_actual = '';
+
+  void verificaPlataforma() {
+    if (Platform.isIOS) {
+      supportsAppleSignIn = true;
+    }
+  }
 
   void login() async {
     FocusScope.of(context).unfocus();
@@ -60,6 +67,28 @@ class LoginController extends ControllerMVC {
     FocusScope.of(context).unfocus();
     Overlay.of(context).insert(loader);
     repository.loginFacebook().then((value) {
+      if (value != null && value.verifyEmail != null) {
+        // Navigator.of(context).pushReplacementNamed('/Pages');
+        Navigator.of(context).pushReplacementNamed('/Main');
+      } else {
+        scaffoldKey.currentState.showSnackBar(SnackBar(
+          content: Text('Ocurrio un error al autentificar'),
+        ));
+      }
+    }).catchError((e) {
+      loader.remove();
+      scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('No se pudo ingresar'),
+      ));
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
+  }
+
+  Future<void> appleSignIn() async {
+    FocusScope.of(context).unfocus();
+    Overlay.of(context).insert(loader);
+    repository.loginApple().then((value) {
       if (value != null && value.verifyEmail != null) {
         // Navigator.of(context).pushReplacementNamed('/Pages');
         Navigator.of(context).pushReplacementNamed('/Main');
