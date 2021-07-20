@@ -59,6 +59,7 @@ dependencies:
   flutter_vlc_player: ^5.0.5
   device_info: ^0.4.1+4
   apple_sign_in: ^0.1.0
+  flutter_open_whatsapp: ^0.1.2
 
 
 dev_dependencies:

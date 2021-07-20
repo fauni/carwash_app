@@ -46,7 +46,8 @@ class RouteGenerator {
 
       case '/Compartir':
         return MaterialPageRoute(
-            builder: (_) => CompartirPage(id_reserva: args as String));
+          builder: (_) => CompartirPage(idReserva: args as String),
+        );
       // case '/Carros':
       //   return MaterialPageRoute(builder: (_) => CarroPage());
 

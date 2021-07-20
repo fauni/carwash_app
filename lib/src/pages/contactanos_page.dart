@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:carwash/src/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -174,10 +176,20 @@ class _ContactanosPageState extends StateMVC<ContactanosPage> {
                         color: Colors.greenAccent,
                         textColor: Theme.of(context).hintColor,
                         onPressed: () {
-                          _con.launchWhatsApp(
-                              phone: '+591 77799292',
-                              message:
-                                  '¡Hola! \n Bienvenid@ a Procare Washing.\n ¿En que podemos ayudarte?');
+                          if (Platform.isIOS) {
+                            FlutterOpenWhatsapp.sendSingleMessage(
+                                "59177799292", "");
+                          } else {
+                            _con.launchWhatsApp(
+                                phone: '+591 77799292',
+                                message:
+                                    '¡Hola! \n Bienvenid@ a Procare Washing.\n ¿En que podemos ayudarte?');
+                          }
+
+                          // _con.launchWhatsApp(
+                          //     phone: '+591 77799292',
+                          //     message:
+                          //         '¡Hola! \n Bienvenid@ a Procare Washing.\n ¿En que podemos ayudarte?');
                         },
                         label: Text('EscrÍbenos al Whatsapp'),
                         icon: FaIcon(

@@ -11,6 +11,7 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+// import 'package:social_share_plugin/social_share_plugin.dart';
 
 class CompartirController extends ControllerMVC {
   Atencion atencion = new Atencion();
@@ -44,24 +45,29 @@ class CompartirController extends ControllerMVC {
   }
 
   compartirReserva() async {
-    String response;
-    try {
-      // response = await platform.invokeMethod("hello", "https://alquiauto.es/wp-content/uploads/2020/05/limpieza-y-lavado-del-coche-DURANTE-CORONA-VIRUS.jpg");
-      response =
-          await platform.invokeMethod("hello", "http://procarewashing.com");
-    } on Exception catch (exception) {
-      print('=============================');
-      print(exception);
-      response = 'Comunicacion Plattforms Error!';
-    } catch (error) {
-      print('==============ERROR==============');
-      print(error);
-    }
+    if (Platform.isIOS) {
+      // await SocialSharePlugin.shareToFeedFacebookLink(
+      //     quote: 'quote', url: 'https://flutter.dev');
+    } else {
+      String response;
+      try {
+        // response = await platform.invokeMethod("hello", "https://alquiauto.es/wp-content/uploads/2020/05/limpieza-y-lavado-del-coche-DURANTE-CORONA-VIRUS.jpg");
+        response =
+            await platform.invokeMethod("hello", "http://procarewashing.com");
+      } on Exception catch (exception) {
+        print('=============================');
+        print(exception);
+        response = 'Comunicacion Plattforms Error!';
+      } catch (error) {
+        print('==============ERROR==============');
+        print(error);
+      }
 
-    setState(() {
-      hiText = response;
-      print(hiText);
-    });
+      setState(() {
+        hiText = response;
+        print(hiText);
+      });
+    }
   }
 
   obtieneImgFinal(String idReserva) async {
@@ -99,7 +105,7 @@ class CompartirController extends ControllerMVC {
         cliente = _cliente;
         // print("===============================");
         // //print(carros);
-        // print(jsonEncode(cliente));
+        print(jsonEncode(cliente));
       });
     }, onError: (a) {
       scaffoldKey.currentState.showSnackBar(SnackBar(
