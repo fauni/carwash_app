@@ -57,6 +57,9 @@ dependencies:
   cupertino_radio_choice: ^1.0.1+1
   firebase_messaging: ^7.0.3
   flutter_vlc_player: ^5.0.5
+  device_info: ^0.4.1+4
+  apple_sign_in: ^0.1.0
+
 
 dev_dependencies:
   flutter_test:

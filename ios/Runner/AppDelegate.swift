@@ -14,7 +14,4 @@ import Firebase
     GMSServices.provideAPIKey("AIzaSyCrQF0b-qQAUQRJlfcUYlLu9xv17RQNuKM")
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
-    
-    
 }
-

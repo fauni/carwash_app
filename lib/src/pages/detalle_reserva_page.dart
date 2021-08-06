@@ -5,7 +5,6 @@ import 'package:carwash/src/controllers/reserva_controller.dart';
 import 'package:carwash/src/models/atencion.dart';
 import 'package:carwash/src/models/reserva_inner.dart';
 import 'package:carwash/src/models/route_argument.dart';
-import 'package:carwash/src/pages/compartir_page.dart';
 import 'package:carwash/src/widgets/CircularLoadingWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -446,17 +445,9 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                 height: 50.0,
                                 child: RaisedButton.icon(
                                   onPressed: () {
-                                    print(jsonEncode(
-                                        widget.routeArgument.param[0].id));
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => CompartirPage(
-                                                idReserva: widget.routeArgument
-                                                    .param[0].id)));
-                                    // Navigator.of(context).pushNamed(
-                                    //     '/Compartir',
-                                    //     arguments: widget.routeArgument.id);
+                                    Navigator.of(context).pushNamed(
+                                        '/Compartir',
+                                        arguments: widget.routeArgument.id);
                                   },
                                   color: Theme.of(context).primaryColor,
                                   textColor: Theme.of(context).hintColor,

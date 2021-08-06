@@ -7,8 +7,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 class CompartirPage extends StatefulWidget {
-  String idReserva;
-  CompartirPage({Key key, this.idReserva}) {
+  String id_reserva;
+  CompartirPage({Key key, this.id_reserva}) {
     // _heroTag = this.routeArgument.param[0] as String;
   }
 
@@ -25,7 +25,7 @@ class CompartirPageState extends StateMVC<CompartirPage> {
 
   @override
   void initState() {
-    _con.obtenerAtencionPorReserva(widget.idReserva);
+    _con.obtenerAtencionPorReserva(widget.id_reserva);
     _con.cliente.nombreCompleto = '';
     super.initState();
   }
@@ -82,7 +82,7 @@ class CompartirPageState extends StateMVC<CompartirPage> {
                     image: DecorationImage(
                       image: NetworkImage(
                           'https://procarewashing.com/apicwash/assets/capturas_vehiculos/' +
-                              widget.idReserva +
+                              widget.id_reserva +
                               '/final.jpg'),
                     ),
                   ),
@@ -105,8 +105,8 @@ class CompartirPageState extends StateMVC<CompartirPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Hola' +
-                            // _con.cliente.nombreCompleto??'' +
+                        'Hola ' +
+                            _con.cliente.nombreCompleto +
                             ', contarte que tu vehículo quedó como nuevo!. Puedes pasar a recogerlo.',
                         style: TextStyle(
                           color: Theme.of(context).hintColor,
@@ -115,7 +115,7 @@ class CompartirPageState extends StateMVC<CompartirPage> {
                         ),
                       ),
                       Text(
-                        'Gracias por confiar en Procare Washing. Tu auto, nuestro cuidado.',
+                        'Gracias por confirar en Procare Washing. Tu auto, nuestro cuidado.',
                         style: TextStyle(
                           color: Theme.of(context).hintColor,
                           fontSize: 16,

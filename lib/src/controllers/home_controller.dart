@@ -6,16 +6,12 @@ import 'package:carwash/src/repository/servicio_repository.dart';
 import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../repository/user_repository.dart' as userRepo;
 
 class HomeController extends ControllerMVC {
-  String _platformVersion = 'Unknown';
-
   bool vehiculo_elegido = false;
   bool servicio_elegido = false;
   List<ReservaInner> reservasInner = [];
@@ -24,26 +20,6 @@ class HomeController extends ControllerMVC {
     obtenerVehiculo();
     obtenerServicio();
     listarReservasInnerByIdCli();
-  }
-
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await FlutterOpenWhatsapp.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-
-    // if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
   }
 
   void obtenerVehiculo() async {
@@ -106,7 +82,6 @@ class HomeController extends ControllerMVC {
     @required String phone,
     @required String message,
   }) async {
-    // FlutterOpenWhatsapp.sendSingleMessage(phone, message);
     String url() {
       if (Platform.isIOS) {
         return "whatsapp://wa.me/$phone/?text=${Uri.parse(message)}";

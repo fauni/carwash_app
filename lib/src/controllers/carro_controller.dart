@@ -52,33 +52,6 @@ class CarroController extends ControllerMVC {
   }
 
   void cargarAnios() {
-    this.anios.add('1980');
-    this.anios.add('1981');
-    this.anios.add('1982');
-    this.anios.add('1983');
-    this.anios.add('1984');
-    this.anios.add('1985');
-    this.anios.add('1986');
-    this.anios.add('1987');
-    this.anios.add('1988');
-    this.anios.add('1989');
-    this.anios.add('1990');
-    this.anios.add('1991');
-    this.anios.add('1992');
-    this.anios.add('1993');
-    this.anios.add('1994');
-    this.anios.add('1995');
-    this.anios.add('1996');
-    this.anios.add('1997');
-    this.anios.add('1998');
-    this.anios.add('1999');
-    this.anios.add('2000');
-    this.anios.add('2001');
-    this.anios.add('2002');
-    this.anios.add('2003');
-    this.anios.add('2004');
-    this.anios.add('2005');
-    this.anios.add('2006');
     this.anios.add('2007');
     this.anios.add('2008');
     this.anios.add('2009');
@@ -97,61 +70,23 @@ class CarroController extends ControllerMVC {
   }
 
   void cargarMarcas() {
-    this.marcas.add('Abarth');
-    this.marcas.add('Alfa Romeo');
-    this.marcas.add('Aston Martin');
-    this.marcas.add('Audi');
-    this.marcas.add('Bentley');
-    this.marcas.add('BMW');
-    this.marcas.add('Cadillac');
-    this.marcas.add('Caterham');
-    this.marcas.add('Changan');
-    this.marcas.add('Chevrolet');
-    this.marcas.add('Citroen');
-    this.marcas.add('Dacia');
-    this.marcas.add('Ferrari');
-    this.marcas.add('Fiat');
-    this.marcas.add('Ford');
-    this.marcas.add('Geely');
-    this.marcas.add('Honda');
-    this.marcas.add('Hyundai');
-    this.marcas.add('Infiniti');
-    this.marcas.add('Isuzu');
-    this.marcas.add('Iveco');
-    this.marcas.add('Jaguar');
-    this.marcas.add('Jeep');
-    this.marcas.add('Kia');
-    this.marcas.add('KTM');
-    this.marcas.add('Lada');
-    this.marcas.add('Lamborghini');
-    this.marcas.add('Lancia');
-    this.marcas.add('Land Rover');
-    this.marcas.add('Lexus');
-    this.marcas.add('Lotus');
-    this.marcas.add('Maserati');
-    this.marcas.add('Mazda');
-    this.marcas.add('Mercedes-Benz');
-    this.marcas.add('Mini');
-    this.marcas.add('Mitsubishi');
-    this.marcas.add('Morgan');
-    this.marcas.add('Nissan');
-    this.marcas.add('Opel');
-    this.marcas.add('Peugeot');
-    this.marcas.add('Piaggio');
-    this.marcas.add('Porsche');
-    this.marcas.add('Renault');
-    this.marcas.add('Rolls-Royce');
-    this.marcas.add('Seat');
-    this.marcas.add('Skoda');
-    this.marcas.add('Smart');
-    this.marcas.add('SsangYong');
-    this.marcas.add('Subaru');
-    this.marcas.add('Suzuki');
-    this.marcas.add('Tata');
-    this.marcas.add('Tesla');
     this.marcas.add('Toyota');
     this.marcas.add('Volkswagen');
-    this.marcas.add('Volvo');
+    this.marcas.add('Ford');
+    this.marcas.add('Nissan');
+    this.marcas.add('Honda');
+    this.marcas.add('Hyundai');
+    this.marcas.add('Chevrolet');
+    this.marcas.add('Kia');
+    this.marcas.add('Renault');
+    this.marcas.add('Mercedes');
+    this.marcas.add('Mazda');
+    this.marcas.add('Jeep');
+    this.marcas.add('Fiat');
+    this.marcas.add('Geely');
+    this.marcas.add('Changan');
+    this.marcas.add('Mitsubishi');
+    this.marcas.add('Suzuki');
   }
 
   Future getImage(int tipo) async {

@@ -18,24 +18,17 @@ class _DetailNetworkScreenWidgetState extends State<DetailNetworkScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-                icon: Icon(Icons.close),
-                onPressed: () => Navigator.pop(context))
-          ],
-        ),
         body: Center(
-          child: GestureDetector(
-            child: Hero(
-              tag: widget.heroTag,
-              child: PhotoView(
-                imageProvider: NetworkImage(widget.image),
-                // imageProvider: CachedNetworkImageProvider(widget.image),
-                //imageProvider:
-              ),
-            ),
+      child: GestureDetector(
+        child: Hero(
+          tag: widget.heroTag,
+          child: PhotoView(
+            imageProvider: NetworkImage(widget.image),
+            // imageProvider: CachedNetworkImageProvider(widget.image),
+            //imageProvider:
           ),
-        ));
+        ),
+      ),
+    ));
   }
 }
