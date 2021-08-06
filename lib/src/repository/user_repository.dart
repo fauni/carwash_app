@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:carwash/src/models/usuario.dart';
+import 'package:carwash/src/repository/reserva_repository.dart';
 import 'package:carwash/src/repository/servicio_repository.dart';
 import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -85,45 +85,6 @@ Future<Usuario> loginFacebook() async {
     usuarioF.uid = "0";
     return null;
   }
-}
-
-Future<Usuario> loginApple() async {
-  try {
-    final AuthorizationResult appleResult = await AppleSignIn.performRequests([
-      AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
-    ]);
-    if (appleResult.error != null) {
-      // handle errors from Apple here
-    }
-
-    final AuthCredential credential = OAuthProvider("apple.com").getCredential(
-      accessToken:
-          String.fromCharCodes(appleResult.credential.authorizationCode),
-      idToken: String.fromCharCodes(appleResult.credential.identityToken),
-    );
-
-    UserCredential result = (await _auth.signInWithCredential(credential));
-
-    user = result.user;
-
-    if (user.emailVerified) {
-      final datos = user.email.split('@');
-
-      usuario.uid = user.uid;
-      usuario.displayName = datos[0];
-      usuario.email = user.email;
-      usuario.phoneNumber = user.phoneNumber;
-      usuario.photoUrl = user.photoURL;
-      usuario.verifyEmail = user.emailVerified;
-      setCurrentUser(json.encode(usuario));
-      currentUser.value = usuario;
-    } else {
-      throw new Exception('Ocurrio un error');
-    }
-  } catch (error) {
-    print(error);
-  }
-  return currentUser.value;
 }
 
 // Future<User> register(User user) async {

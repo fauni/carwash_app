@@ -1,3 +1,7 @@
+import 'package:carwash/src/controllers/login_controller.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../src/helpers/ui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
@@ -55,9 +59,8 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
                         ),
                         currentAccountPicture: CircleAvatar(
                             backgroundColor: Theme.of(context).accentColor,
-                            backgroundImage: currentUser.value.photoUrl == null
-                                ? AssetImage('assets/img/auto_default.PNG')
-                                : currentUser.value.photoUrl.length > 0
+                            backgroundImage:
+                                currentUser.value.photoUrl.length > 0
                                     ? NetworkImage(currentUser.value.photoUrl)
                                     : AssetImage('assets/img/auto_default.PNG')
                             // NetworkImage(currentUser.value.image.thumb),
