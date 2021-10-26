@@ -1,4 +1,4 @@
-# Uncomment this line to define a global platform for your project
+# Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
 # add pods for desired Firebase products
@@ -37,8 +37,10 @@ require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelpe
 flutter_ios_podfile_setup
 
 target 'Runner' do
+  # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   use_modular_headers!
+  # Pods for Runner
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end

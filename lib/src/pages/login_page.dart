@@ -19,6 +19,7 @@ class LoginPageState extends StateMVC<LoginPage> {
   @override
   void initState() {
     super.initState();
+    _con.verificaPlataforma();
     if (userRepo.currentUser.value.email != null) {
       // Navigator.of(context).pushReplacementNamed('/Pages');
       Navigator.of(context).pushReplacementNamed('/Main');
@@ -83,13 +84,6 @@ class LoginPageState extends StateMVC<LoginPage> {
                 SizedBox(
                   height: 20,
                 ),
-                Text(
-                  'ó',
-                  style: TextStyle(color: Theme.of(context).hintColor),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
                 ButtonTheme(
                   minWidth: double.infinity,
                   height: 50,
@@ -115,6 +109,37 @@ class LoginPageState extends StateMVC<LoginPage> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
+                _con.supportsAppleSignIn
+                    ? ButtonTheme(
+                        minWidth: double.infinity,
+                        height: 50,
+                        child: RaisedButton.icon(
+                          color: Colors.black,
+                          textColor: Theme.of(context).hintColor,
+                          onPressed: () {
+                            _con.appleSignIn();
+                          },
+                          icon: FaIcon(
+                            FontAwesomeIcons.apple,
+                            color: Colors.white,
+                            size: 35,
+                          ),
+                          label: Text('Apple'),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            side: BorderSide(
+                              color: Colors
+                                  .white, //Theme.of(context).primaryColor,
+                              width: 1,
+                              style: BorderStyle.solid,
+                            ),
+                          ),
+                        ),
+                      )
+                    : Container()
                 // ButtonTheme(
                 //   minWidth: double.infinity,
                 //   height: 50.0,
