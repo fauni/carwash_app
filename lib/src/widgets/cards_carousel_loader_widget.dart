@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CardsCarouselLoaderWidget extends StatelessWidget {
   const CardsCarouselLoaderWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -18,7 +18,7 @@ class CardsCarouselLoaderWidget extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
               boxShadow: [
                 BoxShadow(
                     color: Theme.of(context).focusColor.withOpacity(0.1),

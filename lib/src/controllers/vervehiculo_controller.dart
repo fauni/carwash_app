@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-
 //import 'package:carwash/src/generated/i18n.dart';
 import 'package:carwash/src/models/vehiculo.dart';
 import 'package:carwash/src/models/vehiculo_modelo.dart';
@@ -13,63 +12,52 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-
 class VerVehiculoController extends ControllerMVC {
-
   String url = '${GlobalConfiguration().getString('img_carros_url_wash')}/';
-  GlobalKey<ScaffoldState> scaffoldKey;
-  bool loading=false;
-  bool loadingV=false;
+  GlobalKey<ScaffoldState>? scaffoldKey;
+  bool loading = false;
+  bool loadingV = false;
   VehiculoA vehiculo = VehiculoA();
   Vehiculo vehiculoEdit = Vehiculo();
-  List<VehiculoModelo> modelos = new List<VehiculoModelo>();
-   
-   File image;
-    final picker = ImagePicker();
-  
+  List<VehiculoModelo> modelos = [];
+
+  File? image;
+  final picker = ImagePicker();
+
   VerVehiculoController() {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
   }
 
-
   // Obtener modelos de vehiculos
-  void listarModelosVehiculo({String message}) async {
+  void listarModelosVehiculo() async {
     loading = true;
     final Stream<List<VehiculoModelo>> stream = await obtenerModelosVehiculo();
     stream.listen((List<VehiculoModelo> _modelos) {
       setState(() {
         modelos = _modelos;
-        // print("===============================");
-        // print(jsonEncode(modelos));
-        // print(jsonEncode(carros));
       });
     }, onError: (a) {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
         content: Text("error al guardas"),
       ));
     }, onDone: () {
-      if (message != null) {
-        scaffoldKey.currentState.showSnackBar(SnackBar(
-          content: Text(message),
-        ));
-      }
-      loading=false;
-      setState(() { });
+      loading = false;
+      setState(() {});
     });
   }
 
-   //registrar modificación de foto en servidor
-  void EditarFotoVehiculo(Vehiculo newVehiculo) async {
+  //registrar modificación de foto en servidor
+  void EditarFotoVehiculo(BuildContext context, Vehiculo? newVehiculo) async {
     if (this.image == null) {
       showAlertDialogError(context, "Necesita agregar una imagen del vehiculo");
     } else {
-      String base64Image = base64Encode(this.image.readAsBytesSync());
-      String fileName = this.image.path.split("/").last;
-      newVehiculo.foto = fileName;
+      String base64Image = base64Encode(this.image!.readAsBytesSync());
+      String fileName = this.image!.path.split("/").last;
+      newVehiculo!.foto = fileName;
       newVehiculo.imgFile = base64Image;
-      newVehiculo.id= this.vehiculo.id;
-      newVehiculo.placa= this.vehiculo.placa;
-     // newVehiculo.idCliente = currentUser.value.email;
+      newVehiculo.id = this.vehiculo.id;
+      newVehiculo.placa = this.vehiculo.placa;
+      // newVehiculo.idCliente = currentUser.value.email;
 
       if (newVehiculo.placa == null) {
         showAlertDialogError(
@@ -81,8 +69,9 @@ class VerVehiculoController extends ControllerMVC {
         });
 
         var vehiculoResp = await modificarFotoVehiculo(newVehiculo);
-        this.url = '${GlobalConfiguration().getString('img_carros_url_wash')}/${newVehiculo.foto}';
-        this.vehiculo.foto=newVehiculo.foto ;
+        this.url =
+            '${GlobalConfiguration().getString('img_carros_url_wash')}/${newVehiculo.foto}';
+        this.vehiculo.foto = newVehiculo.foto;
         this.loading = false;
         this.scaffoldKey?.currentState?.showSnackBar(SnackBar(
               content: Text('Se agregó correctamente'),
@@ -93,57 +82,52 @@ class VerVehiculoController extends ControllerMVC {
     }
   }
 
-  
-
   //registrar modificacion en el servidor
-  void guardaEdicionVehiculo() async {
-    
-      this.loading = true;
-      this.loadingV = true;
-      setState(() {
-        //image = null;
-      });
-      var vehiculoResp = await modificarVehiculo(this.vehiculo) ;
-      
-      this.loading = false;
+  void guardaEdicionVehiculo(BuildContext context) async {
+    this.loading = true;
+    this.loadingV = true;
+    setState(() {
+      //image = null;
+    });
 
-      this.scaffoldKey?.currentState?.showSnackBar(SnackBar(
-            content: Text('Se modifico correctamente'),
-            backgroundColor: Theme.of(context).primaryColor ,
-          ));
-      setState(() {});
-      await Future.delayed(const Duration(seconds: 1));
-      //print('____ANTES DE ENVIAR___');
-      //print(newVehiculo.imgFile);
-    
+    this.loading = false;
+
+    this.scaffoldKey?.currentState?.showSnackBar(SnackBar(
+          content: Text('Se modifico correctamente'),
+          backgroundColor: Theme.of(context).primaryColor,
+        ));
+    setState(() {});
+    await Future.delayed(const Duration(seconds: 1));
+    //print('____ANTES DE ENVIAR___');
+    //print(newVehiculo.imgFile);
+
     Navigator.of(context).pop();
     Navigator.of(context).pop();
     Navigator.of(context).pushNamed('/Vehiculo', arguments: 3);
   }
-    Future getImage(int tipo) async {
+
+  Future getImage(BuildContext context, int tipo) async {
     if (tipo == 1) {
       final pickedFile = await picker.getImage(
           source: ImageSource.gallery, maxWidth: 300.0, maxHeight: 300.0);
       setState(() {
-        image = File(pickedFile.path);  
+        image = File(pickedFile!.path);
 
-        EditarFotoVehiculo(this.vehiculoEdit);
-        
+        EditarFotoVehiculo(context, this.vehiculoEdit);
       });
-      
     } else {
       final pickedFile = await picker.getImage(
           source: ImageSource.camera, maxWidth: 300.0, maxHeight: 300.0);
       setState(() {
-        image = File(pickedFile.path);
-        EditarFotoVehiculo(this.vehiculoEdit);
+        image = File(pickedFile!.path);
+        EditarFotoVehiculo(context, this.vehiculoEdit);
       });
     }
   }
 
   showAlertDialogError(BuildContext context, String mensaje) {
     // set up the buttons
-    Widget cancelButton = FlatButton(
+    Widget cancelButton = OutlinedButton(
       child: Text("Aceptar"),
       onPressed: () {
         Navigator.of(context).pop();
@@ -165,5 +149,4 @@ class VerVehiculoController extends ControllerMVC {
       },
     );
   }
-
 }

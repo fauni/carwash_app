@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:carwash/generated/i18n.dart';
 import 'package:carwash/src/models/tipo_vehiculo.dart';
 import 'package:carwash/src/models/vehiculo.dart';
 import 'package:carwash/src/models/vehiculo_modelo.dart';
@@ -9,13 +8,13 @@ import 'package:carwash/src/models/vehiculoa.dart';
 import 'package:carwash/src/repository/modelo_vehiculo_repository.dart';
 import 'package:carwash/src/repository/tipo_vehiculo_repository.dart';
 import 'package:carwash/src/repository/user_repository.dart';
-//import 'package:carwash/src/models/setting.dart';
+
 import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:carwash/src/repository/servicio_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:carwash/src/pages/servicio_page.dart';
+// import 'package:carwash/src/pages/servicio_page.dart';
 
 class CarroController extends ControllerMVC {
   List<Vehiculo> carros = [];
@@ -26,20 +25,20 @@ class CarroController extends ControllerMVC {
   List<String> anios = [];
   List<String> marcas = [];
 
-  VehiculoA vehiculoElegido;
+  VehiculoA? vehiculoElegido;
   VehiculoModelo vehiculomodelo =
       new VehiculoModelo(); // Modelo para crear vehiculo
 
-  String servicio = '';
+  String? servicio = '';
 
-  File image;
+  File? image;
   final picker = ImagePicker();
   bool isCapture = false;
   bool loading = false;
 
   String dropdownValueAnio = '2020';
 
-  GlobalKey<ScaffoldState> scaffoldKey;
+  GlobalKey<ScaffoldState>? scaffoldKey;
 
   CarroController() {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -47,7 +46,7 @@ class CarroController extends ControllerMVC {
     cargarAnios();
     cargarMarcas();
     listarCarrosByCliente();
-    obtenerServicio();
+    // obtenerServicio(); // Habilitar
     // asignarVehiculoElegido();
   }
 
@@ -159,46 +158,37 @@ class CarroController extends ControllerMVC {
       final pickedFile = await picker.getImage(
           source: ImageSource.gallery, maxWidth: 300.0, maxHeight: 300.0);
       setState(() {
-        image = File(pickedFile.path);
+        image = File(pickedFile!.path);
       });
     } else {
       final pickedFile = await picker.getImage(
           source: ImageSource.camera, maxWidth: 300.0, maxHeight: 300.0);
       setState(() {
-        image = File(pickedFile.path);
+        image = File(pickedFile!.path);
       });
     }
   }
 
   void obtenerServicio() async {
-    this.servicio = await getServicio();
+    this.servicio = (await getServicio())!;
   }
 
   // Obtener tipos de vehiculos
-  void listarTipoVehiculo({String message}) async {
+  void listarTipoVehiculo() async {
     final Stream<List<TipoVehiculo>> stream = await obtenerTipoVehiculo();
     stream.listen((List<TipoVehiculo> _data) {
       setState(() {
         tipos = _data;
-        // print("===============================");
-        // print(jsonEncode(tipos));
-        // print(jsonEncode(carros));
       });
     }, onError: (a) {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text(S.current.verify_your_internet_connection),
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
+        content: Text('Verifica tu conexión de Internet'),
       ));
-    }, onDone: () {
-      if (message != null) {
-        scaffoldKey.currentState.showSnackBar(SnackBar(
-          content: Text(message),
-        ));
-      }
-    });
+    }, onDone: () {});
   }
 
   // Obtener modelos de vehiculos
-  void listarModelosVehiculo({String message}) async {
+  void listarModelosVehiculo() async {
     final Stream<List<VehiculoModelo>> stream = await obtenerModelosVehiculo();
     stream.listen((List<VehiculoModelo> _modelos) {
       setState(() {
@@ -208,19 +198,13 @@ class CarroController extends ControllerMVC {
         // print(jsonEncode(carros));
       });
     }, onError: (a) {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text(S.current.verify_your_internet_connection),
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
+        content: Text('Verifica tu conexión de Internet'),
       ));
-    }, onDone: () {
-      if (message != null) {
-        scaffoldKey.currentState.showSnackBar(SnackBar(
-          content: Text(message),
-        ));
-      }
-    });
+    }, onDone: () {});
   }
 
-  void listarCarrosByIdCli({String message}) async {
+  void listarCarrosByIdCli() async {
     final Stream<List<Vehiculo>> stream = await obtenerVehiculos();
     stream.listen((List<Vehiculo> _productos) {
       setState(() {
@@ -230,21 +214,15 @@ class CarroController extends ControllerMVC {
         // print(jsonEncode(carros));
       });
     }, onError: (a) {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text(S.current.verify_your_internet_connection),
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
+        content: Text('Verifica tu conexión de Internet'),
       ));
-    }, onDone: () {
-      if (message != null) {
-        scaffoldKey.currentState.showSnackBar(SnackBar(
-          content: Text(message),
-        ));
-      }
-    });
+    }, onDone: () {});
   }
 
   // Obtener vehiculos por codigo cliente con información adicional
-  void listarCarrosByCliente({String message}) async {
-    String idCliente = currentUser.value.email.replaceAll('.', '|');
+  void listarCarrosByCliente() async {
+    String idCliente = currentUser!.value.email!.replaceAll('.', '|');
     final Stream<List<VehiculoA>> stream =
         await obtenerVehiculosPorCliente(idCliente);
     stream.listen((List<VehiculoA> _vehiculos) {
@@ -256,19 +234,13 @@ class CarroController extends ControllerMVC {
         // print(jsonEncode(carros));
       });
     }, onError: (a) {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text(S.current.verify_your_internet_connection),
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
+        content: Text('Verifica tu conexión de Internet'),
       ));
-    }, onDone: () {
-      if (message != null) {
-        scaffoldKey.currentState.showSnackBar(SnackBar(
-          content: Text(message),
-        ));
-      }
-    });
+    }, onDone: () {});
   }
 
-  void eligeVehiculo(VehiculoA vehiculo) async {
+  void eligeVehiculo(BuildContext context, VehiculoA vehiculo) async {
     this.vehiculoElegido = vehiculo;
     String strVehiculo = vehiculoAToJson(vehiculo);
     setVehiculo(strVehiculo);
@@ -285,23 +257,22 @@ class CarroController extends ControllerMVC {
 
     final result = await Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) =>
-            ServicioPage(switchValue: null, valueChanged: null),
-      ),
+      MaterialPageRoute(builder: (context) => Container()
+          // ServicioPage(switchValue: null, valueChanged: null),
+          ),
     );
   }
 
   //registrar en servidor
-  void registrarVehiculo(Vehiculo newVehiculo) async {
+  void registrarVehiculo(BuildContext context, Vehiculo newVehiculo) async {
     if (this.image == null) {
       showAlertDialogError(context, "Necesita agregar una imagen del vehiculo");
     } else {
-      String base64Image = base64Encode(this.image.readAsBytesSync());
-      String fileName = this.image.path.split("/").last;
+      String base64Image = base64Encode(this.image!.readAsBytesSync());
+      String fileName = this.image!.path.split("/").last;
       newVehiculo.foto = fileName;
       newVehiculo.imgFile = base64Image;
-      newVehiculo.idCliente = currentUser.value.email;
+      newVehiculo.idCliente = currentUser!.value.email;
 
       if (newVehiculo.placa == null) {
         showAlertDialogError(
@@ -324,7 +295,7 @@ class CarroController extends ControllerMVC {
   }
 
   // GUARDAR EL MODELO DE VEHICULO
-  void registrarModeloVehiculo() async {
+  void registrarModeloVehiculo(BuildContext context) async {
     this.loading = true;
     var vehiculoResp = await guardarModeloVehiculo(vehiculomodelo);
     Navigator.of(context).pop(true);
@@ -344,7 +315,7 @@ class CarroController extends ControllerMVC {
 
   showAlertDialogError(BuildContext context, String mensaje) {
     // set up the buttons
-    Widget cancelButton = FlatButton(
+    Widget cancelButton = OutlinedButton(
       child: Text("Aceptar"),
       onPressed: () {
         Navigator.of(context).pop();
@@ -369,13 +340,13 @@ class CarroController extends ControllerMVC {
 
   showAlertDialog(BuildContext context, String id_vehiculo) {
     // set up the buttons
-    Widget cancelButton = FlatButton(
+    Widget cancelButton = OutlinedButton(
       child: Text("No!"),
       onPressed: () {
         Navigator.of(context).pop();
       },
     );
-    Widget continueButton = FlatButton(
+    Widget continueButton = OutlinedButton(
       child: Text("Si!"),
       onPressed: () async {
         await deleteVehiculo(id_vehiculo);
@@ -414,8 +385,8 @@ class CarroController extends ControllerMVC {
         // } else {}
       });
     }, onError: (a) {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text(S.current.verify_your_internet_connection),
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
+        content: Text('Verifica tu conexión de Internet'),
       ));
     }, onDone: () {});
   }
@@ -429,8 +400,11 @@ class CarroController extends ControllerMVC {
     //     Navigator.of(context).pop();
     //   },
     // );
-    Widget continueButton = FlatButton(
-      child: Text("De acuerdo!"),
+    Widget continueButton = OutlinedButton(
+      child: Text(
+        "De acuerdo!",
+        style: TextStyle(color: Theme.of(context).accentColor),
+      ),
       onPressed: () {
         // setReservaCompleta();
         Navigator.of(context).pop();
@@ -438,8 +412,8 @@ class CarroController extends ControllerMVC {
     );
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Tamaño del Vehículo"),
-      content: Text(
+      title: const Text("Tamaño del Vehículo"),
+      content: const Text(
           "El tamaño elegido será verificado al momento de la recepción del vehículo"),
       actions: [
         //cancelButton,
@@ -460,9 +434,9 @@ class CarroController extends ControllerMVC {
     String vehiel = await getVehiculo();
     if (vehiel != null) {
       this.vehiculoElegido = vehiculoAFromJson(vehiel);
-      this.vehiculoElegido.esElegido = true;
+      this.vehiculoElegido!.esElegido = true;
       for (var item in this.vehiculos) {
-        if (item.id == this.vehiculoElegido.id) {
+        if (item.id == this.vehiculoElegido!.id) {
           item.esElegido = true;
         } else {
           item.esElegido = false;

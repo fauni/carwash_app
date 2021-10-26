@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class LPublicidad {
-  List<Publicidad> items = new List();
+  List<Publicidad> items = [];
   LPublicidad();
   LPublicidad.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) return;
@@ -28,12 +28,12 @@ class Publicidad {
     this.estado,
   });
 
-  String idPublicidad;
-  String detallePublicidad;
-  String urlPublicacion;
-  DateTime fechaPublicacion;
-  DateTime fechaCaducidad;
-  String estado;
+  String? idPublicidad;
+  String? detallePublicidad;
+  String? urlPublicacion;
+  DateTime? fechaPublicacion;
+  DateTime? fechaCaducidad;
+  String? estado;
 
   factory Publicidad.fromJson(Map<String, dynamic> json) => Publicidad(
         idPublicidad: json["idPublicidad"],
@@ -48,8 +48,8 @@ class Publicidad {
         "idPublicidad": idPublicidad,
         "detallePublicidad": detallePublicidad,
         "urlPublicacion": urlPublicacion,
-        "fechaPublicacion": fechaPublicacion.toIso8601String(),
-        "fechaCaducidad": fechaCaducidad.toIso8601String(),
+        "fechaPublicacion": fechaPublicacion!.toIso8601String(),
+        "fechaCaducidad": fechaCaducidad!.toIso8601String(),
         "estado": estado,
       };
 }

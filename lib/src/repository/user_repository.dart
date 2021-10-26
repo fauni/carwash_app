@@ -1,29 +1,47 @@
 import 'dart:convert';
+import 'dart:math';
 
-import 'package:apple_sign_in/apple_sign_in.dart';
-import 'package:carwash/src/models/usuario.dart';
-import 'package:carwash/src/repository/servicio_repository.dart';
-import 'package:carwash/src/repository/vehiculo_repository.dart';
+import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'package:carwash/src/models/usuario.dart';
+// import 'package:carwash/src/repository/servicio_repository.dart';
+// import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../repository/user_repository.dart' as userRepo;
 
-ValueNotifier<Usuario> currentUser = new ValueNotifier(Usuario());
+/// Generates a cryptographically secure random nonce, to be included in a
+/// credential request.
+String generateNonce([int length = 32]) {
+  final charset =
+      '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+  final random = Random.secure();
+  return List.generate(length, (_) => charset[random.nextInt(charset.length)])
+      .join();
+}
+
+/// Returns the sha256 hash of [input] in hex notation.
+String sha256ofString(String input) {
+  final bytes = utf8.encode(input);
+  final digest = sha256.convert(bytes);
+  return digest.toString();
+}
+
+ValueNotifier<Usuario>? currentUser = new ValueNotifier(Usuario());
 FirebaseAuth _auth = FirebaseAuth.instance;
-User user;
+User? user;
 GoogleSignIn _googleSignIn = new GoogleSignIn();
 Usuario usuario = new Usuario();
 
 Future<Usuario> login() async {
   try {
-    GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
+    GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
     GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
+        await googleSignInAccount!.authentication;
 
     AuthCredential credential = GoogleAuthProvider.credential(
       idToken: googleSignInAuthentication.idToken,
@@ -34,15 +52,15 @@ Future<Usuario> login() async {
 
     user = result.user;
 
-    if (user.emailVerified) {
-      usuario.uid = user.uid;
-      usuario.displayName = user.displayName;
-      usuario.email = user.email;
-      usuario.phoneNumber = user.phoneNumber;
-      usuario.photoUrl = user.photoURL;
-      usuario.verifyEmail = user.emailVerified;
+    if (user!.emailVerified) {
+      usuario.uid = user!.uid;
+      usuario.displayName = user!.displayName;
+      usuario.email = user!.email;
+      usuario.phoneNumber = user!.phoneNumber;
+      usuario.photoUrl = user!.photoURL;
+      usuario.verifyEmail = user!.emailVerified;
       setCurrentUser(json.encode(usuario));
-      currentUser.value = usuario;
+      currentUser!.value = usuario;
     } else {
       throw new Exception('Ocurrio un error');
     }
@@ -50,13 +68,14 @@ Future<Usuario> login() async {
     print(error);
   }
 
-  return currentUser.value;
+  return currentUser!.value;
 }
 
 Future<Usuario> loginFacebook() async {
   final usuarioF = new Usuario();
+  return usuarioF;
+  /*
   final facebookLogin = FacebookLogin();
-  // final result = await facebookLogin.logIn(['email']);
   final result = await facebookLogin.logIn(['email']);
   if (result.status == FacebookLoginStatus.loggedIn) {
     final token = result.accessToken.token;
@@ -85,10 +104,53 @@ Future<Usuario> loginFacebook() async {
     usuarioF.uid = "0";
     return null;
   }
+  */
 }
 
 Future<Usuario> loginApple() async {
   try {
+    final rawNonce = generateNonce();
+    final nonce = sha256ofString(rawNonce);
+
+    final appleCredential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      nonce: nonce,
+    );
+
+    final oauthCredential = OAuthProvider("apple.com").credential(
+      idToken: appleCredential.identityToken,
+      rawNonce: rawNonce,
+    );
+
+    UserCredential result = (await _auth.signInWithCredential(oauthCredential));
+    user = result.user;
+    final firebaseUser = result.user!;
+
+    if (user!.emailVerified) {
+      usuario.uid = user!.uid;
+      usuario.displayName = user!.displayName;
+      usuario.email = user!.email;
+      usuario.phoneNumber = user!.phoneNumber;
+      usuario.photoUrl = user!.photoURL;
+      usuario.verifyEmail = user!.emailVerified;
+      setCurrentUser(json.encode(usuario));
+      currentUser!.value = usuario;
+    } else {
+      throw new Exception('Ocurrio un error');
+    }
+  } catch (error) {
+    print(error);
+  }
+  return currentUser!.value;
+  // return await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+}
+
+Future<Usuario> loginApple2() async {
+  try {
+    /*
     final AuthorizationResult appleResult = await AppleSignIn.performRequests([
       AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
     ]);
@@ -120,10 +182,11 @@ Future<Usuario> loginApple() async {
     } else {
       throw new Exception('Ocurrio un error');
     }
+    */
   } catch (error) {
     print(error);
   }
-  return currentUser.value;
+  return currentUser!.value;
 }
 
 // Future<User> register(User user) async {
@@ -161,19 +224,24 @@ Future<Usuario> loginApple() async {
 // }
 
 Future<void> logout() async {
-  currentUser.value = new Usuario();
+  currentUser!.value = new Usuario();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.remove('current_user');
-  deleteServicio();
-  deleteVehiculo();
+  // deleteServicio();
+  // deleteVehiculo();
   await _auth.signOut().then((onValue) {
     _googleSignIn.signOut();
   });
 }
 
+Future<String> getToken() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return await prefs.getString('token')!;
+}
+
 Future<String> getUsuario() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  return await prefs.get('usuario');
+  return await prefs.getString('usuario')!;
 }
 
 Future<void> setUsuario(String usuario) async {
@@ -200,17 +268,17 @@ void setCurrentUser(jsonString) async {
 Future<Usuario> getCurrentUser() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   //prefs.clear();
-  if (currentUser.value.verifyEmail == null &&
+  if (currentUser!.value.verifyEmail == null &&
       prefs.containsKey('current_user')) {
-    currentUser.value =
-        Usuario.fromJson(json.decode(await prefs.get('current_user')));
-    currentUser.value.verifyEmail = true;
+    currentUser!.value =
+        Usuario.fromJson(json.decode(await prefs.getString('current_user')!));
+    currentUser!.value.verifyEmail = true;
   } else {
-    currentUser.value.verifyEmail = false;
+    currentUser!.value.verifyEmail = false;
   }
   // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
-  currentUser.notifyListeners();
-  return currentUser.value;
+  currentUser!.notifyListeners();
+  return currentUser!.value;
 }
 
 // Future<CreditCard> getCreditCard() async {

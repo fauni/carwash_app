@@ -1,8 +1,8 @@
-import 'package:carwash/src/pages/slider_page.dart';
 import 'package:flutter/material.dart';
+import 'package:carwash/src/pages/slider_page.dart';
 
 class IndicatorPage extends StatefulWidget {
-  IndicatorPage({Key key}) : super(key: key);
+  IndicatorPage({Key? key}) : super(key: key);
 
   @override
   IndicatorPageState createState() => IndicatorPageState();

@@ -1,15 +1,15 @@
 //import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carwash/src/controllers/servicio_controller.dart';
-import 'package:carwash/src/pages/fecha_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:carwash/src/controllers/servicio_controller.dart';
+import 'package:carwash/src/pages/fecha_page.dart';
 
 class ServicioPage extends StatefulWidget {
   ServicioPage({@required this.switchValue, @required this.valueChanged});
 
-  final bool switchValue;
-  final ValueChanged valueChanged;
+  final bool? switchValue;
+  final ValueChanged? valueChanged;
 
   @override
   State<StatefulWidget> createState() {
@@ -21,17 +21,18 @@ class ServicioPageState extends StateMVC<ServicioPage> {
   bool selected = false;
 
   String tipoAuto = 'L';
-  ServicioController _con;
+  late ServicioController _con;
 
   // bool _switchValue;
 
   ServicioPageState() : super(ServicioController()) {
-    _con = controller;
+    _con = controller as ServicioController;
   }
   @override
   void initState() {
     // _switchValue = widget.switchValue;
-    tipoAuto = _con.vehiculoElegido.tamanio;
+    _con.obtenerVehiculo(context);
+    tipoAuto = _con.vehiculoElegido.tamanio!;
     super.initState();
   }
 
@@ -39,7 +40,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Selecciona los Servicios'),
+        title: const Text('Selecciona los Servicios'),
         backgroundColor: Colors.transparent,
         actions: [
           _con.serviciosElegidos.length > 0
@@ -49,9 +50,8 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                   onPressed: () => Navigator.of(context).pop(true))
               : Text('')
         ],
-        leading: new IconButton(
-          icon: new Icon(Icons.arrow_back_ios,
-              color: Theme.of(context).hintColor),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Theme.of(context).hintColor),
           onPressed: () => Navigator.of(context).pop(true),
         ),
       ),
@@ -60,9 +60,9 @@ class ServicioPageState extends StateMVC<ServicioPage> {
         onPressed: () {
           Navigator.of(context).pop(true);
           Navigator.of(context).push(
-            new MaterialPageRoute<Null>(
+            MaterialPageRoute<Null>(
                 builder: (BuildContext context) {
-                  return new FechaPage(switchValue: null, valueChanged: null);
+                  return FechaPage(switchValue: null, valueChanged: null);
                 },
                 fullscreenDialog: true),
           );
@@ -87,7 +87,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                 Theme(
                   data: ThemeData(unselectedWidgetColor: Colors.white),
                   child: ExpansionTile(
-                    title: Text(
+                    title: const Text(
                       'SERVICIOS GENERALES',
                       style: TextStyle(color: Colors.white),
                     ),
@@ -98,7 +98,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                     leading: CircleAvatar(
                       radius: 30.0,
                       backgroundColor: Theme.of(context).primaryColor,
-                      child: Text(
+                      child: const Text(
                         'G',
                         style: TextStyle(
                           color: Colors.white,
@@ -134,7 +134,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                     groupValue: _con.valueRadio,
                                     onChanged: (ind) {
                                       setState(() {
-                                        _con.valueRadio = ind;
+                                        _con.valueRadio = ind as int?;
                                         this._con.insertaServElegidosGeneral(
                                             _con.serviciosGeneral
                                                 .elementAt(index));
@@ -158,7 +158,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                         ? Text(
                                             double.parse(_con.serviciosGeneral
                                                         .elementAt(index)
-                                                        .precioM)
+                                                        .precioM!)
                                                     .toString() +
                                                 '  Bs.',
                                             style: TextStyle(
@@ -170,7 +170,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                                 double.parse(_con
                                                             .serviciosGeneral
                                                             .elementAt(index)
-                                                            .precioL)
+                                                            .precioL!)
                                                         .toString() +
                                                     '  Bs.',
                                                 style: TextStyle(
@@ -181,7 +181,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                                 double.parse(_con
                                                             .serviciosGeneral
                                                             .elementAt(index)
-                                                            .precioXl)
+                                                            .precioXl!)
                                                         .toString() +
                                                     '  Bs.',
                                                 style: TextStyle(
@@ -189,13 +189,13 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                                     fontSize: 20.0),
                                               ),
                                     title: Text(
-                                      _con.servicios.elementAt(index).nombre,
+                                      _con.servicios.elementAt(index).nombre!,
                                       style: TextStyle(
                                         color: Theme.of(context).accentColor,
                                       ),
                                     ),
                                     subtitle: Text(
-                                      _con.servicios.elementAt(index).detalle,
+                                      _con.servicios.elementAt(index).detalle!,
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ),
@@ -259,7 +259,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                             double.parse(_con
                                                         .serviciosAdicionales
                                                         .elementAt(index)
-                                                        .precioM)
+                                                        .precioM!)
                                                     .toString() +
                                                 '  Bs.',
                                             style: TextStyle(
@@ -271,7 +271,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                                 double.parse(_con
                                                             .serviciosAdicionales
                                                             .elementAt(index)
-                                                            .precioL)
+                                                            .precioL!)
                                                         .toString() +
                                                     '  Bs.',
                                                 style: TextStyle(
@@ -282,7 +282,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                                 double.parse(_con
                                                             .serviciosAdicionales
                                                             .elementAt(index)
-                                                            .precioXl)
+                                                            .precioXl!)
                                                         .toString() +
                                                     '  Bs.',
                                                 style: TextStyle(
@@ -292,7 +292,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                     title: Text(
                                       _con.serviciosAdicionales
                                           .elementAt(index)
-                                          .nombre,
+                                          .nombre!,
                                       style: TextStyle(
                                         color: Theme.of(context).accentColor,
                                       ),
@@ -300,7 +300,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                     subtitle: Text(
                                       _con.serviciosAdicionales
                                           .elementAt(index)
-                                          .detalle,
+                                          .detalle!,
                                       style: TextStyle(
                                         color: Colors.white,
                                       ),
@@ -310,7 +310,7 @@ class ServicioPageState extends StateMVC<ServicioPage> {
                                         .serviciosAdicionales
                                         .elementAt(index)
                                         .esSeleccionado,
-                                    onChanged: (bool elegido) {
+                                    onChanged: (bool? elegido) {
                                       setState(() {
                                         this
                                             ._con

@@ -7,7 +7,7 @@ import 'dart:convert';
 import 'dart:ffi';
 
 class LServicio {
-  List<Servicio> items = new List();
+  List<Servicio> items = [];
   LServicio();
 
   LServicio.fromJsonList(List<dynamic> jsonList) {
@@ -37,16 +37,16 @@ class Servicio {
       this.detalle,
       this.esSeleccionado});
 
-  String id;
-  String nombre;
-  String tipo;
-  String esAdicional;
-  String precioM;
-  String precioL;
-  String precioXl;
-  String estado;
-  String detalle;
-  bool esSeleccionado = false;
+  String? id;
+  String? nombre;
+  String? tipo;
+  String? esAdicional;
+  String? precioM;
+  String? precioL;
+  String? precioXl;
+  String? estado;
+  String? detalle;
+  bool? esSeleccionado = false;
 
   factory Servicio.fromJson(Map<String, dynamic> json) => Servicio(
       id: json["id"],

@@ -1,14 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:carwash/src/models/atencion.dart';
-import 'package:carwash/src/models/atencion_inner.dart';
-// import 'package:carwash_adm/src/models/detalle_reserva.dart';
-import 'package:carwash/src/models/imagenrecepcion.dart';
 // import 'package:carwash_adm/src/repository/user_repository.dart';
 import 'package:global_configuration/global_configuration.dart';
 
 import 'package:http/http.dart' as http;
-import '../helpers/custom_trace.dart';
+import 'package:carwash/src/models/atencion.dart';
+import 'package:carwash/src/models/atencion_inner.dart';
+import 'package:carwash/src/models/imagenrecepcion.dart';
 
 Future<Stream<Atencion>> getAtencionesPorReserva(String idReserva) async {
   // Uri uri = Helper.getUriLfr('api/producto');
@@ -17,7 +15,7 @@ Future<Stream<Atencion>> getAtencionesPorReserva(String idReserva) async {
           idReserva;
 
   final client = new http.Client();
-  final response = await client.get(url);
+  final response = await client.get(Uri.parse(url));
   try {
     if (response.statusCode == 200) {
       final latencion =
@@ -27,7 +25,6 @@ Future<Stream<Atencion>> getAtencionesPorReserva(String idReserva) async {
       return new Stream.value(new Atencion());
     }
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: url).toString());
     //print('error en repository al llenar '+e.toString());
     return new Stream.value(new Atencion());
   }
@@ -43,20 +40,18 @@ Future<Stream<List<AtencionInner>>> getAtencionesPorUserFechaInner(
           fecha;
 
   final client = new http.Client();
-  final response = await client.get(url);
-  print(url);
+  final response = await client.get(Uri.parse(url));
+  print(Uri.parse(url));
   try {
     if (response.statusCode == 200) {
       final latencionInner =
           LAtencionInner.fromJsonList(json.decode(response.body)['body']);
       return new Stream.value(latencionInner.items);
     } else {
-      return new Stream.value(new List<AtencionInner>());
+      return new Stream.value([]);
     }
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: url).toString());
-    //print('error en repository al llenar '+e.toString());
-    return new Stream.value(new List<AtencionInner>());
+    return new Stream.value([]);
   }
 }
 
@@ -66,7 +61,7 @@ Future<Stream<bool>> guardarCapturasRecepcion(
   final String url =
       '${GlobalConfiguration().getString('api_base_url_wash')}atencion/upload';
   final client = new http.Client();
-  final response = await client.post(url,
+  final response = await client.post(Uri.parse(url),
       headers: {HttpHeaders.contentTypeHeader: 'application/json'},
       body: imagenRecepcionToJson(imagenRecepcion));
   try {
@@ -82,8 +77,6 @@ Future<Stream<bool>> guardarCapturasRecepcion(
       return Stream.value(false);
     }
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: url).toString());
-    //print('error en repository al llenar '+e.toString());
     return Stream.value(false);
   }
 }
@@ -92,7 +85,7 @@ Future<Stream<bool>> initAtencion(Atencion atencion) async {
   final String url =
       '${GlobalConfiguration().getString('api_base_url_wash')}atencion/save';
   final client = new http.Client();
-  final response = await client.post(url,
+  final response = await client.post(Uri.parse(url),
       headers: {HttpHeaders.contentTypeHeader: 'application/json'},
       body: atencionToJson(atencion));
   try {
@@ -108,8 +101,6 @@ Future<Stream<bool>> initAtencion(Atencion atencion) async {
       return Stream.value(false);
     }
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: url).toString());
-    //print('error en repository al llenar '+e.toString());
     return Stream.value(false);
   }
 }
@@ -118,7 +109,7 @@ Future<Stream<bool>> finishAtencion(Atencion atencion) async {
   final String url =
       '${GlobalConfiguration().getString('api_base_url_wash')}atencion/finish';
   final client = new http.Client();
-  final response = await client.post(url,
+  final response = await client.post(Uri.parse(url),
       headers: {HttpHeaders.contentTypeHeader: 'application/json'},
       body: atencionToJson(atencion));
   try {
@@ -134,8 +125,6 @@ Future<Stream<bool>> finishAtencion(Atencion atencion) async {
       return Stream.value(false);
     }
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: url).toString());
-    //print('error en repository al llenar '+e.toString());
     return Stream.value(false);
   }
 }

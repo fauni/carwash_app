@@ -16,10 +16,10 @@ class Cdev {
     this.estado,
   });
 
-  int id;
-  String idCliente;
-  String idDevice;
-  int estado;
+  int? id;
+  String? idCliente;
+  String? idDevice;
+  int? estado;
 
   factory Cdev.fromJson(Map<String, dynamic> json) => Cdev(
         id: json["id"],

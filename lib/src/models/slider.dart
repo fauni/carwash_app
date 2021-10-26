@@ -1,9 +1,9 @@
 import '../../src/models/media.dart';
 
 class Slider {
-  String id;
-  Media image;
-  String description;
+  String? id;
+  Media? image;
+  String? description;
 
   Slider();
 

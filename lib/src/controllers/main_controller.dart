@@ -1,20 +1,17 @@
 import 'dart:io';
 
 import 'package:carwash/src/models/reserva_inner.dart';
+import 'package:carwash/src/repository/cliente_repository.dart';
 import 'package:carwash/src/repository/reserva_repository.dart';
-import 'package:carwash/src/repository/servicio_repository.dart';
-import 'package:carwash/src/repository/vehiculo_repository.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import '../repository/user_repository.dart' as userRepo;
+import 'package:carwash/src/repository/user_repository.dart';
 
 class MainController extends ControllerMVC {
+  String? token;
   List<ReservaInner> reservasInner = [];
   MainController() {
     listarReservasInnerByIdCli();
+    // obtenerTokenDevice();
   }
 
 //listar reservas para mostrar
@@ -24,7 +21,14 @@ class MainController extends ControllerMVC {
     stream.listen((List<ReservaInner> _reservas) {
       setState(() {
         reservasInner = _reservas;
+        obtenerTokenDevice();
       });
     }, onError: (a) {}, onDone: () {});
+  }
+
+  void obtenerTokenDevice() async {
+    token = await getToken();
+    String email = currentUser!.value.email!;
+    guardarTokenDevice(token!, email);
   }
 }

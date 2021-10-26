@@ -12,8 +12,8 @@ class SeleccionarFechahoraPage extends StatefulWidget {
   SeleccionarFechahoraPage(
       {@required this.switchValue, @required this.valueChanged});
 
-  final bool switchValue;
-  final ValueChanged valueChanged;
+  final bool? switchValue;
+  final ValueChanged? valueChanged;
 
   @override
   State<StatefulWidget> createState() {
@@ -23,21 +23,21 @@ class SeleccionarFechahoraPage extends StatefulWidget {
 
 class SeleccionarFechahoraPageState extends StateMVC<SeleccionarFechahoraPage> {
   bool selected = false;
-  ReservaController _con;
+  late ReservaController _con;
   Reserva reserva = new Reserva();
 
-  bool _switchValue;
+  bool? _switchValue;
   final format = DateFormat("yyyy-MM-dd");
 
   SeleccionarFechahoraPageState() : super(ReservaController()) {
-    _con = controller;
+    _con = controller as ReservaController;
     reserva.fechaReserva = _con.obtieneFechaActual();
   }
 
   @override
   void initState() {
-    _switchValue = widget.switchValue;
-    _con.verificaInformacion();
+    _switchValue = widget.switchValue!;
+    _con.verificaInformacion(context);
 
     _con.listarReservasPorFecha(_con.obtieneFechaActual());
     super.initState();
@@ -121,8 +121,8 @@ class SeleccionarFechahoraPageState extends StateMVC<SeleccionarFechahoraPage> {
                           children: [
                             for (var item in _con.horas)
                               ChoiceChip(
-                                selected: item.esSeleccionado,
-                                label: Text(item.hora.substring(0, 5)),
+                                selected: item.esSeleccionado!,
+                                label: Text(item.hora!.substring(0, 5)),
                                 labelStyle: TextStyle(
                                     color: Theme.of(context).hintColor),
                                 backgroundColor: Colors
@@ -130,11 +130,11 @@ class SeleccionarFechahoraPageState extends StateMVC<SeleccionarFechahoraPage> {
                                 selectedColor: Theme.of(context).primaryColor,
                                 onSelected: (bool selected) {
                                   setState(() {
-                                    item.esSeleccionado = !item.esSeleccionado;
+                                    item.esSeleccionado = !item.esSeleccionado!;
                                     _con.hora = item;
                                     if (selected) {
                                       _con.deseleccionarHoras();
-                                      reserva.horaReserva = _con.hora.hora;
+                                      reserva.horaReserva = _con.hora.hora!;
                                       _con.eligeReserva(reserva);
                                     }
                                   });
@@ -143,34 +143,6 @@ class SeleccionarFechahoraPageState extends StateMVC<SeleccionarFechahoraPage> {
                           ]),
                     ),
                   ),
-                  // SizedBox(
-                  //   height: 20,
-                  // ),
-                  // Container(
-                  //   padding: EdgeInsets.symmetric(horizontal: 20),
-                  //   child: ButtonTheme(
-                  //     minWidth: double.infinity,
-                  //     height: 50.0,
-                  //     child: RaisedButton(
-                  //       color: Theme.of(context).primaryColor,
-                  //       textColor: Theme.of(context).hintColor,
-                  //       onPressed: () {
-                  //         Navigator.of(context).pop(true);
-                  //         Navigator.of(context).push(
-                  //           new MaterialPageRoute(
-                  //               builder: (BuildContext context) {
-                  //                 return new ConfirmarReservaPage();
-                  //               },
-                  //               fullscreenDialog: true),
-                  //         );
-                  //       },
-                  //       child: Text('Enviar Reserva'),
-                  //       shape: RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(15),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // )
                 ],
               ),
             ),

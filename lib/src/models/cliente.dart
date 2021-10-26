@@ -5,7 +5,7 @@
 import 'dart:convert';
 
 class LCliente {
-  List<Cliente> items = new List();
+  List<Cliente> items = [];
   LCliente();
   LCliente.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) return;
@@ -31,12 +31,12 @@ class Cliente {
     this.estado,
   });
 
-  String id;
-  String codigoCliente;
-  String nombreCompleto;
-  String email;
-  String telefono;
-  String estado;
+  String? id;
+  String? codigoCliente;
+  String? nombreCompleto;
+  String? email;
+  String? telefono;
+  String? estado;
 
   factory Cliente.fromJson(Map<String, dynamic> json) => Cliente(
         id: json["id"],

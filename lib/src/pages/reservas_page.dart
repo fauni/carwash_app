@@ -2,7 +2,6 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carwash/src/controllers/reserva_controller.dart';
-import 'package:carwash/src/models/detalle_reserva.dart';
 import 'package:carwash/src/models/route_argument.dart';
 import 'package:carwash/src/pages/detalle_reserva_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,14 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../widgets/CircularLoadingWidget.dart';
-
 class ReservasPage extends StatefulWidget {
-  // ReservasPage({@required this.switchValue, @required this.valueChanged});
-
-  // final bool switchValue;
-  // final ValueChanged valueChanged;
-
   @override
   State<StatefulWidget> createState() {
     return ReservasPageState();
@@ -26,14 +18,14 @@ class ReservasPage extends StatefulWidget {
 
 class ReservasPageState extends StateMVC<ReservasPage> {
   bool selected = false;
-  ReservaController _con;
+  late ReservaController _con;
 
-  double width_size;
-  double height_size;
+  double? width_size;
+  double? height_size;
   // bool _switchValue;
 
   ReservasPageState() : super(ReservaController()) {
-    _con = controller;
+    _con = controller as ReservaController;
   }
   @override
   void initState() {
@@ -52,10 +44,9 @@ class ReservasPageState extends StateMVC<ReservasPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: Text('Mis Reservas'),
-        leading: new IconButton(
-          icon: new Icon(Icons.arrow_back_ios,
-              color: Theme.of(context).hintColor),
+        title: const Text('Mis Reservas'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Theme.of(context).hintColor),
           onPressed: () => Navigator.of(context).pop(),
         ),
         // actions: <Widget>[
@@ -124,7 +115,7 @@ class ReservasPageState extends StateMVC<ReservasPage> {
                                 ? Image.asset('assets/img/en_proceso_white.png')
                                 : CachedNetworkImage(
                                     imageUrl: _con.rutaImg(
-                                      _con.reservasInner.elementAt(index).foto,
+                                      _con.reservasInner.elementAt(index).foto!,
                                     ),
                                     /************* */
                                     imageBuilder: (context, imageProvider) =>
@@ -144,17 +135,19 @@ class ReservasPageState extends StateMVC<ReservasPage> {
                                         Icon(Icons.error),
                                   ),
                         title: Text(
-                          _con.reservasInner.elementAt(index).placa,
+                          _con.reservasInner.elementAt(index).placa!,
                           style: TextStyle(color: Theme.of(context).hintColor),
                         ),
                         subtitle: Text(
-                          _con.reservasInner.elementAt(index).marca +
+                          _con.reservasInner.elementAt(index).marca! +
                               ', ' +
-                              _con.reservasInner.elementAt(index).modelo +
+                              _con.reservasInner.elementAt(index).modelo! +
                               '\n' +
-                              _con.reservasInner.elementAt(index).fechaReserva +
+                              _con.reservasInner
+                                  .elementAt(index)
+                                  .fechaReserva! +
                               ' ' +
-                              _con.reservasInner.elementAt(index).horaReserva,
+                              _con.reservasInner.elementAt(index).horaReserva!,
                           style: TextStyle(color: Theme.of(context).hintColor),
                         ),
                         trailing: FaIcon(
@@ -166,7 +159,7 @@ class ReservasPageState extends StateMVC<ReservasPage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => DetalleReservaPage(
-                                      routeArgument: new RouteArgument(
+                                      routeArgument: RouteArgument(
                                           id: _con.reservasInner
                                               .elementAt(index)
                                               .id,

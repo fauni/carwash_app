@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 class DetalleServicioPage extends StatefulWidget {
-  RouteArgument routeArgument;
-  String _heroTag;
+  RouteArgument? routeArgument;
+  String? _heroTag;
 
-  DetalleServicioPage({Key key, this.routeArgument}) {
-    _heroTag = this.routeArgument.param[1] as String;
+  DetalleServicioPage({Key? key, this.routeArgument}) {
+    _heroTag = this.routeArgument!.param[1] as String;
   }
 
   @override
@@ -17,14 +17,15 @@ class DetalleServicioPage extends StatefulWidget {
 
 class _DetalleServicioPageState extends StateMVC<DetalleServicioPage>
     with SingleTickerProviderStateMixin {
-  ServicioController _con;
+  late ServicioController _con;
 
   _DetalleServicioPageState() : super(ServicioController()) {
-    _con = controller;
+    _con = controller as ServicioController;
   }
 
   @override
   void initState() {
+    _con.obtenerVehiculo(context);
     super.initState();
   }
 

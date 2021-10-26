@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:carwash/src/models/cliente.dart';
 import 'package:carwash/src/models/publicidad.dart';
 import 'package:carwash/src/repository/cliente_repository.dart';
@@ -13,15 +11,12 @@ class SliderController extends ControllerMVC {
   List<Slider> sliders = <Slider>[];
   List<Publicidad> publicidades = <Publicidad>[];
 
-  SliderController() {
-    // listenForSliders();
-    cargarPublicidad();
-  }
+  SliderController();
 
-  void cargarPublicidad({String message}) async {
+  void cargarPublicidad(BuildContext context) async {
     final Stream<List<Publicidad>> stream = await obtenerPublicidades();
     stream.listen((List<Publicidad> _publicidades) {
-      validaRegistroCliente();
+      validaRegistroCliente(context);
       setState(() {
         publicidades = _publicidades;
       });
@@ -30,9 +25,9 @@ class SliderController extends ControllerMVC {
     }, onDone: () {});
   }
 
-  Future<void> validaRegistroCliente() async {
+  Future<void> validaRegistroCliente(BuildContext context) async {
     final Stream<Cliente> stream =
-        await obtenerClienteXEmail(currentUser.value.email);
+        await obtenerClienteXEmail(currentUser!.value.email!);
     stream.listen((Cliente _cliente) {
       setState(() {
         if (_cliente.codigoCliente == null) {
@@ -50,7 +45,7 @@ class SliderController extends ControllerMVC {
     }, onDone: () {});
   }
 
-  void listenForSliders({String message}) async {
+  void listenForSliders() async {
     final Stream<Slider> stream = await getSliders();
     stream.listen((Slider _slider) {
       setState(() {
@@ -61,10 +56,10 @@ class SliderController extends ControllerMVC {
     }, onDone: () {});
   }
 
-  Future<void> refreshSliders() async {
+  Future<void> refreshSliders(BuildContext context) async {
     sliders.clear();
     publicidades.clear();
-    cargarPublicidad(message: 'Se actualizo las publicidades correctamente!');
-    listenForSliders(message: 'Sliders refreshed successfuly');
+    cargarPublicidad(context);
+    listenForSliders();
   }
 }

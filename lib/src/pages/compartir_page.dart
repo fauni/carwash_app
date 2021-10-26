@@ -1,5 +1,4 @@
 import 'package:carwash/src/controllers/compartir_controller.dart';
-import 'package:carwash/src/widgets/CircularLoadingWidget.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
@@ -7,8 +6,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 class CompartirPage extends StatefulWidget {
-  String idReserva;
-  CompartirPage({Key key, this.idReserva}) {
+  String? idReserva;
+  CompartirPage({Key? key, this.idReserva}) {
     // _heroTag = this.routeArgument.param[0] as String;
   }
 
@@ -17,15 +16,15 @@ class CompartirPage extends StatefulWidget {
 }
 
 class CompartirPageState extends StateMVC<CompartirPage> {
-  CompartirController _con;
+  late CompartirController _con;
 
   CompartirPageState() : super(CompartirController()) {
-    _con = controller;
+    _con = controller as CompartirController;
   }
 
   @override
   void initState() {
-    _con.obtenerAtencionPorReserva(widget.idReserva);
+    _con.obtenerAtencionPorReserva(widget.idReserva!);
     _con.cliente.nombreCompleto = '';
     super.initState();
   }
@@ -82,7 +81,7 @@ class CompartirPageState extends StateMVC<CompartirPage> {
                     image: DecorationImage(
                       image: NetworkImage(
                           'https://procarewashing.com/apicwash/assets/capturas_vehiculos/' +
-                              widget.idReserva +
+                              widget.idReserva! +
                               '/final.jpg'),
                     ),
                   ),

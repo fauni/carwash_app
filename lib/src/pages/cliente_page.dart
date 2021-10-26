@@ -9,10 +9,10 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../repository/user_repository.dart' as userRepo;
 
 class ClientePage extends StatefulWidget {
-  Cliente cliente;
-  String _heroTag;
+  Cliente? cliente;
+  String? _heroTag;
 
-  ClientePage({Key key, this.cliente}) {
+  ClientePage({Key? key, this.cliente}) {
     // _heroTag = this.routeArgument.param[0] as String;
   }
 
@@ -21,15 +21,15 @@ class ClientePage extends StatefulWidget {
 }
 
 class ClientePageState extends StateMVC<ClientePage> {
-  ClienteController _con;
+  late ClienteController _con;
 
   ClientePageState() : super(ClienteController()) {
-    _con = controller;
+    _con = controller as ClienteController;
   }
 
   @override
   void initState() {
-    _con.cliente = widget.cliente;
+    _con.cliente = widget.cliente!;
     super.initState();
   }
 
@@ -58,20 +58,20 @@ class ClientePageState extends StateMVC<ClientePage> {
                         'assets/img/logo_horizontal.png',
                         width: MediaQuery.of(context).size.width / 2,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 100,
                       ),
                       Text(
                         'Es necesario completar o confirmar la siguiente información:',
                         style: TextStyle(color: Theme.of(context).hintColor),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       TextFormField(
                         // enabled: false,
-                        initialValue: widget.cliente.codigoCliente == null
-                            ? userRepo.currentUser.value.displayName
+                        initialValue: widget.cliente!.codigoCliente == null
+                            ? userRepo.currentUser!.value.displayName
                             : _con.cliente.nombreCompleto,
                         onSaved: (input) => _con.cliente.nombreCompleto = input,
                         style: TextStyle(color: Theme.of(context).hintColor),
@@ -90,12 +90,12 @@ class ClientePageState extends StateMVC<ClientePage> {
                             labelStyle:
                                 TextStyle(color: Theme.of(context).hintColor)),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       TextFormField(
                         enabled: false,
-                        initialValue: userRepo.currentUser.value.email,
+                        initialValue: userRepo.currentUser!.value.email,
                         onSaved: (input) => _con.cliente.email = input,
                         style: TextStyle(color: Theme.of(context).hintColor),
                         decoration: InputDecoration(
@@ -113,15 +113,15 @@ class ClientePageState extends StateMVC<ClientePage> {
                             labelStyle:
                                 TextStyle(color: Theme.of(context).hintColor)),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
-                        initialValue: widget.cliente.codigoCliente == null
-                            ? userRepo.currentUser.value.phoneNumber
-                            : widget.cliente.telefono,
+                        initialValue: widget.cliente!.codigoCliente == null
+                            ? userRepo.currentUser!.value.phoneNumber
+                            : widget.cliente!.telefono,
                         onSaved: (input) => _con.cliente.telefono = input,
-                        validator: (input) => input.length == 8
+                        validator: (input) => input!.length == 8
                             ? null
                             : 'El numero de telefono es invalido',
                         style: TextStyle(color: Theme.of(context).hintColor),
@@ -140,10 +140,10 @@ class ClientePageState extends StateMVC<ClientePage> {
                             labelStyle:
                                 TextStyle(color: Theme.of(context).hintColor)),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
-                      widget.cliente.email == null
+                      widget.cliente!.email == null
                           ? ButtonTheme(
                               minWidth: double.infinity,
                               height: 50.0,
@@ -151,7 +151,7 @@ class ClientePageState extends StateMVC<ClientePage> {
                                 color: Theme.of(context).primaryColor,
                                 textColor: Theme.of(context).hintColor,
                                 onPressed: () {
-                                  _con.registrar();
+                                  _con.registrar(context);
                                 },
                                 child: Text('Registrate Ahora'),
                                 shape: RoundedRectangleBorder(
@@ -166,7 +166,7 @@ class ClientePageState extends StateMVC<ClientePage> {
                                 color: Theme.of(context).primaryColor,
                                 textColor: Theme.of(context).hintColor,
                                 onPressed: () {
-                                  _con.actualizar();
+                                  _con.actualizar(context);
                                 },
                                 child: Text('Actualizar Datos'),
                                 shape: RoundedRectangleBorder(

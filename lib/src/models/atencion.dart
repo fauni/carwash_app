@@ -5,7 +5,7 @@
 import 'dart:convert';
 
 class LAtencion {
-  List<Atencion> items = new List();
+  List<Atencion> items = [];
   LAtencion();
   LAtencion.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) return;
@@ -33,15 +33,15 @@ class Atencion {
       this.observaciones,
       this.rtsp});
 
-  String id;
-  String idReserva;
-  String usuario;
-  String fechaInicio;
-  String fechaFin;
-  String precioTotal;
-  String estado;
-  String observaciones;
-  String rtsp;
+  String? id;
+  String? idReserva;
+  String? usuario;
+  String? fechaInicio;
+  String? fechaFin;
+  String? precioTotal;
+  String? estado;
+  String? observaciones;
+  String? rtsp;
 
   factory Atencion.fromJson(Map<String, dynamic> json) => Atencion(
       id: json["id"],

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:carwash/src/helpers/custom_trace.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:global_configuration/global_configuration.dart';
@@ -23,8 +22,8 @@ Future<Setting> initSettings() async {
   final String url =
       '${GlobalConfiguration().getString('api_base_url_wash')}settings/get';
   try {
-    final response = await http
-        .get(url, headers: {HttpHeaders.contentTypeHeader: 'application/json'});
+    final response = await http.get(Uri.parse(url),
+        headers: {HttpHeaders.contentTypeHeader: 'application/json'});
     if (response.statusCode == 200) {
       if (json.decode(response.body)['body'] != null) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -33,7 +32,7 @@ Future<Setting> initSettings() async {
         _setting = Setting.fromJSON(json.decode(response.body)['body'][0]);
         if (prefs.containsKey('language')) {
           _setting.mobileLanguage =
-              new ValueNotifier(Locale(prefs.get('language'), ''));
+              new ValueNotifier(Locale(prefs.getString('language')!, ''));
         }
         setting.value = _setting;
         // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
@@ -41,12 +40,9 @@ Future<Setting> initSettings() async {
       }
     } else {
       print('else');
-      print(CustomTrace(StackTrace.current, message: response.body[0])
-          .toString());
     }
   } catch (e) {
     print('catch');
-    print(CustomTrace(StackTrace.current, message: e).toString());
     return Setting.fromJSON({});
   }
   return setting.value;
@@ -69,7 +65,7 @@ Future<void> setDefaultLanguage(String language) async {
 Future<String> getDefaultLanguage(String defaultLanguage) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   if (prefs.containsKey('language')) {
-    defaultLanguage = await prefs.get('language');
+    defaultLanguage = await prefs.getString('language')!;
   }
   return defaultLanguage;
 }
@@ -83,7 +79,7 @@ Future<void> saveMessageId(String messageId) async {
 
 Future<String> getMessageId() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  return await prefs.get('google.message_id');
+  return await prefs.getString('google.message_id')!;
 }
 
 // Guardar Automovil
@@ -97,5 +93,5 @@ Future<void> setAutomovil(String automovil) async {
 // Obtener Automovil
 Future<String> getAutomovil() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  return await prefs.get('automovil');
+  return await prefs.getString('automovil')!;
 }

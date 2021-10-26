@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+// Este es el que se usa
 import 'package:carwash/src/controllers/vehiculo_controller.dart';
 import 'package:carwash/src/pages/agregar_vehiculo_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,11 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 class SeleccionarVehiculoPage extends StatefulWidget {
-  SeleccionarVehiculoPage(
-      {@required this.switchValue, @required this.valueChanged});
-
-  final bool switchValue;
-  final ValueChanged valueChanged;
+  SeleccionarVehiculoPage();
 
   @override
   State<StatefulWidget> createState() {
@@ -20,16 +17,16 @@ class SeleccionarVehiculoPage extends StatefulWidget {
 
 class SeleccionarVehiculoPageState extends StateMVC<SeleccionarVehiculoPage> {
   bool selected = false;
-  VehiculoController _con;
+  late VehiculoController _con;
 
-  bool _switchValue;
+  bool? _switchValue;
 
   SeleccionarVehiculoPageState() : super(VehiculoController()) {
-    _con = controller;
+    _con = controller as VehiculoController;
   }
   @override
   void initState() {
-    _switchValue = widget.switchValue;
+    // _switchValue = widget.switchValue;
     super.initState();
   }
 
@@ -101,15 +98,15 @@ class SeleccionarVehiculoPageState extends StateMVC<SeleccionarVehiculoPage> {
                                         null
                                     ? _con.vehiculos.elementAt(index).esElegido
                                     : false,
-                                onChanged: (bool value) {
+                                onChanged: (bool? value) {
                                   _con.eligeVehiculo(
-                                      _con.vehiculos.elementAt(index));
+                                      context, _con.vehiculos.elementAt(index));
                                   _con.asignarVehiculoElegido();
                                   setState(() {});
                                 },
                                 secondary: CachedNetworkImage(
                                   imageUrl: _con.RutaImg(
-                                      _con.vehiculos.elementAt(index).foto),
+                                      _con.vehiculos.elementAt(index).foto!),
                                   imageBuilder: (context, imageProvider) =>
                                       Container(
                                           width: 80.0,
@@ -127,18 +124,18 @@ class SeleccionarVehiculoPageState extends StateMVC<SeleccionarVehiculoPage> {
                                       Icon(Icons.error),
                                 ),
                                 title: Text(
-                                  _con.vehiculos.elementAt(index).placa +
+                                  _con.vehiculos.elementAt(index).placa! +
                                       ' - ' +
-                                      _con.vehiculos.elementAt(index).marca,
+                                      _con.vehiculos.elementAt(index).marca!,
                                   style: TextStyle(
                                       color: Theme.of(context).hintColor),
                                 ),
                                 subtitle: Text(
-                                  _con.vehiculos.elementAt(index).modelo +
+                                  _con.vehiculos.elementAt(index).modelo! +
                                       ' ' +
-                                      _con.vehiculos.elementAt(index).anio +
+                                      _con.vehiculos.elementAt(index).anio! +
                                       ' - ' +
-                                      _con.vehiculos.elementAt(index).tamanio,
+                                      _con.vehiculos.elementAt(index).tamanio!,
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),

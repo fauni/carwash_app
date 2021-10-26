@@ -1,11 +1,11 @@
 import 'package:carwash/src/controllers/reserva_controller.dart';
 import 'package:carwash/src/models/reserva_inner.dart';
-import 'package:carwash/src/widgets/CircularLoadingWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:carwash/src/widgets/circular_loading_widget.dart';
 
 class ConfirmarReservaPage extends StatefulWidget {
-  ConfirmarReservaPage({Key key});
+  ConfirmarReservaPage({Key? key});
 
   @override
   _ConfirmarReservaPageState createState() => _ConfirmarReservaPageState();
@@ -13,11 +13,11 @@ class ConfirmarReservaPage extends StatefulWidget {
 
 class _ConfirmarReservaPageState extends StateMVC<ConfirmarReservaPage>
     with SingleTickerProviderStateMixin {
-  ReservaController _con;
+  late ReservaController _con;
+  ReservaInner? reserva;
 
-  ReservaInner reserva;
   _ConfirmarReservaPageState() : super(ReservaController()) {
-    _con = controller;
+    _con = controller as ReservaController;
   }
 
   @override
@@ -42,10 +42,9 @@ class _ConfirmarReservaPageState extends StateMVC<ConfirmarReservaPage>
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text('Confirmar la Reserva'),
-        leading: new IconButton(
-          icon: new Icon(Icons.arrow_back_ios,
-              color: Theme.of(context).hintColor),
+        title: const Text('Confirmar la Reserva'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Theme.of(context).hintColor),
           onPressed: () => Navigator.of(context).pop(),
         ),
         // title: Text(widget.routeArgument.id),
@@ -112,7 +111,7 @@ class _ConfirmarReservaPageState extends StateMVC<ConfirmarReservaPage>
                                   fontSize: 15),
                             ),
                             Text(
-                              'Placa: ' + _con.vehiculoElegido.placa ?? '',
+                              'Placa: ' + _con.vehiculoElegido.placa!,
                               style: TextStyle(
                                   color: Theme.of(context).hintColor,
                                   fontSize: 15),
@@ -151,7 +150,7 @@ class _ConfirmarReservaPageState extends StateMVC<ConfirmarReservaPage>
                                   Row(
                                     children: <Widget>[
                                       Expanded(
-                                        child: Text(item.nombre,
+                                        child: Text(item.nombre!,
                                             style: TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.w200,
@@ -162,16 +161,16 @@ class _ConfirmarReservaPageState extends StateMVC<ConfirmarReservaPage>
                                           'Bs. ' +
                                               (_con.vehiculoElegido.tamanio ==
                                                       'M'
-                                                  ? double.parse(item.precioM)
+                                                  ? double.parse(item.precioM!)
                                                       .toString()
                                                   : _con.vehiculoElegido
                                                               .tamanio ==
                                                           'L'
                                                       ? double.parse(
-                                                              item.precioL)
+                                                              item.precioL!)
                                                           .toString()
                                                       : double.parse(
-                                                              item.precioXl)
+                                                              item.precioXl!)
                                                           .toString()),
                                           style: TextStyle(
                                               fontSize: 15,
@@ -252,7 +251,7 @@ class _ConfirmarReservaPageState extends StateMVC<ConfirmarReservaPage>
                                       fontWeight: FontWeight.w200,
                                       color: Theme.of(context).hintColor)),
                             ),
-                            Text(_con.fechaHoraElegida.horaReserva ?? '',
+                            Text(_con.fechaHoraElegida.horaReserva,
                                 style: TextStyle(
                                     fontSize: 16,
                                     color: Theme.of(context).accentColor))

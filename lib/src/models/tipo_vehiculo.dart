@@ -5,7 +5,7 @@
 import 'dart:convert';
 
 class LTipoVehiculo {
-  List<TipoVehiculo> items = new List();
+  List<TipoVehiculo> items = [];
   LTipoVehiculo();
   LTipoVehiculo.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) return;
@@ -29,9 +29,9 @@ class TipoVehiculo {
     this.tamanio,
   });
 
-  String id;
-  String tipo;
-  String tamanio;
+  String? id;
+  String? tipo;
+  String? tamanio;
 
   factory TipoVehiculo.fromJson(Map<String, dynamic> json) => TipoVehiculo(
         id: json["id"],

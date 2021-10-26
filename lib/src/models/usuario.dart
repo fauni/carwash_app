@@ -18,12 +18,12 @@ class Usuario {
     this.verifyEmail,
   });
 
-  String uid;
-  String displayName;
-  String email;
-  String phoneNumber;
-  String photoUrl;
-  bool verifyEmail;
+  String? uid;
+  String? displayName;
+  String? email;
+  String? phoneNumber;
+  String? photoUrl;
+  bool? verifyEmail;
 
   factory Usuario.fromJson(Map<String, dynamic> json) => Usuario(
         uid: json["uid"],

@@ -7,11 +7,11 @@ import 'package:carwash/src/controllers/atencion_controller.dart';
 import 'package:carwash/src/pages/detail_network_page.dart';
 
 class AtencionPage extends StatefulWidget {
-  RouteArgument routeArgument;
-  String _heroTag;
+  RouteArgument? routeArgument;
+  String? _heroTag;
 
-  AtencionPage({Key key, this.routeArgument}) {
-    _heroTag = this.routeArgument.param[1] as String;
+  AtencionPage({Key? key, this.routeArgument}) {
+    _heroTag = this.routeArgument!.param[1] as String;
   }
 
   @override
@@ -20,26 +20,26 @@ class AtencionPage extends StatefulWidget {
 
 class _AtencionPageState extends StateMVC<AtencionPage>
     with SingleTickerProviderStateMixin {
-  AtencionController _con;
+  late AtencionController _con;
 
-  double width_size;
-  double height_size;
+  double? width_size;
+  double? height_size;
 
-  String id_reserva = '';
-  String id_cliente = '';
+  String? id_reserva = '';
+  String? id_cliente = '';
   _AtencionPageState() : super(AtencionController()) {
-    _con = controller;
+    _con = controller as AtencionController;
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    id_reserva = this.widget.routeArgument.param[0].id;
-    id_cliente = this.widget.routeArgument.param[0].idCliente;
-    _con.reserva = this.widget.routeArgument.param[0];
-    _con.listadoDetalleReservaPorId(id_reserva);
-    _con.listadoClientePorEmail(id_cliente);
-    _con.obtenerAtencionPorReserva(id_reserva);
+    id_reserva = this.widget.routeArgument!.param[0].id;
+    id_cliente = this.widget.routeArgument!.param[0].idCliente;
+    _con.reserva = this.widget.routeArgument!.param[0];
+    _con.listadoDetalleReservaPorId(id_reserva!);
+    _con.listadoClientePorEmail(id_cliente!);
+    _con.obtenerAtencionPorReserva(id_reserva!);
     _con.obtenerRutasImagenes();
     // print(jsonEncode(widget.routeArgument.param[0]));
 
@@ -62,18 +62,17 @@ class _AtencionPageState extends StateMVC<AtencionPage>
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         leading: IconButton(
-          icon: new Icon(Icons.arrow_back_ios,
-              color: Theme.of(context).hintColor),
+          icon: Icon(Icons.arrow_back_ios, color: Theme.of(context).hintColor),
           onPressed: () {
             Navigator.pop(context, true);
           },
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text('Atención del Vehiculo'),
+        title: const Text('Atención del Vehiculo'),
         actions: [
           Container(
-            padding: EdgeInsets.only(right: 20),
+            padding: const EdgeInsets.only(right: 20),
             child: Image.asset(
               'assets/img/isotipo.png',
               width: 25,
@@ -81,15 +80,6 @@ class _AtencionPageState extends StateMVC<AtencionPage>
           )
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     // print('Hola');
-      //     _con.showAlertDialog(context);
-      //   },
-      //   child: FaIcon(FontAwesomeIcons.stopwatch),
-      //   backgroundColor: Colors.red.shade900,
-      //   // backgroundColor: Theme.of(context).primaryColor,
-      // ),
       body: Stack(
         children: [
           Image.asset(
@@ -98,26 +88,17 @@ class _AtencionPageState extends StateMVC<AtencionPage>
             width: double.infinity,
             fit: BoxFit.cover,
           ),
-          // Align(
-          //   alignment: Alignment.topCenter,
-          //   child: Container(
-          //     padding: EdgeInsets.only(top: 100),
-          //     child: Image.asset(
-          //       'assets/img/isotipo.png',
-          //       width: MediaQuery.of(context).size.width / 8,
-          //     ),
-          //   ),
-          // ),
           Container(
             width: width_size,
             height: height_size,
-            padding: EdgeInsets.only(top: 0),
+            padding: const EdgeInsets.only(top: 0),
             child: ListView(
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Theme.of(context).accentColor),
@@ -137,9 +118,9 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                       Text(
                         _con.cliente.nombreCompleto == null
                             ? ''
-                            : _con.cliente.nombreCompleto +
+                            : _con.cliente.nombreCompleto! +
                                 '\n' +
-                                _con.cliente.email,
+                                _con.cliente.email!,
                         style: TextStyle(
                           color: Theme.of(context).hintColor,
                           fontSize: 15,
@@ -149,13 +130,14 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Theme.of(context).accentColor),
@@ -173,11 +155,11 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                         ),
                       ),
                       Text(
-                        this.widget.routeArgument.param[0].marca +
+                        this.widget.routeArgument!.param[0].marca +
                             ' ' +
-                            this.widget.routeArgument.param[0].modelo +
+                            this.widget.routeArgument!.param[0].modelo +
                             ' - ' +
-                            this.widget.routeArgument.param[0].placa,
+                            this.widget.routeArgument!.param[0].placa,
                         style: TextStyle(
                           color: Theme.of(context).hintColor,
                           fontSize: 15,
@@ -187,13 +169,14 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Theme.of(context).accentColor),
@@ -216,7 +199,7 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                             Row(
                               children: <Widget>[
                                 Expanded(
-                                  child: Text(item.nombre,
+                                  child: Text(item.nombre!,
                                       style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w200,
@@ -224,7 +207,7 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                                 ),
                                 Text(
                                     'Bs. ' +
-                                        (double.parse(item.precio)).toString(),
+                                        (double.parse(item.precio!)).toString(),
                                     style: TextStyle(
                                         fontSize: 15,
                                         color: Theme.of(context).accentColor))
@@ -250,13 +233,14 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Theme.of(context).accentColor),
@@ -281,7 +265,7 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                                 MaterialPageRoute(
                                   builder: (_) {
                                     return DetailNetworkScreen(
-                                        heroTag: widget._heroTag,
+                                        heroTag: widget._heroTag!,
                                         image: _con.imgLeft);
                                   },
                                 ),
@@ -302,7 +286,7 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                                 MaterialPageRoute(
                                   builder: (_) {
                                     return DetailNetworkScreen(
-                                        heroTag: widget._heroTag,
+                                        heroTag: widget._heroTag!,
                                         image: _con.imgRigth);
                                   },
                                 ),
@@ -323,7 +307,7 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                                 MaterialPageRoute(
                                   builder: (_) {
                                     return DetailNetworkScreen(
-                                        heroTag: widget._heroTag,
+                                        heroTag: widget._heroTag!,
                                         image: _con.imgFront);
                                   },
                                 ),
@@ -344,7 +328,7 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                                 MaterialPageRoute(
                                   builder: (_) {
                                     return DetailNetworkScreen(
-                                        heroTag: widget._heroTag,
+                                        heroTag: widget._heroTag!,
                                         image: _con.imgBack);
                                   },
                                 ),
@@ -363,13 +347,14 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Theme.of(context).accentColor),
@@ -416,31 +401,17 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                                   color: Theme.of(context).hintColor))
                         ],
                       ),
-                      // Row(
-                      //   children: <Widget>[
-                      //     Expanded(
-                      //       child: Text('Observaciones: ',
-                      //           style: TextStyle(
-                      //               fontSize: 15,
-                      //               fontWeight: FontWeight.w200,
-                      //               color: Theme.of(context).accentColor)),
-                      //     ),
-                      //     Text(_con.atencion.observaciones ?? '',
-                      //         style: TextStyle(
-                      //             fontSize: 15,
-                      //             color: Theme.of(context).hintColor))
-                      //   ],
-                      // ),
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Theme.of(context).accentColor),
@@ -463,90 +434,9 @@ class _AtencionPageState extends StateMVC<AtencionPage>
                     ],
                   ),
                 ),
-                // Container(
-                //   margin: EdgeInsets.symmetric(horizontal: 20),
-                //   child: ButtonTheme(
-                //     minWidth: double.infinity,
-                //     height: 50,
-                //     child: RaisedButton(
-                //       // padding: EdgeInsets.symmetric(vertical: 12, horizontal: 80),
-                //       onPressed: () {
-                //         // _con.login();
-                //       },
-                //       child: Text(
-                //         'Iniciar Atención',
-                //         style: TextStyle(color: Theme.of(context).hintColor),
-                //       ),
-                //       color: Theme.of(context).primaryColor,
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(15),
-                //       ),
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           ),
-          // _con.atencion.fechaFin == null
-          //     ? Align(
-          //         alignment: Alignment.bottomCenter,
-          //         child: Padding(
-          //           padding:
-          //               const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-          //           child: ButtonTheme(
-          //             minWidth: double.infinity,
-          //             height: 50,
-          //             child: RaisedButton.icon(
-          //               // padding: EdgeInsets.symmetric(vertical: 12, horizontal: 80),
-          //               onPressed: () {
-          //                 // _con.login();
-          //                 _con.showAlertDialog(context);
-          //               },
-          //               icon: Icon(
-          //                 Icons.stop,
-          //                 color: Theme.of(context).hintColor,
-          //               ),
-          //               label: Text(
-          //                 'Finalizar Atención',
-          //                 style: TextStyle(color: Theme.of(context).hintColor),
-          //               ),
-          //               color: Theme.of(context).primaryColor,
-          //               shape: RoundedRectangleBorder(
-          //                 borderRadius: BorderRadius.circular(20),
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //       )
-          //     : Align(
-          //         alignment: Alignment.bottomCenter,
-          //         child: Padding(
-          //           padding:
-          //               const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-          //           child: ButtonTheme(
-          //             minWidth: double.infinity,
-          //             height: 50,
-          //             child: RaisedButton.icon(
-          //               // padding: EdgeInsets.symmetric(vertical: 12, horizontal: 80),
-          //               onPressed: () {
-          //                 Navigator.pop(context, true);
-          //               },
-          //               icon: Icon(
-          //                 Icons.home,
-          //                 color: Theme.of(context).hintColor,
-          //               ),
-          //               label: Text(
-          //                 'Volver al Inicio',
-          //                 style: TextStyle(color: Theme.of(context).hintColor),
-          //               ),
-          //               color: Theme.of(context).primaryColor,
-          //               shape: RoundedRectangleBorder(
-          //                 borderRadius: BorderRadius.circular(20),
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //       ),
         ],
       ),
     );

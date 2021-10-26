@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:carwash/src/models/servicio.dart';
 import 'package:carwash/src/models/vehiculoa.dart';
 import 'package:carwash/src/pages/carro_page.dart';
+// import 'package:carwash/src/pages/carro_page.dart';
 import 'package:carwash/src/repository/servicio_repository.dart';
 import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:flutter/material.dart';
@@ -18,24 +19,25 @@ class ServicioController extends ControllerMVC {
   List<Servicio> serviciosAdicionales = [];
   List<Servicio> serviciosMotos = [];
 
-  GlobalKey<ScaffoldState> scaffoldKey;
+  GlobalKey<ScaffoldState>? scaffoldKey;
+  BuildContext? _contexto;
 
-  double subTotal = 0.0;
-  double total = 0.0;
+  double? subTotal = 0.0;
+  double? total = 0.0;
 
   bool isRadioSelected = false;
   int currentServicioValue = 1;
-  int valueRadio;
+  int? valueRadio;
 
   ServicioController() {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
-    obtenerVehiculo();
+    // obtenerVehiculo(this._contexto!); // Revisar
     listarServicios();
     listarServiciosAdicionales();
     // listarServiciosMotos();
   }
 
-  void obtenerVehiculo() async {
+  Future<void> obtenerVehiculo(BuildContext context) async {
     String vehiculo_json = await getVehiculo();
     if (vehiculo_json == null) {
       Navigator.pop(context);
@@ -52,7 +54,7 @@ class ServicioController extends ControllerMVC {
     // print(jsonEncode(vehiculoElegido));
   }
 
-  void listarServicios({String message}) async {
+  void listarServicios() async {
     final Stream<List<Servicio>> stream = await obtenerServiciosPorTipo('0');
     // final Stream<List<Servicio>> stream = await obtenerServicios();
     stream.listen((List<Servicio> _servicios) {
@@ -61,54 +63,36 @@ class ServicioController extends ControllerMVC {
         serviciosGeneral = _servicios;
       });
     }, onError: (a) {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
         content: Text('Ocurrio un error al obtener los servicios'),
       ));
-    }, onDone: () {
-      if (message != null) {
-        scaffoldKey.currentState.showSnackBar(SnackBar(
-          content: Text(message),
-        ));
-      }
-    });
+    }, onDone: () {});
   }
 
-  void listarServiciosMotos({String message}) async {
+  void listarServiciosMotos() async {
     final Stream<List<Servicio>> stream = await obtenerServiciosPorTipo('2');
     stream.listen((List<Servicio> _servicios) {
       setState(() {
         serviciosMotos = _servicios;
       });
     }, onError: (a) {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
         content: Text('Ocurrio un error al obtener los servicios'),
       ));
-    }, onDone: () {
-      if (message != null) {
-        scaffoldKey.currentState.showSnackBar(SnackBar(
-          content: Text(message),
-        ));
-      }
-    });
+    }, onDone: () {});
   }
 
-  void listarServiciosAdicionales({String message}) async {
+  void listarServiciosAdicionales() async {
     final Stream<List<Servicio>> stream = await obtenerServiciosPorTipo('1');
     stream.listen((List<Servicio> _servicios) {
       setState(() {
         serviciosAdicionales = _servicios;
       });
     }, onError: (a) {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
         content: Text('Ocurrio un error al obtener los servicios'),
       ));
-    }, onDone: () {
-      if (message != null) {
-        scaffoldKey.currentState.showSnackBar(SnackBar(
-          content: Text(message),
-        ));
-      }
-    });
+    }, onDone: () {});
   }
 
   void insertaServElegidosAdicional(Servicio serv) async {
@@ -118,7 +102,7 @@ class ServicioController extends ControllerMVC {
       this.serviciosElegidos.add(serv);
     }
 
-    List<dynamic> lservJson = new List<dynamic>();
+    List<dynamic> lservJson = [];
     for (var itms in this.serviciosElegidos) {
       lservJson.add(itms.toJson());
     }
@@ -133,7 +117,7 @@ class ServicioController extends ControllerMVC {
   void insertaServElegidosGeneral(Servicio serv) async {
     eliminaServElegidoGenerales();
     this.serviciosElegidos.add(serv);
-    List<dynamic> lservJson = new List<dynamic>();
+    List<dynamic> lservJson = [];
     for (var itms in this.serviciosElegidos) {
       lservJson.add(itms.toJson());
     }
@@ -160,7 +144,7 @@ class ServicioController extends ControllerMVC {
     List<Servicio> srvTemp = [];
     bool resp = false;
     for (var srv in serviciosElegidos) {
-      if (serv.id.compareTo(srv.id) != 0) {
+      if (serv.id!.compareTo(srv.id!) != 0) {
         srvTemp.add(srv);
       } else {
         resp = true;
@@ -180,11 +164,11 @@ class ServicioController extends ControllerMVC {
     serviciosElegidos.forEach(
       (serv) {
         if (vehiculoElegido.tamanio == 'M') {
-          subTotal = subTotal + double.parse(serv.precioM);
+          subTotal = subTotal! + double.parse(serv.precioM!);
         } else if (vehiculoElegido.tamanio == 'L') {
-          subTotal = subTotal + double.parse(serv.precioL);
+          subTotal = subTotal! + double.parse(serv.precioL!);
         } else {
-          subTotal = subTotal + double.parse(serv.precioXl);
+          subTotal = subTotal! + double.parse(serv.precioXl!);
         }
       },
     );

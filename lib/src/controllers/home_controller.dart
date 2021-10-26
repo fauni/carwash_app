@@ -14,7 +14,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../repository/user_repository.dart' as userRepo;
 
 class HomeController extends ControllerMVC {
-  String _platformVersion = 'Unknown';
+  String? _platformVersion = 'Unknown';
 
   bool vehiculo_elegido = false;
   bool servicio_elegido = false;
@@ -27,7 +27,7 @@ class HomeController extends ControllerMVC {
   }
 
   Future<void> initPlatformState() async {
-    String platformVersion;
+    String? platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       // platformVersion = await FlutterOpenWhatsapp.platformVersion;
@@ -57,68 +57,72 @@ class HomeController extends ControllerMVC {
   }
 
   void obtenerServicio() async {
-    String strServicios = await getServicio();
+    String? strServicios = await getServicio();
     if (strServicios == null) {
       servicio_elegido = false;
     } else {
       servicio_elegido = true;
     }
-    // print(jsonEncode(vehiculoElegido));
   }
 
-  // Future<void> listenForTrendingProducts() async {
-  //   final Stream<Product> stream = await getTrendingProducts();
-  //   stream.listen((Product _product) {
-  //     setState(() => trendingProducts.add(_product));
-  //   }, onError: (a) {
-  //     print(a);
-  //   }, onDone: () {});
-  // }
-
-  // Future<void> verificarSiEstaAutentificado(BuildContext context) async {
-  //   // print('Verificaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-  //   if (currentUser.value.uid == null) {
-  //     Navigator.of(context).pushNamed('/Login');
-  //   }
-  // }
-
-  // Future<void> validaRegistroCliente() async {
-  //   final Stream<Cliente> stream =
-  //       await obtenerClienteXEmail(currentUser.value.email);
-  //   stream.listen((Cliente _cliente) {
-  //     setState(() {
-  //       if (_cliente.codigoCliente == null) {
-  //         Navigator.of(context).pushNamed('/Cliente', arguments: new Cliente());
-  //       } else {
-  //         if (_cliente.codigoCliente == '0') {
-  //           Navigator.of(context).pushNamed('/Cliente', arguments: _cliente);
-  //         }
-  //       }
-  //     });
-  //     // print(json.encode(_producto));
-  //     // setState(() => productoSemana.add(_producto));
-  //   }, onError: (a) {
-  //     print(a);
-  //   }, onDone: () {});
-  // }
-
   void launchWhatsApp({
-    @required String phone,
-    @required String message,
+    @required String? phone,
+    @required String? message,
   }) async {
     // FlutterOpenWhatsapp.sendSingleMessage(phone, message);
     String url() {
-      if (Platform.isIOS) {
-        return "whatsapp://wa.me/$phone/?text=${Uri.parse(message)}";
+      if (Platform.isAndroid) {
+        // add the [https]
+        return "https://wa.me/$phone/?text=${Uri.parse(message!)}"; // new line
       } else {
-        return "whatsapp://send?phone=$phone&text=${Uri.parse(message)}";
+        // add the [https]
+        return "https://api.whatsapp.com/send?phone=$phone=${Uri.parse(message!)}"; // new line
       }
+      /*
+      if (Platform.isIOS) {
+        return "whatsapp://wa.me/$phone/?text=${Uri.parse(message!)}";
+      } else {
+        return "whatsapp://send?phone=$phone&text=${Uri.parse(message!)}";
+      }
+      */
+      // return "whatsapp://send?phone=$phone&text=${Uri.parse(message!)}";
     }
 
+    print(url());
     if (await canLaunch(url())) {
       await launch(url());
     } else {
       throw 'Could not launch ${url()}';
+    }
+  }
+
+  openwhatsapp(
+      {@required String? phone,
+      @required String? message,
+      @required BuildContext? context}) async {
+    var whatsapp = "+591 77799292";
+    var whatsapp_android = "+591 77799292";
+    // var whatsappURl_android ="whatsapp://send?phone=" + whatsapp_android + "&text=$message";
+    var whatsappURl_android =
+        "whatsapp://send?phone=$whatsapp_android&text=${Uri.parse(message!)}";
+    var whatappURL_ios =
+        "https://wa.me/$whatsapp?text=${Uri.parse("$message")}";
+    if (Platform.isIOS) {
+      // for iOS phone only
+      if (await canLaunch(whatappURL_ios)) {
+        await launch(whatappURL_ios, forceSafariVC: false);
+      } else {
+        ScaffoldMessenger.of(context!).showSnackBar(
+            const SnackBar(content: Text("whatsapp no installed")));
+      }
+    } else {
+      // android , web
+      if (await canLaunch(whatsappURl_android)) {
+        await launch(whatsappURl_android);
+      } else {
+        ScaffoldMessenger.of(context!).showSnackBar(
+            const SnackBar(content: Text("No se pudo enviar el mensaje!")));
+      }
     }
   }
 
@@ -148,47 +152,4 @@ class HomeController extends ControllerMVC {
       });
     }, onError: (a) {}, onDone: () {});
   }
-  // Future<void> listenProductosSemana() async {
-  //   // await iniciarNotificaciones();
-  //   final Stream<Producto> stream = await obtenerProductosSemana();
-  //   stream.listen((Producto _producto) {
-  //     setState(() {
-  //       if (currentUser.value.apiToken == null) {
-  //         Navigator.of(context).pushNamed('/Login');
-  //       }
-  //     });
-  //     // print(json.encode(_producto));
-  //     setState(() => productoSemana.add(_producto));
-  //   }, onError: (a) {
-  //     print(a);
-  //   }, onDone: () {});
-  // }
-
-  // void requestForCurrentLocation(BuildContext context) {
-  //   OverlayEntry loader = Helper.overlayLoader(context);
-  //   Overlay.of(context).insert(loader);
-  //   setCurrentLocation().then((_address) async {
-  //     deliveryAddress.value = _address;
-  //     await refreshHome();
-  //     loader.remove();
-  //   }).catchError((e) {
-  //     loader.remove();
-  //   });
-  // }
-
-  // Future<void> refreshHome() async {
-  //   setState(() {
-  //     productoSemana = <Producto>[];
-  //     // trendingProducts = <Product>[];
-  //     // categories = <Category>[];
-  //     // brands = <Brand>[];
-  //     //topStores = <Store>[];
-  //     //popularStores = <Store>[];
-  //     //recentReviews = <Review>[];
-  //   });
-  //   // await listenForTrendingProducts();
-  //   // await listenForCategories();
-  //   // await listenForBrands();
-  //   await listenProductosSemana();
-  // }
 }

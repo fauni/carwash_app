@@ -16,8 +16,8 @@ class _ReservaConfirmacionPageState extends State<ReservaConfirmacionPage> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           centerTitle: true,
-          leading: new IconButton(
-              icon: new Icon(Icons.arrow_back_ios,
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios,
                   color: Theme.of(context).hintColor),
               onPressed: () => Navigator.of(context).pushNamed('/Pages')),
           // actions: <Widget>[
@@ -51,19 +51,19 @@ class _ReservaConfirmacionPageState extends State<ReservaConfirmacionPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  Text(
+                  const Text(
                       'Te pedimos que llegues de manera puntual para no generar retrasos!')
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ButtonTheme(
                 minWidth: double.infinity,
                 height: 50.0,
@@ -73,7 +73,7 @@ class _ReservaConfirmacionPageState extends State<ReservaConfirmacionPage> {
                   onPressed: () {
                     Navigator.of(context).pushNamed('/Main');
                   },
-                  label: Text('Volver al Inicio'),
+                  label: const Text('Volver al Inicio'),
                   icon: Icon(
                     Icons.home,
                     color: Theme.of(context).hintColor,

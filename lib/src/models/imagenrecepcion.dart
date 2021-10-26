@@ -5,7 +5,7 @@
 import 'dart:convert';
 
 class LImagenRecepcion {
-  List<ImagenRecepcion> items = new List();
+  List<ImagenRecepcion> items = [];
   LImagenRecepcion();
   LImagenRecepcion.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) return;
@@ -33,12 +33,12 @@ class ImagenRecepcion {
     this.imgBack,
   });
 
-  String id;
-  String idReserva;
-  String imgLeft;
-  String imgRigth;
-  String imgFront;
-  String imgBack;
+  String? id;
+  String? idReserva;
+  String? imgLeft;
+  String? imgRigth;
+  String? imgFront;
+  String? imgBack;
 
   factory ImagenRecepcion.fromJson(Map<String, dynamic> json) =>
       ImagenRecepcion(

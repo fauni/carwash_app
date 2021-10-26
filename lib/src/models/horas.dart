@@ -5,7 +5,7 @@
 import 'dart:convert';
 
 class LHoras {
-  List<Horas> items = new List();
+  List<Horas> items = [];
   LHoras();
   LHoras.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) return;
@@ -24,10 +24,10 @@ String horasToJson(Horas data) => json.encode(data.toJson());
 class Horas {
   Horas({this.id, this.hora, this.dia, this.esSeleccionado});
 
-  String id;
-  String hora;
-  String dia;
-  bool esSeleccionado = false;
+  String? id;
+  String? hora;
+  String? dia;
+  bool? esSeleccionado = false;
 
   factory Horas.fromJson(Map<String, dynamic> json) => Horas(
       id: json["id"],

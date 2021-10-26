@@ -2,21 +2,19 @@ import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carwash/src/controllers/reserva_controller.dart';
-import 'package:carwash/src/models/reserva.dart';
 import 'package:carwash/src/models/reserva_inner.dart';
 import 'package:carwash/src/models/route_argument.dart';
-import 'package:carwash/src/widgets/CircularLoadingWidget.dart';
-import 'package:carwash/src/widgets/DrawerWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:carwash/src/widgets/circular_loading_widget.dart';
 
 class CapturasPage extends StatefulWidget {
-  RouteArgument routeArgument;
-  String _heroTag;
+  RouteArgument? routeArgument;
+  String? _heroTag;
 
-  CapturasPage({Key key, this.routeArgument}) {
-    _heroTag = this.routeArgument.param[1] as String;
+  CapturasPage({Key? key, this.routeArgument}) {
+    _heroTag = this.routeArgument!.param[1] as String;
   }
 
   @override
@@ -25,11 +23,11 @@ class CapturasPage extends StatefulWidget {
 
 class _CapturasPageState extends StateMVC<CapturasPage>
     with SingleTickerProviderStateMixin {
-  ReservaController _con;
+  late ReservaController _con;
 
-  ReservaInner reserva;
+  ReservaInner? reserva;
   _CapturasPageState() : super(ReservaController()) {
-    _con = controller;
+    _con = controller as ReservaController;
   }
 
   @override
@@ -38,9 +36,9 @@ class _CapturasPageState extends StateMVC<CapturasPage>
 
     // _con.listarCarrito();
     print(
-      jsonEncode(this.widget.routeArgument.param[0]),
+      jsonEncode(this.widget.routeArgument!.param[0]),
     );
-    _con.listadoDetalleReservaPorId(widget.routeArgument.id);
+    _con.listadoDetalleReservaPorId(widget.routeArgument!.id!);
     super.initState();
   }
 
@@ -94,16 +92,16 @@ class _CapturasPageState extends StateMVC<CapturasPage>
                                   fontSize: 15),
                             ),
                             Text(
-                              this.widget.routeArgument.param[0].marca +
+                              this.widget.routeArgument!.param[0].marca +
                                   ' ' +
-                                  this.widget.routeArgument.param[0].modelo,
+                                  this.widget.routeArgument!.param[0].modelo,
                               style: TextStyle(
                                   color: Theme.of(context).accentColor,
                                   fontSize: 18),
                             ),
                             Text(
                               'Placa ' +
-                                  this.widget.routeArgument.param[0].placa,
+                                  this.widget.routeArgument!.param[0].placa,
                               style: TextStyle(
                                   color: Theme.of(context).hintColor,
                                   fontSize: 15),
@@ -142,7 +140,7 @@ class _CapturasPageState extends StateMVC<CapturasPage>
                                   Row(
                                     children: <Widget>[
                                       Expanded(
-                                        child: Text(item.nombre,
+                                        child: Text(item.nombre!,
                                             style: TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.w200,
@@ -151,7 +149,7 @@ class _CapturasPageState extends StateMVC<CapturasPage>
                                       ),
                                       Text(
                                           'Bs. ' +
-                                              (double.parse(item.precio))
+                                              (double.parse(item.precio!))
                                                   .toString(),
                                           style: TextStyle(
                                               fontSize: 15,
@@ -207,13 +205,13 @@ class _CapturasPageState extends StateMVC<CapturasPage>
                             Text(
                                 this
                                         .widget
-                                        .routeArgument
+                                        .routeArgument!
                                         .param[0]
                                         .fechaReserva +
                                     ' ' +
                                     this
                                         .widget
-                                        .routeArgument
+                                        .routeArgument!
                                         .param[0]
                                         .horaReserva,
                                 style: TextStyle(
@@ -236,8 +234,8 @@ class _CapturasPageState extends StateMVC<CapturasPage>
                                 Navigator.of(context).pushNamed(
                                   '/DetalleReserva',
                                   arguments: new RouteArgument(
-                                    id: widget.routeArgument.id,
-                                    param: [widget.routeArgument.param[0]],
+                                    id: widget.routeArgument!.id!,
+                                    param: [widget.routeArgument!.param[0]],
                                   ),
                                 );
                               },
@@ -361,10 +359,10 @@ class _CapturasPageState extends StateMVC<CapturasPage>
 }
 
 class DetailScreen extends StatefulWidget {
-  final String image;
-  final String heroTag;
+  final String? image;
+  final String? heroTag;
 
-  const DetailScreen({Key key, this.image, this.heroTag}) : super(key: key);
+  const DetailScreen({Key? key, this.image, this.heroTag}) : super(key: key);
 
   @override
   _DetailScreenWidgetState createState() => _DetailScreenWidgetState();
@@ -377,9 +375,9 @@ class _DetailScreenWidgetState extends State<DetailScreen> {
         body: Center(
       child: GestureDetector(
         child: Hero(
-            tag: widget.heroTag,
+            tag: widget.heroTag!,
             child: PhotoView(
-              imageProvider: CachedNetworkImageProvider(widget.image),
+              imageProvider: CachedNetworkImageProvider(widget.image!),
             )),
       ),
     ));

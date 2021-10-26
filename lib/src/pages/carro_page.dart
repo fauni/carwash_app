@@ -6,13 +6,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../widgets/CircularLoadingWidget.dart';
-
 class CarroPage extends StatefulWidget {
   CarroPage({@required this.switchValue, @required this.valueChanged});
 
-  final bool switchValue;
-  final ValueChanged valueChanged;
+  final bool? switchValue;
+  final ValueChanged? valueChanged;
 
   @override
   State<StatefulWidget> createState() {
@@ -22,12 +20,12 @@ class CarroPage extends StatefulWidget {
 
 class CarroPageState extends StateMVC<CarroPage> {
   bool selected = false;
-  CarroController _con;
+  late CarroController _con;
 
-  bool _switchValue;
+  bool? _switchValue;
 
   CarroPageState() : super(CarroController()) {
-    _con = controller;
+    _con = controller as CarroController;
   }
   @override
   void initState() {
@@ -94,9 +92,10 @@ class CarroPageState extends StateMVC<CarroPage> {
                               _con.vehiculos.elementAt(index).esElegido != null
                                   ? _con.vehiculos.elementAt(index).esElegido
                                   : false,
-                          onChanged: (bool value) {
+                          onChanged: (bool? value) {
                             //print(index.toString() );
-                            _con.eligeVehiculo(_con.vehiculos.elementAt(index));
+                            _con.eligeVehiculo(
+                                context, _con.vehiculos.elementAt(index));
                             //_con.vehiculos.elementAt(index).esElegido=true;
                             _con.asignarVehiculoElegido();
                             setState(() {});
@@ -104,7 +103,7 @@ class CarroPageState extends StateMVC<CarroPage> {
                           },
                           secondary: CachedNetworkImage(
                             imageUrl: _con.RutaImg(
-                                _con.vehiculos.elementAt(index).foto),
+                                _con.vehiculos.elementAt(index).foto!),
                             /************* */
                             imageBuilder: (context, imageProvider) => Container(
                                 width: 80.0,
@@ -120,18 +119,18 @@ class CarroPageState extends StateMVC<CarroPage> {
                                 Icon(Icons.error),
                           ),
                           title: Text(
-                            _con.vehiculos.elementAt(index).placa +
+                            _con.vehiculos.elementAt(index).placa! +
                                 ' - ' +
-                                _con.vehiculos.elementAt(index).marca,
+                                _con.vehiculos.elementAt(index).marca!,
                             style:
                                 TextStyle(color: Theme.of(context).hintColor),
                           ),
                           subtitle: Text(
-                            _con.vehiculos.elementAt(index).modelo +
+                            _con.vehiculos.elementAt(index).modelo! +
                                 ' ' +
-                                _con.vehiculos.elementAt(index).anio +
+                                _con.vehiculos.elementAt(index).anio! +
                                 ' - ' +
-                                _con.vehiculos.elementAt(index).tamanio,
+                                _con.vehiculos.elementAt(index).tamanio!,
                             style: TextStyle(color: Colors.white),
                           ),
                           // trailing: Checkbox(

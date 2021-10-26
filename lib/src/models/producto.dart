@@ -5,7 +5,7 @@
 import 'dart:convert';
 
 class LProducto {
-  List<Producto> items = new List();
+  List<Producto> items = [];
   LProducto();
   LProducto.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) return;
@@ -32,13 +32,13 @@ class Producto {
     this.precio,
   });
 
-  String idProducto;
-  String nombreProducto;
-  String formaFarmaceutica;
-  String accionTerapeutica;
-  String nombreComercial;
-  String nombreGenerico;
-  double precio;
+  String? idProducto;
+  String? nombreProducto;
+  String? formaFarmaceutica;
+  String? accionTerapeutica;
+  String? nombreComercial;
+  String? nombreGenerico;
+  double? precio;
 
   factory Producto.fromJson(Map<String, dynamic> json) => Producto(
         idProducto: json["idProducto"],

@@ -2,22 +2,21 @@ import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carwash/src/controllers/reserva_controller.dart';
-import 'package:carwash/src/models/atencion.dart';
 import 'package:carwash/src/models/reserva_inner.dart';
 import 'package:carwash/src/models/route_argument.dart';
 import 'package:carwash/src/pages/compartir_page.dart';
-import 'package:carwash/src/widgets/CircularLoadingWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:carwash/src/pages/atencion_page.dart';
+import 'package:carwash/src/widgets/circular_loading_widget.dart';
 
 class DetalleReservaPage extends StatefulWidget {
-  RouteArgument routeArgument;
-  String _heroTag;
+  RouteArgument? routeArgument;
+  String? _heroTag;
 
-  DetalleReservaPage({Key key, this.routeArgument}) {
-    _heroTag = this.routeArgument.param[1] as String;
+  DetalleReservaPage({Key? key, this.routeArgument}) {
+    _heroTag = this.routeArgument!.param[1] as String;
   }
 
   @override
@@ -26,25 +25,18 @@ class DetalleReservaPage extends StatefulWidget {
 
 class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
     with SingleTickerProviderStateMixin {
-  ReservaController _con;
-  ReservaInner reserva;
+  late ReservaController _con;
+  ReservaInner? reserva;
   _DetalleReservaPageState() : super(ReservaController()) {
-    _con = controller;
+    _con = controller as ReservaController;
   }
 
   @override
   void initState() {
-    // _con.listenForProduct(productId: widget.routeArgument.id);
-
-    // _con.listarCarrito();
-    // print(
-    //   jsonEncode(this.widget.routeArgument.param[0]),
-    // );
-
-    _con.resInner = this.widget.routeArgument.param[0];
-    _con.listadoDetalleReservaPorId(widget.routeArgument.id);
-    _con.obtieneImg(widget.routeArgument.id);
-    _con.obtieneImgFinal(widget.routeArgument.id);
+    _con.resInner = this.widget.routeArgument!.param[0];
+    _con.listadoDetalleReservaPorId(widget.routeArgument!.id!);
+    _con.obtieneImg(widget.routeArgument!.id!);
+    _con.obtieneImgFinal(widget.routeArgument!.id!);
     super.initState();
   }
 
@@ -60,9 +52,8 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Text('Detalle de mi Reserva'),
-        leading: new IconButton(
-          icon: new Icon(Icons.arrow_back_ios,
-              color: Theme.of(context).hintColor),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Theme.of(context).hintColor),
           onPressed: () => Navigator.of(context).pop(),
         ),
         actions: [
@@ -87,7 +78,8 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                   fit: BoxFit.cover,
                 ),
                 SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 100),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 100),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -95,7 +87,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                       Container(
                         width: MediaQuery.of(context).size.width,
                         height: 80,
-                        padding: EdgeInsets.only(left: 20),
+                        padding: const EdgeInsets.only(left: 20),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           border:
@@ -112,16 +104,15 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                   fontSize: 15),
                             ),
                             Text(
-                              this.widget.routeArgument.param[0].marca +
+                              widget.routeArgument!.param[0].marca +
                                   ' ' +
-                                  this.widget.routeArgument.param[0].modelo,
+                                  widget.routeArgument!.param[0].modelo,
                               style: TextStyle(
                                   color: Theme.of(context).accentColor,
                                   fontSize: 18),
                             ),
                             Text(
-                              'Placa: ' +
-                                  this.widget.routeArgument.param[0].placa,
+                              'Placa: ' + widget.routeArgument!.param[0].placa,
                               style: TextStyle(
                                   color: Theme.of(context).hintColor,
                                   fontSize: 15),
@@ -160,7 +151,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                   Row(
                                     children: <Widget>[
                                       Expanded(
-                                        child: Text(item.nombre,
+                                        child: Text(item.nombre!,
                                             style: TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.w200,
@@ -169,7 +160,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                       ),
                                       Text(
                                           'Bs. ' +
-                                              (double.parse(item.precio))
+                                              (double.parse(item.precio!))
                                                   .toString(),
                                           style: TextStyle(
                                               fontSize: 15,
@@ -223,17 +214,9 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                       color: Theme.of(context).hintColor)),
                             ),
                             Text(
-                                this
-                                        .widget
-                                        .routeArgument
-                                        .param[0]
-                                        .fechaReserva +
+                                widget.routeArgument!.param[0].fechaReserva +
                                     ' ' +
-                                    this
-                                        .widget
-                                        .routeArgument
-                                        .param[0]
-                                        .horaReserva,
+                                    widget.routeArgument!.param[0].horaReserva,
                                 style: TextStyle(
                                     fontSize: 16,
                                     color: Theme.of(context).accentColor))
@@ -247,17 +230,18 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                         children: [
                           InkWell(
                             onTap: () async {
-                              if (widget.routeArgument.param[0].estado == 'P') {
-                                _con.alertDialogPendiente();
+                              if (widget.routeArgument!.param[0].estado ==
+                                  'P') {
+                                _con.alertDialogPendiente(context);
                               } else {
                                 final result = await Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => AtencionPage(
-                                      routeArgument: new RouteArgument(
-                                          id: widget.routeArgument.id,
+                                      routeArgument: RouteArgument(
+                                          id: widget.routeArgument!.id,
                                           param: [
-                                            widget.routeArgument.param[0],
+                                            widget.routeArgument!.param[0],
                                             widget._heroTag
                                           ]),
                                     ),
@@ -296,8 +280,8 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                             ),
                           ),
                           InkWell(
-                            onTap: () => _con
-                                .alertDialogVideo(), //_con.launchURLVideo(),
+                            onTap: () => _con.alertDialogVideo(
+                                context), //_con.launchURLVideo(),
                             child: Container(
                               width: MediaQuery.of(context).size.width / 3,
                               // height: MediaQuery.of(context).size.height / 8,
@@ -333,7 +317,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                           InkWell(
                             onTap: () {
                               // _con.obtieneImg(widget.routeArgument.id);
-                              _con.alertDialogFacturas();
+                              _con.alertDialogFacturas(context);
                             },
                             child: Container(
                               width: MediaQuery.of(context).size.width / 3,
@@ -360,7 +344,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                               ),
                             ),
                           ),
-                          widget.routeArgument.param[0].estado == 'L'
+                          widget.routeArgument!.param[0].estado == 'L'
                               ? Container(
                                   width: MediaQuery.of(context).size.width / 3,
                                   // height:MediaQuery.of(context).size.height / 8,
@@ -374,7 +358,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                       width: 60,
                                       height: 80),
                                 )
-                              : widget.routeArgument.param[0].estado == 'F'
+                              : widget.routeArgument!.param[0].estado == 'F'
                                   ? Container(
                                       width:
                                           MediaQuery.of(context).size.width / 3,
@@ -387,8 +371,8 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                       child: InkWell(
                                         onTap: () {
                                           _con.obtieneImgFinal(
-                                              widget.routeArgument.id);
-                                          _con.alertDialogFinal();
+                                              widget.routeArgument!.id!);
+                                          _con.alertDialogFinal(context);
                                         },
                                         child: Column(
                                           children: [
@@ -438,7 +422,7 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                       SizedBox(
                         height: 20,
                       ),
-                      widget.routeArgument.param[0].estado == 'F'
+                      widget.routeArgument!.param[0].estado == 'F'
                           ? Container(
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               child: ButtonTheme(
@@ -447,12 +431,12 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                                 child: RaisedButton.icon(
                                   onPressed: () {
                                     print(jsonEncode(
-                                        widget.routeArgument.param[0].id));
+                                        widget.routeArgument!.param[0].id));
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => CompartirPage(
-                                                idReserva: widget.routeArgument
+                                                idReserva: widget.routeArgument!
                                                     .param[0].id)));
                                     // Navigator.of(context).pushNamed(
                                     //     '/Compartir',
@@ -479,10 +463,10 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
 }
 
 class DetailScreen extends StatefulWidget {
-  final String image;
-  final String heroTag;
+  final String? image;
+  final String? heroTag;
 
-  const DetailScreen({Key key, this.image, this.heroTag}) : super(key: key);
+  const DetailScreen({Key? key, this.image, this.heroTag}) : super(key: key);
 
   @override
   _DetailScreenWidgetState createState() => _DetailScreenWidgetState();
@@ -495,9 +479,9 @@ class _DetailScreenWidgetState extends State<DetailScreen> {
         body: Center(
       child: GestureDetector(
         child: Hero(
-            tag: widget.heroTag,
+            tag: widget.heroTag!,
             child: PhotoView(
-              imageProvider: CachedNetworkImageProvider(widget.image),
+              imageProvider: CachedNetworkImageProvider(widget.image!),
             )),
       ),
     ));

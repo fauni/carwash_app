@@ -1,14 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:carwash/src/controllers/slider_controller.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:carwash/src/controllers/slider_controller.dart';
 import '../../src/helpers/app_config.dart' as config;
 import 'package:flutter/material.dart';
 
-import 'CardsCarouselLoaderWidget.dart';
+import 'cards_carousel_loader_widget.dart';
 
 class HomeSliderWidget extends StatefulWidget {
   @override
@@ -17,9 +16,16 @@ class HomeSliderWidget extends StatefulWidget {
 
 class _HomeSliderWidgetState extends StateMVC<HomeSliderWidget> {
   int _current = 0;
-  SliderController _con;
+  late SliderController _con;
   _HomeSliderWidgetState() : super(SliderController()) {
-    _con = controller;
+    _con = controller as SliderController;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _con.cargarPublicidad(context);
+    super.initState();
   }
 
   @override
@@ -29,13 +35,13 @@ class _HomeSliderWidgetState extends StateMVC<HomeSliderWidget> {
 //      fit: StackFit.expand,
       children: <Widget>[
         _con.publicidades.isEmpty
-            ? CardsCarouselLoaderWidget()
+            ? const CardsCarouselLoaderWidget()
             : CarouselSlider(
                 options: CarouselOptions(
                   height: 500,
                   scrollDirection: Axis.vertical,
                   autoPlay: true,
-                  autoPlayInterval: Duration(seconds: 4),
+                  autoPlayInterval: const Duration(seconds: 4),
                   viewportFraction: 1.0,
                   enlargeCenterPage: true,
                   aspectRatio: 2.0,
@@ -101,7 +107,7 @@ class _HomeSliderWidgetState extends StateMVC<HomeSliderWidget> {
                                     '', //publicidad.detallePublicidad,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .title
+                                        .subtitle1!
                                         .merge(TextStyle(height: 1)),
                                     textAlign: TextAlign.end,
                                     overflow: TextOverflow.fade,
@@ -128,9 +134,10 @@ class _HomeSliderWidgetState extends StateMVC<HomeSliderWidget> {
               return Container(
                 width: 20.0,
                 height: 3.0,
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
+                    borderRadius: const BorderRadius.all(
                       Radius.circular(8),
                     ),
                     color: _current == _con.sliders.indexOf(slide)
@@ -158,10 +165,10 @@ class _HomeSliderWidgetState extends StateMVC<HomeSliderWidget> {
 }
 
 class DetailScreen extends StatefulWidget {
-  final String image;
-  final String heroTag;
+  final String? image;
+  final String? heroTag;
 
-  const DetailScreen({Key key, this.image, this.heroTag}) : super(key: key);
+  const DetailScreen({Key? key, this.image, this.heroTag}) : super(key: key);
 
   @override
   _DetailScreenWidgetState createState() => _DetailScreenWidgetState();
@@ -174,9 +181,9 @@ class _DetailScreenWidgetState extends State<DetailScreen> {
         body: Center(
       child: GestureDetector(
         child: Hero(
-            tag: widget.heroTag,
+            tag: widget.heroTag!,
             child: PhotoView(
-              imageProvider: CachedNetworkImageProvider(widget.image),
+              imageProvider: CachedNetworkImageProvider(widget.image!),
             )),
       ),
     ));

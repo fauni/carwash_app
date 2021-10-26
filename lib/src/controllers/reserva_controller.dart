@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:carwash/generated/i18n.dart';
 import 'package:carwash/src/models/atencion.dart';
 import 'package:carwash/src/models/detalle_reserva.dart';
 import 'package:carwash/src/models/horas.dart';
@@ -13,7 +12,6 @@ import 'package:carwash/src/pages/en_vivo_page.dart';
 import 'package:carwash/src/pages/servicio_page.dart';
 import 'package:carwash/src/repository/atencion_repository.dart';
 import 'package:carwash/src/repository/reserva_repository.dart';
-//import 'package:carwash/src/models/setting.dart';
 import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:carwash/src/repository/servicio_repository.dart';
 import 'package:flutter/material.dart';
@@ -24,22 +22,21 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:path_provider/path_provider.dart';
-import 'package:image/image.dart' as ima;
 
 class ReservaController extends ControllerMVC {
   var platform = MethodChannel("example/procare");
   String hiText = "";
 
-  int selectedIndex;
+  int? selectedIndex;
   Atencion atencion = new Atencion();
-  Reserva reserva;
-  ReservaInner resInner;
+  Reserva? reserva;
+  ReservaInner? resInner;
   List<ReservaInner> reservasInner = [];
   List<DetalleReserva> ldetalleReserva = []; // Listado de detalle de reserva
 
   List<Horas> horas = [];
-  File fileImgFac = null;
-  File fileImgFin = null;
+  File? fileImgFac = null;
+  File? fileImgFin = null;
 
   Horas hora = new Horas();
 
@@ -50,17 +47,17 @@ class ReservaController extends ControllerMVC {
     "fecha": ""
   };
 
-  double subTotal = 0.0;
-  double total = 0.0;
+  double? subTotal = 0.0;
+  double? total = 0.0;
 
   bool tieneImgFac = false;
   bool tieneImgFin = false;
 
   VehiculoA vehiculoElegido = new VehiculoA();
-  List<Servicio> servicioElegido = new List<Servicio>();
+  List<Servicio> servicioElegido = [];
   Reserva fechaHoraElegida = new Reserva();
 
-  GlobalKey<ScaffoldState> scaffoldKey;
+  GlobalKey<ScaffoldState>? scaffoldKey;
 
   ReservaController() {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -71,9 +68,9 @@ class ReservaController extends ControllerMVC {
     return getRutaImg(nombre);
   }
 
-  void verificaInformacion() async {
+  void verificaInformacion(BuildContext context) async {
     String strVehiculo = await getVehiculo();
-    String strServicios = await getServicio();
+    String? strServicios = await getServicio();
     if (strVehiculo == null) {
       Navigator.pop(context);
       Navigator.of(context).push(
@@ -97,11 +94,11 @@ class ReservaController extends ControllerMVC {
   }
 
   void obtenerServicio() async {
-    String servicio_json = await getServicio();
+    String? servicio_json = await getServicio();
     if (servicioElegido == null) {
       print('Es nulo');
     } else {
-      final servicios = json.decode(servicio_json);
+      final servicios = json.decode(servicio_json!);
       servicioElegido = (servicios as List)
           .map((data) => new Servicio.fromJson(data))
           .toList();
@@ -120,7 +117,7 @@ class ReservaController extends ControllerMVC {
   }
 
   void obtenerFechaHora() async {
-    String fecha_json = await getReserva();
+    String? fecha_json = await getReserva();
     if (fecha_json == null) {
       fechaHoraElegida = new Reserva();
     } else {
@@ -132,19 +129,19 @@ class ReservaController extends ControllerMVC {
 
   void eligeReserva(Reserva reserv) async {
     this.reserva = reserv;
-    String strRes = reservaToJson(reserva);
+    String strRes = reservaToJson(reserva!);
     setReserva(strRes);
     print('_________en string____________');
     print(await getReserva());
   }
 
-  void setReservaCompleta() async {
+  void setReservaCompleta(BuildContext context) async {
     String strVehiculo = await getVehiculo();
     this.reservaCompleta["vehiculo"] = json.decode(strVehiculo);
-    String strServicios = await getServicio();
-    this.reservaCompleta["servicios"] = json.decode(strServicios);
-    String strFecha = await getReserva();
-    this.reservaCompleta["fecha"] = json.decode(strFecha);
+    String? strServicios = await getServicio();
+    this.reservaCompleta["servicios"] = json.decode(strServicios!);
+    String? strFecha = await getReserva();
+    this.reservaCompleta["fecha"] = json.decode(strFecha!);
     print(json.encode(this.reservaCompleta));
     print('--------respuesta del post:----------');
     var respuesta = registrarReserva(json.encode(this.reservaCompleta));
@@ -154,15 +151,21 @@ class ReservaController extends ControllerMVC {
   showAlertDialog(BuildContext context) {
     // set up the buttons
     Widget cancelButton = FlatButton(
-      child: Text("Todavia no!"),
+      child: Text(
+        "Todavia no!",
+        style: TextStyle(color: Theme.of(context).accentColor),
+      ),
       onPressed: () {
         Navigator.of(context).pop();
       },
     );
     Widget continueButton = FlatButton(
-      child: Text("Si"),
+      child: Text(
+        "Si",
+        style: TextStyle(color: Theme.of(context).accentColor),
+      ),
       onPressed: () {
-        setReservaCompleta();
+        setReservaCompleta(context);
         Navigator.of(context).pop();
       },
     );
@@ -185,7 +188,7 @@ class ReservaController extends ControllerMVC {
   }
 
 // Obtener Atención por codigo de Reserva
-  void obtenerAtencionPorReserva(String idReserva) async {
+  void obtenerAtencionPorReserva(BuildContext context, String idReserva) async {
     final Stream<Atencion> stream = await getAtencionesPorReserva(idReserva);
     stream.listen((Atencion _atencion) {
       setState(() {
@@ -201,41 +204,25 @@ class ReservaController extends ControllerMVC {
         );
       });
     }, onError: (a) {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
         content: Text('No se pudo traer la información de la atención!'),
       ));
     }, onDone: () {});
   }
 
   //listar reservas para mostrar
-  void listarReservasInnerByIdCli({String message}) async {
-    // var now = new DateTime.now();
-    // var formatter = new DateFormat('yyyy-MM-dd');
-    // String formattedDate = formatter.format(now);
-    // reserva.fechaReserva = formatter.format(now);
-
-    // print(formattedDate); // 2016-01-25
-
+  void listarReservasInnerByIdCli() async {
     final Stream<List<ReservaInner>> stream =
         await obtenerReservasInnerXIdCli();
     stream.listen((List<ReservaInner> _reservas) {
       setState(() {
         reservasInner = _reservas;
-        // print("===============================");
-        // //print(carros);
-        // print(jsonEncode(carros));
       });
     }, onError: (a) {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text(S.current.verify_your_internet_connection),
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
+        content: Text('Verifica tu conexión de Internet'),
       ));
-    }, onDone: () {
-      if (message != null) {
-        scaffoldKey.currentState.showSnackBar(SnackBar(
-          content: Text(message),
-        ));
-      }
-    });
+    }, onDone: () {});
   }
 
   //listar reservas para mostrar
@@ -251,8 +238,8 @@ class ReservaController extends ControllerMVC {
         print(jsonEncode(ldetalleReserva));
       });
     }, onError: (a) {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text(S.current.verify_your_internet_connection),
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
+        content: Text('Verifica tu conexión de Internet'),
       ));
     }, onDone: () {});
   }
@@ -263,7 +250,7 @@ class ReservaController extends ControllerMVC {
 
     ldetalleReserva.forEach(
       (serv) {
-        subTotal = subTotal + double.parse(serv.precio);
+        subTotal = (subTotal! + double.parse(serv.precio!));
       },
     );
     total = subTotal;
@@ -277,11 +264,11 @@ class ReservaController extends ControllerMVC {
     servicioElegido.forEach(
       (serv) {
         if (vehiculoElegido.tamanio == 'M') {
-          subTotal = subTotal + double.parse(serv.precioM);
+          subTotal = subTotal! + double.parse(serv.precioM!);
         } else if (vehiculoElegido.tamanio == 'L') {
-          subTotal = subTotal + double.parse(serv.precioL);
+          subTotal = subTotal! + double.parse(serv.precioL!);
         } else {
-          subTotal = subTotal + double.parse(serv.precioXl);
+          subTotal = subTotal! + double.parse(serv.precioXl!);
         }
       },
     );
@@ -289,7 +276,7 @@ class ReservaController extends ControllerMVC {
     setState(() {});
   }
 
-  Future<void> alertDialogPendiente() async {
+  Future<void> alertDialogPendiente(BuildContext context) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -317,7 +304,7 @@ class ReservaController extends ControllerMVC {
     );
   }
 
-  Future<void> alertDialogFacturas() async {
+  Future<void> alertDialogFacturas(BuildContext context) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -348,10 +335,10 @@ class ReservaController extends ControllerMVC {
     );
   }
 
-  Future<void> alertDialogVideo() async {
-    print(resInner.estado);
-    if (resInner.estado == 'L') {
-      obtenerAtencionPorReserva(resInner.id);
+  Future<void> alertDialogVideo(BuildContext context) async {
+    print(resInner!.estado);
+    if (resInner!.estado == 'L') {
+      obtenerAtencionPorReserva(context, resInner!.id!);
     } else {
       return showDialog<void>(
         context: context,
@@ -407,7 +394,7 @@ class ReservaController extends ControllerMVC {
       });
     }, onError: (a) {
       // loader.remove();
-      scaffoldKey.currentState.showSnackBar(SnackBar(
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
         content: Text('Ocurrio un error al obtener reservas'),
       ));
     }, onDone: () {
@@ -451,7 +438,7 @@ class ReservaController extends ControllerMVC {
       });
     }, onError: (a) {
       // loader.remove();
-      scaffoldKey.currentState.showSnackBar(SnackBar(
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
         content: Text('Ocurrio un error al obtener las horas'),
       ));
     }, onDone: () {
@@ -459,21 +446,14 @@ class ReservaController extends ControllerMVC {
     });
   }
 
-  bool isDataExist(String value) {
-    List<ReservaInner> _reservasInner = [];
+  Future<bool> isDataExist(String value) async {
+    bool result = false;
     reservasInner.forEach((element) {
       if (element.horaReserva == value) {
-        return true;
+        result = true;
       }
-      return false;
     });
-
-    // var data = reservasInner.where((row) => (row.horaReserva.contains(value)));
-    // if (data.length >= 1) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
+    return result;
   }
 
   deseleccionarHoras() {
@@ -494,7 +474,7 @@ class ReservaController extends ControllerMVC {
   }
 
   compartirReserva() async {
-    String response;
+    String? response;
     try {
       // response = await platform.invokeMethod("hello", "https://alquiauto.es/wp-content/uploads/2020/05/limpieza-y-lavado-del-coche-DURANTE-CORONA-VIRUS.jpg");
       response =
@@ -509,7 +489,7 @@ class ReservaController extends ControllerMVC {
     }
 
     setState(() {
-      hiText = response;
+      hiText = response!;
       print(hiText);
     });
   }
@@ -520,13 +500,13 @@ class ReservaController extends ControllerMVC {
         '${GlobalConfiguration().getString('img_capturas_carwash') + idReserva}/factura.jpg';
 
     final client = http.Client();
-    final response = await client.get(url);
+    final response = await client.get(Uri.parse(url));
     try {
       if (response.statusCode == 200) {
         this.tieneImgFac = true;
         var directorio = await getApplicationDocumentsDirectory();
         fileImgFac = new File(directorio.path + '/factura.jpg');
-        fileImgFac.writeAsBytesSync(response.bodyBytes);
+        fileImgFac!.writeAsBytesSync(response.bodyBytes);
         //final bytes = base64.decode(base64.encode(response.bodyBytes));
         //Image image = ima. (file.readAsBytesSync());
         print(base64.encode(response.bodyBytes));
@@ -534,7 +514,7 @@ class ReservaController extends ControllerMVC {
         this.tieneImgFac = false;
       }
     } catch (e) {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
         content: Text('Verifica tu conexión de internet!'),
       ));
     }
@@ -546,13 +526,13 @@ class ReservaController extends ControllerMVC {
         '${GlobalConfiguration().getString('img_capturas_carwash') + idReserva}/final.jpg';
 
     final client = http.Client();
-    final response = await client.get(url);
+    final response = await client.get(Uri.parse(url));
     try {
       if (response.statusCode == 200) {
         this.tieneImgFin = true;
         var directorio = await getApplicationDocumentsDirectory();
         fileImgFin = new File(directorio.path + '/final.jpg');
-        fileImgFin.writeAsBytesSync(response.bodyBytes);
+        fileImgFin!.writeAsBytesSync(response.bodyBytes);
         //final bytes = base64.decode(base64.encode(response.bodyBytes));
         //Image image = ima. (file.readAsBytesSync());
         print(base64.encode(response.bodyBytes));
@@ -560,13 +540,13 @@ class ReservaController extends ControllerMVC {
         this.tieneImgFin = false;
       }
     } catch (e) {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
         content: Text('Verifica tu conexión de internet!'),
       ));
     }
   }
 
-  Future<void> alertDialogFinal() async {
+  Future<void> alertDialogFinal(BuildContext context) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -582,7 +562,7 @@ class ReservaController extends ControllerMVC {
                     ? Text('')
                     : Text('El proceso de lavado continua'),
                 this.tieneImgFin
-                    ? Image.file(fileImgFin)
+                    ? Image.file(fileImgFin!)
                     : Text(
                         'Vuelva a intentar, mas adelante'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
               ],

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:carwash/generated/i18n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -9,7 +8,7 @@ import '../repository/user_repository.dart' as userRepo;
 
 class SplashPageController extends ControllerMVC with ChangeNotifier {
   ValueNotifier<Map<String, double>> progress = new ValueNotifier(new Map());
-  GlobalKey<ScaffoldState> scaffoldKey;
+  GlobalKey<ScaffoldState>? scaffoldKey;
 
   SplashPageController() {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -24,20 +23,14 @@ class SplashPageController extends ControllerMVC with ChangeNotifier {
           settingRepo.setting.value.appName != '' &&
           settingRepo.setting.value.mainColor != null) {
         progress.value["Setting"] = 41;
-        progress?.notifyListeners();
+        progress.notifyListeners();
       }
     });
-    userRepo.currentUser.addListener(() {
-      if (userRepo.currentUser.value.email != null) {
+    userRepo.currentUser!.addListener(() {
+      if (userRepo.currentUser!.value.email != null) {
         progress.value["User"] = 59;
-        progress?.notifyListeners();
+        progress.notifyListeners();
       }
     });
-
-    // Timer(Duration(seconds: 5), () {
-    //   scaffoldKey?.currentState?.showSnackBar(SnackBar(
-    //     content: Text(S.current.verify_your_internet_connection),
-    //   ));
-    // });
   }
 }

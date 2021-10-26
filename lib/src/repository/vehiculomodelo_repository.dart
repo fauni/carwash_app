@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:carwash/src/helpers/custom_trace.dart';
-import 'package:carwash/src/models/vehiculo_modelo.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
+import 'package:carwash/src/models/vehiculo_modelo.dart';
 
 Future<Stream<List<VehiculoModelo>>> obtenerModelosVehiculo() async {
   // Uri uri = Helper.getUriLfr('api/producto');
@@ -13,19 +12,17 @@ Future<Stream<List<VehiculoModelo>>> obtenerModelosVehiculo() async {
       '${GlobalConfiguration().getString('api_base_url_wash')}modelos/get'; /*cambiar por id del cliente*/
 
   final client = new http.Client();
-  final response = await client.get(url);
+  final response = await client.get(Uri.parse(url));
   try {
     if (response.statusCode == 200) {
       final lvehiculo =
           LVehiculoModelo.fromJsonList(json.decode(response.body)['body']);
       return new Stream.value(lvehiculo.items);
     } else {
-      return new Stream.value(new List<VehiculoModelo>());
+      return new Stream.value([]);
     }
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: url).toString());
-    //print('error en repository al llenar '+e.toString());
-    return new Stream.value(new List<VehiculoModelo>());
+    return new Stream.value([]);
   }
 }
 
@@ -34,10 +31,10 @@ Future<dynamic> guardarModeloVehiculo(VehiculoModelo vehiculo_modelo) async {
   final String url =
       '${GlobalConfiguration().getString('api_base_url_wash')}modelos/save';
   final client = new http.Client();
-  final response = await client.post(url,
+  final response = await client.post(Uri.parse(url),
       headers: {HttpHeaders.contentTypeHeader: 'application/json'},
       body: vehiculoModeloToJson(vehiculo_modelo));
-  // print(url);
+  // print(Uri.parse(url));
   if (response.statusCode == 200) {
     //setCurrentUser(response.body);
     //currentUser.value = User.fromJSON(json.decode(response.body)['data']);
@@ -48,4 +45,3 @@ Future<dynamic> guardarModeloVehiculo(VehiculoModelo vehiculo_modelo) async {
   }
   return response.body;
 }
-

@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:carwash/src/helpers/helper.dart';
 import 'package:carwash/src/models/atencion.dart';
 import 'package:carwash/src/models/cliente.dart';
 import 'package:carwash/src/models/detalle_reserva.dart';
@@ -9,7 +7,6 @@ import 'package:carwash/src/models/reserva_inner.dart';
 import 'package:carwash/src/repository/atencion_repository.dart';
 import 'package:carwash/src/repository/cliente_repository.dart';
 import 'package:carwash/src/repository/reserva_repository.dart';
-import 'package:carwash/src/repository/user_repository.dart';
 import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,7 +19,6 @@ class AtencionController extends ControllerMVC {
   String imgBack = '';
 
   bool seInicio = false;
-  OverlayEntry loader;
 
   List<DetalleReserva> ldetalleReserva = []; // Listado de detalle de reserva
   Cliente cliente = new Cliente();
@@ -34,16 +30,14 @@ class AtencionController extends ControllerMVC {
   double subTotal = 0.0;
   double total = 0.0;
 
-  File carLeft;
-  File carRigth;
-  File carFront;
-  File carBack;
+  File? carLeft;
+  File? carRigth;
+  File? carFront;
+  File? carBack;
   final picker = ImagePicker();
   List<String> limages = [];
 
-  AtencionController() {
-    loader = Helper.overlayLoader(context);
-  }
+  AtencionController();
 
   String rutaImg(String nombre) {
     return getRutaImg(nombre);
@@ -52,10 +46,10 @@ class AtencionController extends ControllerMVC {
   void obtenerRutasImagenes() async {
     final url_capturas = await getUrlCapturas();
     setState(() {
-      this.imgLeft = url_capturas + reserva.id + '/left.jpg';
-      this.imgRigth = url_capturas + reserva.id + '/rigth.jpg';
-      this.imgFront = url_capturas + reserva.id + '/front.jpg';
-      this.imgBack = url_capturas + reserva.id + '/back.jpg';
+      this.imgLeft = url_capturas + reserva.id! + '/left.jpg';
+      this.imgRigth = url_capturas + reserva.id! + '/rigth.jpg';
+      this.imgFront = url_capturas + reserva.id! + '/front.jpg';
+      this.imgBack = url_capturas + reserva.id! + '/back.jpg';
     });
   }
 
@@ -83,7 +77,7 @@ class AtencionController extends ControllerMVC {
     });
   }
 
-  Future quitarImagen(String lado) {
+  Future quitarImagen(String lado) async {
     setState(() {
       if (lado == 'L') {
         carLeft = null;
@@ -134,7 +128,7 @@ class AtencionController extends ControllerMVC {
         // print(jsonEncode(ldetalleReserva));
       });
     }, onError: (a) {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
+      scaffoldKey.currentState!.showSnackBar(SnackBar(
         content: Text('Verifica tu conexión de internet!'),
       ));
     }, onDone: () {});
@@ -151,7 +145,7 @@ class AtencionController extends ControllerMVC {
         // print(jsonEncode(cliente));
       });
     }, onError: (a) {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
+      scaffoldKey.currentState!.showSnackBar(SnackBar(
         content: Text('Verifica tu conexión de internet!'),
       ));
     }, onDone: () {});
@@ -167,7 +161,7 @@ class AtencionController extends ControllerMVC {
         // print(json.encode(atencion));
       });
     }, onError: (a) {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
+      scaffoldKey.currentState!.showSnackBar(SnackBar(
         content: Text('No se pudo traer la información de la atención!'),
       ));
     }, onDone: () {});
@@ -179,7 +173,7 @@ class AtencionController extends ControllerMVC {
 
     ldetalleReserva.forEach(
       (serv) {
-        subTotal = subTotal + double.parse(serv.precio);
+        subTotal = subTotal + double.parse(serv.precio!);
       },
     );
     total = subTotal;
@@ -188,13 +182,13 @@ class AtencionController extends ControllerMVC {
 
   showAlertDialog(BuildContext context) {
     // set up the buttons
-    Widget cancelButton = FlatButton(
+    Widget cancelButton = OutlinedButton(
       child: Text("Continuar Lavando"),
       onPressed: () {
         Navigator.of(context).pop();
       },
     );
-    Widget continueButton = FlatButton(
+    Widget continueButton = OutlinedButton(
       child: Text("Finalizar"),
       onPressed: () {
         finalizarAtencion();
@@ -221,23 +215,23 @@ class AtencionController extends ControllerMVC {
 
   // listar cliente por Email
   void finalizarAtencion() async {
-    FocusScope.of(context).unfocus();
-    Overlay.of(context).insert(loader);
+    //FocusScope.of(context).unfocus();
+    //Overlay.of(context).insert(loader);
 
     final Stream<bool> stream = await finishAtencion(atencion);
     stream.listen((bool _seInicio) {
       setState(() {
         seInicio = _seInicio;
         if (seInicio) {
-          scaffoldKey.currentState.showSnackBar(
+          scaffoldKey.currentState!.showSnackBar(
             SnackBar(
               content: Text('Se finalizo el proceso de Lavado'),
             ),
           );
-          obtenerAtencionPorReserva(atencion.idReserva);
+          obtenerAtencionPorReserva(atencion.idReserva!);
           // Navigator.pop(context, true);
         } else {
-          scaffoldKey.currentState.showSnackBar(
+          scaffoldKey.currentState!.showSnackBar(
             SnackBar(
               content: Text(
                   'Revise la información, no se pudo iniciar el proceso de lavado'),
@@ -249,13 +243,10 @@ class AtencionController extends ControllerMVC {
         // //print(carros);
       });
     }, onError: (a) {
-      loader.remove();
-      scaffoldKey.currentState.showSnackBar(SnackBar(
+      scaffoldKey.currentState!.showSnackBar(SnackBar(
         content: Text('Verifica tu conexión de internet!'),
       ));
-    }, onDone: () {
-      Helper.hideLoader(loader);
-    });
+    }, onDone: () {});
   }
   // Future<void> refreshHome() async {
   //   setState(() {

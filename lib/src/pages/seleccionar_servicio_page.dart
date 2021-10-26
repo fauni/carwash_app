@@ -5,11 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 class SeleccionarServicioPage extends StatefulWidget {
-  SeleccionarServicioPage(
-      {@required this.switchValue, @required this.valueChanged});
-
-  final bool switchValue;
-  final ValueChanged valueChanged;
+  SeleccionarServicioPage();
 
   @override
   State<StatefulWidget> createState() {
@@ -21,17 +17,17 @@ class SeleccionarServicioPageState extends StateMVC<SeleccionarServicioPage> {
   bool selected = false;
 
   String tipoAuto = 'L';
-  ServicioController _con;
+  late ServicioController _con;
 
   // bool _switchValue;
 
   SeleccionarServicioPageState() : super(ServicioController()) {
-    _con = controller;
+    _con = controller as ServicioController;
   }
   @override
   void initState() {
-    // _switchValue = widget.switchValue;
-    tipoAuto = _con.vehiculoElegido.tamanio;
+    _con.obtenerVehiculo(context);
+    // tipoAuto = _con.vehiculoElegido.tamanio!;
     super.initState();
   }
 
@@ -139,7 +135,7 @@ class SeleccionarServicioPageState extends StateMVC<SeleccionarServicioPage> {
                                         groupValue: _con.valueRadio,
                                         onChanged: (ind) {
                                           setState(() {
-                                            _con.valueRadio = ind;
+                                            _con.valueRadio = ind as int;
                                             this
                                                 ._con
                                                 .insertaServElegidosGeneral(_con
@@ -167,7 +163,7 @@ class SeleccionarServicioPageState extends StateMVC<SeleccionarServicioPage> {
                                                 double.parse(_con
                                                             .serviciosGeneral
                                                             .elementAt(index)
-                                                            .precioM)
+                                                            .precioM!)
                                                         .toString() +
                                                     '  Bs.',
                                                 style: TextStyle(
@@ -181,7 +177,7 @@ class SeleccionarServicioPageState extends StateMVC<SeleccionarServicioPage> {
                                                                 .serviciosGeneral
                                                                 .elementAt(
                                                                     index)
-                                                                .precioL)
+                                                                .precioL!)
                                                             .toString() +
                                                         '  Bs.',
                                                     style: TextStyle(
@@ -193,7 +189,7 @@ class SeleccionarServicioPageState extends StateMVC<SeleccionarServicioPage> {
                                                                 .serviciosGeneral
                                                                 .elementAt(
                                                                     index)
-                                                                .precioXl)
+                                                                .precioXl!)
                                                             .toString() +
                                                         '  Bs.',
                                                     style: TextStyle(
@@ -203,7 +199,7 @@ class SeleccionarServicioPageState extends StateMVC<SeleccionarServicioPage> {
                                         title: Text(
                                           _con.servicios
                                               .elementAt(index)
-                                              .nombre,
+                                              .nombre!,
                                           style: TextStyle(
                                             color:
                                                 Theme.of(context).accentColor,
@@ -212,7 +208,7 @@ class SeleccionarServicioPageState extends StateMVC<SeleccionarServicioPage> {
                                         subtitle: Text(
                                           _con.servicios
                                               .elementAt(index)
-                                              .detalle,
+                                              .detalle!,
                                           style: TextStyle(color: Colors.white),
                                         ),
                                       ),
@@ -278,7 +274,7 @@ class SeleccionarServicioPageState extends StateMVC<SeleccionarServicioPage> {
                                                 double.parse(_con
                                                             .serviciosAdicionales
                                                             .elementAt(index)
-                                                            .precioM)
+                                                            .precioM!)
                                                         .toString() +
                                                     '  Bs.',
                                                 style: TextStyle(
@@ -292,7 +288,7 @@ class SeleccionarServicioPageState extends StateMVC<SeleccionarServicioPage> {
                                                                 .serviciosAdicionales
                                                                 .elementAt(
                                                                     index)
-                                                                .precioL)
+                                                                .precioL!)
                                                             .toString() +
                                                         '  Bs.',
                                                     style: TextStyle(
@@ -304,7 +300,7 @@ class SeleccionarServicioPageState extends StateMVC<SeleccionarServicioPage> {
                                                                 .serviciosAdicionales
                                                                 .elementAt(
                                                                     index)
-                                                                .precioXl)
+                                                                .precioXl!)
                                                             .toString() +
                                                         '  Bs.',
                                                     style: TextStyle(
@@ -314,7 +310,7 @@ class SeleccionarServicioPageState extends StateMVC<SeleccionarServicioPage> {
                                         title: Text(
                                           _con.serviciosAdicionales
                                               .elementAt(index)
-                                              .nombre,
+                                              .nombre!,
                                           style: TextStyle(
                                             color:
                                                 Theme.of(context).accentColor,
@@ -323,7 +319,7 @@ class SeleccionarServicioPageState extends StateMVC<SeleccionarServicioPage> {
                                         subtitle: Text(
                                           _con.serviciosAdicionales
                                               .elementAt(index)
-                                              .detalle,
+                                              .detalle!,
                                           style: TextStyle(
                                             color: Colors.white,
                                           ),
@@ -333,7 +329,7 @@ class SeleccionarServicioPageState extends StateMVC<SeleccionarServicioPage> {
                                             .serviciosAdicionales
                                             .elementAt(index)
                                             .esSeleccionado,
-                                        onChanged: (bool elegido) {
+                                        onChanged: (bool? elegido) {
                                           setState(() {
                                             this
                                                 ._con
@@ -377,7 +373,7 @@ class SeleccionarServicioPageState extends StateMVC<SeleccionarServicioPage> {
                                   new MaterialPageRoute<Null>(
                                       builder: (BuildContext context) {
                                         return new SeleccionarFechahoraPage(
-                                            switchValue: null,
+                                            switchValue: false,
                                             valueChanged: null);
                                       },
                                       fullscreenDialog: true),

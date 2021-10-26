@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class LReservaInner {
-  List<ReservaInner> items = new List();
+  List<ReservaInner> items = [];
   LReservaInner();
   LReservaInner.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) return;
@@ -34,19 +34,19 @@ class ReservaInner {
       this.marca,
       this.foto});
 
-  String id;
-  String idVehiculo;
-  String fechaCrea;
-  String fechaReserva;
-  String horaReserva;
-  String estado;
-  String placa;
-  String idCliente;
-  String tipo;
-  String tamanio;
-  String modelo;
-  String marca;
-  String foto;
+  String? id;
+  String? idVehiculo;
+  String? fechaCrea;
+  String? fechaReserva;
+  String? horaReserva;
+  String? estado;
+  String? placa;
+  String? idCliente;
+  String? tipo;
+  String? tamanio;
+  String? modelo;
+  String? marca;
+  String? foto;
 
   factory ReservaInner.fromJson(Map<String, dynamic> json) => ReservaInner(
       id: json["id"],

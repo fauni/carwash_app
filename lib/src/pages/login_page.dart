@@ -10,17 +10,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends StateMVC<LoginPage> {
-  LoginController _con;
+  late LoginController _con;
 
   LoginPageState() : super(LoginController()) {
-    _con = controller;
+    _con = controller as LoginController;
   }
 
   @override
   void initState() {
     super.initState();
     _con.verificaPlataforma();
-    if (userRepo.currentUser.value.email != null) {
+    if (userRepo.currentUser!.value.email != null) {
       // Navigator.of(context).pushReplacementNamed('/Pages');
       Navigator.of(context).pushReplacementNamed('/Main');
     }
@@ -46,14 +46,14 @@ class LoginPageState extends StateMVC<LoginPage> {
                   'assets/img/logo_horizontal.png',
                   width: MediaQuery.of(context).size.width / 2,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 100,
                 ),
                 Text(
                   'Ingresar con:',
                   style: TextStyle(color: Theme.of(context).hintColor),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 ButtonTheme(
@@ -63,17 +63,17 @@ class LoginPageState extends StateMVC<LoginPage> {
                     color: Colors.transparent,
                     textColor: Theme.of(context).hintColor,
                     onPressed: () {
-                      _con.login();
+                      _con.login(context);
                     },
                     icon: FaIcon(
                       FontAwesomeIcons.google,
                       color: Theme.of(context).primaryColor,
                       size: 35,
                     ),
-                    label: Text('Google'),
+                    label: const Text('Google'),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
-                      side: BorderSide(
+                      side: const BorderSide(
                         color: Colors.blue, //Theme.of(context).primaryColor,
                         width: 1,
                         style: BorderStyle.solid,
@@ -81,9 +81,10 @@ class LoginPageState extends StateMVC<LoginPage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
+                /*
                 ButtonTheme(
                   minWidth: double.infinity,
                   height: 50,
@@ -91,17 +92,17 @@ class LoginPageState extends StateMVC<LoginPage> {
                     color: Colors.transparent,
                     textColor: Theme.of(context).hintColor,
                     onPressed: () {
-                      _con.facebookSignIn();
+                      _con.facebookSignIn(context);
                     },
                     icon: FaIcon(
                       FontAwesomeIcons.facebookF,
                       color: Theme.of(context).primaryColor,
                       size: 35,
                     ),
-                    label: Text('Facebook'),
+                    label: const Text('Facebook'),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
-                      side: BorderSide(
+                      side: const BorderSide(
                         color: Colors.blue, //Theme.of(context).primaryColor,
                         width: 1,
                         style: BorderStyle.solid,
@@ -109,7 +110,8 @@ class LoginPageState extends StateMVC<LoginPage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                */
+                const SizedBox(
                   height: 20,
                 ),
                 _con.supportsAppleSignIn
@@ -120,17 +122,17 @@ class LoginPageState extends StateMVC<LoginPage> {
                           color: Colors.black,
                           textColor: Theme.of(context).hintColor,
                           onPressed: () {
-                            _con.appleSignIn();
+                            _con.appleSignIn(context);
                           },
-                          icon: FaIcon(
+                          icon: const FaIcon(
                             FontAwesomeIcons.apple,
                             color: Colors.white,
                             size: 35,
                           ),
-                          label: Text('Apple'),
+                          label: const Text('Apple'),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
-                            side: BorderSide(
+                            side: const BorderSide(
                               color: Colors
                                   .white, //Theme.of(context).primaryColor,
                               width: 1,
@@ -140,21 +142,6 @@ class LoginPageState extends StateMVC<LoginPage> {
                         ),
                       )
                     : Container()
-                // ButtonTheme(
-                //   minWidth: double.infinity,
-                //   height: 50.0,
-                //   child: RaisedButton(
-                //     color: Theme.of(context).primaryColor,
-                //     textColor: Theme.of(context).hintColor,
-                //     onPressed: () {
-                //       // _con.setReservaCompleta();
-                //     },
-                //     child: Text('Enviar Reserva'),
-                //     shape: RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.circular(10),
-                //     ),
-                //   ),
-                // )
               ],
             ),
           ),

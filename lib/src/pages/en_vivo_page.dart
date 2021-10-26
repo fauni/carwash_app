@@ -2,27 +2,26 @@ import 'dart:async';
 
 import 'package:carwash/src/controllers/reserva_controller.dart';
 import 'package:carwash/src/models/atencion.dart';
-import 'package:carwash/src/models/reserva_inner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 class EnVivoPage extends StatefulWidget {
-  Atencion atencion;
+  Atencion? atencion;
 
-  EnVivoPage({Key key, this.atencion}) : super(key: key);
+  EnVivoPage({Key? key, this.atencion}) : super(key: key);
   @override
   _EnVivoPageState createState() => _EnVivoPageState();
 }
 
 class _EnVivoPageState extends StateMVC<EnVivoPage> {
-  ReservaController _con;
-  VlcPlayerController _videoPlayerController;
+  late ReservaController _con;
+  VlcPlayerController? _videoPlayerController;
   Future<void> initializePlayer() async {}
 
   _EnVivoPageState() : super(ReservaController()) {
-    _con = controller;
+    _con = controller as ReservaController;
   }
 
   @override
@@ -32,7 +31,7 @@ class _EnVivoPageState extends StateMVC<EnVivoPage> {
     super.initState();
     // _con.obtenerAtencionPorReserva(widget.reserva.id);
     print('=========== en vivoo =============');
-    print(widget.atencion.idReserva);
+    print(widget.atencion!.idReserva);
 
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.landscapeRight, DeviceOrientation.landscapeLeft]);
@@ -41,7 +40,7 @@ class _EnVivoPageState extends StateMVC<EnVivoPage> {
     //     [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
 
     _videoPlayerController = VlcPlayerController.network(
-      widget.atencion.rtsp,
+      widget.atencion!.rtsp!,
       hwAcc: HwAcc.FULL,
       // autoPlay: false,
       options: VlcPlayerOptions(
@@ -70,7 +69,7 @@ class _EnVivoPageState extends StateMVC<EnVivoPage> {
       DeviceOrientation.portraitDown
     ]);
     super.dispose();
-    await _videoPlayerController.stopRendererScanning();
+    await _videoPlayerController!.stopRendererScanning();
     // await _videoViewController.dispose();
   }
 
@@ -93,7 +92,7 @@ class _EnVivoPageState extends StateMVC<EnVivoPage> {
       ),
       body: Center(
         child: VlcPlayer(
-          controller: _videoPlayerController,
+          controller: _videoPlayerController!,
           aspectRatio: 16 / 9,
           placeholder: Center(
             child: CircularProgressIndicator(),

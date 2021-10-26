@@ -1,19 +1,17 @@
-import 'package:carwash/src/controllers/fecha_controller.dart';
 import 'package:carwash/src/controllers/reserva_controller.dart';
 import 'package:carwash/src/models/reserva.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:intl/intl.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 class FechaPage extends StatefulWidget {
   FechaPage({@required this.switchValue, @required this.valueChanged});
 
-  final bool switchValue;
-  final ValueChanged valueChanged;
+  final bool? switchValue;
+  final ValueChanged? valueChanged;
 
   @override
   State<StatefulWidget> createState() {
@@ -23,22 +21,22 @@ class FechaPage extends StatefulWidget {
 
 class FechaPageState extends StateMVC<FechaPage> {
   bool selected = false;
-  ReservaController _con;
+  late ReservaController _con;
   Reserva reserva = new Reserva();
 
-  bool _switchValue;
+  bool? _switchValue;
   final format = DateFormat("yyyy-MM-dd");
 
   FechaPageState() : super(ReservaController()) {
-    _con = controller;
-  reserva.fechaReserva = _con.obtieneFechaActual();
+    _con = controller as ReservaController;
+    reserva.fechaReserva = _con.obtieneFechaActual();
   }
 
   @override
   void initState() {
     _switchValue = widget.switchValue;
-    _con.verificaInformacion();
-    
+    _con.verificaInformacion(context);
+
     _con.listarReservasPorFecha(_con.obtieneFechaActual());
     super.initState();
   }
@@ -116,19 +114,19 @@ class FechaPageState extends StateMVC<FechaPage> {
                       // _buildChips()
                       for (var item in _con.horas)
                         ChoiceChip(
-                          selected: item.esSeleccionado,
-                          label: Text(item.hora.substring(0, 5)),
+                          selected: item.esSeleccionado!,
+                          label: Text(item.hora!.substring(0, 5)),
                           labelStyle:
                               TextStyle(color: Theme.of(context).hintColor),
                           backgroundColor: Theme.of(context).accentColor,
                           selectedColor: Theme.of(context).primaryColor,
                           onSelected: (bool selected) {
                             setState(() {
-                              item.esSeleccionado = !item.esSeleccionado;
+                              item.esSeleccionado = !item.esSeleccionado!;
                               _con.hora = item;
                               if (selected) {
                                 _con.deseleccionarHoras();
-                                reserva.horaReserva = _con.hora.hora;
+                                reserva.horaReserva = _con.hora.hora!;
                                 _con.eligeReserva(reserva);
                                 // print(_con.hora.hora);
                               }

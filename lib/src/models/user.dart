@@ -1,19 +1,19 @@
 import '../models/media.dart';
 
 class User {
-  String id;
-  String name;
-  String email;
-  String password;
-  String apiToken;
-  String deviceToken;
-  String phone;
-  String address;
-  String bio;
-  Media image;
+  String? id;
+  String? name;
+  String? email;
+  String? password;
+  String? apiToken;
+  String? deviceToken;
+  String? phone;
+  String? address;
+  String? bio;
+  Media? image;
 
   // used for indicate if client logged in or not
-  bool auth;
+  bool? auth;
 
 //  String role;
 
@@ -41,7 +41,9 @@ class User {
       } catch (e) {
         bio = "";
       }
-      image = jsonMap['media'] != null && (jsonMap['media'] as List).length > 0 ? Media.fromJSON(jsonMap['media'][0]) : new Media();
+      image = jsonMap['media'] != null && (jsonMap['media'] as List).length > 0
+          ? Media.fromJSON(jsonMap['media'][0])
+          : new Media();
     } catch (e) {
       print(e);
     }
@@ -70,6 +72,7 @@ class User {
     map["auth"] = this.auth;
     return map.toString();
   }
+
   bool profileCompleted() {
     return address != null && address != '' && phone != null && phone != '';
   }

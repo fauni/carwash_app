@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:carwash/src/controllers/carro_controller.dart';
 import 'package:carwash/src/models/tipo_vehiculo.dart';
+import 'package:carwash/src/models/vehiculo.dart';
 import 'package:carwash/src/models/vehiculo_modelo.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:group_button/group_button.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:carwash/src/models/vehiculo.dart';
 
-import '../widgets/CircularLoadingWidget.dart';
+import 'circular_loading_widget.dart';
 
 class AddVehiculoWidget extends StatefulWidget {
   @override
@@ -15,11 +15,11 @@ class AddVehiculoWidget extends StatefulWidget {
 }
 
 class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
-  Vehiculo vehiculoNuevo = new Vehiculo();
-  CarroController _con;
+  Vehiculo? vehiculoNuevo = new Vehiculo();
+  late CarroController _con;
 
   AddVehiculoWidgetState() : super(CarroController()) {
-    _con = controller;
+    _con = controller as CarroController;
   }
 
   @override
@@ -38,9 +38,9 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           centerTitle: true,
-          title: Text('Agregar un auto nuevo'),
-          leading: new IconButton(
-            icon: new Icon(Icons.clear, color: Theme.of(context).hintColor),
+          title: const Text('Agregar un auto nuevo'),
+          leading: IconButton(
+            icon: Icon(Icons.clear, color: Theme.of(context).hintColor),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
@@ -54,9 +54,9 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                     fit: BoxFit.cover,
                   ),
                   SingleChildScrollView(
-                    padding: EdgeInsets.only(top: 100),
+                    padding: const EdgeInsets.only(top: 100),
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         children: [
                           Container(
@@ -78,11 +78,10 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                                           Theme.of(context).primaryColor,
                                     )
                                   : Image(
-                                      image: FileImage(_con.image),
+                                      image: FileImage(_con.image!),
                                     ),
                             ),
                           ),
-
                           Divider(),
                           DropdownSearch<VehiculoModelo>(
                             mode: Mode.BOTTOM_SHEET,
@@ -90,10 +89,14 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                             items: _con.modelos,
                             label: "Seleccionar Modelo de Automovil",
                             itemAsString: (VehiculoModelo mod) =>
-                                mod.marca + ' ' + mod.modelo + ' ' + mod.anio,
+                                mod.marca! +
+                                ' ' +
+                                mod.modelo! +
+                                ' ' +
+                                mod.anio!,
                             onChanged: (modelo) {
                               //print (modelo.modelo);
-                              vehiculoNuevo.idModelo = modelo.id;
+                              vehiculoNuevo!.idModelo = modelo!.id;
                             },
                             selectedItem: null,
                             showSearchBox: true,
@@ -113,7 +116,7 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                               labelStyle:
                                   TextStyle(color: Theme.of(context).hintColor),
                             ),
-                            searchBoxDecoration: InputDecoration(
+                            searchBoxDecoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               contentPadding: EdgeInsets.fromLTRB(12, 12, 8, 0),
                               labelText: "Buscar Modelo de Automovil",
@@ -122,12 +125,12 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                               height: 50,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
-                                borderRadius: BorderRadius.only(
+                                borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(20),
                                   topRight: Radius.circular(20),
                                 ),
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   'Modelo de Automovil',
                                   style: TextStyle(
@@ -138,7 +141,7 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                                 ),
                               ),
                             ),
-                            popupShape: RoundedRectangleBorder(
+                            popupShape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(24),
                                 topRight: Radius.circular(24),
@@ -152,10 +155,9 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                             items: _con.tipos,
                             label: "Seleccionar Tipo de Automovil",
                             itemAsString: (TipoVehiculo data) =>
-                                data.tipo + ' ' + data.tamanio,
+                                data.tipo! + ' ' + data.tamanio!,
                             onChanged: (tipo) {
-                              print(tipo.tipo);
-                              vehiculoNuevo.idTipo = tipo.id;
+                              vehiculoNuevo!.idTipo = tipo!.id;
                             },
                             selectedItem: null,
                             showSearchBox: true,
@@ -175,7 +177,7 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                               labelStyle:
                                   TextStyle(color: Theme.of(context).hintColor),
                             ),
-                            searchBoxDecoration: InputDecoration(
+                            searchBoxDecoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               contentPadding: EdgeInsets.fromLTRB(12, 12, 8, 0),
                               labelText: "Buscar Tipo de Vehiculo",
@@ -186,7 +188,7 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                                 color: Theme.of(context).primaryColor,
                                 borderRadius: BorderRadius.circular(15),
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   'Tipo de Vehiculo',
                                   style: TextStyle(
@@ -197,7 +199,7 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                                 ),
                               ),
                             ),
-                            popupShape: RoundedRectangleBorder(
+                            popupShape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(24),
                                 topRight: Radius.circular(24),
@@ -208,7 +210,7 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                           TextField(
                             onChanged: (cadena) {
                               print(cadena);
-                              vehiculoNuevo.placa = cadena;
+                              vehiculoNuevo!.placa = cadena;
                             },
                             decoration: InputDecoration(
                                 hintText: 'Ingrese su Nro. de Placa',
@@ -244,47 +246,6 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                                 Theme.of(context).accentColor,
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     new Radio(
-                          //       value: 0,
-                          //       activeColor: Colors.green,
-                          //       groupValue: 'Auto',
-                          //       onChanged: (value) {
-                          //         print(value);
-                          //       },
-                          //     ),
-                          //     new Text(
-                          //       'Auto',
-                          //       style: new TextStyle(fontSize: 16.0),
-                          //     ),
-                          //     new Radio(
-                          //       value: 1,
-                          //       groupValue: 'Moto',
-                          //       onChanged: (value) {
-                          //         print(value);
-                          //       },
-                          //     ),
-                          //     new Text(
-                          //       'Moto',
-                          //       style: new TextStyle(
-                          //         fontSize: 16.0,
-                          //       ),
-                          //     ),
-                          //     new Radio(
-                          //       value: 2,
-                          //       groupValue: 'UTV',
-                          //       onChanged: (value) {
-                          //         print(value);
-                          //       },
-                          //     ),
-                          //     new Text(
-                          //       'UTV',
-                          //       style: new TextStyle(fontSize: 16.0),
-                          //     ),
-                          //   ],
-                          // ),
                           Divider(),
                           ButtonTheme(
                             minWidth: double.infinity,
@@ -293,14 +254,14 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
                               color: Theme.of(context).primaryColor,
                               textColor: Theme.of(context).hintColor,
                               onPressed: () {
-                                vehiculoNuevo.idCliente =
+                                vehiculoNuevo!.idCliente =
                                     "1"; //provisional cambiar por cliente actual
-                                vehiculoNuevo.observaciones = "";
-                                vehiculoNuevo.estado = "A";
-                                vehiculoNuevo.anio = "1900";
-                                vehiculoNuevo.foto = "ff";
+                                vehiculoNuevo!.observaciones = "";
+                                vehiculoNuevo!.estado = "A";
+                                vehiculoNuevo!.anio = "1900";
+                                vehiculoNuevo!.foto = "ff";
                                 print('guardando el auto');
-                                _con.registrarVehiculo(vehiculoNuevo);
+                                _con.registrarVehiculo(context, vehiculoNuevo!);
                               },
                               child: Text('Guardar Movilidad'),
                               shape: RoundedRectangleBorder(

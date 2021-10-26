@@ -1,42 +1,42 @@
 import 'dart:convert';
 
+import 'package:global_configuration/global_configuration.dart';
 import 'package:carwash/src/models/publicidad.dart';
 
-import '../../src/helpers/custom_trace.dart';
 import 'package:http/http.dart' as http;
-import '../../src/helpers/helper.dart';
 import '../models/slider.dart';
 
 Future<Stream<List<Publicidad>>> obtenerPublicidades() async {
-  Uri url = Helper.getUriWash('publicidad/get');
+  final String url =
+      '${GlobalConfiguration().getString('api_base_url_wash')}publicidad/get'; /*cambiar por id del cliente*/
 
   final client = new http.Client();
-  final response = await client.get(url);
+  final response = await client.get(Uri.parse(url));
 
   if (response.statusCode == 200) {
     final lpublicidad =
         LPublicidad.fromJsonList(json.decode(response.body)['body']);
     return new Stream.value(lpublicidad.items);
   } else {
-    return new Stream.value(new List<Publicidad>());
+    return new Stream.value([]);
   }
 }
 
 Future<Stream<Slider>> getSliders() async {
-  Uri uri = Helper.getUri('api/sliders');
+  final String url =
+      '${GlobalConfiguration().getString('api_base_url_wash')}api/sliders'; /* Revisarrr */
   try {
     final client = new http.Client();
-    final streamedRest = await client.send(http.Request('get', uri));
+    final streamedRest = await client.send(http.Request('get', Uri.parse(url)));
     return streamedRest.stream
         .transform(utf8.decoder)
         .transform(json.decoder)
-        .map((data) => Helper.getData(data))
+        .map((data) => data)
         .expand((data) => (data as List))
         .map((data) {
       return Slider.fromJSON(data);
     });
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: uri.toString()).toString());
     return new Stream.value(new Slider.fromJSON({}));
   }
 }

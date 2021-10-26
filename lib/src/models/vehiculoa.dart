@@ -5,7 +5,7 @@
 import 'dart:convert';
 
 class LVehiculoA {
-  List<VehiculoA> items = new List();
+  List<VehiculoA> items = [];
   LVehiculoA();
   LVehiculoA.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) return;
@@ -37,19 +37,19 @@ class VehiculoA {
       this.foto,
       this.esElegido});
 
-  String id;
-  String placa;
-  String idModelo;
-  String modelo;
-  String marca;
-  String idTipo;
-  String tipo;
-  String tamanio;
-  String anio;
-  String observaciones;
-  String estado;
-  String foto;
-  bool esElegido = false;
+  String? id;
+  String? placa;
+  String? idModelo;
+  String? modelo;
+  String? marca;
+  String? idTipo;
+  String? tipo;
+  String? tamanio;
+  String? anio;
+  String? observaciones;
+  String? estado;
+  String? foto;
+  bool? esElegido = false;
 
   factory VehiculoA.fromJson(Map<String, dynamic> json) => VehiculoA(
       id: json["id"],

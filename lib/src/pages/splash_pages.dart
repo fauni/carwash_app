@@ -10,10 +10,10 @@ class SplashPage extends StatefulWidget {
 }
 
 class SplashPageState extends StateMVC<SplashPage> {
-  SplashPageController _con;
+  late SplashPageController _con;
 
   SplashPageState() : super(SplashPageController()) {
-    _con = controller;
+    _con = controller as SplashPageController;
   }
 
   @override
@@ -64,7 +64,7 @@ class SplashPageState extends StateMVC<SplashPage> {
               fit: BoxFit.cover,
             ),
             Container(
-              margin: EdgeInsets.only(bottom: 50),
+              margin: const EdgeInsets.only(bottom: 50),
               alignment: Alignment.bottomCenter,
               child: Text(
                 'Tu auto, nuestro cuidado',
@@ -86,7 +86,7 @@ class SplashPageState extends StateMVC<SplashPage> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 CircularProgressIndicator(
