@@ -19,6 +19,13 @@ class ServicioController extends ControllerMVC {
   List<Servicio> serviciosAdicionales = [];
   List<Servicio> serviciosMotos = [];
 
+/* SERVICIOS PRO */
+  List<Servicio> serviciospro = [];
+  List<Servicio> serviciosGeneralPro = [];
+  List<Servicio> serviciosLavadosExtrasPro = [];
+  List<Servicio> serviciosExtrasPro = [];
+/* END SERVICIOS PRO*/
+
   GlobalKey<ScaffoldState>? scaffoldKey;
   BuildContext? _contexto;
 
@@ -35,6 +42,9 @@ class ServicioController extends ControllerMVC {
     listarServicios();
     listarServiciosAdicionales();
     // listarServiciosMotos();
+    listarServiciosPro();
+    listarLavadosExtras();
+    listarServiciosExtrasPro();
   }
 
   Future<void> obtenerVehiculo(BuildContext context) async {
@@ -61,6 +71,47 @@ class ServicioController extends ControllerMVC {
       setState(() {
         servicios = _servicios;
         serviciosGeneral = _servicios;
+      });
+    }, onError: (a) {
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
+        content: Text('Ocurrio un error al obtener los servicios'),
+      ));
+    }, onDone: () {});
+  }
+
+  void listarServiciosPro() async {
+    final Stream<List<Servicio>> stream = await obtenerServiciosPorTipoPro('0');
+    // final Stream<List<Servicio>> stream = await obtenerServicios();
+    stream.listen((List<Servicio> _servicios) {
+      setState(() {
+        serviciospro = _servicios;
+        serviciosGeneralPro = _servicios;
+      });
+    }, onError: (a) {
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
+        content: Text('Ocurrio un error al obtener los servicios'),
+      ));
+    }, onDone: () {});
+  }
+
+  void listarLavadosExtras() async {
+    final Stream<List<Servicio>> stream = await obtenerServiciosPorTipoPro('1');
+    stream.listen((List<Servicio> _servicios) {
+      setState(() {
+        serviciosLavadosExtrasPro = _servicios;
+      });
+    }, onError: (a) {
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
+        content: Text('Ocurrio un error al obtener los servicios'),
+      ));
+    }, onDone: () {});
+  }
+
+  void listarServiciosExtrasPro() async {
+    final Stream<List<Servicio>> stream = await obtenerServiciosPorTipoPro('2');
+    stream.listen((List<Servicio> _servicios) {
+      setState(() {
+        serviciosExtrasPro = _servicios;
       });
     }, onError: (a) {
       scaffoldKey!.currentState!.showSnackBar(SnackBar(

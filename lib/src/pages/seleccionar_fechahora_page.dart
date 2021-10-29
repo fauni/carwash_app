@@ -9,8 +9,11 @@ import 'package:intl/intl.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 class SeleccionarFechahoraPage extends StatefulWidget {
+  String? tipoServicio;
   SeleccionarFechahoraPage(
-      {@required this.switchValue, @required this.valueChanged});
+      {@required this.switchValue,
+      @required this.valueChanged,
+      this.tipoServicio});
 
   final bool? switchValue;
   final ValueChanged? valueChanged;
@@ -62,9 +65,13 @@ class SeleccionarFechahoraPageState extends StateMVC<SeleccionarFechahoraPage> {
                     width: MediaQuery.of(context).size.width,
                     height: 35,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border:
-                            Border.all(color: Theme.of(context).accentColor)),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: widget.tipoServicio == 'N'
+                            ? Colors.white
+                            : Theme.of(context).accentColor,
+                      ),
+                    ),
                     margin: EdgeInsets.all(10),
                     child: Center(
                       child: Text(
@@ -78,8 +85,12 @@ class SeleccionarFechahoraPageState extends StateMVC<SeleccionarFechahoraPage> {
                     width: 60,
                     height: 100,
                     initialSelectedDate: DateTime.now(),
-                    selectionColor: Theme.of(context).primaryColor,
-                    selectedTextColor: Theme.of(context).hintColor,
+                    selectionColor: widget.tipoServicio == 'N'
+                        ? Colors.grey
+                        : Theme.of(context).primaryColor,
+                    selectedTextColor: widget.tipoServicio == 'N'
+                        ? Colors.black
+                        : Theme.of(context).hintColor,
                     deactivatedColor: Theme.of(context).primaryColor,
                     monthTextStyle:
                         TextStyle(color: Theme.of(context).hintColor),
@@ -101,9 +112,13 @@ class SeleccionarFechahoraPageState extends StateMVC<SeleccionarFechahoraPage> {
                     width: MediaQuery.of(context).size.width,
                     height: 35,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border:
-                            Border.all(color: Theme.of(context).accentColor)),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: widget.tipoServicio == 'N'
+                            ? Colors.white
+                            : Theme.of(context).accentColor,
+                      ),
+                    ),
                     margin: EdgeInsets.all(10),
                     child: Center(
                       child: Text(
@@ -127,7 +142,9 @@ class SeleccionarFechahoraPageState extends StateMVC<SeleccionarFechahoraPage> {
                                     color: Theme.of(context).hintColor),
                                 backgroundColor: Colors
                                     .black, // Theme.of(context).accentColor,
-                                selectedColor: Theme.of(context).primaryColor,
+                                selectedColor: widget.tipoServicio == 'N'
+                                    ? Colors.grey[500]
+                                    : Theme.of(context).primaryColor,
                                 onSelected: (bool selected) {
                                   setState(() {
                                     item.esSeleccionado = !item.esSeleccionado!;
@@ -167,11 +184,18 @@ class SeleccionarFechahoraPageState extends StateMVC<SeleccionarFechahoraPage> {
                             ),
                           );
                         },
-                        color: Theme.of(context).primaryColor,
-                        textColor: Theme.of(context).hintColor,
+                        color: widget.tipoServicio == 'N'
+                            ? Colors.grey[500]
+                            : Theme.of(context).primaryColor,
+                        textColor: widget.tipoServicio == 'N'
+                            ? Colors.black
+                            : Theme.of(context).hintColor,
                         icon: Image.asset(
                           'assets/img/cuando_off.png',
                           width: 50,
+                          color: widget.tipoServicio == 'N'
+                              ? Colors.black
+                              : Theme.of(context).hintColor,
                         ),
                         label: Text('Finalizar la Reserva'),
                       ),
@@ -187,8 +211,12 @@ class SeleccionarFechahoraPageState extends StateMVC<SeleccionarFechahoraPage> {
                       height: 50.0,
                       child: RaisedButton.icon(
                         onPressed: () => Navigator.of(context).pop(true),
-                        color: Theme.of(context).primaryColor,
-                        textColor: Theme.of(context).hintColor,
+                        color: widget.tipoServicio == 'N'
+                            ? Colors.grey[500]
+                            : Theme.of(context).primaryColor,
+                        textColor: widget.tipoServicio == 'N'
+                            ? Colors.black
+                            : Theme.of(context).hintColor,
                         icon: Image.asset(
                           'assets/img/isotipo.png',
                           width: 30,

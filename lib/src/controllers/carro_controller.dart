@@ -51,6 +51,11 @@ class CarroController extends ControllerMVC {
   }
 
   void cargarAnios() {
+    this.anios.add('1975');
+    this.anios.add('1976');
+    this.anios.add('1977');
+    this.anios.add('1978');
+    this.anios.add('1979');
     this.anios.add('1980');
     this.anios.add('1981');
     this.anios.add('1982');
@@ -93,6 +98,7 @@ class CarroController extends ControllerMVC {
     this.anios.add('2019');
     this.anios.add('2020');
     this.anios.add('2021');
+    this.anios.add('2022');
   }
 
   void cargarMarcas() {
