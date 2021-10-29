@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:carwash/src/controllers/main_controller.dart';
+import 'package:carwash/src/pages/tipo_servicio_page.dart';
 import 'package:carwash/src/repository/user_repository.dart';
 import 'package:carwash/src/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
@@ -249,9 +250,9 @@ class _MainPageState extends StateMVC<MainPage>
                   onTap: () async {
                     final result = await Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => SeleccionarVehiculoPage(),
-                      ),
+                      MaterialPageRoute(builder: (context) => TipoServicioPage()
+                          // builder: (context) => SeleccionarVehiculoPage(),
+                          ),
                     );
                     if (result) {
                       setState(() {});

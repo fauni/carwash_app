@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 class VehiculoController extends ControllerMVC {
+  String tipoServicio = 'N';
   List<VehiculoA> vehiculos = [];
   VehiculoA? vehiculoElegido;
 
@@ -46,7 +47,9 @@ class VehiculoController extends ControllerMVC {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => SeleccionarServicioPage(),
+        builder: (context) => SeleccionarServicioPage(
+          tipoServicio: tipoServicio,
+        ),
       ),
     );
   }
