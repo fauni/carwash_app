@@ -174,11 +174,12 @@ class _ContactanosPageState extends StateMVC<ContactanosPage> {
                         color: Colors.greenAccent,
                         textColor: Theme.of(context).hintColor,
                         onPressed: () {
-                          _con.openwhatsapp(
-                              context: context,
-                              phone: '+59177799292',
-                              message:
-                                  '¡Hola! \n Bienvenid@ a Procare Washing.\n ¿En que podemos ayudarte?');
+                          _con.openwhatsapp2(context);
+                          // _con.openwhatsapp(
+                          //     context: context,
+                          //     phone: '+59177799292',
+                          //     message:
+                          //         '¡Hola! \n Bienvenid@ a Procare Washing.\n ¿En que podemos ayudarte?');
                         },
                         label: const Text('EscrÍbenos al Whatsapp'),
                         icon: const FaIcon(

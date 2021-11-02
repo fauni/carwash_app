@@ -126,6 +126,32 @@ class HomeController extends ControllerMVC {
     }
   }
 
+  openwhatsapp2(BuildContext context) async {
+    var whatsapp = "+59177799292";
+    var whatsappURl_android = "whatsapp://send?phone=" +
+        whatsapp +
+        "&text=Quiero mas información sobre sus servicios de lavado";
+    var whatappURL_ios =
+        "https://wa.me/$whatsapp?text=${Uri.parse("Quiero mas información sobre sus servicios de lavado")}";
+    if (Platform.isIOS) {
+      // for iOS phone only
+      if (await canLaunch(whatappURL_ios)) {
+        await launch(whatappURL_ios, forceSafariVC: false);
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: new Text("whatsapp no installed")));
+      }
+    } else {
+      // android , web
+      if (await canLaunch(whatsappURl_android)) {
+        await launch(whatsappURl_android);
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: new Text("whatsapp no installed")));
+      }
+    }
+  }
+
   void launchMaps() async {
     String url() {
       if (Platform.isIOS) {
