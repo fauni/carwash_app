@@ -101,6 +101,14 @@ class _MainPageState extends StateMVC<MainPage>
           data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
           child: DrawerWidget(),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            _con.platform.version();
+          },
+          child: Icon(
+            Icons.share,
+          ),
+        ),
         body: Stack(
           children: [
             Image.asset(

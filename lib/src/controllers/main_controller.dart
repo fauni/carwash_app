@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:carwash/src/models/reserva_inner.dart';
+import 'package:carwash/src/nativo/compartir_facebook.dart';
 import 'package:carwash/src/repository/cliente_repository.dart';
 import 'package:carwash/src/repository/reserva_repository.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -9,6 +10,9 @@ import 'package:carwash/src/repository/user_repository.dart';
 class MainController extends ControllerMVC {
   String? token;
   List<ReservaInner> reservasInner = [];
+
+  CompartirFacebook platform = new CompartirFacebook();
+
   MainController() {
     listarReservasInnerByIdCli();
     // obtenerTokenDevice();
