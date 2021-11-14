@@ -117,5 +117,9 @@
         <string>https</string>
         <string>http</string>
     </array>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 </dict>
 </plist>

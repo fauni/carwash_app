@@ -17,11 +17,14 @@ import 'package:carwash/src/repository/servicio_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:open_file/open_file.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:dio/dio.dart';
 
 class ReservaController extends ControllerMVC {
   var platform = MethodChannel("example/procare");
@@ -59,6 +62,7 @@ class ReservaController extends ControllerMVC {
 
   GlobalKey<ScaffoldState>? scaffoldKey;
 
+  String progress = "-";
   ReservaController() {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
     listarReservasInnerByIdCli();
@@ -187,27 +191,32 @@ class ReservaController extends ControllerMVC {
     );
   }
 
+  void abrirEnVivo(BuildContext context, Atencion _atencion) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EnVivoPage(
+          atencion: _atencion,
+        ),
+      ),
+    );
+  }
+
 // Obtener Atención por codigo de Reserva
   void obtenerAtencionPorReserva(BuildContext context, String idReserva) async {
-    final Stream<Atencion> stream = await getAtencionesPorReserva(idReserva);
-    stream.listen((Atencion _atencion) {
-      setState(() {
-        atencion = _atencion;
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => EnVivoPage(
-              atencion: _atencion,
-            ),
-          ),
-        );
-      });
-    }, onError: (a) {
-      scaffoldKey!.currentState!.showSnackBar(SnackBar(
-        content: Text('No se pudo traer la información de la atención!'),
-      ));
-    }, onDone: () {});
+    if (resInner!.estado != 'P') {
+      final Stream<Atencion> stream = await getAtencionesPorReserva(idReserva);
+      stream.listen((Atencion _atencion) {
+        setState(() {
+          atencion = _atencion;
+          print(atencion.facturaEnviada);
+        });
+      }, onError: (a) {
+        scaffoldKey!.currentState!.showSnackBar(SnackBar(
+          content: Text('No se pudo traer la información de la atención!'),
+        ));
+      }, onDone: () {});
+    }
   }
 
   //listar reservas para mostrar
@@ -304,7 +313,8 @@ class ReservaController extends ControllerMVC {
     );
   }
 
-  Future<void> alertDialogFacturas(BuildContext context) async {
+  Future<void> alertDialogFacturas(BuildContext context,
+      FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -314,17 +324,24 @@ class ReservaController extends ControllerMVC {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                // Text('No existe la factura.'),
-                // Text('Intente, mas adelante'),
-                Text('Todavía no esta lista tu factura.'),
-                Text(
-                    'Nosotros te notificaremos cuando ya esté disponible!'), //.network ('http://190.104.26.90/apicwash/assets/capturas_vehiculos/'+ +'/factura.jpg')
+                atencion.facturaEnviada == "1"
+                    ? Image.file(fileImgFac!)
+                    : Text('Todavía no esta lista tu factura.'),
               ],
             ),
           ),
           actions: <Widget>[
+            atencion.facturaEnviada == "0"
+                ? Container()
+                : ElevatedButton.icon(
+                    icon: Icon(Icons.download),
+                    label: Text('Descargar'),
+                    onPressed: () {
+                      descargarFactura(flutterLocalNotificationsPlugin);
+                    },
+                  ),
             TextButton(
-              child: Text('Aceptar'),
+              child: Text('Cerrar'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -335,10 +352,70 @@ class ReservaController extends ControllerMVC {
     );
   }
 
+  void _onReceiveProgress(int received, int total) {
+    if (total != -1) {
+      setState(() {
+        progress = (received / total * 100).toStringAsFixed(0) + "%";
+      });
+    }
+  }
+
+  Future<void> descargarFactura(
+      FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
+    // String fileUrl =
+    //    "http://190.104.26.90:8082/lafarnetservice/api/boletapago/638_202109";
+    final String fileUrl =
+        '${GlobalConfiguration().getString('img_capturas_carwash') + '161'}/factura.jpg';
+    Map<String, dynamic> result = {
+      'isSuccess': false,
+      'filePath': null,
+      'error': null,
+    };
+    try {
+      var directorio = Platform.isAndroid
+          ? await getExternalStorageDirectory()
+          : await getApplicationSupportDirectory();
+      String directorioDescargas = directorio!.path + "/factura.jpg";
+
+      Response response = await Dio().download(fileUrl, directorioDescargas,
+          onReceiveProgress: _onReceiveProgress);
+
+      result['isSuccess'] = response.statusCode == 200;
+      result['filePath'] = directorioDescargas;
+      OpenFile.open(directorioDescargas);
+    } catch (ex) {
+      result['error'] = ex.toString();
+    } finally {
+      await _showNotification(result, flutterLocalNotificationsPlugin);
+    }
+  }
+
+  Future<void> _showNotification(Map<String, dynamic> downloadStatus,
+      FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
+    const AndroidNotificationDetails android = AndroidNotificationDetails(
+        'channel id', 'channel name', 'channel description',
+        priority: Priority.high, importance: Importance.max);
+    const IOSNotificationDetails iOS = IOSNotificationDetails();
+    const NotificationDetails platform =
+        NotificationDetails(android: android, iOS: iOS); // ( android , iOS);
+    final json = jsonEncode(downloadStatus);
+    final isSuccess = downloadStatus['isSuccess'];
+
+    await flutterLocalNotificationsPlugin.show(
+        0, // notification id
+        isSuccess ? 'Correcto!' : 'Error',
+        isSuccess
+            ? 'Su boleta de pago fue descargado correctamente, puede ver directamente presionando aqui!'
+            : 'A ocurrido un error mientras se descargaba el archivo.',
+        platform,
+        payload: json);
+  }
+
   Future<void> alertDialogVideo(BuildContext context) async {
     print(resInner!.estado);
     if (resInner!.estado == 'L') {
-      obtenerAtencionPorReserva(context, resInner!.id!);
+      abrirEnVivo(context, atencion);
+      //obtenerAtencionPorReserva(context, resInner!.id!);
     } else {
       return showDialog<void>(
         context: context,
@@ -495,7 +572,6 @@ class ReservaController extends ControllerMVC {
   }
 
   obtieneImg(String idReserva) async {
-    print("reservaa " + idReserva);
     final String url =
         '${GlobalConfiguration().getString('img_capturas_carwash') + idReserva}/factura.jpg';
 
@@ -509,7 +585,8 @@ class ReservaController extends ControllerMVC {
         fileImgFac!.writeAsBytesSync(response.bodyBytes);
         //final bytes = base64.decode(base64.encode(response.bodyBytes));
         //Image image = ima. (file.readAsBytesSync());
-        print(base64.encode(response.bodyBytes));
+
+        // print(base64.encode(response.bodyBytes));
       } else {
         this.tieneImgFac = false;
       }
@@ -521,7 +598,6 @@ class ReservaController extends ControllerMVC {
   }
 
   obtieneImgFinal(String idReserva) async {
-    print("reservaa " + idReserva);
     final String url =
         '${GlobalConfiguration().getString('img_capturas_carwash') + idReserva}/final.jpg';
 
@@ -535,7 +611,7 @@ class ReservaController extends ControllerMVC {
         fileImgFin!.writeAsBytesSync(response.bodyBytes);
         //final bytes = base64.decode(base64.encode(response.bodyBytes));
         //Image image = ima. (file.readAsBytesSync());
-        print(base64.encode(response.bodyBytes));
+        // print(base64.encode(response.bodyBytes));
       } else {
         this.tieneImgFin = false;
       }

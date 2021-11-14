@@ -23,21 +23,21 @@ AtencionInner atencionInnerFromJson(String str) =>
 String atencionInnerToJson(AtencionInner data) => json.encode(data.toJson());
 
 class AtencionInner {
-  AtencionInner({
-    this.id,
-    this.idReserva,
-    this.usuario,
-    this.fechaInicio,
-    this.fechaFin,
-    this.precioTotal,
-    this.estado,
-    this.observaciones,
-    this.placa,
-    this.idCliente,
-    this.nombreCompleto,
-    this.idModelo,
-    this.model,
-  });
+  AtencionInner(
+      {this.id,
+      this.idReserva,
+      this.usuario,
+      this.fechaInicio,
+      this.fechaFin,
+      this.precioTotal,
+      this.estado,
+      this.observaciones,
+      this.placa,
+      this.idCliente,
+      this.nombreCompleto,
+      this.idModelo,
+      this.model,
+      this.facturaEnviada});
 
   String? id;
   String? idReserva;
@@ -52,22 +52,23 @@ class AtencionInner {
   String? nombreCompleto;
   String? idModelo;
   String? model;
+  String? facturaEnviada;
 
   factory AtencionInner.fromJson(Map<String, dynamic> json) => AtencionInner(
-        id: json["id"],
-        idReserva: json["idReserva"],
-        usuario: json["usuario"],
-        fechaInicio: DateTime.parse(json["fechaInicio"]),
-        fechaFin: DateTime.parse(json["fechaFin"]),
-        precioTotal: json["precioTotal"],
-        estado: json["estado"],
-        observaciones: json["observaciones"],
-        placa: json["placa"],
-        idCliente: json["id_cliente"],
-        nombreCompleto: json["nombreCompleto"],
-        idModelo: json["id_modelo"],
-        model: json["model"],
-      );
+      id: json["id"],
+      idReserva: json["idReserva"],
+      usuario: json["usuario"],
+      fechaInicio: DateTime.parse(json["fechaInicio"]),
+      fechaFin: DateTime.parse(json["fechaFin"]),
+      precioTotal: json["precioTotal"],
+      estado: json["estado"],
+      observaciones: json["observaciones"],
+      placa: json["placa"],
+      idCliente: json["id_cliente"],
+      nombreCompleto: json["nombreCompleto"],
+      idModelo: json["id_modelo"],
+      model: json["model"],
+      facturaEnviada: json["facturaEnviada"]);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -83,5 +84,6 @@ class AtencionInner {
         "nombreCompleto": nombreCompleto,
         "id_modelo": idModelo,
         "model": model,
+        "facturaEnviada": facturaEnviada
       };
 }

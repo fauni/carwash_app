@@ -6,7 +6,10 @@ import 'package:carwash/src/models/reserva_inner.dart';
 import 'package:carwash/src/models/route_argument.dart';
 import 'package:carwash/src/pages/compartir_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:open_file/open_file.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:carwash/src/pages/atencion_page.dart';
 import 'package:carwash/src/widgets/circular_loading_widget.dart';
@@ -26,6 +29,7 @@ class DetalleReservaPage extends StatefulWidget {
 class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
     with SingleTickerProviderStateMixin {
   late ReservaController _con;
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   ReservaInner? reserva;
   _DetalleReservaPageState() : super(ReservaController()) {
     _con = controller as ReservaController;
@@ -35,8 +39,17 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
   void initState() {
     _con.resInner = this.widget.routeArgument!.param[0];
     _con.listadoDetalleReservaPorId(widget.routeArgument!.id!);
+    _con.obtenerAtencionPorReserva(context, widget.routeArgument!.id!);
     _con.obtieneImg(widget.routeArgument!.id!);
     _con.obtieneImgFinal(widget.routeArgument!.id!);
+
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    final android = AndroidInitializationSettings('@mipmap/ic_launcher');
+    final iOS = IOSInitializationSettings();
+    final initSettings = InitializationSettings(android: android, iOS: iOS);
+    flutterLocalNotificationsPlugin.initialize(initSettings,
+        onSelectNotification: _onSelectNotification);
+    _requestPermission();
     super.initState();
   }
 
@@ -316,8 +329,9 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
                         children: [
                           InkWell(
                             onTap: () {
-                              // _con.obtieneImg(widget.routeArgument.id);
-                              _con.alertDialogFacturas(context);
+                              _con.obtieneImg(widget.routeArgument!.id!);
+                              _con.alertDialogFacturas(
+                                  context, flutterLocalNotificationsPlugin);
                             },
                             child: Container(
                               width: MediaQuery.of(context).size.width / 3,
@@ -459,6 +473,31 @@ class _DetalleReservaPageState extends StateMVC<DetalleReservaPage>
               ],
             ),
     );
+  }
+
+  _requestPermission() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.storage,
+    ].request();
+
+    final info = statuses[Permission.storage].toString();
+    print(info);
+    // _toastInfo(info);
+  }
+
+  Future<void> _onSelectNotification(dynamic json) async {
+    final obj = jsonDecode(json);
+    if (obj['isSuccess']) {
+      OpenFile.open(obj['filePath']);
+    } else {
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+                title: Text('error'),
+                content: Text('${obj['error']}'),
+              ));
+    }
+    // todo: handling clicked notification
   }
 }
 

@@ -31,7 +31,8 @@ class Atencion {
       this.precioTotal,
       this.estado,
       this.observaciones,
-      this.rtsp});
+      this.rtsp,
+      this.facturaEnviada});
 
   String? id;
   String? idReserva;
@@ -42,6 +43,7 @@ class Atencion {
   String? estado;
   String? observaciones;
   String? rtsp;
+  String? facturaEnviada;
 
   factory Atencion.fromJson(Map<String, dynamic> json) => Atencion(
       id: json["id"],
@@ -52,7 +54,8 @@ class Atencion {
       precioTotal: json["precioTotal"],
       estado: json["estado"],
       observaciones: json["observaciones"],
-      rtsp: json["rtsp"]);
+      rtsp: json["rtsp"],
+      facturaEnviada: json["facturaEnviada"]);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -63,6 +66,7 @@ class Atencion {
         "precioTotal": precioTotal,
         "estado": estado,
         "observaciones": observaciones,
-        "rtsp": rtsp
+        "rtsp": rtsp,
+        "facturaEnviada": facturaEnviada
       };
 }
