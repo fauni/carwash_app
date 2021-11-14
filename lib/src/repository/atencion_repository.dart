@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 // import 'package:carwash_adm/src/repository/user_repository.dart';
+import 'package:flutter/services.dart';
 import 'package:global_configuration/global_configuration.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:carwash/src/models/atencion.dart';
 import 'package:carwash/src/models/atencion_inner.dart';
 import 'package:carwash/src/models/imagenrecepcion.dart';
+import 'package:path_provider/path_provider.dart';
 
 Future<Stream<Atencion>> getAtencionesPorReserva(String idReserva) async {
   // Uri uri = Helper.getUriLfr('api/producto');
@@ -133,4 +135,30 @@ Future<String> getUrlCapturas() async {
   final String url =
       '${GlobalConfiguration().getString('img_capturas_carwash')}';
   return url;
+}
+
+Future<Stream<File>> obtenerImagenFromUrl(String idReserva) async {
+  final String url =
+      '${GlobalConfiguration().getString('img_capturas_carwash')}/' +
+          idReserva +
+          '/finalPub.png';
+
+  final http.Response responseData = await http.get(Uri.parse(url));
+
+  try {
+    if (responseData.statusCode == 200) {
+      var uint8list = responseData.bodyBytes;
+      var buffer = uint8list.buffer;
+      ByteData byteData = ByteData.view(buffer);
+      var tempDir = await getTemporaryDirectory();
+      File file = await File('${tempDir.path}/img.png').writeAsBytes(
+          buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+      return new Stream.value(file);
+    } else {
+      return new Stream.value(new File(''));
+    }
+  } catch (e) {
+    //print('error en repository al llenar '+e.toString());
+    return new Stream.value(new File(''));
+  }
 }

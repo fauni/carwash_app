@@ -12,7 +12,6 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:carwash/src/widgets/home_slider_widget.dart';
 
 import 'indicator_page.dart';
-import 'seleccionar_vehiculo_page.dart';
 
 class MainPage extends StatefulWidget {
   final GlobalKey<ScaffoldState>? parentScaffoldKey;
@@ -100,14 +99,6 @@ class _MainPageState extends StateMVC<MainPage>
         drawer: Theme(
           data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
           child: DrawerWidget(),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _con.platform.version();
-          },
-          child: Icon(
-            Icons.share,
-          ),
         ),
         body: Stack(
           children: [

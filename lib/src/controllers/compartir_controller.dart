@@ -11,9 +11,11 @@ import 'package:flutter/services.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:http/http.dart' as http;
+import 'package:share_plus/share_plus.dart';
 // import 'package:social_share_plugin/social_share_plugin.dart';
 
 class CompartirController extends ControllerMVC {
+  String? _urlPublicacion;
   Atencion atencion = new Atencion();
   Cliente cliente = new Cliente();
 
@@ -44,29 +46,49 @@ class CompartirController extends ControllerMVC {
     }, onDone: () {});
   }
 
+  getUrlPublicacion(String idReserva) async {
+    _urlPublicacion =
+        'https://procarewashing.com/apicwash/assets/capturas_vehiculos/' +
+            idReserva +
+            '/finalPub.png';
+  }
+
+  void compartirIOS(String idReserva) async {
+    final Stream<File> stream = await obtenerImagenFromUrl(idReserva);
+    stream.listen((File _file) {
+      setState(() {
+        Share.shareFiles([_file.path], text: 'Procare Washing');
+      });
+    }, onError: (a) {
+      scaffoldKey.currentState!.showSnackBar(SnackBar(
+        content: Text('No se pudo compartir su Reserva'),
+      ));
+    }, onDone: () {});
+  }
+
   compartirReserva() async {
     if (Platform.isIOS) {
-      // await SocialSharePlugin.shareToFeedFacebookLink(
-      //     quote: 'quote', url: 'https://flutter.dev');
+      this.compartirIOS(atencion.idReserva!);
     } else {
-      String? response;
-      try {
-        // response = await platform.invokeMethod("hello", "https://alquiauto.es/wp-content/uploads/2020/05/limpieza-y-lavado-del-coche-DURANTE-CORONA-VIRUS.jpg");
-        response =
-            await platform.invokeMethod("hello", "http://procarewashing.com");
-      } on Exception catch (exception) {
-        print('=============================');
-        print(exception);
-        response = 'Comunicacion Plattforms Error!';
-      } catch (error) {
-        print('==============ERROR==============');
-        print(error);
-      }
+      this.compartirIOS(atencion.idReserva!);
+      // String? response;
+      // try {
+      //   // response = await platform.invokeMethod("hello", "https://alquiauto.es/wp-content/uploads/2020/05/limpieza-y-lavado-del-coche-DURANTE-CORONA-VIRUS.jpg");
+      //   response =
+      //       await platform.invokeMethod("hello", "http://procarewashing.com");
+      // } on Exception catch (exception) {
+      //   print('=============================');
+      //   print(exception);
+      //   response = 'Comunicacion Plattforms Error!';
+      // } catch (error) {
+      //   print('==============ERROR==============');
+      //   print(error);
+      // }
 
-      setState(() {
-        hiText = response!;
-        print(hiText);
-      });
+      // setState(() {
+      //   hiText = response!;
+      //   print(hiText);
+      // });
     }
   }
 
