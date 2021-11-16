@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:carwash/src/models/cliente.dart';
 import 'package:carwash/src/models/reserva_inner.dart';
 import 'package:carwash/src/nativo/compartir_facebook.dart';
 import 'package:carwash/src/pages/shared_page.dart';
@@ -15,6 +17,7 @@ class MainController extends ControllerMVC {
 
   CompartirFacebook platform = new CompartirFacebook();
 
+  Cliente cliente = new Cliente();
   MainController() {
     listarReservasInnerByIdCli();
     // obtenerTokenDevice();
@@ -47,5 +50,22 @@ class MainController extends ControllerMVC {
     );
     if (resultado) {
     } else {}
+  }
+
+  // listar cliente por Email
+  void listadoClientePorEmail(String email) async {
+    final Stream<Cliente> stream = await obtenerClienteXEmail(email);
+    stream.listen((Cliente _cliente) {
+      setState(() {
+        cliente = _cliente;
+        // print("===============================");
+        // //print(carros);
+        print(jsonEncode(cliente));
+      });
+    }, onError: (a) {
+      // scaffoldKey.currentState!.showSnackBar(SnackBar(
+      //   content: Text('Verifica tu conexión de internet!'),
+      // ));
+    }, onDone: () {});
   }
 }

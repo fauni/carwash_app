@@ -39,6 +39,10 @@ class _MainPageState extends StateMVC<MainPage>
       _showAlert(context);
     });
 
+    if (currentUser!.value.displayName == null) {
+      _con.listadoClientePorEmail(currentUser!.value.email!);
+    }
+
     // TODO: implement initState
     super.initState();
     // final pushProvider = new PushNotificationsProviders();
@@ -148,7 +152,7 @@ class _MainPageState extends StateMVC<MainPage>
                         ),
                         Text(
                           currentUser!.value.displayName == null
-                              ? ''
+                              ? _con.cliente.nombreCompleto!
                               : currentUser!.value.displayName!,
                           style: TextStyle(
                             fontWeight: FontWeight.w100,
