@@ -52,7 +52,7 @@ dependencies:
   carousel_slider: ^4.0.0
   custom_radio_grouped_button: ^2.1.1
   share_plus: ^3.0.4
-  permission_handler: ^8.1.6
+  permission_handler: ^6.0.1
   flutter_local_notifications: ^8.2.0
   dio: ^4.0.0
   open_file: ^3.2.1

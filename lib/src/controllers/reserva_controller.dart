@@ -331,7 +331,7 @@ class ReservaController extends ControllerMVC {
             ),
           ),
           actions: <Widget>[
-            atencion.facturaEnviada == "0"
+            atencion.facturaEnviada == "0" || resInner!.estado != "F"
                 ? Container()
                 : ElevatedButton.icon(
                     icon: Icon(Icons.download),
@@ -365,7 +365,7 @@ class ReservaController extends ControllerMVC {
     // String fileUrl =
     //    "http://190.104.26.90:8082/lafarnetservice/api/boletapago/638_202109";
     final String fileUrl =
-        '${GlobalConfiguration().getString('img_capturas_carwash') + '161'}/factura.jpg';
+        '${GlobalConfiguration().getString('img_capturas_carwash') + atencion.idReserva!}/factura.jpg';
     Map<String, dynamic> result = {
       'isSuccess': false,
       'filePath': null,
@@ -405,7 +405,7 @@ class ReservaController extends ControllerMVC {
         0, // notification id
         isSuccess ? 'Correcto!' : 'Error',
         isSuccess
-            ? 'Su boleta de pago fue descargado correctamente, puede ver directamente presionando aqui!'
+            ? 'Su factura fue descargado correctamente, puede ver directamente presionando aqui!'
             : 'A ocurrido un error mientras se descargaba el archivo.',
         platform,
         payload: json);

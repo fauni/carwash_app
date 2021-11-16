@@ -59,38 +59,51 @@
 	<string>875353736566589</string>
 	<key>FacebookDisplayName</key>
 	<string>ProCare</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>FirebaseScreenReportingEnabled</key>
+	<true/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>fbapi</string>
-		<string>fbapi20130214</string>
-		<string>fbapi20130410</string>
-		<string>fbapi20130702</string>
-		<string>fbapi20131010</string>
-		<string>fbapi20131219</string>
-		<string>fbapi20140410</string>
-		<string>fbapi20140116</string>
-		<string>fbapi20150313</string>
-		<string>fbapi20150629</string>
-		<string>fbapi20160328</string>
-		<string>fbauth</string>
-		<string>fb-messenger-share-api</string>
-		<string>fbauth2</string>
-		<string>fbshareextension</string>
+		<string>https</string>
+		<string>http</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>ProCare Washing requiere acceder a esta funcionalidad para funcionar correctamente.</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>ProCare Washing requiere acceder a esta funcionalidad para funcionar correctamente.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>ProCare Washing requiere acceder a esta funcionalidad para funcionar correctamente.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>ProCare Washing requiere acceder al calendario para funcionar correctamente.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Tomar una foto de tu carro</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Esta aplicacion requere acceso a los contactos para funcionar correctamente.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>ProCare Washing requiere acceder a esta funcionalidad para funcionar correctamente.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>ProCare Washing requiere acceder a esta funcionalidad para funcionar correctamente.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>desarrollo</string>
+	<key>NSMotionUsageDescription</key>
+	<string>ProCare Washing requiere acceder a esta funcionalidad para funcionar correctamente.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Elegir la foto de tu carro</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>ProCare Washing requiere acceder a esta funcionalidad para funcionar correctamente.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
 		<string>processing</string>
 		<string>remote-notification</string>
 	</array>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -108,18 +121,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-    <key>FirebaseAppDelegateProxyEnabled</key>
-    <false/>
-    <key>FirebaseScreenReportingEnabled</key>
-    <true/>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>https</string>
-        <string>http</string>
-    </array>
-	<key>LSSupportsOpeningDocumentsInPlace</key>
-	<true/>
-	<key>UIFileSharingEnabled</key>
-	<true/>
 </dict>
 </plist>
