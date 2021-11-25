@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:carwash/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
@@ -16,6 +17,7 @@ class LoginController extends ControllerMVC {
 
   GlobalKey<ScaffoldState>? scaffoldKey;
 
+  late OverlayEntry loader;
   LoginController() {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
   }
@@ -29,6 +31,9 @@ class LoginController extends ControllerMVC {
   }
 
   void login(BuildContext context) async {
+    loader = Helper.overlayLoader(context);
+    FocusScope.of(context).unfocus();
+    Overlay.of(context)!.insert(loader);
     repository.login().then((value) {
       if (value != null && value.verifyEmail != null) {
         // Navigator.of(context).pushReplacementNamed('/Pages');
@@ -39,10 +44,13 @@ class LoginController extends ControllerMVC {
         ));
       }
     }).catchError((e) {
+      loader.remove();
       scaffoldKey!.currentState!.showSnackBar(SnackBar(
         content: Text('No se pudo ingresar'),
       ));
-    }).whenComplete(() {});
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
   }
 
   Future<void> googleSignOut() async {
@@ -50,6 +58,9 @@ class LoginController extends ControllerMVC {
   }
 
   Future<void> facebookSignIn(BuildContext context) async {
+    loader = Helper.overlayLoader(context);
+    FocusScope.of(context).unfocus();
+    Overlay.of(context)!.insert(loader);
     repository.loginFacebook().then((value) {
       if (value != null && value.verifyEmail != null) {
         // Navigator.of(context).pushReplacementNamed('/Pages');
@@ -60,13 +71,19 @@ class LoginController extends ControllerMVC {
         ));
       }
     }).catchError((e) {
+      loader.remove();
       scaffoldKey!.currentState!.showSnackBar(SnackBar(
         content: Text('No se pudo ingresar'),
       ));
-    }).whenComplete(() {});
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
   }
 
   Future<void> appleSignIn(BuildContext context) async {
+    loader = Helper.overlayLoader(context);
+    FocusScope.of(context).unfocus();
+    Overlay.of(context)!.insert(loader);
     repository.loginApple().then((value) {
       if (value != null && value.verifyEmail != null) {
         // Navigator.of(context).pushReplacementNamed('/Pages');
@@ -77,10 +94,13 @@ class LoginController extends ControllerMVC {
         ));
       }
     }).catchError((e) {
+      loader.remove();
       scaffoldKey!.currentState!.showSnackBar(SnackBar(
         content: Text('No se pudo ingresar'),
       ));
-    }).whenComplete(() {});
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
   }
 
   void obtenerUsuario() async {

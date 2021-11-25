@@ -82,7 +82,7 @@ class CompartirPageState extends StateMVC<CompartirPage> {
                       image: NetworkImage(
                           'https://procarewashing.com/apicwash/assets/capturas_vehiculos/' +
                               widget.idReserva! +
-                              '/final.jpg'),
+                              '/finalPub.png'),
                     ),
                   ),
                 ),

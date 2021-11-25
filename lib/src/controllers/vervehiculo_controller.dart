@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 //import 'package:carwash/src/generated/i18n.dart';
+import 'package:carwash/src/helpers/helper.dart';
 import 'package:carwash/src/models/vehiculo.dart';
 import 'package:carwash/src/models/vehiculo_modelo.dart';
 import 'package:carwash/src/models/vehiculoa.dart';
@@ -15,6 +16,8 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 class VerVehiculoController extends ControllerMVC {
   String url = '${GlobalConfiguration().getString('img_carros_url_wash')}/';
   GlobalKey<ScaffoldState>? scaffoldKey;
+  late OverlayEntry loader;
+
   bool loading = false;
   bool loadingV = false;
   VehiculoA vehiculo = VehiculoA();
@@ -84,11 +87,17 @@ class VerVehiculoController extends ControllerMVC {
 
   //registrar modificacion en el servidor
   void guardaEdicionVehiculo(BuildContext context) async {
+    loader = Helper.overlayLoader(context);
+    FocusScope.of(context).unfocus();
+    Overlay.of(context)!.insert(loader);
+
     this.loading = true;
     this.loadingV = true;
     setState(() {
       //image = null;
     });
+    var vehiculoResp = await modificarVehiculo(this.vehiculo)
+        .whenComplete(() => Helper.hideLoader(loader));
 
     this.loading = false;
 

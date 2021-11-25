@@ -152,7 +152,7 @@ class _MainPageState extends StateMVC<MainPage>
                         ),
                         Text(
                           currentUser!.value.displayName == null
-                              ? _con.cliente.nombreCompleto!
+                              ? _con.cliente.nombreCompleto ?? ''
                               : currentUser!.value.displayName!,
                           style: TextStyle(
                             fontWeight: FontWeight.w100,

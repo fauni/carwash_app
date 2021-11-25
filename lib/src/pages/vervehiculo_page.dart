@@ -237,6 +237,13 @@ class VerVehiculoPageState extends StateMVC<VerVehiculoPage> {
                       buttonLables: ["M", "L", "XL"],
                       radioButtonValue: (values) {
                         print(values);
+                        if (values == "M") {
+                          _con.vehiculo.idTipo = "1";
+                        } else if (values == "L") {
+                          _con.vehiculo.idTipo = "3";
+                        } else {
+                          _con.vehiculo.idTipo = "5";
+                        }
                       },
                       enableShape: true,
                       selectedColor: Theme.of(context).primaryColor,

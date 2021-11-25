@@ -20,7 +20,7 @@ Future<Stream<List<ReservaInner>>> obtenerReservasInnerXIdCli() async {
   final String url =
       '${GlobalConfiguration().getString('api_base_url_wash')}reserva/getByIdVehiculo/' +
           idcli;
-
+  print(url);
   final client = new http.Client();
   final response = await client.get(Uri.parse(url));
   try {
@@ -116,6 +116,24 @@ Future<Stream<List<ReservaInner>>> obtenerReservasPorFecha(
 Future<Stream<List<Horas>>> obtenerHorarios() async {
   final String url =
       '${GlobalConfiguration().getString('api_base_url_wash')}reserva/gethoras';
+
+  final client = new http.Client();
+  final response = await client.get(Uri.parse(url));
+  try {
+    if (response.statusCode == 200) {
+      final lhoras = LHoras.fromJsonList(json.decode(response.body)['body']);
+      return new Stream.value(lhoras.items);
+    } else {
+      return new Stream.value([]);
+    }
+  } catch (e) {
+    return new Stream.value([]);
+  }
+}
+
+Future<Stream<List<Horas>>> obtenerHorariosLater() async {
+  final String url =
+      '${GlobalConfiguration().getString('api_base_url_wash')}reserva/gethoraslater';
 
   final client = new http.Client();
   final response = await client.get(Uri.parse(url));

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:carwash/src/helpers/helper.dart';
 import 'package:carwash/src/models/tipo_vehiculo.dart';
 import 'package:carwash/src/models/vehiculo.dart';
 import 'package:carwash/src/models/vehiculo_modelo.dart';
@@ -39,7 +40,7 @@ class CarroController extends ControllerMVC {
   String dropdownValueAnio = '2020';
 
   GlobalKey<ScaffoldState>? scaffoldKey;
-
+  late OverlayEntry loader;
   CarroController() {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
     // listarCarrosByIdCli();
@@ -271,6 +272,10 @@ class CarroController extends ControllerMVC {
 
   //registrar en servidor
   void registrarVehiculo(BuildContext context, Vehiculo newVehiculo) async {
+    loader = Helper.overlayLoader(context);
+    FocusScope.of(context).unfocus();
+    Overlay.of(context)!.insert(loader);
+
     if (this.image == null) {
       showAlertDialogError(context, "Necesita agregar una imagen del vehiculo");
     } else {
@@ -289,7 +294,8 @@ class CarroController extends ControllerMVC {
           image = null;
         });
 
-        var vehiculoResp = await guardarVehiculo(newVehiculo);
+        var vehiculoResp = await guardarVehiculo(newVehiculo)
+            .whenComplete(() => Helper.hideLoader(loader));
         this.loading = false;
         this.scaffoldKey?.currentState?.showSnackBar(SnackBar(
               content: Text('Se agregó correctamente'),

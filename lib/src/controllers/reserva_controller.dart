@@ -14,6 +14,7 @@ import 'package:carwash/src/repository/atencion_repository.dart';
 import 'package:carwash/src/repository/reserva_repository.dart';
 import 'package:carwash/src/repository/vehiculo_repository.dart';
 import 'package:carwash/src/repository/servicio_repository.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -465,9 +466,16 @@ class ReservaController extends ControllerMVC {
     final Stream<List<ReservaInner>> stream =
         await obtenerReservasPorFecha(fecha_seleccionada);
     stream.listen((List<ReservaInner> _reservas) {
+      final fechaActual = formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]);
+      final fechaSeleccionada = formatDate(
+          DateTime.parse(fecha_seleccionada), [yyyy, '-', mm, '-', dd]);
       setState(() {
         reservasInner = _reservas;
-        listarHorarioHoy();
+        if (fechaActual == fechaSeleccionada) {
+          listarHorarioHoy();
+        } else {
+          listarHorarioLater();
+        }
       });
     }, onError: (a) {
       // loader.remove();
@@ -492,6 +500,45 @@ class ReservaController extends ControllerMVC {
     lreservas = reservasInner;
 
     final Stream<List<Horas>> stream = await obtenerHorarios();
+    stream.listen((List<Horas> _horas) {
+      setState(() {
+        horas = _horas;
+        horas.forEach((_hora) {
+          Horas hora = new Horas();
+          hora = _hora;
+          int count = 0;
+          lreservas.forEach((_reservas) {
+            if (_hora.hora == _reservas.horaReserva) {
+              count++;
+            }
+          });
+          if (count == 0) {
+            hora.dia = "0";
+            nuevo_horario.add(hora);
+          }
+          // print(jsonEncode(hora));
+        });
+        horas = nuevo_horario;
+        // print(jsonEncode(nuevo_horario));
+      });
+    }, onError: (a) {
+      // loader.remove();
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
+        content: Text('Ocurrio un error al obtener las horas'),
+      ));
+    }, onDone: () {
+      // Helper.hideLoader(loader);
+    });
+  }
+
+  Future<void> listarHorarioLater() async {
+    // FocusScope.of(context).unfocus();
+    // Overlay.of(context).insert(loader);
+    List<Horas> nuevo_horario = [];
+    List<ReservaInner> lreservas = [];
+    lreservas = reservasInner;
+
+    final Stream<List<Horas>> stream = await obtenerHorariosLater();
     stream.listen((List<Horas> _horas) {
       setState(() {
         horas = _horas;

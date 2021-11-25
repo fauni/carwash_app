@@ -54,7 +54,7 @@ class SeleccionarFechahoraPageState extends StateMVC<SeleccionarFechahoraPage> {
         backgroundColor: Colors.transparent,
       ),
       body: Container(
-        padding: EdgeInsets.only(bottom: 50),
+        padding: EdgeInsets.only(bottom: 0),
         child: Stack(
           children: [
             SingleChildScrollView(
@@ -131,43 +131,36 @@ class SeleccionarFechahoraPageState extends StateMVC<SeleccionarFechahoraPage> {
                     padding: EdgeInsets.symmetric(horizontal: 0),
                     child: Center(
                       child: Wrap(
-                          spacing: 2.0, // gap between adjacent chips
-                          runSpacing: 0.0, // gap between lines
-                          children: [
-                            for (var item in _con.horas)
-                              ChoiceChip(
-                                selected: item.esSeleccionado!,
-                                label: Text(item.hora!.substring(0, 5)),
-                                labelStyle: TextStyle(
-                                    color: Theme.of(context).hintColor),
-                                backgroundColor: Colors
-                                    .black, // Theme.of(context).accentColor,
-                                selectedColor: widget.tipoServicio == 'N'
-                                    ? Colors.grey[500]
-                                    : Theme.of(context).primaryColor,
-                                onSelected: (bool selected) {
-                                  setState(() {
-                                    item.esSeleccionado = !item.esSeleccionado!;
-                                    _con.hora = item;
-                                    if (selected) {
-                                      _con.deseleccionarHoras();
-                                      reserva.horaReserva = _con.hora.hora!;
-                                      _con.eligeReserva(reserva);
-                                    }
-                                  });
-                                },
-                              ),
-                          ]),
+                        spacing: 2.0, // gap between adjacent chips
+                        runSpacing: 0.0, // gap between lines
+                        children: [
+                          for (var item in _con.horas)
+                            ChoiceChip(
+                              selected: item.esSeleccionado!,
+                              label: Text(item.hora!.substring(0, 5)),
+                              labelStyle:
+                                  TextStyle(color: Theme.of(context).hintColor),
+                              backgroundColor: Colors
+                                  .black, // Theme.of(context).accentColor,
+                              selectedColor: widget.tipoServicio == 'N'
+                                  ? Colors.grey[500]
+                                  : Theme.of(context).primaryColor,
+                              onSelected: (bool selected) {
+                                setState(() {
+                                  item.esSeleccionado = !item.esSeleccionado!;
+                                  _con.hora = item;
+                                  if (selected) {
+                                    _con.deseleccionarHoras();
+                                    reserva.horaReserva = _con.hora.hora!;
+                                    _con.eligeReserva(reserva);
+                                  }
+                                });
+                              },
+                            ),
+                        ],
+                      ),
                     ),
                   ),
-                ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: ButtonTheme(
@@ -230,7 +223,7 @@ class SeleccionarFechahoraPageState extends StateMVC<SeleccionarFechahoraPage> {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

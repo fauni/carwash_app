@@ -38,7 +38,7 @@ class AddVehiculoWidgetState extends StateMVC<AddVehiculoWidget> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           centerTitle: true,
-          title: const Text('Agregar un auto nuevo'),
+          title: const Text('Agregar Nuevo Vehiculo'),
           leading: IconButton(
             icon: Icon(Icons.clear, color: Theme.of(context).hintColor),
             onPressed: () => Navigator.of(context).pop(),
