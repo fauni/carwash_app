@@ -150,6 +150,23 @@ Future<Usuario> loginApple() async {
 
 Future<Usuario> loginApple2() async {
   try {
+    var redirectURL =
+        "https://SERVER_AS_PER_THE_DOCS.glitch.me/callbacks/sign_in_with_apple";
+    var clientID = "AS_PER_THE_DOCS";
+    final appleIdCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        webAuthenticationOptions: WebAuthenticationOptions(
+            clientId: clientID, redirectUri: Uri.parse(redirectURL)));
+    final credential = OAuthProvider("apple.com").credential(
+        idToken: appleIdCredential.identityToken,
+        accessToken: appleIdCredential.authorizationCode,
+        rawNonce: generateNonce());
+
+    final authResult = await _auth.signInWithCredential(credential);
+    print(authResult.user);
     /*
     final AuthorizationResult appleResult = await AppleSignIn.performRequests([
       AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])

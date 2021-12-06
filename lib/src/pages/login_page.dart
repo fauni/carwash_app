@@ -2,6 +2,7 @@ import 'package:carwash/src/controllers/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../repository/user_repository.dart' as userRepo;
 
 class LoginPage extends StatefulWidget {
@@ -115,33 +116,43 @@ class LoginPageState extends StateMVC<LoginPage> {
                   height: 20,
                 ),
                 _con.supportsAppleSignIn
-                    ? ButtonTheme(
-                        minWidth: double.infinity,
-                        height: 50,
-                        child: RaisedButton.icon(
-                          color: Colors.black,
-                          textColor: Theme.of(context).hintColor,
-                          onPressed: () {
-                            _con.appleSignIn(context);
-                          },
-                          icon: const FaIcon(
-                            FontAwesomeIcons.apple,
-                            color: Colors.white,
-                            size: 35,
-                          ),
-                          label: const Text('Apple'),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            side: const BorderSide(
-                              color: Colors
-                                  .white, //Theme.of(context).primaryColor,
-                              width: 1,
-                              style: BorderStyle.solid,
-                            ),
-                          ),
-                        ),
+                    ? SignInWithAppleButton(
+                        onPressed: () async {
+                          _con.appleSignIn(context);
+                        },
                       )
-                    : Container()
+                    : Container(),
+                // SizedBox(
+                //   height: 20,
+                // ),
+                // _con.supportsAppleSignIn
+                //     ? ButtonTheme(
+                //         minWidth: double.infinity,
+                //         height: 50,
+                //         child: RaisedButton.icon(
+                //           color: Colors.black,
+                //           textColor: Theme.of(context).hintColor,
+                //           onPressed: () {
+                //             _con.appleSignIn(context);
+                //           },
+                //           icon: const FaIcon(
+                //             FontAwesomeIcons.apple,
+                //             color: Colors.white,
+                //             size: 35,
+                //           ),
+                //           label: const Text('Apple'),
+                //           shape: RoundedRectangleBorder(
+                //             borderRadius: BorderRadius.circular(10),
+                //             side: const BorderSide(
+                //               color: Colors
+                //                   .white, //Theme.of(context).primaryColor,
+                //               width: 1,
+                //               style: BorderStyle.solid,
+                //             ),
+                //           ),
+                //         ),
+                //       )
+                //     : Container()
               ],
             ),
           ),

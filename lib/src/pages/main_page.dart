@@ -39,25 +39,14 @@ class _MainPageState extends StateMVC<MainPage>
       _showAlert(context);
     });
 
-    if (currentUser!.value.displayName == null) {
-      _con.listadoClientePorEmail(currentUser!.value.email!);
-    }
+    _con.listadoClientePorEmail(currentUser!.value.email!);
+    // if (currentUser!.value.displayName == null) {
+    //   _con.listadoClientePorEmail(currentUser!.value.email!);
+    // }
 
     // TODO: implement initState
     super.initState();
-    // final pushProvider = new PushNotificationsProviders();
-    // pushProvider.initNotifications();
 
-    /*
-    pushProvider.mensaje.listen((argumento) {
-      print("=======================ARGUMENTO NOTIFICACION===============");
-      print(argumento);
-
-      Navigator.of(context).pop(context);
-      Navigator.of(context)
-          .pushReplacementNamed('/Compartir', arguments: argumento);
-    });
-    */
     animationController =
         AnimationController(duration: Duration(milliseconds: 200), vsync: this);
     CurvedAnimation curve =

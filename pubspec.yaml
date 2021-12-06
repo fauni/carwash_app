@@ -34,7 +34,7 @@ dependencies:
   shared_preferences: ^2.0.6
   font_awesome_flutter: ^9.1.0
   google_sign_in: ^5.0.7
-  sign_in_with_apple: ^3.0.0
+  sign_in_with_apple: ^3.3.0
   crypto: ^3.0.1
   firebase_core: ^1.6.0
   firebase_auth: ^3.1.1

@@ -103,6 +103,29 @@ class LoginController extends ControllerMVC {
     });
   }
 
+  Future<void> appleSignIn2(BuildContext context) async {
+    loader = Helper.overlayLoader(context);
+    FocusScope.of(context).unfocus();
+    Overlay.of(context)!.insert(loader);
+    repository.loginApple().then((value) {
+      if (value != null && value.verifyEmail != null) {
+        // Navigator.of(context).pushReplacementNamed('/Pages');
+        Navigator.of(context).pushReplacementNamed('/Main');
+      } else {
+        scaffoldKey!.currentState!.showSnackBar(SnackBar(
+          content: Text('Ocurrio un error al autentificar'),
+        ));
+      }
+    }).catchError((e) {
+      loader.remove();
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
+        content: Text('No se pudo ingresar'),
+      ));
+    }).whenComplete(() {
+      Helper.hideLoader(loader);
+    });
+  }
+
   void obtenerUsuario() async {
     final u = FirebaseAuth.instance.currentUser;
     this.usuario = await getCurrentUser();

@@ -71,13 +71,16 @@ class ClientePageState extends StateMVC<ClientePage> {
                       TextFormField(
                         // enabled: false,
                         initialValue: widget.cliente!.codigoCliente == null
-                            ? userRepo.currentUser!.value.displayName
+                            ? userRepo.currentUser!.value.displayName != null
+                                ? userRepo.currentUser!.value.displayName
+                                : userRepo.currentUser!.value.email!
+                                    .split('@')[0]
                             : _con.cliente.nombreCompleto,
                         onSaved: (input) => _con.cliente.nombreCompleto = input,
                         style: TextStyle(color: Theme.of(context).hintColor),
                         decoration: InputDecoration(
-                            labelText: 'Nombre Completo',
-                            hintText: 'Ingrese su Nombre Completo',
+                            labelText: 'Ingresa tu Nick Name',
+                            hintText: 'Ingrese tu Nick Name',
                             hintStyle:
                                 TextStyle(color: Theme.of(context).hintColor),
                             enabledBorder: OutlineInputBorder(
@@ -100,7 +103,7 @@ class ClientePageState extends StateMVC<ClientePage> {
                         style: TextStyle(color: Theme.of(context).hintColor),
                         decoration: InputDecoration(
                             labelText: 'Correo Electrónico',
-                            hintText: 'Ingrese su Nro. de Placa',
+                            hintText: 'Ingrese su Correo Electrónico',
                             hintStyle:
                                 TextStyle(color: Theme.of(context).hintColor),
                             enabledBorder: OutlineInputBorder(
@@ -116,6 +119,7 @@ class ClientePageState extends StateMVC<ClientePage> {
                       const SizedBox(
                         height: 20,
                       ),
+                      /*
                       TextFormField(
                         initialValue: widget.cliente!.codigoCliente == null
                             ? userRepo.currentUser!.value.phoneNumber
@@ -140,6 +144,7 @@ class ClientePageState extends StateMVC<ClientePage> {
                             labelStyle:
                                 TextStyle(color: Theme.of(context).hintColor)),
                       ),
+                      */
                       const SizedBox(
                         height: 20,
                       ),

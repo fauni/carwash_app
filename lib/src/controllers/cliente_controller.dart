@@ -1,3 +1,4 @@
+import 'package:carwash/src/helpers/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
@@ -9,6 +10,7 @@ class ClienteController extends ControllerMVC {
   GlobalKey<ScaffoldState>? scaffoldKey;
   GlobalKey<FormState>? loginFormKey;
   Cliente cliente = new Cliente();
+  late OverlayEntry loader;
 
   // OverlayEntry loader;
   ClienteController() {
@@ -21,8 +23,11 @@ class ClienteController extends ControllerMVC {
     cliente.id = "0";
     cliente.codigoCliente = repository.currentUser!.value.uid;
     cliente.estado = "1";
+    cliente.telefono = "0";
 
+    loader = Helper.overlayLoader(context);
     FocusScope.of(context).unfocus();
+    Overlay.of(context)!.insert(loader);
     if (loginFormKey!.currentState!.validate()) {
       loginFormKey!.currentState!.save();
       // Overlay.of(context).insert(loader);
@@ -35,22 +40,25 @@ class ClienteController extends ControllerMVC {
           ));
         }
       }).catchError((e) {
-        // loader.remove();
+        loader.remove();
         scaffoldKey?.currentState?.showSnackBar(SnackBar(
           content: Text('No se registro, intente nuevamente'),
         ));
       }).whenComplete(() {
-        // Helper.hideLoader(loader);
+        Helper.hideLoader(loader);
       });
     }
   }
 
   void actualizar(BuildContext context) async {
+    loader = Helper.overlayLoader(context);
+    FocusScope.of(context).unfocus();
+    Overlay.of(context)!.insert(loader);
+
     cliente.id = "0";
     cliente.codigoCliente = repository.currentUser!.value.uid;
     cliente.estado = "1";
 
-    FocusScope.of(context).unfocus();
     if (loginFormKey!.currentState!.validate()) {
       loginFormKey!.currentState!.save();
       // Overlay.of(context).insert(loader);
@@ -63,12 +71,12 @@ class ClienteController extends ControllerMVC {
           ));
         }
       }).catchError((e) {
-        // loader.remove();
+        loader.remove();
         scaffoldKey?.currentState?.showSnackBar(SnackBar(
           content: Text('No se registro, intente nuevamente'),
         ));
       }).whenComplete(() {
-        // Helper.hideLoader(loader);
+        Helper.hideLoader(loader);
       });
     }
   }
