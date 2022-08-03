@@ -47,8 +47,8 @@ android {
         applicationId "app.carwash.mobile"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 20
-        versionName "2.1.2"
+        versionCode 21
+        versionName "3.0.0"
     }
 
     signingConfigs {

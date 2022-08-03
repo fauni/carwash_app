@@ -60,8 +60,13 @@ class _MyAppState extends State<MyApp> {
 
     PushNotificationService.messagesStream.listen((message) {
       print('ProcareWashing MyApp: $message');
+      if (message == "-1") {
+        navigatorKey.currentState?.pushReplacementNamed('/Reservas');
+      } else {
+        navigatorKey.currentState
+            ?.pushReplacementNamed('/Compartir', arguments: message);
+      }
 
-      navigatorKey.currentState?.pushNamed('/Compartir', arguments: message);
       // final snackBar = SnackBar(content: Text('$message'));
       // messengerKey.currentState!.showSnackBar(snackBar);
     });

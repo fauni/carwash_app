@@ -36,6 +36,33 @@ Future<Stream<List<ReservaInner>>> obtenerReservasInnerXIdCli() async {
   }
 }
 
+// Reservas por estado cliente
+Future<Stream<List<ReservaInner>>> obtenerReservasInnerXIdCliEstado(
+    int estado) async {
+  // Uri uri = Helper.getUriLfr('api/producto');
+  String idcli = currentUser!.value.email!
+      .replaceAll('.', '|'); /*cambiar por id del cliente*/
+  final String url =
+      '${GlobalConfiguration().getString('api_base_url_wash')}reserva/getByIdVehiculoEstado/' +
+          idcli +
+          '*' +
+          estado.toString();
+  print(url);
+  final client = new http.Client();
+  final response = await client.get(Uri.parse(url));
+  try {
+    if (response.statusCode == 200) {
+      final lreservaInner =
+          LReservaInner.fromJsonList(json.decode(response.body)['body']);
+      return new Stream.value(lreservaInner.items);
+    } else {
+      return new Stream.value([]);
+    }
+  } catch (e) {
+    return new Stream.value([]);
+  }
+}
+
 Future<dynamic> registrarReserva(String reserva) async {
   final String url =
       '${GlobalConfiguration().getString('api_base_url_wash')}reserva/save';

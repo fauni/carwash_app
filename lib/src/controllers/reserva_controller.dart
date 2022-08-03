@@ -28,6 +28,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:dio/dio.dart';
 
 class ReservaController extends ControllerMVC {
+  int filtroSeleccionado = 1;
+
   var platform = MethodChannel("example/procare");
   String hiText = "";
 
@@ -36,6 +38,12 @@ class ReservaController extends ControllerMVC {
   Reserva? reserva;
   ReservaInner? resInner;
   List<ReservaInner> reservasInner = [];
+
+  List<ReservaInner> reservasInnerPendientes = [];
+  List<ReservaInner> reservasInnerEnProceso = [];
+  List<ReservaInner> reservasInnerCompletados = [];
+  List<ReservaInner> reservasInnerResult = [];
+
   List<DetalleReserva> ldetalleReserva = []; // Listado de detalle de reserva
 
   List<Horas> horas = [];
@@ -227,6 +235,21 @@ class ReservaController extends ControllerMVC {
     stream.listen((List<ReservaInner> _reservas) {
       setState(() {
         reservasInner = _reservas;
+      });
+    }, onError: (a) {
+      scaffoldKey!.currentState!.showSnackBar(SnackBar(
+        content: Text('Verifica tu conexión de Internet'),
+      ));
+    }, onDone: () {});
+  }
+
+  // Listar reservas por cliente estado
+  void listarReservasInnerByIdCliEstado(int estado) async {
+    final Stream<List<ReservaInner>> stream =
+        await obtenerReservasInnerXIdCliEstado(estado);
+    stream.listen((List<ReservaInner> _reservas) {
+      setState(() {
+        reservasInnerResult = _reservas;
       });
     }, onError: (a) {
       scaffoldKey!.currentState!.showSnackBar(SnackBar(

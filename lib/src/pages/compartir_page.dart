@@ -168,7 +168,8 @@ class CompartirPageState extends StateMVC<CompartirPage> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           onPressed: () {
-                            Navigator.pop(context);
+                            Navigator.pushReplacementNamed(context, '/Main');
+                            // Navigator.pop(context);
                           },
                           icon: FaIcon(
                             FontAwesomeIcons.home,
