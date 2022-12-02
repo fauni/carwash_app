@@ -486,18 +486,22 @@ class ReservaController extends ControllerMVC {
     // print("Fecha de la Reserva");
     // FocusScope.of(context).unfocus();
     // Overlay.of(context).insert(loader);
+
     final Stream<List<ReservaInner>> stream =
         await obtenerReservasPorFecha(fecha_seleccionada);
     stream.listen((List<ReservaInner> _reservas) {
       final fechaActual = formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]);
       final fechaSeleccionada = formatDate(
           DateTime.parse(fecha_seleccionada), [yyyy, '-', mm, '-', dd]);
+      final diaHoy = DateTime.parse(fecha_seleccionada).weekday;
+      print('DIa de la semana');
+      print("dia es: ${diaHoy}");
       setState(() {
         reservasInner = _reservas;
         if (fechaActual == fechaSeleccionada) {
           listarHorarioHoy();
         } else {
-          listarHorarioLater();
+          listarHorarioLater(diaHoy);
         }
       });
     }, onError: (a) {
@@ -554,14 +558,14 @@ class ReservaController extends ControllerMVC {
     });
   }
 
-  Future<void> listarHorarioLater() async {
+  Future<void> listarHorarioLater(int dia) async {
     // FocusScope.of(context).unfocus();
     // Overlay.of(context).insert(loader);
     List<Horas> nuevo_horario = [];
     List<ReservaInner> lreservas = [];
     lreservas = reservasInner;
 
-    final Stream<List<Horas>> stream = await obtenerHorariosLater();
+    final Stream<List<Horas>> stream = await obtenerHorariosLater(dia);
     stream.listen((List<Horas> _horas) {
       setState(() {
         horas = _horas;

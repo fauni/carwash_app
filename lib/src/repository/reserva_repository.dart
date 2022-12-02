@@ -158,9 +158,10 @@ Future<Stream<List<Horas>>> obtenerHorarios() async {
   }
 }
 
-Future<Stream<List<Horas>>> obtenerHorariosLater() async {
+Future<Stream<List<Horas>>> obtenerHorariosLater(int dia) async {
   final String url =
-      '${GlobalConfiguration().getString('api_base_url_wash')}reserva/gethoraslater';
+      '${GlobalConfiguration().getString('api_base_url_wash')}reserva/gethoraslaterpordia/' +
+          dia.toString();
 
   final client = new http.Client();
   final response = await client.get(Uri.parse(url));

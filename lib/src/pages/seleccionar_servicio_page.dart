@@ -479,145 +479,145 @@ class SeleccionarServicioPageState extends StateMVC<SeleccionarServicioPage> {
                       : Divider(
                           color: Colors.grey,
                         ),
-                  widget.tipoServicio == 'P'
-                      ? Container()
-                      : Theme(
-                          data: ThemeData(
-                            unselectedWidgetColor: Colors.white,
-                          ),
-                          child: ExpansionTile(
-                            title: Text(
-                              'LAVADOS EXTRAS',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            subtitle: Text(
-                              'Seleccione uno o varios lavados extras',
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                            leading: CircleAvatar(
-                              radius: 30.0,
-                              child: Text(
-                                'E',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 30.0,
-                                ),
-                              ),
-                              backgroundColor: Colors.grey,
-                            ),
-                            children: [
-                              ListView.builder(
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount:
-                                    _con.serviciosLavadosExtrasPro.length,
-                                itemBuilder: (BuildContext context, index) {
-                                  return Card(
-                                    color: Colors.transparent,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      side: BorderSide(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    child: Container(
-                                      padding: EdgeInsets.all(10.0),
-                                      child: Column(
-                                        children: [
-                                          CheckboxListTile(
-                                            secondary: _con.vehiculoElegido
-                                                        .tamanio ==
-                                                    'M'
-                                                ? Text(
-                                                    double.parse(_con
-                                                                .serviciosLavadosExtrasPro
-                                                                .elementAt(
-                                                                    index)
-                                                                .precioM!)
-                                                            .toString() +
-                                                        '  Bs.',
-                                                    style: TextStyle(
-                                                        fontSize: 20.0,
-                                                        color: Colors.white),
-                                                  )
-                                                : _con.vehiculoElegido
-                                                            .tamanio ==
-                                                        'L'
-                                                    ? Text(
-                                                        double.parse(_con
-                                                                    .serviciosLavadosExtrasPro
-                                                                    .elementAt(
-                                                                        index)
-                                                                    .precioL!)
-                                                                .toString() +
-                                                            '  Bs.',
-                                                        style: TextStyle(
-                                                            fontSize: 20.0,
-                                                            color:
-                                                                Colors.white),
-                                                      )
-                                                    : Text(
-                                                        double.parse(_con
-                                                                    .serviciosLavadosExtrasPro
-                                                                    .elementAt(
-                                                                        index)
-                                                                    .precioXl!)
-                                                                .toString() +
-                                                            '  Bs.',
-                                                        style: TextStyle(
-                                                            fontSize: 20.0,
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                            title: Text(
-                                              _con.serviciosLavadosExtrasPro
-                                                  .elementAt(index)
-                                                  .nombre!,
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            subtitle: Text(
-                                              _con.serviciosLavadosExtrasPro
-                                                  .elementAt(index)
-                                                  .detalle!,
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            value: this
-                                                ._con
-                                                .serviciosLavadosExtrasPro
-                                                .elementAt(index)
-                                                .esSeleccionado,
-                                            onChanged: (bool? elegido) {
-                                              setState(() {
-                                                this
-                                                    ._con
-                                                    .serviciosLavadosExtrasPro
-                                                    .elementAt(index)
-                                                    .esSeleccionado = elegido;
-                                                _con.insertaServElegidosAdicional(
-                                                    _con.serviciosLavadosExtrasPro
-                                                        .elementAt(index));
-                                              });
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                  Divider(
-                    color: Colors.grey,
-                  ),
+                  // widget.tipoServicio == 'P'
+                  //     ? Container()
+                  //     : Theme(
+                  //         data: ThemeData(
+                  //           unselectedWidgetColor: Colors.white,
+                  //         ),
+                  //         child: ExpansionTile(
+                  //           title: Text(
+                  //             'LAVADOS EXTRAS',
+                  //             style: TextStyle(color: Colors.white),
+                  //           ),
+                  //           subtitle: Text(
+                  //             'Seleccione uno o varios lavados extras',
+                  //             style: TextStyle(
+                  //               color: Colors.grey,
+                  //             ),
+                  //           ),
+                  //           leading: CircleAvatar(
+                  //             radius: 30.0,
+                  //             child: Text(
+                  //               'E',
+                  //               style: TextStyle(
+                  //                 color: Colors.white,
+                  //                 fontSize: 30.0,
+                  //               ),
+                  //             ),
+                  //             backgroundColor: Colors.grey,
+                  //           ),
+                  //           children: [
+                  //             ListView.builder(
+                  //               physics: NeverScrollableScrollPhysics(),
+                  //               shrinkWrap: true,
+                  //               scrollDirection: Axis.vertical,
+                  //               itemCount:
+                  //                   _con.serviciosLavadosExtrasPro.length,
+                  //               itemBuilder: (BuildContext context, index) {
+                  //                 return Card(
+                  //                   color: Colors.transparent,
+                  //                   shape: RoundedRectangleBorder(
+                  //                     borderRadius: BorderRadius.circular(20),
+                  //                     side: BorderSide(
+                  //                       color: Colors.white,
+                  //                     ),
+                  //                   ),
+                  //                   child: Container(
+                  //                     padding: EdgeInsets.all(10.0),
+                  //                     child: Column(
+                  //                       children: [
+                  //                         CheckboxListTile(
+                  //                           secondary: _con.vehiculoElegido
+                  //                                       .tamanio ==
+                  //                                   'M'
+                  //                               ? Text(
+                  //                                   double.parse(_con
+                  //                                               .serviciosLavadosExtrasPro
+                  //                                               .elementAt(
+                  //                                                   index)
+                  //                                               .precioM!)
+                  //                                           .toString() +
+                  //                                       '  Bs.',
+                  //                                   style: TextStyle(
+                  //                                       fontSize: 20.0,
+                  //                                       color: Colors.white),
+                  //                                 )
+                  //                               : _con.vehiculoElegido
+                  //                                           .tamanio ==
+                  //                                       'L'
+                  //                                   ? Text(
+                  //                                       double.parse(_con
+                  //                                                   .serviciosLavadosExtrasPro
+                  //                                                   .elementAt(
+                  //                                                       index)
+                  //                                                   .precioL!)
+                  //                                               .toString() +
+                  //                                           '  Bs.',
+                  //                                       style: TextStyle(
+                  //                                           fontSize: 20.0,
+                  //                                           color:
+                  //                                               Colors.white),
+                  //                                     )
+                  //                                   : Text(
+                  //                                       double.parse(_con
+                  //                                                   .serviciosLavadosExtrasPro
+                  //                                                   .elementAt(
+                  //                                                       index)
+                  //                                                   .precioXl!)
+                  //                                               .toString() +
+                  //                                           '  Bs.',
+                  //                                       style: TextStyle(
+                  //                                           fontSize: 20.0,
+                  //                                           color:
+                  //                                               Colors.white),
+                  //                                     ),
+                  //                           title: Text(
+                  //                             _con.serviciosLavadosExtrasPro
+                  //                                 .elementAt(index)
+                  //                                 .nombre!,
+                  //                             style: TextStyle(
+                  //                               color: Colors.white,
+                  //                             ),
+                  //                           ),
+                  //                           subtitle: Text(
+                  //                             _con.serviciosLavadosExtrasPro
+                  //                                 .elementAt(index)
+                  //                                 .detalle!,
+                  //                             style: TextStyle(
+                  //                               color: Colors.white,
+                  //                             ),
+                  //                           ),
+                  //                           value: this
+                  //                               ._con
+                  //                               .serviciosLavadosExtrasPro
+                  //                               .elementAt(index)
+                  //                               .esSeleccionado,
+                  //                           onChanged: (bool? elegido) {
+                  //                             setState(() {
+                  //                               this
+                  //                                   ._con
+                  //                                   .serviciosLavadosExtrasPro
+                  //                                   .elementAt(index)
+                  //                                   .esSeleccionado = elegido;
+                  //                               _con.insertaServElegidosAdicional(
+                  //                                   _con.serviciosLavadosExtrasPro
+                  //                                       .elementAt(index));
+                  //                             });
+                  //                           },
+                  //                         ),
+                  //                       ],
+                  //                     ),
+                  //                   ),
+                  //                 );
+                  //               },
+                  //             ),
+                  //           ],
+                  //         ),
+                  //       ),
+                  // Divider(
+                  //   color: Colors.grey,
+                  // ),
                   widget.tipoServicio == 'P'
                       ? Container()
                       : Theme(
@@ -715,8 +715,8 @@ class SeleccionarServicioPageState extends StateMVC<SeleccionarServicioPage> {
                                                   .elementAt(index)
                                                   .nombre!,
                                               style: TextStyle(
-                                                color: Colors.white,
-                                              ),
+                                                  color: Colors.white,
+                                                  fontSize: 13.0),
                                             ),
                                             subtitle: Text(
                                               _con.serviciosExtrasPro
@@ -796,7 +796,7 @@ class SeleccionarServicioPageState extends StateMVC<SeleccionarServicioPage> {
                                   ? Colors.black
                                   : Theme.of(context).hintColor,
                             ),
-                            label: Text('Elejir la Fecha y Hora'),
+                            label: Text('Elegir la Fecha y Hora'),
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
